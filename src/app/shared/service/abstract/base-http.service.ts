@@ -24,7 +24,7 @@ export abstract class BaseHttpService {
    */
   public constructor(
     private readonly logger: LoggerService,
-    @Inject('HttpServiceConfig') private readonly config: HttpServiceConfig
+    @Inject('HttpServiceConfig') protected readonly config: HttpServiceConfig
   ) { }
 
   /**
