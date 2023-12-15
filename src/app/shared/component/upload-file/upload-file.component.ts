@@ -1,18 +1,17 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl} from "@angular/forms";
-import {FileConstraints} from "../../type/other";
-import {DEFAULT_IMAGE_CONSTRAINT} from "../../constant/enum-constant";
 import {FileUploadDownloadService} from "../../service/file-upload-download.service";
-import {isFalsy, isTruthy, nonNull} from "../../util/helpers";
+import {isFalsy, isTruthy, nonNull} from "@app/shared/helper";
 import {catchError, Observable, Subscription, switchMap, tap, throwError} from "rxjs";
-import {SignedUrlResponse} from "../../response/signed-url.response";
-import {ExchangeRequest} from "../../type/http";
 import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
 import {statusText} from "../../util/file-upload-download-messages";
-import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, MISSING_CONFIG} from "../../constant/other-constant";
 import {BaseFormComponent} from "@app/base/component";
 import {Router} from "@angular/router";
-import {ErrorResponse} from "../../../base/response/error-response";
+import {ExchangeRequest, FileConstraints} from "@app/model/type";
+import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, MISSING_CONFIG} from "@app/constant";
+import {ErrorResponse} from "@app/model/response";
+import {AwsSignedUrlResponse} from "@app/model/response/common";
+import {DEFAULT_IMAGE_CONSTRAINT} from "@app/constant/file.const";
 
 @Component({
   selector: 'app-upload-file',
@@ -33,7 +32,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
 
   @Input({ alias: 'save-file-method', required: false }) public saveFile$!: (...data: any[]) => Observable<any>;
   @Input({ alias: 'delete-file-method', required: true }) public deleteFile$!: (...data: any[]) => Observable<any>;
-  @Input({ alias: 'download-file-method', required: false }) public downloadFile$!: (...data: any[]) => Observable<SignedUrlResponse>;
+  @Input({ alias: 'download-file-method', required: false }) public downloadFile$!: (...data: any[]) => Observable<AwsSignedUrlResponse>;
   @Input({ alias: 'signed-url-method', required: true }) public generateSignedUrl$!: (...data: any[]) => Observable<any>;
 
   @Input('file-url') public fileNameOrUrl: string | null = '';
@@ -73,7 +72,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
     const req: ExchangeRequest = this.fileService.toFileUploadRequest(files, this.fileNameOrUrl as string);
     this.cancelRequest$ = this.generateSignedUrl$(fileName)
       .pipe(
-        switchMap((result: SignedUrlResponse): Observable<any> => {
+        switchMap((result: AwsSignedUrlResponse): Observable<any> => {
           this.fileNameOrUrl = result.signedUrl;
           req.uri = this.fileNameOrUrl;
           return this.fileService.uploadFile(req, files[0].type);
@@ -144,7 +143,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
     if (isTruthy(pathOrUrlOrLinkOrKey) && isTruthy(fileName) && isTruthy(this.downloadFile$) && isTruthy(this.canDownloadOrView)) {
       this.downloadFile$(pathOrUrlOrLinkOrKey)
         .pipe(
-          switchMap((result: SignedUrlResponse) => {
+          switchMap((result: AwsSignedUrlResponse) => {
             return this.fileService.downloadFile(result.signedUrl, fileName);
           })
         ).subscribe({
