@@ -14,7 +14,7 @@ export abstract class BaseAddComponent<D, R> extends BaseFormComponent {
 
   protected abstract initForm(): void;
 
-  protected abstract $saveEntry(dto: D): Observable<R>;
+  protected abstract $saveEntry(payload: D): Observable<R>;
 
   protected override getRouter(): Router {
     return this.router;

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BaseFormComponent} from "../../../base/component";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {passwordValidator} from "../../validator/validator";
+import {passwordValidator} from "../../validator";
 import {Router} from "@angular/router";
 import {ChangePasswordPayload} from "../../../model/type";
 import {ChangePasswordType} from "../../../model/enum";

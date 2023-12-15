@@ -26,6 +26,23 @@ export function isFalsy(value: any): boolean {
 
 
 /**
+ * @function nonNull
+ * @param {any} value - The value to check for non-nullness.
+ * @returns {boolean}
+ * @description
+ *   Checks if the provided value is not null.
+ *
+ * @example
+ *   const result: boolean = nonNull(someValue);
+ *   // Returns true if someValue is not null, otherwise false.
+ */
+export function nonNull(value: any): boolean {
+  return value !== null;
+}
+
+
+
+/**
  * Check if a value is an object.
  *
  * This function determines whether the provided value is an object by checking if it's truthy and has a type of 'object'.
@@ -491,4 +508,34 @@ export function getPropsValueAsArray(obj: AnyObject[], key: string): string[] {
  */
 export function propExists(obj: AnyObject, key: string): boolean {
   return isObject(obj) && obj.hasOwnProperty(key);
+}
+
+
+
+/**
+ * Validates whether a given value matches a specified regular expression pattern.
+ *
+ * This function checks if a given string value matches a specified regular expression pattern.
+ *
+ * @param pattern The regular expression pattern to match against.
+ * @param value The string value to be validated.
+ *
+ * @returns A boolean value indicating whether the value matches the pattern (true) or not (false).
+ *
+ * @example
+ * // Example usage:
+ * const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+ * const isValidEmail = validatePattern(emailPattern, 'example@email.com');
+ * // Result: true (valid email format)
+ *
+ * const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+ * const isValidDate = validatePattern(datePattern, '2023-09-15');
+ * // Result: true (valid date format)
+ *
+ * const invalidPattern = /[A-Z]/;
+ * const isInvalid = validatePattern(invalidPattern, 'abc123');
+ * // Result: false (no uppercase letters in 'abc123')
+ */
+export function validatePattern(pattern: RegExp, value: string): boolean {
+  return pattern.test(value);
 }

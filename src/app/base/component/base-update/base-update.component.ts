@@ -22,7 +22,7 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
 
   }
 
-  protected abstract $updateEntry(id: string | number, dto: D): Observable<T>;
+  protected abstract $updateEntry(id: string | number, payload: D): Observable<T>;
 
   public initEntry(): void {
     this.route.paramMap.subscribe(async (params: ParamMap): Promise<void> => {

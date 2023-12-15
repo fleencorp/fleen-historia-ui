@@ -1,7 +1,7 @@
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {passwordValidator} from "../../../shared/validator/validator";
-import {PASSWORD_PATTERNS} from "../../../shared/util/format-pattern";
 import {AuthBaseComponent} from "../sign-in-up-base/auth-base.component";
+import {passwordValidator} from "../../../../shared/validator";
+import {PASSWORD_PATTERNS} from "../../../../model/pattern";
 
 export abstract class SignInBaseComponent extends AuthBaseComponent {
 

@@ -1,4 +1,4 @@
-import {AuthenticationStatus, NextAuthentication} from "../../shared/enum/authentication.enum";
+import {AuthenticationStatus, NextAuthentication} from "../../enum";
 
 export class SignInUpResponse {
 

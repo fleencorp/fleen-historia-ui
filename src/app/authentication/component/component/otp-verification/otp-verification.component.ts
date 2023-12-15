@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {ResendVerificationCodeDto} from "../../../shared/type/authentication";
-import {AuthenticationService} from "../../service/authentication.service";
 import {MfaOtpBaseComponent} from "../mfa-otp-base/mfa-otp-base.component";
 import {Observable} from "rxjs";
-import {AuthVerificationType, VerificationType} from "../../../shared/enum/authentication.enum";
+import {ResendVerificationCodePayload} from "../../../../model/type";
+import {AuthenticationService} from "../../../service/authentication.service";
+import {AuthVerificationType, VerificationType} from "../../../../model/enum";
 
 @Component({
   selector: 'app-otp-verification',
@@ -40,8 +40,8 @@ export class OtpVerificationComponent extends MfaOtpBaseComponent {
     return verificationMessage;
   }
 
-  override serviceResendOtp(resendVerificationDto: ResendVerificationCodeDto): Observable<any> {
-    return this.authenticationService.resendOtp(resendVerificationDto);
+  override serviceResendOtp(resendVerificationPayload: ResendVerificationCodePayload): Observable<any> {
+    return this.authenticationService.resendOtp(resendVerificationPayload);
   }
 
 }

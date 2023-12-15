@@ -1,15 +1,15 @@
-import {isFalsy} from "../../../shared/util/helpers";
-import {AuthVerificationDto, ResendVerificationCodeDto} from "../../../shared/type/authentication";
-import {BaseFormComponent} from "../../../base/component/base-form/base-form.component";
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Observable, of} from "rxjs";
-import {VerificationType} from "../../../shared/enum/authentication.enum";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
-import {codeOrOtpValidator} from "../../../shared/validator/validator";
-import {VERIFICATION_CODE} from "../../../shared/util/format-pattern";
-import {ErrorResponse} from "../../../base/response/error-response";
-import {ANY_EMPTY} from "../../../shared/constant/other-constant";
 import {Router} from "@angular/router";
+import {BaseFormComponent} from "../../../../base/component";
+import {VerificationType} from "../../../../model/enum";
+import {codeOrOtpValidator} from "../../../../shared/validator";
+import {VERIFICATION_CODE} from "../../../../model/pattern";
+import {ErrorResponse} from "../../../../model/response";
+import {ANY_EMPTY} from "../../../../constant";
+import {isFalsy} from "../../../../shared/helper";
+import {AuthVerificationPayload, ResendVerificationCodePayload} from "../../../../model/type";
 
 @Component({
   selector: 'app-mfa-otp-base',
@@ -23,7 +23,7 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
   public verificationType: VerificationType = VerificationType.EMAIL;
   @Input('email-address') public emailAddress: string | undefined;
   @Input('phone-number') public phoneNumber: string | undefined;
-  @Output() public otpSubmitted: EventEmitter<AuthVerificationDto> = new EventEmitter<AuthVerificationDto>();
+  @Output() public otpSubmitted: EventEmitter<AuthVerificationPayload> = new EventEmitter<AuthVerificationPayload>();
 
   ngOnInit(): void {
     this.otp.addValidators([
@@ -35,7 +35,7 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
     return ANY_EMPTY;
   }
 
-  protected serviceResendOtp(resendVerificationDto: ResendVerificationCodeDto): Observable<any> {
+  protected serviceResendOtp(resendVerificationPayload: ResendVerificationCodePayload): Observable<any> {
     return of({})
   }
 
@@ -43,8 +43,8 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
     if (isFalsy(this.isSubmitting)) {
       this.disableSubmittingAndResetErrorMessage();
 
-      const verificationDto: ResendVerificationCodeDto = this.toResendVerificationCodeDto();
-      this.serviceResendOtp(verificationDto)
+      const verificationPayload: ResendVerificationCodePayload = this.toResendVerificationCodePayload();
+      this.serviceResendOtp(verificationPayload)
         .subscribe({
           error: (result: ErrorResponse): void => {
             this.handleError(result);
@@ -60,7 +60,7 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
     this.errorMessage = errorMessage || '';
   }
 
-  public toResendVerificationCodeDto(): ResendVerificationCodeDto {
+  public toResendVerificationCodePayload(): ResendVerificationCodePayload {
     return { verificationType: this.verificationType, emailAddress: this.emailAddress, phoneNumber: this.phoneNumber };
   }
 

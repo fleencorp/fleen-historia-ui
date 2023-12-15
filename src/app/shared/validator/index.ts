@@ -1,11 +1,11 @@
 import {AbstractControl, FormControl, ValidationErrors, ValidatorFn} from "@angular/forms";
-import {equalsIgnoreCase, isFalsy, isTruthy, nonNull, validatePattern} from "../util/helpers";
+import {equalsIgnoreCase, isFalsy, isTruthy, nonNull, validatePattern} from "../helper";
 import {catchError, map, Observable, of, switchMap} from "rxjs";
 import {AuthenticationService} from "../../authentication/service/authentication.service";
-import {AnyProp, AnyRegEx, TwoArray} from "../type/base";
-import {EntityExistsResponse} from "../response/entity-exists.response";
-import {BETWEEN_DATE_TYPE, DATE_TYPE, NO_INPUT_KEY} from "../constant/enum-constant";
-import {DATE, TIME_FORMAT, TWO_DATES} from "../util/format-pattern";
+import {AnyObject, AnyRegEx, TwoArray} from "../../model/type";
+import {DATE, TIME_FORMAT, TWO_DATES} from "../../model/pattern";
+import {BETWEEN_DATE_TYPE, DATE_TYPE, NO_INPUT_KEY} from "../../constant/search.const";
+import {EntityExistsResponse} from "../../model/response/common";
 
 
 /**
@@ -56,7 +56,7 @@ import {DATE, TIME_FORMAT, TWO_DATES} from "../util/format-pattern";
         return null;
       }
 
-      const value: AnyProp | null = field1.value !== field2.value
+      const value: AnyObject | null = field1.value !== field2.value
         ? { mismatch: true, label1, label2 }
         : null;
 
@@ -193,7 +193,7 @@ import {DATE, TIME_FORMAT, TWO_DATES} from "../util/format-pattern";
               return of(null);
             }
             return service.isEmailExists(value).pipe(
-              map((response:EntityExistsResponse): AnyProp | null => (response.exists ? { exists: true } : null)),
+              map((response: EntityExistsResponse): AnyObject | null => (response.exists ? { exists: true } : null)),
               catchError(() => of(null))
             );
           })

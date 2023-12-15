@@ -1,17 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseFormComponent} from "../../../base/component/base-form/base-form.component";
 import {FormControl, Validators} from "@angular/forms";
-import {AuthenticationService} from "../../service/authentication.service";
-import {ChangePasswordType, VerificationType} from "../../../shared/enum/authentication.enum";
-import {isFalsy} from "../../../shared/util/helpers";
-import {ChangePasswordDto, ForgotPasswordDto, ResetPasswordDto} from "../../../shared/type/authentication";
-import {ForgotPasswordResponse} from "../../response/forgot-password.response";
-import {InitiatePasswordChangeResponse} from "../../response/initiate-password-change.response";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {codeOrOtpValidator} from "../../../shared/validator/validator";
-import {VERIFICATION_CODE} from "../../../shared/util/format-pattern";
 import {Router} from "@angular/router";
-import {ErrorResponse} from "../../../base/response/error-response";
+import {BaseFormComponent} from "../../../../base/component";
+import {ChangePasswordType, VerificationType} from "../../../../model/enum";
+import {AuthenticationService} from "../../../service/authentication.service";
+import {isFalsy} from "../../../../shared/helper";
+import {ChangePasswordPayload, ForgotPasswordPayload, ResetPasswordPayload} from "../../../../model/type";
+import {ForgotPasswordResponse, InitiatePasswordChangeResponse} from "../../../../model/response/authentication";
+import {ErrorResponse} from "../../../../model/response";
+import {codeOrOtpValidator} from "../../../../shared/validator";
+import {VERIFICATION_CODE} from "../../../../model/pattern";
 
 @Component({
   selector: 'app-forgot-password',
@@ -56,11 +55,11 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
     this.stopEvent(event);
     if (this.emailAddress.valid && isFalsy(this.isSubmitting)) {
       const emailAddress: string = this.emailAddress.value.toString();
-      const dto: ForgotPasswordDto = { emailAddress, verificationType: VerificationType.EMAIL };
+      const payload: ForgotPasswordPayload = { emailAddress, verificationType: VerificationType.EMAIL };
       this.authenticationService.clearAuthTokens();
       this.disableSubmittingAndResetErrorMessage();
 
-      this.authenticationService.forgotPassword(dto)
+      this.authenticationService.forgotPassword(payload)
         .subscribe({
           next: (result: ForgotPasswordResponse): void => {
             this.phoneNumber = result.phoneNumber;
@@ -80,10 +79,10 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
     this.stopEvent(event);
     if (this.emailAddress.valid && this.verificationCode.valid && isFalsy(this.isSubmitting)) {
       const emailAddress: string = this.emailAddress.value.toString();
-      const dto: ResetPasswordDto = { emailAddress, code: this.verificationCode.value };
+      const payload: ResetPasswordPayload = { emailAddress, code: this.verificationCode.value };
       this.disableSubmittingAndResetErrorMessage();
 
-      this.authenticationService.verifyResetPasswordCode(dto)
+      this.authenticationService.verifyResetPasswordCode(payload)
         .subscribe({
           next: (result: InitiatePasswordChangeResponse): void => {
             this.authenticationService.clearAuthTokens();
@@ -100,11 +99,11 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
     }
   }
 
-  public changePassword(dto: ChangePasswordDto): void {
+  public changePassword(payload: ChangePasswordPayload): void {
     if (isFalsy(this.isSubmitting)) {
       this.disableSubmittingAndResetErrorMessage();
 
-      this.authenticationService.resetAndChangePassword(dto)
+      this.authenticationService.resetAndChangePassword(payload)
         .subscribe({
           error: (result: ErrorResponse): void => {
             this.handleError(result);

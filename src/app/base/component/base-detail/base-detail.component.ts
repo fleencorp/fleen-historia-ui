@@ -12,7 +12,7 @@ export abstract class BaseDetailComponent<T> extends BaseUpdateComponent<T, any>
 
   protected override initForm(): void { }
 
-  protected override $updateEntry(id: string | number, dto: any): Observable<T> {
+  protected override $updateEntry(id: string | number, payload: any): Observable<T> {
     return of(ANY_EMPTY);
   }
 
