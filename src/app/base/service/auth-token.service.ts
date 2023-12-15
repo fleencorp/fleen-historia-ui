@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {LocalStorageService} from "./";
-import {ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY} from "../../constant";
+import {LocalStorageService, LoggerService} from "./";
+import {ACCESS_TOKEN_KEY, ANY_EMPTY, REFRESH_TOKEN_KEY} from "../../constant";
 import {isTruthy} from "../../shared/helper";
+import * as jwtDecode from 'jwt-decode';
+import {AnyObject} from "../../model/type";
 
 
 /**
@@ -15,14 +17,24 @@ import {isTruthy} from "../../shared/helper";
 @Injectable()
 export class AuthTokenService {
   private readonly localStorageService: LocalStorageService;
+  private readonly logger: LoggerService
 
   /**
    * @constructor
+   * @description
+   *   Initializes a new instance of the AuthTokenService class.
+   *
    * @param localStorageService - An instance of the LocalStorageService to be used for token storage.
+   * @param loggerService - An instance of the LoggerService to be used for logging.
    */
-  constructor(localStorageService: LocalStorageService) {
+  constructor(
+    localStorageService: LocalStorageService,
+    loggerService: LoggerService
+  ) {
     this.localStorageService = localStorageService;
+    this.logger = loggerService;
   }
+
 
   /**
    * @method getAccessToken
@@ -85,4 +97,56 @@ export class AuthTokenService {
     const tokenValue: string | null = this.localStorageService.getObject(tokenKey);
     return this.localStorageService.hasObject(tokenKey) && isTruthy(tokenValue);
   }
+
+  /**
+   * @method getAccessTokenClaims
+   * @description
+   *   Retrieves the claims (payload) from the stored access token, if available.
+   *
+   * @returns {AnyObject} - The claims extracted from the access token.
+   */
+  public getAccessTokenClaims(): AnyObject {
+    const authToken: string = this.getToken(ACCESS_TOKEN_KEY);
+    if (isTruthy(authToken)) {
+      return this.getClaims(authToken);
+    }
+    return ANY_EMPTY;
+  }
+
+  /**
+   * @method getClaims
+   * @description
+   *   Decodes and retrieves the claims (payload) from a given token using the jwtDecode library.
+   *
+   * @param {string} token - The token from which to extract claims.
+   * @returns {AnyObject} - The claims extracted from the token.
+   */
+  public getClaims(token: string): AnyObject {
+    let claims: AnyObject = ANY_EMPTY;
+    try {
+      claims = jwtDecode.default(token);
+    } catch (error: any) {
+      this.logger.error(error);
+    }
+    return claims;
+  }
+
+  /**
+   * @method isTokenValid
+   * @description
+   *   Checks if a given token is valid by attempting to decode it using the jwtDecode library.
+   *
+   * @param {string} token - The token to be validated.
+   * @returns {boolean} - A boolean indicating whether the token is valid or not.
+   */
+  public isTokenValid(token: string): boolean {
+    try {
+      jwtDecode.default(token);
+      return true;
+    } catch (error: any) {
+      this.logger.error(error);
+    }
+    return false;
+  }
+
 }

@@ -300,3 +300,31 @@ export function toBody(data: any): string {
 export function toJson(data: any): string {
   return JSON.stringify(data);
 }
+
+
+/**
+ * Checks if an object has at least one property.
+ *
+ * This function takes an object as input and determines whether it contains at least one property.
+ *
+ * @param obj The object to be checked for properties.
+ *
+ * @returns `true` if the object has at least one property, `false` otherwise.
+ *
+ * @example
+ * // Example usage:
+ * const emptyObject = {};
+ * const hasProperty = hasAtLeastAProperty(emptyObject);
+ * // Result: false (the emptyObject has no properties)
+ *
+ * const nonEmptyObject = { name: 'John', age: 30 };
+ * const hasProperty = hasAtLeastAProperty(nonEmptyObject);
+ * // Result: true (the nonEmptyObject has properties)
+ *
+ * const nullObject = null;
+ * const hasProperty = hasAtLeastAProperty(nullObject);
+ * // Result: false (null input is treated as having no properties)
+ */
+export function hasAtLeastAProperty(obj: any): boolean {
+  return isObject(obj) && Object.keys(obj).length > 0;
+}

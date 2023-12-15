@@ -1,4 +1,4 @@
-import {AnyObject} from "../type";
+import {AnyObject} from "../../type";
 
 /**
  * @class ErrorResponse

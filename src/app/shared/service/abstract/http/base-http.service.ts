@@ -1,9 +1,9 @@
-import {AnyArray, AnyObject, BaseRequest, RequestMethod} from "../../../model/type";
-import {isObject, isTruthy, toBody, toCamelCaseKeys, toSnakeCase} from "../../helper";
+import {AnyArray, AnyObject, BaseRequest, RequestMethod} from "../../../../model/type";
+import {isObject, isTruthy, toBody, toCamelCaseKeys, toSnakeCase} from "../../../helper";
 import {catchError, map, Observable, retry, tap, throwError} from "rxjs";
-import {ErrorResponse} from "../../../model/response";
-import {LoggerService} from "../../../base/service";
-import {HttpServiceConfig} from "../../../model/interface";
+import {ErrorResponse} from "../../../../model/response";
+import {LoggerService} from "../../../../base/service";
+import {HttpServiceConfig} from "../../../../model/interface";
 import {Inject} from "@angular/core";
 
 

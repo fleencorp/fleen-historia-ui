@@ -1,10 +1,10 @@
 import {Inject, Injectable} from '@angular/core';
-import {LoggerService} from "../../../base/service";
-import {BaseRequest, ExchangeRequest} from "../../../model/type";
-import {BaseHttpService} from "../abstract";
+import {LoggerService} from "../../../../base/service";
+import {BaseRequest, ExchangeRequest} from "../../../../model/type";
+import {BaseHttpService} from "../../abstract";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {HttpServiceConfig} from "../../../model/interface";
+import {HttpServiceConfig} from "../../../../model/interface";
 
 /**
  * @class HttpClientService
