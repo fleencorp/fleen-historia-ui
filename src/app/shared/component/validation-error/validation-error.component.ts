@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {AbstractControl} from "@angular/forms";
 import {AnyObject} from "@app/model/type";
-import {validationErrorMessages} from "@app/validation-messages";
+import {validationErrorMessages} from "@app/messages/validation";
 
 @Component({
   selector: 'app-validation-error',

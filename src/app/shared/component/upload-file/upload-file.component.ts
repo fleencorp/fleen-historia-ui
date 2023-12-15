@@ -1,17 +1,18 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl} from "@angular/forms";
-import {FileUploadDownloadService} from "../../service/file-upload-download.service";
+import {FileUploadDownloadService} from "@app/shared/service/file";
 import {isFalsy, isTruthy, nonNull} from "@app/shared/helper";
 import {catchError, Observable, Subscription, switchMap, tap, throwError} from "rxjs";
 import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
-import {statusText} from "../../util/file-upload-download-messages";
+import {statusText} from "@app/messages/";
 import {BaseFormComponent} from "@app/base/component";
 import {Router} from "@angular/router";
-import {ExchangeRequest, FileConstraints} from "@app/model/type";
+import {ExchangeRequest,} from "@app/model/type";
 import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, MISSING_CONFIG} from "@app/constant";
 import {ErrorResponse} from "@app/model/response";
 import {AwsSignedUrlResponse} from "@app/model/response/common";
 import {DEFAULT_IMAGE_CONSTRAINT} from "@app/constant/file.const";
+import {FileConstraints} from "@app/model/type/file.type";
 
 @Component({
   selector: 'app-upload-file',

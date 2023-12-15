@@ -95,21 +95,6 @@ export type SearchParamPayload = {
 
 
 /**
- * @type FileConstraints
- * @description
- *   Represents constraints for file-related operations.
- *   - `maxFileSize`: Maximum allowed file size.
- *   - `allowableTypes`: Array of allowable file types.
- *   - `fileSizeUnit`: Unit of file size (e.g., 'MB').
- */
-export type FileConstraints = {
-  maxFileSize: number;
-  allowableTypes: string[];
-  fileSizeUnit: 'MB';
-};
-
-
-/**
  * @type DateAndTimeConstraints
  * @description
  *   Represents constraints for date and time-related operations.
