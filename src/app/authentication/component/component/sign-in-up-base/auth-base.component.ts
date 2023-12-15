@@ -1,16 +1,16 @@
 import {Observable, of} from "rxjs";
 import {OtpVerificationComponent} from "../otp-verification/otp-verification.component";
 import {MfaVerificationComponent} from "../mfa-verification/mfa-verification.component";
-import {isFalsy, isTruthy} from "../../../../shared/helper";
-import {BaseFormComponent} from "../../../../base/component";
+import {isFalsy, isTruthy} from "@app/shared/helper";
+import {BaseFormComponent} from "@app/base/component";
 import {AuthenticationService} from "../../../service/authentication.service";
-import {AuthVerificationPayload, ChangePasswordPayload} from "../../../../model/type";
-import {ErrorResponse} from "../../../../model/response";
-import {SignInUpResponse} from "../../../../model/response/authentication";
-import {ChangePasswordComponent} from "../../../../shared/component/change-password/change-password.component";
-import {USER_DESTINATION_PAGE_KEY} from "../../../../constant";
-import {AuthenticationStatus, AuthVerificationType, ChangePasswordType} from "../../../../model/enum";
-import {SessionStorageService} from "../../../../base/service/session-storage.service";
+import {AuthVerificationPayload, ChangePasswordPayload} from "@app/model/type";
+import {ErrorResponse} from "@app/model/response";
+import {SignInUpResponse} from "@app/model/response/authentication";
+import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
+import {USER_DESTINATION_PAGE_KEY} from "@app/constant";
+import {AuthenticationStatus, AuthVerificationType, ChangePasswordType} from "@app/model/enum";
+import {SessionStorageService} from "@app/base/service/session-storage.service";
 
 export abstract class AuthBaseComponent extends BaseFormComponent {
 

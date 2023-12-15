@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {MfaOtpBaseComponent} from "../mfa-otp-base/mfa-otp-base.component";
 import {Observable} from "rxjs";
-import {AuthVerificationType, MfaType} from "../../../../model/enum";
+import {AuthVerificationType, MfaType} from "@app/model/enum";
 import {AuthenticationService} from "../../../service/authentication.service";
-import {ResendVerificationCodePayload} from "../../../../model/type";
+import {ResendVerificationCodePayload} from "@app/model/type";
 
 @Component({
   selector: 'app-mfa-verification',

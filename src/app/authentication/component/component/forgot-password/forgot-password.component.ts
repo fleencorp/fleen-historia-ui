@@ -2,15 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Router} from "@angular/router";
-import {BaseFormComponent} from "../../../../base/component";
-import {ChangePasswordType, VerificationType} from "../../../../model/enum";
+import {BaseFormComponent} from "@app/base/component";
+import {ChangePasswordType, VerificationType} from "@app/model/enum";
 import {AuthenticationService} from "../../../service/authentication.service";
-import {isFalsy} from "../../../../shared/helper";
-import {ChangePasswordPayload, ForgotPasswordPayload, ResetPasswordPayload} from "../../../../model/type";
-import {ForgotPasswordResponse, InitiatePasswordChangeResponse} from "../../../../model/response/authentication";
-import {ErrorResponse} from "../../../../model/response";
-import {codeOrOtpValidator} from "../../../../shared/validator";
-import {VERIFICATION_CODE} from "../../../../model/pattern";
+import {isFalsy} from "@app/shared/helper";
+import {ChangePasswordPayload, ForgotPasswordPayload, ResetPasswordPayload} from "@app/model/type";
+import {ForgotPasswordResponse, InitiatePasswordChangeResponse} from "@app/model/response/authentication";
+import {ErrorResponse} from "@app/model/response";
+import {codeOrOtpValidator} from "@app/shared/validator";
+import {VERIFICATION_CODE} from "@app/model/pattern";
 
 @Component({
   selector: 'app-forgot-password',

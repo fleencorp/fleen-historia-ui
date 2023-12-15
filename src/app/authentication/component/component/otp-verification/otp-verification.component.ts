@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {MfaOtpBaseComponent} from "../mfa-otp-base/mfa-otp-base.component";
 import {Observable} from "rxjs";
-import {ResendVerificationCodePayload} from "../../../../model/type";
+import {ResendVerificationCodePayload} from "@app/model/type";
 import {AuthenticationService} from "../../../service/authentication.service";
-import {AuthVerificationType, VerificationType} from "../../../../model/enum";
+import {AuthVerificationType, VerificationType} from "@app/model/enum";
 
 @Component({
   selector: 'app-otp-verification',

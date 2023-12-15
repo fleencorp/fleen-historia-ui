@@ -2,14 +2,14 @@ import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Observable, of} from "rxjs";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {BaseFormComponent} from "../../../../base/component";
-import {VerificationType} from "../../../../model/enum";
-import {codeOrOtpValidator} from "../../../../shared/validator";
-import {VERIFICATION_CODE} from "../../../../model/pattern";
-import {ErrorResponse} from "../../../../model/response";
-import {ANY_EMPTY} from "../../../../constant";
-import {isFalsy} from "../../../../shared/helper";
-import {AuthVerificationPayload, ResendVerificationCodePayload} from "../../../../model/type";
+import {BaseFormComponent} from "@app/base/component";
+import {VerificationType} from "@app/model/enum";
+import {codeOrOtpValidator} from "@app/shared/validator";
+import {VERIFICATION_CODE} from "@app/model/pattern";
+import {ErrorResponse} from "@app/model/response";
+import {ANY_EMPTY} from "@app/constant";
+import {isFalsy} from "@app/shared/helper";
+import {AuthVerificationPayload, ResendVerificationCodePayload} from "@app/model/type";
 
 @Component({
   selector: 'app-mfa-otp-base',
