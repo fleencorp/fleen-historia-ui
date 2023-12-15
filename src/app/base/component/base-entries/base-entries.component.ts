@@ -1,11 +1,11 @@
 import {ActivatedRoute, Navigation, Params, Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {BaseFormComponent} from "../base-form/base-form.component";
+import {BaseFormComponent} from "@app/base/component";
 import {Location} from "@angular/common";
-import {AnyObject, DeleteIdsPayload, SearchFilter, SearchPayload} from "../../../model/type";
-import {DEFAULT_PAGE_NO_KEY, DEFAULT_PAGE_SIZE} from "../../../constant";
-import {SearchResultView} from "../../../model/view";
-import {isFalsy, isTruthy} from "../../../shared/helper";
+import {AnyObject, DeleteIdsPayload, SearchFilter, SearchPayload} from "@app/model/type";
+import {DEFAULT_PAGE_NO_KEY, DEFAULT_PAGE_SIZE} from "@app/constant";
+import {SearchResultView} from "@app/model/view";
+import {isFalsy, isTruthy} from "@app/shared/helper";
 
 export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
 

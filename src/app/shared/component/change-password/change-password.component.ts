@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BaseFormComponent} from "../../../base/component";
+import {BaseFormComponent} from "@app/base/component";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {passwordValidator} from "../../validator";
 import {Router} from "@angular/router";
-import {ChangePasswordPayload} from "../../../model/type";
-import {ChangePasswordType} from "../../../model/enum";
-import {ANY_EMPTY} from "../../../constant";
-import {PASSWORD_PATTERNS} from "../../../model/pattern";
+import {ChangePasswordPayload} from "@app/model/type";
+import {ChangePasswordType} from "@app/model/enum";
+import {ANY_EMPTY} from "@app/constant";
+import {PASSWORD_PATTERNS} from "@app/model/pattern";
 
 @Component({
   selector: 'app-change-password',

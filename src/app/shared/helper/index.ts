@@ -539,3 +539,73 @@ export function propExists(obj: AnyObject, key: string): boolean {
 export function validatePattern(pattern: RegExp, value: string): boolean {
   return pattern.test(value);
 }
+
+
+/**
+ * Extracts file extensions from an array of file type strings.
+ *
+ * This function takes an array of file type strings (e.g., "image/jpeg", "application/pdf") and extracts the file extensions (e.g., "jpeg", "pdf").
+ *
+ * @param fileTypes An array of file type strings to extract extensions from.
+ *
+ * @returns An array of file extensions extracted from the input file types.
+ *
+ * @example
+ * // Example usage:
+ * const fileTypes = ["image/jpeg", "application/pdf", "text/plain"];
+ *
+ * const fileExtensions = getAllowableExtensions(fileTypes);
+ * // Result: ["jpeg", "pdf", "plain"]
+ */
+export function getAllowableExtensions(fileTypes: string[]): string[] {
+  let fileExtensions: string[] = [];
+  for (const filetype of fileTypes) {
+    fileExtensions.push(filetype.split('/')[1]);
+  }
+  return fileExtensions;
+}
+
+
+/**
+ * Join an array of strings into a single string with a specified separator.
+ *
+ * This function takes an array of strings and combines them into a single string using a specified separator.
+ *
+ * @param inputArray An array of strings to be joined.
+ * @param separator (Optional) The separator to be used between each element. Defaults to a comma and space (', ').
+ *
+ * @returns A single string created by joining the elements of the input array with the specified separator.
+ *
+ * @example
+ * // Example usage:
+ * const words = ['apple', 'banana', 'cherry'];
+ * const result = joining(words, '-'); // Result: 'apple-banana-cherry'
+ */
+export function joining(inputArray: string[], separator: string = ", "): string {
+  if (isTruthy(inputArray) && Array.isArray(inputArray) && inputArray.length > 0) {
+    return inputArray.join(separator);
+  }
+  return '';
+}
+
+
+/**
+ * Capitalize the first letter of each string in an array of strings.
+ *
+ * This function takes an array of strings and capitalizes the first letter of each string.
+ *
+ * @param inputArray An array of strings to be capitalized.
+ *
+ * @returns An array of strings with the first letter of each string capitalized.
+ *
+ * @example
+ * // Example usage:
+ * const words = ['apple', 'banana', 'cherry'];
+ * const result = capitalizeMany(words); // Result: ['Apple', 'Banana', 'Cherry']
+ */
+export function capitalizeMany(inputArray: string[]): string[] {
+  if (isTruthy(inputArray) && Array.isArray(inputArray) && inputArray.length > 0) {
+    return inputArray.map((item: string) => capitalize(item));
+  }
+  return [];
+}

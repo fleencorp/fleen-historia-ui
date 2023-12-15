@@ -1,9 +1,9 @@
 import {FormBuilder} from '@angular/forms';
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {BaseFormComponent} from "../base-form/base-form.component";
-import {ErrorResponse} from "../../../model/response";
-import {isFalsy, isTruthy} from "../../../shared/helper";
+import {BaseFormComponent} from "@app/base/component";
+import {ErrorResponse} from "@app/model/response";
+import {isFalsy, isTruthy} from "@app/shared/helper";
 
 export abstract class BaseAddComponent<D, R> extends BaseFormComponent {
 

@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {AbstractControl} from "@angular/forms";
-import {validationErrorMessages} from "../../util/validation-messages";
-import {AnyProp} from "../../type/base";
+import {AnyObject} from "@app/model/type";
+import {validationErrorMessages} from "@app/validation-messages";
 
 @Component({
   selector: 'app-validation-error',
@@ -12,7 +12,7 @@ export class ValidationErrorComponent {
 
   @Input({ required: true }) public control: AbstractControl | undefined | null;
   @Input({ alias: 'control-label', required: true }) public controlLabel: string = "This field";
-  @Input({ alias: 'control-options', required: false }) public controlOptions: AnyProp = {};
+  @Input({ alias: 'control-options', required: false }) public controlOptions: AnyObject = {};
 
   get errors(): any[] {
     if (this.control && this.control.invalid && (this.control.dirty || this.control.touched)) {

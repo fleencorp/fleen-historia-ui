@@ -10,7 +10,7 @@ import {ExchangeRequest} from "../../type/http";
 import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
 import {statusText} from "../../util/file-upload-download-messages";
 import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, MISSING_CONFIG} from "../../constant/other-constant";
-import {BaseFormComponent} from "../../../base/component/base-form/base-form.component";
+import {BaseFormComponent} from "@app/base/component";
 import {Router} from "@angular/router";
 import {ErrorResponse} from "../../../base/response/error-response";
 

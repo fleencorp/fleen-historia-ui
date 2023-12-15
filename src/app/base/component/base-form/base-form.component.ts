@@ -1,13 +1,13 @@
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
-import {convertToDesiredFormat, equalsIgnoreCase, isObject, isTruthy, toCamelCase} from "../../../shared/helper";
+import {convertToDesiredFormat, equalsIgnoreCase, isObject, isTruthy, toCamelCase} from "@app/shared/helper";
 import {Router} from "@angular/router";
 import {Observable, of} from "rxjs";
-import {BaseComponent} from "../base/base.component";
-import {AnyObject} from "../../../model/type";
-import {ErrorResponse} from "../../../model/response";
-import {ErrorType} from "../../../model/enum";
-import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "../../../constant";
-import {BASE_PATH} from "../../../constant/config.const";
+import {BaseComponent} from "@app/base/component";
+import {AnyObject} from "@app/model/type";
+import {ErrorResponse} from "@app/model/response";
+import {ErrorType} from "@app/model/enum";
+import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
+import {BASE_PATH} from "@app/constant/config.const";
 
 export abstract class BaseFormComponent extends BaseComponent {
 

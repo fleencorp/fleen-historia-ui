@@ -1,5 +1,5 @@
-import {ErrorResponse} from "../../../model/response";
-import {DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "../../../constant";
+import {ErrorResponse} from "@app/model/response";
+import {DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
 
 export abstract class BaseComponent {
 

@@ -1,8 +1,8 @@
-import {BaseFormComponent} from "../base-form/base-form.component";
+import {BaseFormComponent} from "@app/base/component";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {isFalsy, isTruthy} from "../../../shared/helper";
-import {ErrorResponse} from "../../../model/response";
+import {isFalsy, isTruthy} from "@app/shared/helper";
+import {ErrorResponse} from "@app/model/response";
 
 export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
 
