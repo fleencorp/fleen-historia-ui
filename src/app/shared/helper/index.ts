@@ -340,3 +340,57 @@ export function toJson(data: any): string {
 export function hasAtLeastAProperty(obj: any): boolean {
   return isObject(obj) && Object.keys(obj).length > 0;
 }
+
+
+/**
+ * Converts a string into a desired format.
+ *
+ * This function takes an input string and an optional separator regex pattern to split the input into segments.
+ * It then processes each segment by splitting camelCase words and capitalizing the first letter of each word.
+ * Finally, it joins the formatted segments into a string using a space as the default separator.
+ *
+ * @param input The input string to be converted.
+ * @param separator (Optional) A regular expression pattern used to split the input string into segments.
+ *
+ * @returns The input string converted into the desired format.
+ *
+ * @example
+ * // Example usage:
+ * const inputString = 'camelCaseExample';
+ * const formattedString = convertToDesiredFormat(inputString);
+ * // Result: 'Camel Case Example'
+ */
+export function convertToDesiredFormat(input: string, separator: RegExp = /_/): string {
+  const segments: string[] = input.split(separator);
+  const formattedSegments: string[] = segments.map((segment) => {
+    const words: string[] = segment.split(/(?=[A-Z])/); // Split camelCase segments
+    const formattedWords: string[] = words.map((word) => capitalizeFirstLetter(word));
+    return formattedWords.join(' ');
+  });
+
+  return formattedSegments.join(' ');
+}
+
+
+/**
+ * Compare two strings for equality, ignoring case.
+ *
+ * This function performs a case-insensitive comparison between two strings to check if they are equal.
+ *
+ * @param value1 The first string to compare.
+ * @param value2 The second string to compare.
+ *
+ * @returns `true` if the strings are equal (case-insensitive), `false` otherwise.
+ *
+ * @example
+ * // Example usage:
+ * const str1 = 'Hello';
+ * const str2 = 'hello';
+ * const isEqual = equalsIgnoreCase(str1, str2); // Result: true
+ */
+export function equalsIgnoreCase(value1: string | undefined | null, value2: string | undefined): boolean {
+  if (isTruthy(value1) && isTruthy(value2)) {
+    return value1?.toLowerCase() === value2?.toLowerCase();
+  }
+  return false;
+}

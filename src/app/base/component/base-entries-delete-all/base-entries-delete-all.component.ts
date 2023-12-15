@@ -1,9 +1,8 @@
 import {Observable} from "rxjs";
-import {DeleteResponse} from "../../../shared/response/delete.response";
-import {ErrorResponse} from "../../response/error-response";
 import {BaseFormComponent} from "../base-form/base-form.component";
-import {isFalsy, isTruthy} from "../../../shared/util/helpers";
-import {CountAllResponse} from "../../../shared/response/count-all.response";
+import {CountAllResponse, DeleteResponse} from "../../../model/response/common";
+import {isFalsy, isTruthy} from "../../../shared/helper";
+import {ErrorResponse} from "../../../model/response";
 
 export abstract class BaseEntriesDeleteAllComponent extends BaseFormComponent {
   public isEntriesAvailable: boolean = false;

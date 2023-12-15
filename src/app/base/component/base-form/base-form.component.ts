@@ -1,13 +1,13 @@
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
-import {convertToDesiredFormat, equalsIgnoreCase, isObject, isTruthy, toCamelCase} from "../../../shared/util/helpers";
-import {AnyProp} from "../../../shared/type/base";
-import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE} from "../../../shared/constant/other-constant";
-import {ErrorResponse} from "../../response/error-response";
+import {convertToDesiredFormat, equalsIgnoreCase, isObject, isTruthy, toCamelCase} from "../../../shared/helper";
 import {Router} from "@angular/router";
-import {BASE_PATH} from "../../../shared/constant/base-config";
 import {Observable, of} from "rxjs";
-import {ERR_CONNECTION_REFUSED_MESSAGE, ErrorType} from "../../../shared/constant/error-constant";
 import {BaseComponent} from "../base/base.component";
+import {AnyObject} from "../../../model/type";
+import {ErrorResponse} from "../../../model/response";
+import {ErrorType} from "../../../model/enum";
+import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "../../../constant";
+import {BASE_PATH} from "../../../constant/config.const";
 
 export abstract class BaseFormComponent extends BaseComponent {
 
@@ -37,7 +37,7 @@ export abstract class BaseFormComponent extends BaseComponent {
     return keys;
   }
 
-  protected setErrorsFromApiResponse(errors: AnyProp[] | any): void {
+  protected setErrorsFromApiResponse(errors: AnyObject[] | any): void {
     if (isTruthy(errors) && Array.isArray(errors)) {
       errors.forEach((error): void => {
         this.setControlError(this.fleenHealthForm, error[this.ERROR_FIELD_NAME], this.getMessagesInSentence(error[this.ERROR_MESSAGES_NAME]));
@@ -46,7 +46,7 @@ export abstract class BaseFormComponent extends BaseComponent {
     }
   }
 
-  protected setExternalFormErrorsFromApiResponse(errors: AnyProp[], form: FormGroup): void {
+  protected setExternalFormErrorsFromApiResponse(errors: AnyObject[], form: FormGroup): void {
     if (isTruthy(errors) && Array.isArray(errors)) {
       errors.forEach((error): void => {
         this.setControlError(form, error[this.ERROR_FIELD_NAME], this.getMessagesInSentence(error[this.ERROR_MESSAGES_NAME]));
