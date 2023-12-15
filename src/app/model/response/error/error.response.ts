@@ -1,4 +1,4 @@
-import {AnyObject} from "../../type";
+import {AnyObject} from "@app/model/type";
 
 /**
  * @class ErrorResponse

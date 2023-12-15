@@ -1,5 +1,5 @@
 import {SignInUpResponse} from "./sign-in-up.response";
-import {MfaType} from "../../enum";
+import {MfaType} from "@app/model/enum";
 
 export class SignInResponse extends SignInUpResponse {
 
