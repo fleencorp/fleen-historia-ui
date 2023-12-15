@@ -1,7 +1,7 @@
 import {AbstractControl, FormControl, ValidationErrors, ValidatorFn} from "@angular/forms";
 import {equalsIgnoreCase, isFalsy, isTruthy, nonNull, validatePattern} from "../helper";
 import {catchError, map, Observable, of, switchMap} from "rxjs";
-import {AuthenticationService} from "@app/authentication/service/authentication.service";
+import {AuthenticationService} from "@app/feature/authentication/service/authentication.service";
 import {AnyObject, AnyRegEx, TwoArray} from "@app/model/type";
 import {DATE, TIME_FORMAT, TWO_DATES} from "@app/model/pattern";
 import {BETWEEN_DATE_TYPE, DATE_TYPE, NO_INPUT_KEY} from "@app/constant/search.const";

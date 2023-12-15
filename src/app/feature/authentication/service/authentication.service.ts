@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClientService} from "../../shared/service/impl";
-import {AuthTokenService, LocalStorageService} from "../../base/service";
+import {HttpClientService} from "@app/shared/service/impl";
+import {AuthTokenService, LocalStorageService} from "@app/base/service";
 import {map, Observable} from "rxjs";
-import {EntityExistsResponse} from "../../model/response/common";
+import {EntityExistsResponse} from "@app/model/response/common";
 import {
   AnyObject,
   AuthVerificationPayload,
@@ -13,20 +13,20 @@ import {
   ResetPasswordPayload,
   SignInPayload,
   SignUpPayload
-} from "../../model/type";
+} from "@app/model/type";
 import {
   ForgotPasswordResponse,
   InitiatePasswordChangeResponse,
   SignInResponse,
   SignInUpResponse,
   SignUpResponse
-} from "../../model/response/authentication";
-import {FleenResponse} from "../../model/response";
-import {ACCESS_TOKEN_KEY, AUTHENTICATION_STATUS_KEY, REFRESH_TOKEN_KEY} from "../../constant";
+} from "@app/model/response/authentication";
+import {FleenResponse} from "@app/model/response";
+import {ACCESS_TOKEN_KEY, AUTHENTICATION_STATUS_KEY, REFRESH_TOKEN_KEY} from "@app/constant";
 import {Router} from "@angular/router";
-import {AUTHENTICATION_ENTRY_POINT} from "../../config";
-import {AuthenticationStatus} from "../../model/enum";
-import {hasAtLeastAProperty} from "../../shared/helper";
+import {AUTHENTICATION_ENTRY_POINT} from "../../../config";
+import {AuthenticationStatus} from "@app/model/enum";
+import {hasAtLeastAProperty} from "@app/shared/helper";
 
 
 /**

@@ -27,6 +27,7 @@
     ],
     "paths": {
       "@app/*": ["./src/app/*"],
+      "@app/feature/*": ["./src/app/feature/*"],
       "@app/shared/*": ["./src/app/shared/*"],
       "@app/base/*": ["./src/app/base/*"],
       "@app/model/*": ["./src/app/model/*"],

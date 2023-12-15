@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
-import {AuthenticationService} from "@app/authentication/service/authentication.service";
+import {AuthenticationService} from "@app/feature/authentication/service/authentication.service";
 import {SignUpBaseComponent} from "./sign-up-base-component";
 import {isFalsy, isTruthy} from "@app/shared/helper";
 import {OtpVerificationComponent} from "../otp-verification/otp-verification.component";

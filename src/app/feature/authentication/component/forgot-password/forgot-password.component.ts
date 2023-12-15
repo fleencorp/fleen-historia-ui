@@ -4,7 +4,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Router} from "@angular/router";
 import {BaseFormComponent} from "@app/base/component";
 import {ChangePasswordType, VerificationType} from "@app/model/enum";
-import {AuthenticationService} from "../../../service/authentication.service";
+import {AuthenticationService} from "../../service/authentication.service";
 import {isFalsy} from "@app/shared/helper";
 import {ChangePasswordPayload, ForgotPasswordPayload, ResetPasswordPayload} from "@app/model/type";
 import {ForgotPasswordResponse, InitiatePasswordChangeResponse} from "@app/model/response/authentication";

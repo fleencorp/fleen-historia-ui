@@ -3,7 +3,7 @@ import {OtpVerificationComponent} from "../otp-verification/otp-verification.com
 import {MfaVerificationComponent} from "../mfa-verification/mfa-verification.component";
 import {isFalsy, isTruthy} from "@app/shared/helper";
 import {BaseFormComponent} from "@app/base/component";
-import {AuthenticationService} from "../../../service/authentication.service";
+import {AuthenticationService} from "../../service/authentication.service";
 import {AuthVerificationPayload, ChangePasswordPayload} from "@app/model/type";
 import {ErrorResponse} from "@app/model/response";
 import {SignInUpResponse} from "@app/model/response/authentication";
