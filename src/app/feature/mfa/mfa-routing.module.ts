@@ -1,10 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from "../base/guard/auth.guard";
-import {MfaDashboardComponent} from "./component/mfa-dashboard/mfa-dashboard.component";
-import {MfaSetupComponent} from "./component/mfa-setup/mfa-setup.component";
-import {MfaBaseComponent} from "./component/mfa-base/mfa-base.component";
-import {MfaStatusComponent} from "./component/mfa-status/mfa-status.component";
+import {MfaBaseComponent, MfaDashboardComponent, MfaSetupComponent, MfaStatusComponent} from "./component";
+import {AuthGuard} from "@app/base/guard";
 
 const routes: Routes = [
   { path: '',

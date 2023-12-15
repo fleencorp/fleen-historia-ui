@@ -1,4 +1,4 @@
-import {MfaSetupStatus, MfaType} from "../enum/mfa.enum";
+import {MfaSetupStatus, MfaType} from "@app/model/enum";
 
 export class MfaDetailResponse {
 

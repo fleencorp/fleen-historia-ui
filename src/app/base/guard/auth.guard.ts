@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthenticationService} from "@app/feature/authentication/service/authentication.service";
-import {SessionStorageService} from "../service/session-storage.service";
+import {SessionStorageService} from "../service";
 import {AUTHENTICATION_ENTRY_POINT} from "@app/config";
 import {USER_DESTINATION_PAGE_KEY} from "@app/constant";
 

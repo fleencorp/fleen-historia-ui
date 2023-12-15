@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {MfaService} from "../../service/mfa.service";
-import {MfaStatusResponse} from "../../response/mfa-status.response";
-import {BaseFormComponent} from "../../../base/component/base-form/base-form.component";
-import {ANY_EMPTY} from "../../../shared/constant/other-constant";
+import {MfaStatusResponse} from "@app/model/response/mfa/mfa-status.response";
 import {Router} from "@angular/router";
-import {ErrorResponse} from "../../../base/response/error-response";
 import {FormBuilder} from "@angular/forms";
 import {Observable} from "rxjs";
-import {FleenHealthResponse} from "../../../shared/response/fleen-health.response";
-import {capitalize} from "../../../shared/util/helpers";
-import {MfaType} from "../../enum/mfa.enum";
+import {BaseFormComponent} from "@app/base/component";
+import {ANY_EMPTY} from "@app/constant";
+import {ErrorResponse, FleenResponse} from "@app/model/response";
+import {capitalize} from "@app/shared/helper";
+import {MfaType} from "@app/model/enum";
 
 @Component({
   selector: 'app-mfa-status',
@@ -44,7 +43,7 @@ export class MfaStatusComponent extends BaseFormComponent implements OnInit {
   public reEnableOrDisableMfa(status: boolean): void {
     this.getServiceMethod(status)
       .subscribe({
-        next: (result: FleenHealthResponse): void => {
+        next: (result: FleenResponse): void => {
           this.statusMessage = result.message;
           this.updateMfaStatus(status);
         },
@@ -54,7 +53,7 @@ export class MfaStatusComponent extends BaseFormComponent implements OnInit {
     });
   }
 
-  private getServiceMethod(status: boolean): Observable<FleenHealthResponse> {
+  private getServiceMethod(status: boolean): Observable<FleenResponse> {
     return status ? this.mfaService.reEnable() : this.mfaService.disable();
   }
 

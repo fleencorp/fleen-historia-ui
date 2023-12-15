@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {FleenComgroupComponent} from "./component/fleen-comgroup/fleen-comgroup.component";
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FleenComgroupComponent} from "./component";
 
 
 @NgModule({

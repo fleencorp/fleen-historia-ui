@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
-import {HttpClientService} from "../../shared/service/http-client.service";
 import {map, Observable} from "rxjs";
-import {BaseRequest} from "../../shared/type/http";
-import {MfaStatusResponse} from "../response/mfa-status.response";
-import {ConfirmMfaDto, MfaTypeDto} from "../dto/mfa.dto";
-import {MfaDetailResponse} from "../response/mfa-detail.response";
-import {FleenHealthResponse} from "../../shared/response/fleen-health.response";
+import {MfaStatusResponse} from "@app/model/response/mfa/mfa-status.response";
+import {MfaDetailResponse} from "@app/model/response/mfa/mfa-detail.response";
+import {HttpClientService} from "@app/shared/service/impl";
+import {BaseRequest} from "@app/model/type";
+import {ConfirmMfaPayload, MfaTypePayload} from "@app/model/type/mfa.type";
+import {FleenResponse} from "@app/model/response";
 
 @Injectable()
 export class MfaService {
 
   private readonly BASE_PATH: string = "mfa";
 
-  public constructor(private httpService: HttpClientService) { }
+  public constructor(private readonly httpService: HttpClientService) { }
 
   public getStatus(): Observable<MfaStatusResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'status']);
@@ -22,7 +22,7 @@ export class MfaService {
       )
   }
 
-  public setup(body: MfaTypeDto): Observable<MfaDetailResponse> {
+  public setup(body: MfaTypePayload): Observable<MfaDetailResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'setup'], null, { ...body });
     return this.httpService.update(req)
       .pipe(
@@ -30,27 +30,27 @@ export class MfaService {
       );
   }
 
-  public confirmSetup(body: ConfirmMfaDto): Observable<FleenHealthResponse> {
+  public confirmSetup(body: ConfirmMfaPayload): Observable<FleenResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'confirm-mfa-setup'], null, { ...body });
     return this.httpService.update(req)
       .pipe(
-        map(data => new FleenHealthResponse(data))
+        map(data => new FleenResponse(data))
       );
   }
 
-  public reEnable(): Observable<FleenHealthResponse> {
+  public reEnable(): Observable<FleenResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 're-enable']);
     return this.httpService.update(req)
       .pipe(
-        map(data => new FleenHealthResponse(data))
+        map(data => new FleenResponse(data))
       );
   }
 
-  public disable(): Observable<FleenHealthResponse> {
+  public disable(): Observable<FleenResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'disable']);
     return this.httpService.update(req)
       .pipe(
-        map(data => new FleenHealthResponse(data))
+        map(data => new FleenResponse(data))
       );
   }
 }

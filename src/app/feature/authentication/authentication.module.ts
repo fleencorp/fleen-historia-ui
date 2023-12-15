@@ -1,18 +1,33 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {AuthenticationRoutingModule} from './authentication-routing.module';
+import {
+  AuthenticationBaseComponent,
+  ForgotPasswordComponent,
+  MfaOtpBaseComponent,
+  MfaVerificationComponent,
+  ResetPasswordComponent,
+  SignInComponent,
+  SignUpComponent
+} from './component';
+import {AuthenticationRoutingModule} from "./authentication-routing.module";
 import {AuthenticationService} from "./service/authentication.service";
-import {AuthenticationModuleComponents} from "@app/feature/authentication/component";
-
+import {SharedModule} from "@app/shared/shared.module";
 
 @NgModule({
   declarations: [
-    ...AuthenticationModuleComponents
+    AuthenticationBaseComponent,
+    ForgotPasswordComponent,
+    MfaOtpBaseComponent,
+    MfaVerificationComponent,
+    ResetPasswordComponent,
+    SignInComponent,
+    SignUpComponent,
   ],
   imports: [
     CommonModule,
-    AuthenticationRoutingModule
+    AuthenticationRoutingModule,
+    SharedModule
   ],
   providers: [
     AuthenticationService

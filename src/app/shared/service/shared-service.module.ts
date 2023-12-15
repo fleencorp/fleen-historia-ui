@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClientService} from "./impl";
-import {HttpServiceConfig} from "../../config";
+import {FileUploadDownloadService, HttpClientService} from "./impl";
+import {HttpServiceConfig} from "@app/config";
 
 
 @NgModule({
@@ -11,6 +11,7 @@ import {HttpServiceConfig} from "../../config";
   ],
   providers: [
     HttpClientService,
+    FileUploadDownloadService,
     HttpServiceConfig
   ]
 })

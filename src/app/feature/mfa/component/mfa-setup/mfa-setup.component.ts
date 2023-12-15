@@ -1,18 +1,16 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {BaseFormComponent} from "../../../base/component/base-form/base-form.component";
-import {ANY_EMPTY} from "../../../shared/constant/other-constant";
 import {Router} from "@angular/router";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MfaStatusResponse} from "../../response/mfa-status.response";
+import {MfaStatusResponse} from "@app/model/response/mfa/mfa-status.response";
 import {MfaService} from "../../service/mfa.service";
-import {ErrorResponse} from "../../../base/response/error-response";
-import {DEFAULT_FORM_CONTROL_VALUE, MFA_SETUP_TYPE} from "../../../shared/constant/enum-constant";
-import {codeOrOtpValidator, enumTypeValidator} from "../../../shared/validator/validator";
-import {VERIFICATION_CODE} from "../../../shared/util/format-pattern";
-import {isFalsy} from "../../../shared/util/helpers";
-import {MfaDetailResponse} from "../../response/mfa-detail.response";
-import {FleenHealthResponse} from "../../../shared/response/fleen-health.response";
-import {MfaType} from "../../enum/mfa.enum";
+import {MfaDetailResponse} from "@app/model/response/mfa/mfa-detail.response";
+import {ANY_EMPTY, DEFAULT_FORM_CONTROL_VALUE, MFA_SETUP_TYPE} from "@app/constant";
+import {BaseFormComponent} from "@app/base/component";
+import {ErrorResponse, FleenResponse} from "@app/model/response";
+import {codeOrOtpValidator, enumTypeValidator} from "@app/shared/validator";
+import {isFalsy} from "@app/shared/helper";
+import {VERIFICATION_CODE} from "@app/model/pattern";
+import {MfaType} from "@app/model/enum";
 
 @Component({
   selector: 'app-mfa-setup',
@@ -57,7 +55,7 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
   }
 
   public initForm(): void {
-    this.fleenHealthForm = this.formBuilder.group({
+    this.fleenForm = this.formBuilder.group({
       mfaType: [DEFAULT_FORM_CONTROL_VALUE,
         [Validators.required, enumTypeValidator(MFA_SETUP_TYPE)]
       ]
@@ -66,10 +64,10 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
   }
 
   public setupMfa(): void {
-    if (isFalsy(this.isSubmitting) && this.fleenHealthForm.valid) {
+    if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
       this.disableSubmittingAndResetErrorMessage();
 
-      this.mfaService.setup(this.fleenHealthForm.value)
+      this.mfaService.setup(this.fleenForm.value)
         .subscribe({
           next: (result: MfaDetailResponse): void => {
             this.mfaDetail = result;
@@ -87,10 +85,10 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
   }
 
   public resendVerificationCode(): void {
-    if (isFalsy(this.isSubmitting) && this.fleenHealthForm.valid) {
+    if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
       this.disableSubmittingAndResetErrorMessage();
       this.isVerificationCodeSent = false;
-      this.mfaService.setup(this.fleenHealthForm.value)
+      this.mfaService.setup(this.fleenForm.value)
         .subscribe({
           error: (error: ErrorResponse): void => {
             this.handleError(error);
@@ -104,12 +102,12 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
   }
 
   public confirmMfaSetup(): void {
-    if (isFalsy(this.isSubmitting) && this.fleenHealthForm.valid) {
+    if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
       this.disableSubmittingAndResetErrorMessage();
 
-      this.mfaService.confirmSetup(this.fleenHealthForm.value)
+      this.mfaService.confirmSetup(this.fleenForm.value)
         .subscribe({
-          next: (result: FleenHealthResponse): void => {
+          next: (result: FleenResponse): void => {
             this.statusMessage = result.message;
             this.isAllVerificationComplete = true;
           },
@@ -121,7 +119,7 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
   }
 
   private addCodeFormControl(): void {
-    this.fleenHealthForm.addControl(
+    this.fleenForm.addControl(
       'code', this.formBuilder.control('', [
         Validators.required, Validators.minLength(1), Validators.maxLength(6), codeOrOtpValidator(VERIFICATION_CODE)]
       )
@@ -152,7 +150,7 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
   }
 
   get mfaSetupForm(): FormGroup {
-    return this.fleenHealthForm;
+    return this.fleenForm;
   }
 
   get mfaType(): AbstractControl | null | undefined {
