@@ -13,6 +13,7 @@ import {
 import {AuthenticationRoutingModule} from "./authentication-routing.module";
 import {AuthenticationService} from "./service/authentication.service";
 import {SharedModule} from "@app/shared/shared.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -26,8 +27,9 @@ import {SharedModule} from "@app/shared/shared.module";
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    SharedModule,
     AuthenticationRoutingModule,
-    SharedModule
   ],
   providers: [
     AuthenticationService

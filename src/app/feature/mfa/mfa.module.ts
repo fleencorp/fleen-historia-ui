@@ -6,6 +6,7 @@ import {MfaBaseComponent, MfaDashboardComponent, MfaSetupComponent, MfaStatusCom
 import {MfaService} from "./service/mfa.service";
 import {AuthenticationModule} from "../authentication/authentication.module";
 import {SharedModule} from "@app/shared/shared.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -17,9 +18,10 @@ import {SharedModule} from "@app/shared/shared.module";
   ],
   imports: [
     CommonModule,
-    MfaRoutingModule,
+    ReactiveFormsModule,
     SharedModule,
-    AuthenticationModule
+    AuthenticationModule,
+    MfaRoutingModule,
   ],
   providers: [
     MfaService
