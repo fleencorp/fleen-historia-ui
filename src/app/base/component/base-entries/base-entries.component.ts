@@ -1,15 +1,11 @@
-import {DEFAULT_PAGE_SIZE} from "../../../shared/constant/other-constant";
-import {AnyProp} from "../../../shared/type/base";
-import {isFalsy, isTruthy} from "../../../shared/util/helpers";
 import {ActivatedRoute, Navigation, Params, Router} from "@angular/router";
-import {SearchResultView} from "../../../shared/view/search-result.view";
 import {Observable} from "rxjs";
-import {SearchDto} from "../../../shared/interface/base";
 import {BaseFormComponent} from "../base-form/base-form.component";
-import {DeleteIdsDto} from "../../../shared/type/other";
-import {SearchFilter} from "../../../shared/type/search";
 import {Location} from "@angular/common";
-import {DEFAULT_PAGE_NO_KEY} from "../../../shared/constant/enum-constant";
+import {AnyObject, DeleteIdsPayload, SearchFilter, SearchPayload} from "../../../model/type";
+import {DEFAULT_PAGE_NO_KEY, DEFAULT_PAGE_SIZE} from "../../../constant";
+import {SearchResultView} from "../../../model/view";
+import {isFalsy, isTruthy} from "../../../shared/helper";
 
 export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
 
@@ -20,7 +16,7 @@ export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
   public entries: T[] = [];
   private deleteIds: Array<number | string> = [];
   private totalEntries: number = 0;
-  protected searchParams: AnyProp = {};
+  protected searchParams: AnyObject = {};
   protected searchFilter: SearchFilter[] = [];
   protected formBuilder;
 
@@ -29,9 +25,9 @@ export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
     this.initRouteState(this.router.getCurrentNavigation());
   }
 
-  abstract findEntries(params: AnyProp): Observable<SearchResultView<T>>;
+  abstract findEntries(params: AnyObject): Observable<SearchResultView<T>>;
 
-  abstract deleteEntries(dto: DeleteIdsDto): Observable<any>;
+  abstract deleteEntries(payload: DeleteIdsPayload): Observable<any>;
 
   protected override getRouter(): Router {
     return this.router;
@@ -74,14 +70,14 @@ export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
     this.totalEntries = result.totalEntries;
   }
 
-  private getPaginationDetails(): AnyProp {
+  private getPaginationDetails(): AnyObject {
     return {
       pageNo: this.currentPage - 1,
       pageSize: this.pageSize
     }
   }
 
-  private prepareSearchParams(): AnyProp {
+  private prepareSearchParams(): AnyObject {
     return {
       ...(this.searchParams),
       ...(this.getPaginationDetails())
@@ -104,7 +100,7 @@ export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
   }
 
   protected getEntries(): void {
-    const params: AnyProp = this.prepareSearchParams();
+    const params: AnyObject = this.prepareSearchParams();
     this.disableSubmittingAndResetErrorMessage();
     this.findEntries(params)
       .subscribe({
@@ -121,8 +117,8 @@ export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
     });
   }
 
-  public async search(dto: SearchDto): Promise<void> {
-    this.searchParams = dto;
+  public async search(payload: SearchPayload): Promise<void> {
+    this.searchParams = payload;
     await this.updateUrlWithPage(this.searchParams);
     this.getEntries();
   }
@@ -131,8 +127,8 @@ export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
     if (this.deleteIds.length > 0 && isFalsy(this.isSubmitting)) {
       this.disableSubmittingAndResetErrorMessage();
 
-      const dto: DeleteIdsDto = { ids: this.deleteIds };
-      this.deleteEntries(dto)
+      const payload: DeleteIdsPayload = { ids: this.deleteIds };
+      this.deleteEntries(payload)
         .subscribe({
           error: (): void => {
             this.enableSubmitting();
@@ -155,7 +151,7 @@ export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
     return idx + 1;
   }
 
-  private async updateUrlWithPage(params: AnyProp = {}): Promise<void> {
+  private async updateUrlWithPage(params: AnyObject = {}): Promise<void> {
     await this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: this.currentPage, ...params },
@@ -181,14 +177,14 @@ export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
 
   protected initRouteState(navigation?: Navigation | null): void {
     if (isTruthy(navigation)) {
-      const state: AnyProp | any = navigation?.extras?.state;
+      const state: AnyObject | any = navigation?.extras?.state;
       if (isTruthy(state) && state != null && state['error']) {
         this.errorMessage = state?.['error'];
       }
     }
   }
 
-  protected deleteKeyIfExists(params: AnyProp, key: string): void {
+  protected deleteKeyIfExists(params: AnyObject, key: string): void {
     delete params[key];
   }
 }

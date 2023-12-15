@@ -1,7 +1,7 @@
 import {ActivatedRoute, Router} from "@angular/router";
 import {BaseUpdateComponent} from "../base-update/base-update.component";
 import {Observable, of} from "rxjs";
-import {ANY_EMPTY} from "../../../shared/constant/other-constant";
+import {ANY_EMPTY} from "../../../constant";
 
 export abstract class BaseDetailComponent<T> extends BaseUpdateComponent<T, any> {
 

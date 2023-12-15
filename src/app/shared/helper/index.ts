@@ -11,6 +11,18 @@ export function isTruthy(value: any): boolean {
   return !!value;
 }
 
+/**
+ * @function isFalsy
+ * @description
+ *   Checks if the provided value is falsy.
+ *
+ * @param {any} value - The value to check for falseness.
+ * @returns {boolean} - False if the value is false, true otherwise.
+ */
+export function isFalsy(value: any): boolean {
+  return !value;
+}
+
 
 /**
  * Check if a value is an object.

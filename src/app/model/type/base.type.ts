@@ -38,3 +38,17 @@ export type DependencyProvider = {
   provide: string;
   useValue: AnyObject;
 }
+
+export interface SearchPayload {
+  [key: string]: any
+}
+
+export type DeleteIdsPayload = {
+  ids: Array<string | number>;
+}
+
+export type SearchFilter = {
+  key: string;
+  label: string;
+  type?: string;
+}
