@@ -1,4 +1,4 @@
-import {AnyObject} from "../../model/type";
+import {AnyObject} from "@app/model/type";
 
 /**
  * @function isTruthy
@@ -608,4 +608,20 @@ export function capitalizeMany(inputArray: string[]): string[] {
     return inputArray.map((item: string) => capitalize(item));
   }
   return [];
+}
+
+
+/**
+ * @function capitalize
+ * @description
+ *   Capitalizes the first letter of a string and converts the rest to lowercase.
+ * @param {string} value - The input string to be capitalized.
+ * @returns {string} - The capitalized string or an empty string if the input is falsy.
+ */
+export function capitalize(value: string): string {
+  if (isTruthy(value)) {
+    value = value.toString();
+    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+  }
+  return '';
 }

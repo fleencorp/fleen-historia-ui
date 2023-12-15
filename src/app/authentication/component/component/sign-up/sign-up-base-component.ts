@@ -8,17 +8,17 @@ import {
   passwordValidator,
   pastDateValidator,
   phoneNumberValidator
-} from "../../../shared/validator/validator";
+} from "@app/shared/validator";
 import {
   DEFAULT_FORM_CONTROL_VALUE,
   DEFAULT_VERIFICATION_TYPE,
   GENDER,
+  MINIMUM_AGE_ELIGIBILITY_FOR_ACCOUNT,
   PROFILE_TYPES,
   VERIFICATION_TYPES
-} from "../../../shared/constant/enum-constant";
-import {DATE, PASSWORD_PATTERNS, PHONE_NUMBER} from "../../../shared/util/format-pattern";
-import {MINIMUM_AGE_ELIGIBILITY_FOR_ACCOUNT} from "../../../shared/constant/other-constant";
+} from "@app/constant";
 import {AuthBaseComponent} from "../sign-in-up-base/auth-base.component";
+import {DATE, PASSWORD_PATTERNS, PHONE_NUMBER} from "@app/model/pattern";
 
 export abstract class SignUpBaseComponent extends AuthBaseComponent {
 

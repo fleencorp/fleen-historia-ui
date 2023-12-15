@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
-import {AuthenticationService} from "../../service/authentication.service";
+import {AuthenticationService} from "@app/authentication/service/authentication.service";
 import {SignUpBaseComponent} from "./sign-up-base-component";
-import {isFalsy, isTruthy} from "../../../shared/util/helpers";
+import {isFalsy, isTruthy} from "@app/shared/helper";
 import {OtpVerificationComponent} from "../otp-verification/otp-verification.component";
-import {SignUpResponse} from "../../response/sign-up.response";
 import {MfaVerificationComponent} from "../mfa-verification/mfa-verification.component";
-import {ChangePasswordComponent} from "../../../shared/component/change-password/change-password.component";
-import {ErrorResponse} from "../../../base/response/error-response";
 import {Router} from "@angular/router";
-import {SessionStorageService} from "../../../base/service/session-storage.service";
+import {SignUpResponse} from "@app/model/response/authentication";
+import {ErrorResponse} from "@app/model/response";
+import {SessionStorageService} from "@app/base/service/session-storage.service";
+import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
 
 @Component({
   selector: 'app-sign-up',
