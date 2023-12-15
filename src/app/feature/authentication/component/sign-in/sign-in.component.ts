@@ -3,19 +3,14 @@ import {SignInBaseComponent} from "./sign-in-base-component";
 import {OtpVerificationComponent} from "../otp-verification/otp-verification.component";
 import {FormBuilder} from "@angular/forms";
 import {AuthenticationService} from "../../service/authentication.service";
-import {isFalsy, isTruthy} from "../../../shared/util/helpers";
-import {SignInResponse} from "../../response/sign-in.response";
-import {
-  AuthenticationStatus,
-  ChangePasswordType,
-  NextAuthentication
-} from "../../../shared/enum/authentication.enum";
+import {isFalsy, isTruthy} from "@app/shared/helper";
+import {AuthenticationStatus, ChangePasswordType, MfaType, NextAuthentication} from "@app/model/enum";
 import {MfaVerificationComponent} from "../mfa-verification/mfa-verification.component";
-import {ChangePasswordComponent} from "../../../shared/component/change-password/change-password.component";
-import {ErrorResponse} from "../../../base/response/error-response";
+import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
+import {ErrorResponse} from "@app/model/response";
+import {SignInResponse} from "@app/model/response/authentication";
 import {Router} from "@angular/router";
-import {SessionStorageService} from "../../../base/service/session-storage.service";
-import {MfaType} from "../../../mfa/enum/mfa.enum";
+import {SessionStorageService} from "@app/base/service";
 
 @Component({
   selector: 'app-sign-in',
