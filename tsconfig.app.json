@@ -8,13 +8,6 @@
   "files": [
     "src/main.ts"
   ],
-  "paths": {
-    "@app/*": ["src/app/*"],
-    "@shared/*": ["src/app/shared/*"],
-    "@base/*": ["src/app/base/*"],
-    "@model/*": ["src/app/model/*"],
-    "@constant": ["src/app/constant"],
-  },
   "include": [
     "src/**/*.d.ts"
   ]
