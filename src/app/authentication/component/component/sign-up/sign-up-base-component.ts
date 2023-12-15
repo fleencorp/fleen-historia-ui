@@ -23,7 +23,7 @@ import {AuthBaseComponent} from "../sign-in-up-base/auth-base.component";
 export abstract class SignUpBaseComponent extends AuthBaseComponent {
 
   protected initForm(): void {
-    this.fleenHealthForm = this.getFormBuilder().group({
+    this.fleenForm = this.getFormBuilder().group({
       profileType: [DEFAULT_FORM_CONTROL_VALUE,
         [Validators.required, enumTypeValidator(PROFILE_TYPES)]
       ],
@@ -106,7 +106,7 @@ export abstract class SignUpBaseComponent extends AuthBaseComponent {
   }
 
   get signUpForm(): FormGroup {
-    return this.fleenHealthForm;
+    return this.fleenForm;
   }
 
 }

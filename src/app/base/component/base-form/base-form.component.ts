@@ -12,7 +12,7 @@ import {BASE_PATH} from "../../../constant/config.const";
 export abstract class BaseFormComponent extends BaseComponent {
 
   public statusMessage: string = ''
-  protected fleenHealthForm: FormGroup = new FormGroup<any>({});
+  protected fleenForm: FormGroup = new FormGroup<any>({});
   private readonly ERROR_FIELD_NAME: string = "field_name";
   private readonly ERROR_MESSAGES_NAME: string = "errors";
   public isSubmitting: boolean = false;
@@ -40,9 +40,9 @@ export abstract class BaseFormComponent extends BaseComponent {
   protected setErrorsFromApiResponse(errors: AnyObject[] | any): void {
     if (isTruthy(errors) && Array.isArray(errors)) {
       errors.forEach((error): void => {
-        this.setControlError(this.fleenHealthForm, error[this.ERROR_FIELD_NAME], this.getMessagesInSentence(error[this.ERROR_MESSAGES_NAME]));
+        this.setControlError(this.fleenForm, error[this.ERROR_FIELD_NAME], this.getMessagesInSentence(error[this.ERROR_MESSAGES_NAME]));
       });
-      this.fleenHealthForm.markAsTouched();
+      this.fleenForm.markAsTouched();
     }
   }
 

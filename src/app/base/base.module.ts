@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {FleenComgroupComponent} from "./component/fleen-comgroup/fleen-comgroup.component";
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    FleenComgroupComponent
+  ],
   imports: [
     CommonModule
   ]

@@ -1,14 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AnyProp} from "../../type/base";
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {enumTypeValidator, typeValidator} from "../../validator/validator";
-import {createBetweenDateObj, getPropsValueAsArray, isFalsy, propExists} from "../../util/helpers";
-import {BETWEEN_DATE_SEARCH_KEY} from "../../constant/enum-constant";
-import {SearchDto} from "../../interface/base";
-import {BaseFormComponent} from "../../../base/component/base-form/base-form.component";
-import {SearchFilter, SearchParamDto} from "../../type/search";
-import {ANY_EMPTY} from "../../constant/other-constant";
+import {createBetweenDateObj, getPropsValueAsArray, isFalsy, propExists} from "../../helper";
+import {BaseFormComponent} from "../../../base/component";
 import {Router} from "@angular/router";
+import {AnyObject, SearchFilter, SearchParamPayload, SearchPayload} from "../../../model/type";
+import {BETWEEN_DATE_SEARCH_KEY} from "../../../constant/search.const";
+import {ANY_EMPTY} from "../../../constant";
 
 @Component({
   selector: 'app-search-form-delete-menu',
@@ -17,11 +15,11 @@ import {Router} from "@angular/router";
 })
 export class SearchFormDeleteMenuComponent extends BaseFormComponent implements OnInit {
 
-  public searchParams: AnyProp = {};
+  public searchParams: AnyObject = {};
   public searchForm: FormGroup = new FormGroup<any>({});
   @Input('is-submitting') public override isSubmitting: boolean = false;
   @Input('search-filter') public searchFilter: SearchFilter[] = [];
-  @Output() public searchSubmitted: EventEmitter<SearchDto> = new EventEmitter<SearchDto>();
+  @Output() public searchSubmitted: EventEmitter<SearchPayload> = new EventEmitter<SearchPayload>();
   @Output() public deleteConfirmed: EventEmitter<void> = new EventEmitter<void>();
 
   public constructor(protected formBuilder: FormBuilder) {
@@ -63,7 +61,7 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
     return this.searchForm.get('searchInput');
   }
 
-  get searchFormValue(): SearchParamDto {
+  get searchFormValue(): SearchParamPayload {
     const type: string = this.searchType?.value;
     const value: string = this.searchInput?.value;
     return { type, value };
@@ -71,7 +69,7 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
 
   public checkBetweenDateParam(): void {
     if (propExists(this.searchParams, BETWEEN_DATE_SEARCH_KEY)) {
-      const twoDates: AnyProp = createBetweenDateObj(this.searchParams[BETWEEN_DATE_SEARCH_KEY]);
+      const twoDates: AnyObject = createBetweenDateObj(this.searchParams[BETWEEN_DATE_SEARCH_KEY]);
       this.searchParams = { ...(this.searchParams), ...twoDates };
       delete this.searchParams[BETWEEN_DATE_SEARCH_KEY];
     }

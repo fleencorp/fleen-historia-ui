@@ -1,8 +1,8 @@
 import {BaseFormComponent} from "../base-form/base-form.component";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {ErrorResponse} from "../../response/error-response";
 import {Observable} from "rxjs";
-import {isFalsy, isTruthy} from "../../../shared/util/helpers";
+import {isFalsy, isTruthy} from "../../../shared/helper";
+import {ErrorResponse} from "../../../model/response";
 
 export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
 
@@ -52,10 +52,10 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
   }
 
   public updateEntry(): void {
-    if (isTruthy(this.fleenHealthForm) && this.fleenHealthForm.valid && isFalsy(this.isSubmitting)) {
+    if (isTruthy(this.fleenForm) && this.fleenForm.valid && isFalsy(this.isSubmitting)) {
       this.disableSubmittingAndResetErrorMessage();
 
-      this.$updateEntry(this.entryId, this.fleenHealthForm.value)
+      this.$updateEntry(this.entryId, this.fleenForm.value)
         .subscribe({
           error: (result: ErrorResponse): void => {
             this.handleError(result);

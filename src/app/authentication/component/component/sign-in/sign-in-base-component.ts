@@ -6,7 +6,7 @@ import {AuthBaseComponent} from "../sign-in-up-base/auth-base.component";
 export abstract class SignInBaseComponent extends AuthBaseComponent {
 
   public initForm(): void {
-    this.fleenHealthForm = this.getFormBuilder().group({
+    this.fleenForm = this.getFormBuilder().group({
       emailAddress: ['',
         [Validators.required, Validators.email, Validators.minLength(4), Validators.maxLength(150)]
       ],
@@ -28,7 +28,7 @@ export abstract class SignInBaseComponent extends AuthBaseComponent {
   }
 
   get signInForm(): FormGroup {
-    return this.fleenHealthForm;
+    return this.fleenForm;
   }
 
 }

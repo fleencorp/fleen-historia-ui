@@ -39,16 +39,57 @@ export type DependencyProvider = {
   useValue: AnyObject;
 }
 
-export interface SearchPayload {
-  [key: string]: any
-}
 
+/**
+ * @typedef SearchPayload
+ * @type {object}
+ * @description
+ *   Represents a payload for search operations.
+ *   It is an object where keys can be any string, and values can be of any type.
+ */
+export type SearchPayload = {
+  [key: string]: any;
+};
+
+
+/**
+ * @typedef DeleteIdsPayload
+ * @type {object}
+ * @description
+ *   Represents a payload for deleting items by their IDs.
+ *   It includes an array of IDs, where each ID can be a string or a number.
+ */
 export type DeleteIdsPayload = {
   ids: Array<string | number>;
-}
+};
 
+
+/**
+ * @typedef SearchFilter
+ * @type {object}
+ * @property {string} key - The key used for filtering.
+ * @property {string} label - The human-readable label for the filter.
+ * @property {string | undefined} [type] - The type of filter (optional).
+ * @description
+ *   Represents a search filter with key, label, and an optional type.
+ */
 export type SearchFilter = {
   key: string;
   label: string;
   type?: string;
-}
+};
+
+
+/**
+ * @typedef SearchParamPayload
+ * @type {object}
+ * @property {string} type - The type of search parameter.
+ * @property {string} value - The value of the search parameter.
+ * @description
+ *   Represents a payload for specifying a search parameter with type and value.
+ */
+export type SearchParamPayload = {
+  type: string;
+  value: string;
+};
+

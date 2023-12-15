@@ -1,3 +1,4 @@
+import {AnyObject} from "../../model/type";
 
 /**
  * @function isTruthy
@@ -393,4 +394,101 @@ export function equalsIgnoreCase(value1: string | undefined | null, value2: stri
     return value1?.toLowerCase() === value2?.toLowerCase();
   }
   return false;
+}
+
+
+/**
+ * Creates an object with specified property keys to represent a range of dates.
+ *
+ * This function takes a string input representing a range of dates separated by a specified separator and
+ * creates an object with two properties using the specified keys to represent the start and end dates of the range.
+ *
+ * @param value The input string representing the range of dates (e.g., '2023-01-01:2023-01-15').
+ * @param keys An optional array of two strings specifying the property keys for the start and end dates in the resulting object.
+ * @param separator An optional separator string used to split the input value into start and end date strings.
+ *
+ * @returns An object with properties representing the start and end dates of the range, using the specified keys.
+ *
+ * @example
+ * // Example usage:
+ * const dateRangeString = '2023-01-01:2023-01-15';
+ * const dateRangeObj = createBetweenDateObj(dateRangeString, ['startDate', 'endDate']);
+ * // Result: { startDate: '2023-01-01', endDate: '2023-01-15' }
+ *
+ * const customSeparator = '--';
+ * const customDateRangeString = '2023-02-01--2023-02-28';
+ * const customDateRangeObj = createBetweenDateObj(customDateRangeString, ['start', 'end'], customSeparator);
+ * // Result: { start: '2023-02-01', end: '2023-02-28' }
+ *
+ * const emptyString = '';
+ * const emptyDateRangeObj = createBetweenDateObj(emptyString);
+ * // Result: {}
+ */
+export function createBetweenDateObj(value: string, keys: [string, string] = ['startDate', 'endDate'], separator: string = ':'): AnyObject {
+  if (isTruthy(value)) {
+    const twoDateString: string[] = value.split(separator);
+    return { [keys[0]]: twoDateString[0], [keys[1]]: twoDateString[1] }
+  }
+  return {};
+}
+
+
+/**
+ * Extracts values from an array of objects by a specified key.
+ *
+ * This function extracts values from an array of objects based on a specified key and returns them as an array.
+ *
+ * @param obj An array of objects containing the values to extract.
+ * @param key The key to specify which property's value to extract from each object.
+ *
+ * @returns An array of extracted values.
+ *
+ * @example
+ * // Example usage:
+ * const users = [
+ *   { id: 1, name: 'Alice' },
+ *   { id: 2, name: 'Bob' },
+ *   { id: 3, name: 'Charlie' },
+ * ];
+ *
+ * const names = getPropsValueAsArray(users, 'name');
+ * // Result: ['Alice', 'Bob', 'Charlie']
+ *
+ * const ages = getPropsValueAsArray(users, 'age');
+ * // Result: [] (age property does not exist in the objects)
+ */
+export function getPropsValueAsArray(obj: AnyObject[], key: string): string[] {
+  if (isObject(obj) && Array.isArray(obj) && obj.length > 0) {
+    return obj.map((entry: AnyObject) => entry[key]);
+  }
+  return [];
+}
+
+
+/**
+ * Checks if a property exists in an object.
+ *
+ * This function takes an object and a property key as input and determines whether the property exists within the object.
+ *
+ * @param obj The object to be checked for the existence of the property.
+ * @param key The property key to check for in the object.
+ *
+ * @returns `true` if the property exists in the object, `false` otherwise.
+ *
+ * @example
+ * // Example usage:
+ * const person = { name: 'Alice', age: 25 };
+ * const hasName = propExists(person, 'name');
+ * // Result: true (the 'name' property exists in the 'person' object)
+ *
+ * const car = { make: 'Toyota', model: 'Camry' };
+ * const hasColor = propExists(car, 'color');
+ * // Result: false (the 'color' property does not exist in the 'car' object)
+ *
+ * const emptyObject = {};
+ * const hasProperty = propExists(emptyObject, 'property');
+ * // Result: false (the 'property' key does not exist in the 'emptyObject')
+ */
+export function propExists(obj: AnyObject, key: string): boolean {
+  return isObject(obj) && obj.hasOwnProperty(key);
 }

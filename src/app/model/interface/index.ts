@@ -1,1 +1,1 @@
-export * from './http/http.interface';
+export * from './http.interface';

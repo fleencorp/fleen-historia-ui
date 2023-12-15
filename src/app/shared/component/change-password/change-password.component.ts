@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BaseFormComponent} from "../../../base/component/base-form/base-form.component";
+import {BaseFormComponent} from "../../../base/component";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {passwordValidator} from "../../validator/validator";
-import {PASSWORD_PATTERNS} from "../../util/format-pattern";
-import {ChangePasswordDto} from "../../type/authentication";
-import {ChangePasswordType} from "../../enum/authentication.enum";
-import {ANY_EMPTY} from "../../constant/other-constant";
 import {Router} from "@angular/router";
+import {ChangePasswordPayload} from "../../../model/type";
+import {ChangePasswordType} from "../../../model/enum";
+import {ANY_EMPTY} from "../../../constant";
+import {PASSWORD_PATTERNS} from "../../../model/pattern";
 
 @Component({
   selector: 'app-change-password',
@@ -17,7 +17,7 @@ export class ChangePasswordComponent extends BaseFormComponent implements OnInit
 
   @Input('is-submitting') public override isSubmitting: boolean = false;
   @Input('change-password-type') public changePasswordType: ChangePasswordType = ChangePasswordType.NONE;
-  @Output() public changePassword: EventEmitter<ChangePasswordDto> = new EventEmitter<ChangePasswordDto>();
+  @Output() public changePassword: EventEmitter<ChangePasswordPayload> = new EventEmitter<ChangePasswordPayload>();
 
   public constructor(protected formBuilder: FormBuilder) {
     super();
@@ -32,14 +32,14 @@ export class ChangePasswordComponent extends BaseFormComponent implements OnInit
   }
 
   public submit(): void {
-    if (this.fleenHealthForm.valid) {
-      const { password, confirmPassword } = this.fleenHealthForm.value;
+    if (this.fleenForm.valid) {
+      const { password, confirmPassword } = this.fleenForm.value;
       this.changePassword.emit({password, confirmPassword, type: this.changePasswordType });
     }
   }
 
   protected initForm(): void {
-    this.fleenHealthForm = this.formBuilder.group({
+    this.fleenForm = this.formBuilder.group({
       password: ['', [Validators.required, passwordValidator(PASSWORD_PATTERNS)]],
       confirmPassword: ['', [Validators.required, passwordValidator(PASSWORD_PATTERNS)]],
     });
@@ -50,15 +50,15 @@ export class ChangePasswordComponent extends BaseFormComponent implements OnInit
   }
 
   get changePasswordForm(): FormGroup {
-    return this.fleenHealthForm;
+    return this.fleenForm;
   }
 
   get password(): AbstractControl | null | undefined {
-    return this.fleenHealthForm?.get('password');
+    return this.fleenForm?.get('password');
   }
 
   get confirmPassword(): AbstractControl | null | undefined {
-    return this.fleenHealthForm?.get('confirmPassword');
+    return this.fleenForm?.get('confirmPassword');
   }
 
 }
