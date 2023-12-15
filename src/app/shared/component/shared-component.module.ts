@@ -9,6 +9,7 @@ import {RowEntryOptionComponent} from "./row-entry-option/row-entry-option.compo
 import {SearchFormDeleteMenuComponent} from "./search-form-delete-menu/search-form-delete-menu.component";
 import {UploadFileComponent} from "./upload-file/upload-file.component";
 import {ValidationErrorComponent} from "./validation-error/validation-error.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 const components: AnyArray = [
@@ -27,7 +28,8 @@ const components: AnyArray = [
     ...components
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
   ],
   exports: [
     ...components

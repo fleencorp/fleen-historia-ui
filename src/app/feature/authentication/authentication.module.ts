@@ -6,6 +6,7 @@ import {
   ForgotPasswordComponent,
   MfaOtpBaseComponent,
   MfaVerificationComponent,
+  OtpVerificationComponent,
   ResetPasswordComponent,
   SignInComponent,
   SignUpComponent
@@ -21,6 +22,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     ForgotPasswordComponent,
     MfaOtpBaseComponent,
     MfaVerificationComponent,
+    OtpVerificationComponent,
     ResetPasswordComponent,
     SignInComponent,
     SignUpComponent,
