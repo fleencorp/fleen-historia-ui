@@ -6,7 +6,7 @@ import {BaseFormComponent} from "@app/base/component";
 import {VerificationType} from "@app/model/enum";
 import {codeOrOtpValidator} from "@app/shared/validator";
 import {VERIFICATION_CODE} from "@app/model/pattern";
-import {ErrorResponse} from "@app/model/response";
+import {ErrorResponse, FleenResponse} from "@app/model/response";
 import {ANY_EMPTY} from "@app/constant";
 import {isFalsy} from "@app/shared/helper";
 import {AuthVerificationPayload, ResendVerificationCodePayload} from "@app/model/type";
@@ -43,14 +43,14 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
 
   public resendOtp(): void {
     if (isFalsy(this.isSubmitting)) {
-      this.disableSubmittingAndResetErrorMessage();
 
+      this.disableSubmittingAndResetErrorMessage();
       this.clearVerificationMessage();
-      this.setVerificationMessage();
 
       const verificationPayload: ResendVerificationCodePayload = this.toResendVerificationCodePayload();
       this.serviceResendOtp(verificationPayload)
         .subscribe({
+          next: (): void => { this.setVerificationMessage() },
           error: (result: ErrorResponse): void => { this.handleError(result); },
           complete: (): void => { this.enableSubmitting(); }
       });
@@ -65,8 +65,6 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
     this.verificationMessage = '';
   }
 
-  protected setVerificationMessage(): void {
-
-  }
+  protected setVerificationMessage(): void { }
 
 }

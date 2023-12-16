@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {AuthVerificationType, MfaType} from "@app/model/enum";
 import {AuthenticationService} from "../../service/authentication.service";
 import {ResendVerificationCodePayload} from "@app/model/type";
+import {FleenResponse} from "@app/model/response";
 
 @Component({
   selector: 'app-mfa-verification',
@@ -40,7 +41,7 @@ export class MfaVerificationComponent extends MfaOtpBaseComponent  {
     return this.mfaType !== MfaType.AUTHENTICATOR;
   }
 
-  override serviceResendOtp(resendVerificationPayload: ResendVerificationCodePayload): Observable<any> {
+  override serviceResendOtp(resendVerificationPayload: ResendVerificationCodePayload): Observable<FleenResponse> {
     return this.authenticationService.resendPreAuthenticationOtp(resendVerificationPayload);
   }
 

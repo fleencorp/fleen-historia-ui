@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {ResendVerificationCodePayload} from "@app/model/type";
 import {AuthenticationService} from "../../service";
 import {AuthVerificationType, VerificationType} from "@app/model/enum";
+import {FleenResponse} from "@app/model/response";
 
 @Component({
   selector: 'app-otp-verification',
@@ -40,7 +41,7 @@ export class OtpVerificationComponent extends MfaOtpBaseComponent {
       : verificationMessage.concat(`phone number ${this.phoneNumber}`);
   }
 
-  override serviceResendOtp(resendVerificationPayload: ResendVerificationCodePayload): Observable<any> {
+  override serviceResendOtp(resendVerificationPayload: ResendVerificationCodePayload): Observable<FleenResponse> {
     return this.authenticationService.resendOtp(resendVerificationPayload);
   }
 
