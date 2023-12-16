@@ -1,5 +1,5 @@
 import {AnyArray, AnyObject, BaseRequest, RequestMethod} from "@app/model/type";
-import {isObject, isTruthy, toBody, toCamelCaseKeys, toSnakeCase} from "@app/shared/helper";
+import {isObject, isTruthy, toBody, toCamelCaseKeys, toCamelCasePayload, toSnakeCasePayload} from "@app/shared/helper";
 import {catchError, map, Observable, retry, tap, throwError} from "rxjs";
 import {ErrorResponse} from "@app/model/response";
 import {LoggerService} from "@app/base/service";
@@ -130,17 +130,34 @@ export class BaseHttpService {
     if (typeof bodyOrMethod === 'string') {
       return {
         pathParams,
-        queryParams: toSnakeCase(queryParams),
+        queryParams: toSnakeCasePayload(queryParams),
         method: isTruthy(method) ? method : bodyOrMethod,
       };
     } else {
       return {
         pathParams,
-        queryParams: toSnakeCase(queryParams),
+        queryParams: toSnakeCasePayload(queryParams),
         body: toBody(bodyOrMethod),
         method: isTruthy(method) ? method : 'GET',
       };
     }
+  }
+
+  /**
+   * @method toRequestV2
+   * @description
+   *   Constructs a BaseRequest object from various input parameters for making HTTP requests.
+   *
+   * @param pathParams - The path parameters for the request.
+   * @param queryParams - The query parameters for the request.
+   * @param bodyOrMethod - The request body or the HTTP method for the request.
+   * @param method - The HTTP method for the request (used only when bodyOrMethod is not a string).
+   * @returns {BaseRequest} - The constructed BaseRequest object.
+   */
+  public toRequestV2(pathParams: AnyArray, queryParams?: AnyObject | null, bodyOrMethod?: AnyObject | RequestMethod, method?: RequestMethod): BaseRequest {
+    const request: BaseRequest = this.toRequest(pathParams, queryParams, bodyOrMethod, method);
+    request.queryParams = toCamelCasePayload(queryParams);
+    return request;
   }
 
 }

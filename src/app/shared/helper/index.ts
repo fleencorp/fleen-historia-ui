@@ -221,7 +221,21 @@ export function toRequestBody(data: any): Record<string, string> {
   return newData;
 }
 
-export const toSnakeCase = toRequestBody;
+export function toRequestBodyCamelCase(data: any): Record<string, string> {
+  const newData: Record<string, string> = {};
+
+  if (isObject(data)) {
+    for (const property of Object.keys(data)) {
+      const transformedProperty: string = toCamelCase(property);
+      newData[transformedProperty] = data[property];
+    }
+  }
+
+  return newData;
+}
+
+export const toSnakeCasePayload = toRequestBody;
+export const toCamelCasePayload = toRequestBodyCamelCase;
 
 
 

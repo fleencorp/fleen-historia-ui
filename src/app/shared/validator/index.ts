@@ -185,6 +185,9 @@ import {EntityExistsResponse} from "@app/model/response/common";
         }
         previousEmail = email;
 
+        console.log("Anyone here");
+        console.log(previousEmail);
+
         return of(email).pipe(
           map((value: string): string => value.trim()),
           map((value: string): string | null | any => isFalsy(value) ? null : value),
