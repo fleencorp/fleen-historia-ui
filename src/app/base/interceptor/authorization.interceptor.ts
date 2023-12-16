@@ -44,7 +44,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     '/auth/sign-up',
     '/auth/forgot-password',
     '/auth/verify-reset-password-code',
-    '/email-address'
+    '/misc/email-address',
   ];
 
   /**
