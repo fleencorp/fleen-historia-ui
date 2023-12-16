@@ -83,9 +83,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
    * @returns An observable of the HTTP event.
    */
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Came here')
     if (this.isUrlWhitelisted(request.url) || this.isUrlWhitelistedAndExternal(request.url)) {
-      console.log('Triggered');
       return next.handle(request);
     }
 

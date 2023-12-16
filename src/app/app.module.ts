@@ -6,6 +6,8 @@ import {AppComponent} from './app.component';
 import {BaseModule} from "@app/base/base.module";
 import {AuthorizationInterceptor, ContentTypeInterceptor} from "@app/base/interceptor";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthenticationService} from "@app/feature/authentication/service";
+import {SharedServiceModule} from "@app/shared/service/shared-service.module";
 
 @NgModule({
   declarations: [
@@ -14,11 +16,13 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
   imports: [
     BrowserModule,
     BaseModule,
+    SharedServiceModule,
     AppRoutingModule
   ],
   providers: [
+    AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: ContentTypeInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
