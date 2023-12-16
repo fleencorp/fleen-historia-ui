@@ -19,6 +19,7 @@ import {AuthVerificationPayload, ResendVerificationCodePayload} from "@app/model
 export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
   protected override formBuilder!: FormBuilder;
 
+  public verificationMessage: string = '';
   public otp: FormControl = new FormControl<string>('');
   public verificationType: VerificationType = VerificationType.EMAIL;
   @Input('email-address') public emailAddress: string | undefined;
@@ -29,6 +30,7 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
     this.otp.addValidators([
       Validators.required, Validators.minLength(1), Validators.maxLength(6), codeOrOtpValidator(VERIFICATION_CODE)
     ]);
+    this.setVerificationMessage();
   }
 
   protected override getRouter(): Router {
@@ -43,15 +45,14 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
     if (isFalsy(this.isSubmitting)) {
       this.disableSubmittingAndResetErrorMessage();
 
+      this.clearVerificationMessage();
+      this.setVerificationMessage();
+
       const verificationPayload: ResendVerificationCodePayload = this.toResendVerificationCodePayload();
       this.serviceResendOtp(verificationPayload)
         .subscribe({
-          error: (result: ErrorResponse): void => {
-            this.handleError(result);
-          },
-          complete: (): void => {
-            this.enableSubmitting();
-          }
+          error: (result: ErrorResponse): void => { this.handleError(result); },
+          complete: (): void => { this.enableSubmitting(); }
       });
     }
   }
@@ -60,8 +61,12 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
     return { verificationType: this.verificationType, emailAddress: this.emailAddress, phoneNumber: this.phoneNumber };
   }
 
-  get verificationMessage(): string {
-    return '';
+  private clearVerificationMessage(): void {
+    this.verificationMessage = '';
+  }
+
+  protected setVerificationMessage(): void {
+
   }
 
 }

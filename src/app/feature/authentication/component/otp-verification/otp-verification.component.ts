@@ -32,12 +32,12 @@ export class OtpVerificationComponent extends MfaOtpBaseComponent {
     this.resendOtp();
   }
 
-  override get verificationMessage(): string {
+  protected override setVerificationMessage(): void {
     let verificationMessage: string = 'Code has been sent to your '
-    verificationMessage = this.verificationType === VerificationType.EMAIL
+
+    this.verificationMessage = this.verificationType === VerificationType.EMAIL
       ? verificationMessage.concat(`email address ${this.emailAddress}`)
       : verificationMessage.concat(`phone number ${this.phoneNumber}`);
-    return verificationMessage;
   }
 
   override serviceResendOtp(resendVerificationPayload: ResendVerificationCodePayload): Observable<any> {

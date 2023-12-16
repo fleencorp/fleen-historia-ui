@@ -26,16 +26,14 @@ export class MfaVerificationComponent extends MfaOtpBaseComponent  {
     }
   }
 
-  override get verificationMessage(): string {
+  protected override setVerificationMessage(): void {
     let verificationMessage: string = this.mfaType === MfaType.AUTHENTICATOR
       ? 'Use an authenticator code to complete the process'
       : 'Code has been sent to your ';
 
-    verificationMessage = this.mfaType === MfaType.EMAIL
+    this.verificationMessage = this.mfaType === MfaType.EMAIL
       ? verificationMessage.concat(`email address ${this.emailAddress}`)
       : verificationMessage.concat(`phone number ${this.phoneNumber}`);
-
-    return verificationMessage;
   }
 
   get canResendCode(): boolean {
