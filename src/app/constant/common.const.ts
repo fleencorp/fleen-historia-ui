@@ -19,3 +19,5 @@ export const GENDER: string[] = ['MALE', 'FEMALE', 'OTHER'];
 export const VERIFICATION_TYPES: string[] = ['EMAIL', 'PHONE'];
 
 export const MFA_SETUP_TYPE: string[] = ['EMAIL', 'PHONE', 'AUTHENTICATOR', 'NONE'];
+
+export const UNAUTHORIZED_REQUEST_STATUS_CODE: number = 401;

@@ -15,3 +15,15 @@ export const CONTENT_TYPE_JPEG: string = 'image/jpeg';
 export const CONTENT_TYPE_PNG: string = 'image/png';
 
 export const CONTENT_TYPE_BMP: string = 'image/bmp';
+
+export const SUPPORTED_CONTENT_TYPES: string[] = [
+  CONTENT_TYPE_APPLICATION_JSON,
+  CONTENT_TYPE_APPLICATION_OCTET,
+  CONTENT_TYPE_PDF,
+  CONTENT_TYPE_DOCX,
+  CONTENT_TYPE_DOC,
+  CONTENT_TYPE_JPEG,
+  CONTENT_TYPE_BMP,
+  CONTENT_TYPE_PNG,
+  CONTENT_TYPE_JPG
+];

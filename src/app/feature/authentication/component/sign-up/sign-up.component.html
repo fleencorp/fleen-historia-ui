@@ -4,14 +4,6 @@
   <div class="form-error-message">
     {{errorMessage}}
   </div>
-  <div class="form-group">
-    <input type ="radio" formControlName="profileType" value="PROFESSIONAL" id="user_type_professional"/>
-    <label for="user_type_professional">Professional</label>
-
-    <input type ="radio" formControlName="profileType" value="USER" id="user_type_user"/>
-    <label for="user_type_user">User</label><br/>
-    <app-validation-error [control]="profileType" [control-label]="'Profile Type'"></app-validation-error>
-  </div>
 
   <div class="form-group">
     <label for="first_name">First Name</label>
@@ -26,12 +18,6 @@
   </div>
 
   <div class="form-group">
-    <label for="date_of_birth">Date of Birth</label>
-    <input type="text" formControlName="dateOfBirth" id="date_of_birth"/>
-    <app-validation-error [control]="dateOfBirth" [control-label]="'Date of Birth'"></app-validation-error>
-  </div>
-
-  <div class="form-group">
     <label for="email_address">Email Address</label>
     <input type="email" formControlName="emailAddress" id="email_address"/>
     <app-validation-error [control]="emailAddress" [control-label]="'Email Address'" ></app-validation-error>
@@ -41,17 +27,6 @@
     <label for="phone_number">Phone Number</label>
     <input type="text" formControlName="phoneNumber" id="phone_number"/>
     <app-validation-error [control]="phoneNumber" [control-label]="'Phone Number'"></app-validation-error>
-  </div>
-
-  <div class="form-group">
-    <label for="gender">Gender</label>
-    <select formControlName="gender" id="gender">
-      <option value=""></option>
-      <option value="MALE">Male</option>
-      <option value="FEMALE">Female</option>
-      <option value="OTHER">Other</option>
-    </select>
-    <app-validation-error [control]="gender" [control-label]="'Gender'"></app-validation-error>
   </div>
 
   <div class="form-group">
@@ -74,4 +49,3 @@
   <button type="submit" [disabled]="isSubmitting">Submit</button>
 
 </form>
-

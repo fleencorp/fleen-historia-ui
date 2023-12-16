@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {LocalStorageService, LoggerService} from "./";
-import {ACCESS_TOKEN_KEY, ANY_EMPTY, REFRESH_TOKEN_KEY} from "../../constant";
-import {isTruthy} from "../../shared/helper";
+import {ACCESS_TOKEN_KEY, ANY_EMPTY, REFRESH_TOKEN_KEY} from "@app/constant";
+import {isTruthy} from "@app/shared/helper";
 import * as jwtDecode from 'jwt-decode';
-import {AnyObject} from "../../model/type";
+import {AnyObject} from "@app/model/type";
 
 
 /**

@@ -3,8 +3,7 @@ import {FormBuilder} from "@angular/forms";
 import {AuthenticationService} from "@app/feature/authentication/service/authentication.service";
 import {SignUpBaseComponent} from "./sign-up-base-component";
 import {isFalsy, isTruthy} from "@app/shared/helper";
-import {OtpVerificationComponent} from "../otp-verification/otp-verification.component";
-import {MfaVerificationComponent} from "../mfa-verification/mfa-verification.component";
+import {MfaVerificationComponent, OtpVerificationComponent} from "../../component";
 import {Router} from "@angular/router";
 import {SignUpResponse} from "@app/model/response/authentication";
 import {ErrorResponse} from "@app/model/response";
@@ -60,25 +59,42 @@ export class SignUpComponent extends SignUpBaseComponent implements OnInit {
     return this.formBuilder;
   }
 
+  /**
+   * Initiates the sign-up process.
+   *
+   * Validates the sign-up form, disables submitting, and resets the error message before calling the
+   * authentication service's sign-up method. Handles the success, error, and completion events of the sign-up process.
+   *
+   * @public
+   */
   public signUp(): void {
-    if (isTruthy(this.signUpForm) && this.signUpForm.valid && isFalsy(this.isSubmitting)) {
-      this.disableSubmittingAndResetErrorMessage();
-
-      this.authenticationService.signUp(this.signUpForm.value)
-        .subscribe({
-          next: (result: SignUpResponse): void => {
-            this.isPreVerificationStage = true;
-            this.authenticationService.setAuthToken(result);
-          },
-          error: (result: ErrorResponse): void => {
-            this.handleError(result);
-          },
-          complete: (): void => {
-            this.enableSubmitting();
-          }
-      });
+    if (isFalsy(this.signUpForm) || this.signUpForm.invalid || isTruthy(this.isSubmitting)) {
+      return;
     }
+
+    this.disableSubmittingAndResetErrorMessage();
+
+    this.authenticationService.signUp(this.signUpForm.value)
+      .subscribe({
+        next: (result: SignUpResponse): void => { this.handleSignUpSuccess(result); },
+        error: (result: ErrorResponse): void => { this.handleError(result); },
+        complete: (): void => { this.enableSubmitting(); }
+      });
   }
+
+  /**
+   * Handles the success of the sign-up process.
+   *
+   * Sets the pre-verification stage and sets the authentication token.
+   *
+   * @param {SignUpResponse} result - The result of the sign-up process.
+   * @private
+   */
+  private handleSignUpSuccess(result: SignUpResponse): void {
+    this.isPreVerificationStage = true;
+    this.authenticationService.setAuthToken(result);
+  }
+
 
   get $emailAddress(): string {
     return this.signUpForm?.get('emailAddress')?.value;

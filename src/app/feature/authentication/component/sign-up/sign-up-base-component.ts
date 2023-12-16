@@ -1,40 +1,24 @@
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {
-  ageLimitValidator,
-  dateOfBirthValidator,
   emailExistsValidator,
   enumTypeValidator,
   fieldsMatchValidator,
   passwordValidator,
-  pastDateValidator,
   phoneNumberValidator
 } from "@app/shared/validator";
-import {
-  DEFAULT_FORM_CONTROL_VALUE,
-  DEFAULT_VERIFICATION_TYPE,
-  GENDER,
-  MINIMUM_AGE_ELIGIBILITY_FOR_ACCOUNT,
-  PROFILE_TYPES,
-  VERIFICATION_TYPES
-} from "@app/constant";
+import {DEFAULT_FORM_CONTROL_VALUE, DEFAULT_VERIFICATION_TYPE, VERIFICATION_TYPES} from "@app/constant";
 import {AuthBaseComponent} from "../sign-in-up-base/auth-base.component";
-import {DATE, PASSWORD_PATTERNS, PHONE_NUMBER} from "@app/model/pattern";
+import {PASSWORD_PATTERNS, PHONE_NUMBER} from "@app/model/pattern";
 
 export abstract class SignUpBaseComponent extends AuthBaseComponent {
 
   protected initForm(): void {
     this.fleenForm = this.getFormBuilder().group({
-      profileType: [DEFAULT_FORM_CONTROL_VALUE,
-        [Validators.required, enumTypeValidator(PROFILE_TYPES)]
-      ],
       firstName: [DEFAULT_FORM_CONTROL_VALUE,
         [Validators.required, Validators.minLength(2), Validators.maxLength(100)]
       ],
       lastName: [DEFAULT_FORM_CONTROL_VALUE,
         [Validators.required, Validators.minLength(2), Validators.maxLength(100)]
-      ],
-      dateOfBirth: [DEFAULT_FORM_CONTROL_VALUE,
-        [Validators.required, dateOfBirthValidator(DATE), pastDateValidator, ageLimitValidator(MINIMUM_AGE_ELIGIBILITY_FOR_ACCOUNT)]
       ],
       emailAddress: [DEFAULT_FORM_CONTROL_VALUE,
         {
@@ -45,9 +29,6 @@ export abstract class SignUpBaseComponent extends AuthBaseComponent {
       ],
       phoneNumber: [DEFAULT_FORM_CONTROL_VALUE,
         [Validators.required, Validators.minLength(4), Validators.maxLength(15), phoneNumberValidator(PHONE_NUMBER)]
-      ],
-      gender: [DEFAULT_FORM_CONTROL_VALUE,
-        [Validators.required, enumTypeValidator(GENDER)]
       ],
       password: [DEFAULT_FORM_CONTROL_VALUE,
         [Validators.required, passwordValidator(PASSWORD_PATTERNS)]
@@ -65,10 +46,6 @@ export abstract class SignUpBaseComponent extends AuthBaseComponent {
 
   abstract getFormBuilder(): FormBuilder;
 
-  get profileType(): AbstractControl | null | undefined {
-    return this.signUpForm?.get('profileType');
-  }
-
   get firstName(): AbstractControl | null | undefined {
     return this.signUpForm?.get('firstName');
   }
@@ -77,20 +54,12 @@ export abstract class SignUpBaseComponent extends AuthBaseComponent {
     return this.signUpForm?.get('lastName');
   }
 
-  get dateOfBirth(): AbstractControl | null | undefined {
-    return this.signUpForm?.get('dateOfBirth');
-  }
-
   get emailAddress(): AbstractControl | null | undefined {
     return this.signUpForm?.get('emailAddress');
   }
 
   get phoneNumber(): AbstractControl | null | undefined {
     return this.signUpForm?.get('phoneNumber');
-  }
-
-  get gender(): AbstractControl | null | undefined {
-    return this.signUpForm?.get('gender');
   }
 
   get password(): AbstractControl | null | undefined {

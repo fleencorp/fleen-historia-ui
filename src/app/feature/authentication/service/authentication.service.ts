@@ -75,7 +75,7 @@ export class AuthenticationService {
    * @returns {Observable<EntityExistsResponse>} - An observable emitting an EntityExistsResponse.
    */
   public isEmailExists(emailAddress: string): Observable<EntityExistsResponse> {
-    const req: BaseRequest = this.httpService.toRequest(['email-address', 'exists'], { emailAddress });
+    const req: BaseRequest = this.httpService.toRequest(['misc', 'email-address', 'exists'], { emailAddress });
     return this.httpService.get(req);
   }
 
