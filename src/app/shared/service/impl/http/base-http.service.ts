@@ -1,5 +1,5 @@
 import {AnyArray, AnyObject, BaseRequest, RequestMethod} from "@app/model/type";
-import {isObject, isTruthy, toBody, toCamelCaseKeys, toCamelCasePayload, toSnakeCasePayload} from "@app/shared/helper";
+import {isObject, isTruthy, toBody, toCamelCaseKeys, toSnakeCasePayload} from "@app/shared/helper";
 import {catchError, map, Observable, retry, tap, throwError} from "rxjs";
 import {ErrorResponse} from "@app/model/response";
 import {LoggerService} from "@app/base/service";
@@ -156,7 +156,7 @@ export class BaseHttpService {
    */
   public toRequestV2(pathParams: AnyArray, queryParams?: AnyObject | null, bodyOrMethod?: AnyObject | RequestMethod, method?: RequestMethod): BaseRequest {
     const request: BaseRequest = this.toRequest(pathParams, queryParams, bodyOrMethod, method);
-    request.queryParams = toCamelCasePayload(queryParams);
+    request.queryParams = queryParams as AnyObject;
     return request;
   }
 
