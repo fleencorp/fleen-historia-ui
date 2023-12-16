@@ -113,12 +113,8 @@ export abstract class BaseFormComponent extends BaseComponent {
     const { type } = error;
     if (isTruthy(type) && equalsIgnoreCase(type, ErrorType.DATA_VALIDATION)) {
       this.setErrorsFromApiResponse(error.fields);
-      this.enableSubmitting();
-      return;
-    }
-    this.errorMessage = error?.message || '';
-    if (this.errorMessage.includes(ERR_CONNECTION_REFUSED_MESSAGE)) {
-      this.errorMessage = DEFAULT_ERROR_MESSAGE;
+    } else {
+      this.setErrorMessage(error?.message);
     }
     this.enableSubmitting();
   }
@@ -130,6 +126,13 @@ export abstract class BaseFormComponent extends BaseComponent {
 
   public resetErrorMessage(): void {
     this.errorMessage = '';
+  }
+
+  public setErrorMessage(message: string): void {
+    this.errorMessage = message || '';
+    if (this.errorMessage.includes(ERR_CONNECTION_REFUSED_MESSAGE)) {
+      this.errorMessage = DEFAULT_ERROR_MESSAGE;
+    }
   }
 
   protected setStatusMessage(message: string): void {

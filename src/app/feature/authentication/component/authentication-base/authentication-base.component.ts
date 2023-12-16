@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-authentication-base',
-  templateUrl: './authentication-base.component.html',
+  template: '<router-outlet></router-outlet>',
   styleUrls: ['./authentication-base.component.css']
 })
 export class AuthenticationBaseComponent {

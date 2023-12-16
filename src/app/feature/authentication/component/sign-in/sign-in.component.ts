@@ -1,11 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SignInBaseComponent} from "./sign-in-base-component";
-import {OtpVerificationComponent} from "../otp-verification/otp-verification.component";
+import {MfaVerificationComponent, OtpVerificationComponent} from "../../component";
 import {FormBuilder} from "@angular/forms";
-import {AuthenticationService} from "../../service/authentication.service";
+import {AuthenticationService} from "../../service";
 import {isFalsy, isTruthy} from "@app/shared/helper";
 import {AuthenticationStatus, ChangePasswordType, MfaType, NextAuthentication} from "@app/model/enum";
-import {MfaVerificationComponent} from "../mfa-verification/mfa-verification.component";
 import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
 import {ErrorResponse} from "@app/model/response";
 import {SignInResponse} from "@app/model/response/authentication";
@@ -28,7 +27,7 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
   public isVerificationStage: boolean = false;
   public isPreVerificationStage: boolean = false;
   public isMfaVerificationStage: boolean = false;
-  public isChangePasswordStage: boolean = false;
+  public isOnboardingStage: boolean = false;
 
   constructor(protected authenticationService: AuthenticationService,
               protected sessionStorageService: SessionStorageService,
@@ -50,50 +49,52 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
     return this.sessionStorageService;
   }
 
-  override getFormBuilder(): FormBuilder {
+  protected override getFormBuilder(): FormBuilder {
     return this.formBuilder;
   }
 
-  override getAuthenticationService(): AuthenticationService {
+  protected override getAuthenticationService(): AuthenticationService {
     return this.authenticationService;
   }
 
-  override getOtpComponent(): OtpVerificationComponent {
+  protected override getOtpComponent(): OtpVerificationComponent {
     return this.otpVerificationComponent;
   }
 
-  override getMfaVerificationComponent(): MfaVerificationComponent {
+  protected override getMfaVerificationComponent(): MfaVerificationComponent {
     return this.mfaVerificationComponent;
   }
 
-  override getChangePasswordComponent(): ChangePasswordComponent | null {
+  protected override getChangePasswordComponent(): ChangePasswordComponent | null {
     return null;
   }
 
   public signIn(): void {
-    if (isTruthy(this.signInForm) && this.signInForm.valid && isFalsy(this.isSubmitting)) {
-      this.disableSubmittingAndResetErrorMessage();
+    if (isFalsy(this.signInForm) && this.signInForm.invalid && isFalsy(this.isSubmitting)) {
+      return;
+    }
 
-      this.authenticationService.signIn(this.signInForm.value)
-        .subscribe({
-          next: (result: SignInResponse): void => {
-            this.phoneNumber = result.phoneNumber;
-            this.authenticationService.setAuthToken(result);
-            this.isVerificationStage = true;
-            if (result.authenticationStatus === AuthenticationStatus.IN_PROGRESS) {
-              this.setVerificationStage(result);
-            }
-            if (result.authenticationStatus === AuthenticationStatus.COMPLETED) {
-              this.gotoUserDestinationPage();
-            }
-          },
-          error: (result: ErrorResponse): void => {
-            this.handleError(result);
-          },
-          complete: (): void => {
-            this.enableSubmitting();
-          }
+    this.disableSubmittingAndResetErrorMessage();
+
+    this.authenticationService.signIn(this.signInForm.value)
+      .subscribe({
+        next: (result: SignInResponse): void => { this.handleSignInSuccess(result); },
+        error: (result: ErrorResponse): void => { this.handleError(result); },
+        complete: (): void => { this.enableSubmitting(); }
       });
+  }
+
+  private handleSignInSuccess(result: SignInResponse): void {
+    this.phoneNumber = result.phoneNumber;
+    this.authenticationService.setAuthToken(result);
+
+    if (result.authenticationStatus === AuthenticationStatus.IN_PROGRESS) {
+      this.isVerificationStage = true;
+      this.setVerificationStage(result);
+    }
+
+    if (result.authenticationStatus === AuthenticationStatus.COMPLETED) {
+      this.gotoUserDestinationPage();
     }
   }
 
@@ -107,14 +108,21 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
 
   private setVerificationStage(result: SignInResponse): void {
     const { nextAuthentication: stage, mfaType } = result;
-    if (stage == NextAuthentication.PRE_VERIFICATION) {
-      this.isPreVerificationStage = true;
-    } else if (stage == NextAuthentication.MFA_OR_PRE_AUTHENTICATION) {
-      this.mfaType = mfaType;
-      this.isMfaVerificationStage = true;
-    } else if (stage == NextAuthentication.PRE_ONBOARDED) {
-      this.isChangePasswordStage = true;
-      this.changePasswordType = ChangePasswordType.ONBOARDING;
+
+    switch (stage) {
+      case NextAuthentication.PRE_VERIFICATION:
+        this.isPreVerificationStage = true;
+        break;
+
+      case NextAuthentication.MFA_OR_PRE_AUTHENTICATION:
+        this.mfaType = mfaType;
+        this.isMfaVerificationStage = true;
+        break;
+
+      case NextAuthentication.PRE_ONBOARDED:
+        this.isOnboardingStage = true;
+        this.changePasswordType = ChangePasswordType.ONBOARDING;
+        break;
     }
   }
 

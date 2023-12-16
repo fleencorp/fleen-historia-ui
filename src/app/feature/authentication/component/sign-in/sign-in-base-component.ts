@@ -8,16 +8,16 @@ export abstract class SignInBaseComponent extends AuthBaseComponent {
   public initForm(): void {
     this.fleenForm = this.getFormBuilder().group({
       emailAddress: ['',
-        [Validators.required, Validators.email, Validators.minLength(4), Validators.maxLength(150)]
+        [Validators.required, Validators.email, Validators.minLength(5), Validators.maxLength(150)]
       ],
       password: ['',
         [Validators.required, passwordValidator(PASSWORD_PATTERNS)]
       ],
     });
-    this.isFormReady = true;
+    this.formReady();
   }
 
-  abstract getFormBuilder(): FormBuilder;
+  protected abstract getFormBuilder(): FormBuilder;
 
   get emailAddress(): AbstractControl | null | undefined {
     return this.signInForm?.get('emailAddress');
