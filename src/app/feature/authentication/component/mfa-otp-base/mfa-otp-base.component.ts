@@ -56,10 +56,6 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
     }
   }
 
-  public setErrorMessage(errorMessage: string): void {
-    this.errorMessage = errorMessage || '';
-  }
-
   public toResendVerificationCodePayload(): ResendVerificationCodePayload {
     return { verificationType: this.verificationType, emailAddress: this.emailAddress, phoneNumber: this.phoneNumber };
   }

@@ -45,10 +45,6 @@ export class ChangePasswordComponent extends BaseFormComponent implements OnInit
     });
   }
 
-  public setErrorMessage(errorMessage: string): void {
-    this.errorMessage = errorMessage || '';
-  }
-
   get changePasswordForm(): FormGroup {
     return this.fleenForm;
   }

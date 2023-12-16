@@ -69,8 +69,24 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
     return null;
   }
 
+  get $emailAddress(): string {
+    return this.signInForm?.get('emailAddress')?.value;
+  }
+
+  get $phoneNumber(): string | undefined {
+    return this?.phoneNumber;
+  }
+
+  /**
+   * Initiates the sign-in process.
+   *
+   * Validates the sign-in form, disables submitting, and resets the error message before calling the
+   * authentication service's sign-in method. Handles the success, error, and completion events of the sign-in process.
+   *
+   * @public
+   */
   public signIn(): void {
-    if (isFalsy(this.signInForm) && this.signInForm.invalid && isFalsy(this.isSubmitting)) {
+    if (isFalsy(this.signInForm) || this.signInForm.invalid || isTruthy(this.isSubmitting)) {
       return;
     }
 
@@ -84,6 +100,14 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
       });
   }
 
+  /**
+   * Handles the success of the sign-in process.
+   *
+   * Sets the phone number, sets the authentication token, and updates the stage based on the result's authentication status.
+   *
+   * @param {SignInResponse} result - The result of the sign-in process.
+   * @private
+   */
   private handleSignInSuccess(result: SignInResponse): void {
     this.phoneNumber = result.phoneNumber;
     this.authenticationService.setAuthToken(result);
@@ -98,14 +122,14 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
     }
   }
 
-  get $emailAddress(): string {
-    return this.signInForm?.get('emailAddress')?.value;
-  }
-
-  get $phoneNumber(): string | undefined {
-    return this?.phoneNumber;
-  }
-
+  /**
+   * Sets the verification stage based on the result's next authentication stage.
+   *
+   * Updates stage-related properties based on the value of nextAuthentication in the result.
+   *
+   * @param {SignInResponse} result - The result of the sign-in process.
+   * @private
+   */
   private setVerificationStage(result: SignInResponse): void {
     const { nextAuthentication: stage, mfaType } = result;
 
@@ -125,6 +149,7 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
         break;
     }
   }
+
 
   protected override getRouter(): Router {
     return this.router;
