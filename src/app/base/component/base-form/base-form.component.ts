@@ -287,5 +287,6 @@ export abstract class BaseFormComponent extends BaseComponent {
     return of(ANY_EMPTY);
   }
 
+  protected setVerificationMessage(): void { }
 
 }
