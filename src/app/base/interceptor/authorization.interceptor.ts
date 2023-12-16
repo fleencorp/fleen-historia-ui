@@ -11,12 +11,12 @@ import {catchError, EMPTY, Observable, of, switchMap, tap} from 'rxjs';
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {AuthTokenService, LocalStorageService} from "@app/base/service";
-import {BaseHttpService} from "@app/shared/service/abstract";
 import {AuthenticationService} from "@app/feature/authentication/service";
 import {AUTHORIZATION_BEARER, AUTHORIZATION_HEADER, UNAUTHORIZED_REQUEST_STATUS_CODE} from "@app/constant";
 import {isFalsy, isTruthy} from "@app/shared/helper";
 import {API_BASE_PATH, API_HOST_URL} from "@app/config";
 import {RefreshTokenResponse} from "@app/model/response/authentication";
+import {BaseHttpService} from "@app/shared/service/impl";
 
 /**
  * Interceptor for handling authorization, refreshing tokens, and redirecting unauthorized requests.

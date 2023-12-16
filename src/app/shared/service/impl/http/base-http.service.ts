@@ -1,21 +1,22 @@
-import {AnyArray, AnyObject, BaseRequest, RequestMethod} from "../../../../model/type";
-import {isObject, isTruthy, toBody, toCamelCaseKeys, toSnakeCase} from "../../../helper";
+import {AnyArray, AnyObject, BaseRequest, RequestMethod} from "@app/model/type";
+import {isObject, isTruthy, toBody, toCamelCaseKeys, toSnakeCase} from "@app/shared/helper";
 import {catchError, map, Observable, retry, tap, throwError} from "rxjs";
-import {ErrorResponse} from "../../../../model/response";
-import {LoggerService} from "../../../../base/service";
-import {HttpServiceConfig} from "../../../../model/interface";
-import {Inject} from "@angular/core";
+import {ErrorResponse} from "@app/model/response";
+import {LoggerService} from "@app/base/service";
+import {HttpServiceConfig} from "@app/model/interface";
+import {Inject, Injectable} from "@angular/core";
 
 
 /**
  * @class BaseHttpService
  * @description
- *   An abstract base class providing common functionality for HTTP services.
+ *   A base class providing common functionality for HTTP services.
  *
  * @author Yusuf Alamu Musa
  * @version 1.0
  */
-export abstract class BaseHttpService {
+@Injectable()
+export class BaseHttpService {
 
   /**
    * @constructor
