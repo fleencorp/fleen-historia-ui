@@ -4,7 +4,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Router} from "@angular/router";
 import {BaseFormComponent} from "@app/base/component";
 import {ChangePasswordType, VerificationType} from "@app/model/enum";
-import {AuthenticationService} from "../../service/authentication.service";
+import {AuthenticationService} from "../../service";
 import {isFalsy} from "@app/shared/helper";
 import {ChangePasswordPayload, ForgotPasswordPayload, ResetPasswordPayload} from "@app/model/type";
 import {ForgotPasswordResponse, InitiatePasswordChangeResponse} from "@app/model/response/authentication";
@@ -86,7 +86,7 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
         .subscribe({
           next: (result: InitiatePasswordChangeResponse): void => {
             this.authenticationService.clearAuthTokens();
-            this.authenticationService.saveAuthToken(result.accessToken);
+            this.authenticationService.saveAccessToken(result.accessToken);
             this.isChangePasswordStage = true;
           },
           error: (result: ErrorResponse): void => {

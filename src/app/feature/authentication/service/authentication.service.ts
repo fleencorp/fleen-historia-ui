@@ -24,7 +24,7 @@ import {
 import {FleenResponse} from "@app/model/response";
 import {ACCESS_TOKEN_KEY, AUTHENTICATION_STATUS_KEY, REFRESH_TOKEN_KEY} from "@app/constant";
 import {Router} from "@angular/router";
-import {AUTHENTICATION_ENTRY_POINT} from "../../../config";
+import {AUTHENTICATION_ENTRY_POINT} from "@app/config";
 import {AuthenticationStatus} from "@app/model/enum";
 import {hasAtLeastAProperty} from "@app/shared/helper";
 
@@ -120,7 +120,7 @@ export class AuthenticationService {
    * @returns {Observable<SignUpResponse>} - An observable emitting a SignUpResponse.
    */
   public completeSignUp(body: AuthVerificationPayload): Observable<SignUpResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.VERIFICATION_BASE_PATH, 'confirm-sign-up'], null, { ...body });
+    const req: BaseRequest = this.httpService.toRequest([this.VERIFICATION_BASE_PATH, 'complete-sign-up'], null, { ...body });
     return this.httpService.post(req)
       .pipe(
         map(data => new SignUpResponse(data))
@@ -223,8 +223,6 @@ export class AuthenticationService {
       );
   }
 
-// (Other methods omitted for brevity)
-
   /**
    * @method saveAuthToken
    * @description
@@ -232,7 +230,7 @@ export class AuthenticationService {
    *
    * @param token - The access token to be saved.
    */
-  public saveAuthToken(token: string): void {
+  public saveAccessToken(token: string): void {
     this.localStorageService.setObject(ACCESS_TOKEN_KEY, token);
   }
 
@@ -255,7 +253,7 @@ export class AuthenticationService {
    * @param result - The sign-in result containing access and refresh tokens.
    */
   public setAuthToken(result: SignInUpResponse): void {
-    this.saveAuthToken(result.accessToken || '');
+    this.saveAccessToken(result.accessToken || '');
     this.saveRefreshToken(result.refreshToken || '');
   }
 
@@ -265,7 +263,7 @@ export class AuthenticationService {
    *   Clears both the access token and refresh token from local storage.
    */
   public clearAuthTokens(): void {
-    this.saveAuthToken('');
+    this.saveAccessToken('');
     this.saveRefreshToken('');
   }
 
