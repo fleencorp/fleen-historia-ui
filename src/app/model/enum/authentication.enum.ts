@@ -12,7 +12,7 @@ export enum AuthenticationStatus {
 
 
 /**
- * @enum NextAuthentication
+ * @enum AuthenticationStage
  * @description
  *   Represents the next step in the authentication process.
  *   - `PRE_VERIFICATION`: Pre-verification step.
@@ -20,7 +20,7 @@ export enum AuthenticationStatus {
  *   - `MFA_OR_PRE_AUTHENTICATION`: MFA or pre-authentication step.
  *   - `NONE`: No specific next step.
  */
-export enum NextAuthentication {
+export enum AuthenticationStage {
   PRE_VERIFICATION = 'PRE_VERIFICATION',
   PRE_ONBOARDED = 'PRE_ONBOARDED',
   MFA_OR_PRE_AUTHENTICATION = 'MFA_OR_PRE_AUTHENTICATION',

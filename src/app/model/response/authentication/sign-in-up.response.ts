@@ -1,4 +1,4 @@
-import {AuthenticationStatus, NextAuthentication} from "../../enum";
+import {AuthenticationStatus, AuthenticationStage} from "../../enum";
 
 export class SignInUpResponse {
 
@@ -7,7 +7,7 @@ export class SignInUpResponse {
   public emailAddress: string;
   public phoneNumber: string;
   public authenticationStatus: AuthenticationStatus;
-  public nextAuthentication: NextAuthentication;
+  public authenticationStage: AuthenticationStage;
 
   public constructor(data: SignInUpResponse) {
     this.accessToken = data?.accessToken;
@@ -15,6 +15,6 @@ export class SignInUpResponse {
     this.emailAddress = data?.emailAddress;
     this.phoneNumber = data?.phoneNumber;
     this.authenticationStatus = data?.authenticationStatus;
-    this.nextAuthentication = data?.nextAuthentication;
+    this.authenticationStage = data?.authenticationStage;
   }
 }

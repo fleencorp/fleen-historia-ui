@@ -4,7 +4,7 @@ import {MfaVerificationComponent, OtpVerificationComponent} from "../../componen
 import {FormBuilder} from "@angular/forms";
 import {AuthenticationService} from "../../service";
 import {isFalsy, isTruthy} from "@app/shared/helper";
-import {AuthenticationStatus, ChangePasswordType, MfaType, NextAuthentication} from "@app/model/enum";
+import {AuthenticationStatus, ChangePasswordType, MfaType, AuthenticationStage} from "@app/model/enum";
 import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
 import {ErrorResponse} from "@app/model/response";
 import {SignInResponse} from "@app/model/response/authentication";
@@ -115,9 +115,7 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
     if (result.authenticationStatus === AuthenticationStatus.IN_PROGRESS) {
       this.isVerificationStage = true;
       this.setVerificationStage(result);
-    }
-
-    if (result.authenticationStatus === AuthenticationStatus.COMPLETED) {
+    } else if (result.authenticationStatus === AuthenticationStatus.COMPLETED) {
       this.gotoUserDestinationPage();
     }
   }
@@ -125,29 +123,32 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
   /**
    * Sets the verification stage based on the result's next authentication stage.
    *
-   * Updates stage-related properties based on the value of nextAuthentication in the result.
+   * Updates stage-related properties based on the value of authenticationStage in the result.
    *
    * @param {SignInResponse} result - The result of the sign-in process.
    * @private
    */
   private setVerificationStage(result: SignInResponse): void {
-    const { nextAuthentication: stage, mfaType } = result;
+    const { authenticationStage: stage, mfaType } = result;
 
     switch (stage) {
-      case NextAuthentication.PRE_VERIFICATION:
+      case AuthenticationStage.PRE_VERIFICATION:
         this.isPreVerificationStage = true;
         break;
 
-      case NextAuthentication.MFA_OR_PRE_AUTHENTICATION:
+      case AuthenticationStage.MFA_OR_PRE_AUTHENTICATION:
         this.mfaType = mfaType;
         this.isMfaVerificationStage = true;
         break;
 
-      case NextAuthentication.PRE_ONBOARDED:
+      case AuthenticationStage.PRE_ONBOARDED:
         this.isOnboardingStage = true;
         this.changePasswordType = ChangePasswordType.ONBOARDING;
         break;
     }
+
+    console.log(this.isPreVerificationStage);
+    console.log(this.isVerificationStage);
   }
 
 

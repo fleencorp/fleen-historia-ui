@@ -27,6 +27,11 @@ export class OtpVerificationComponent extends MfaOtpBaseComponent {
     super();
   }
 
+  public override ngOnInit() {
+    super.ngOnInit();
+    console.log("Starting.................");
+  }
+
   /**
    * Handles the submission of the OTP form. Emits the OTP code if valid.
    * @param event - The event triggering the submission.
