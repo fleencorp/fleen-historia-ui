@@ -95,6 +95,9 @@ export class BaseHttpService {
    * @returns {Observable<any>} - An Observable emitting the ErrorResponse for the given error.
    */
   public handleError(error: any): Observable<any> {
+    if ('error' in error) {
+      error = error.error;
+    }
     return throwError(() => new ErrorResponse(error));
   }
 

@@ -178,7 +178,7 @@ import {EntityExistsResponse} from "@app/model/response/common";
     let previousEmail: string;
     return (control: FormControl): Observable<any> => {
       if (isTruthy(control) && isTruthy(control.value)) {
-        const email: string = control.value;
+        const email: string = control.value.trim();
 
         if (equalsIgnoreCase(previousEmail, email)) {
           return of(null);
@@ -186,13 +186,52 @@ import {EntityExistsResponse} from "@app/model/response/common";
         previousEmail = email;
 
         return of(email).pipe(
-          map((value: string): string => value.trim()),
           map((value: string): string | null | any => isFalsy(value) ? null : value),
           switchMap((value: string): Observable<any> => {
             if (isFalsy(value)) {
               return of(null);
             }
             return service.isEmailExists(value).pipe(
+              map((response: EntityExistsResponse): AnyObject | null => (response.exists ? { exists: true } : null)),
+              catchError(() => of(null))
+            );
+          })
+        );
+      }
+      return of(null);
+    };
+  }
+
+  /**
+   * Asynchronous validator function to check if a phone number already exists in the system.
+   *
+   * This validator function communicates with a provided authentication service to verify if the provided phone number
+   * is already registered in the system. It performs various transformations on the input data, including
+   * trimming whitespace and handling empty values.
+   *
+   * @param service The authentication service used for checking phone number existence.
+   *
+   * @returns An asynchronous validator function that returns an observable with validation results. It emits null if the
+   *          phone number is not found in the system or an object with the 'exists' property set to true if the phone number exists.
+   */
+  export function phoneNumberExistsValidator(service: AuthenticationService): any {
+    let previousPhone: string;
+    return (control: FormControl): Observable<any> => {
+      if (isTruthy(control) && isTruthy(control.value)) {
+        const phoneNumber: string = control.value.trim();
+
+        if (previousPhone === phoneNumber) {
+          return of(null);
+        }
+        previousPhone = phoneNumber;
+
+        return of(phoneNumber).pipe(
+          map((value: string): string | null | any => isFalsy(value) ? null : value),
+          switchMap((value: string): Observable<any> => {
+            if (isFalsy(value)) {
+              return of(null);
+            }
+            return service.isPhoneNumberExists(value).pipe(
               map((response: EntityExistsResponse): AnyObject | null => (response.exists ? { exists: true } : null)),
               catchError(() => of(null))
             );

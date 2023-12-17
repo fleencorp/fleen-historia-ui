@@ -21,3 +21,5 @@ export const VERIFICATION_TYPES: string[] = ['EMAIL', 'PHONE'];
 export const MFA_SETUP_TYPE: string[] = ['EMAIL', 'PHONE', 'AUTHENTICATOR', 'NONE'];
 
 export const UNAUTHORIZED_REQUEST_STATUS_CODE: number = 401;
+
+export const ERROR_TYPE_KEY: string = 'ERROR_TYPE';

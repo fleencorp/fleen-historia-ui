@@ -9,18 +9,41 @@ import {ErrorType} from "@app/model/enum";
 import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
 import {BASE_PATH} from "@app/constant/config.const";
 
+/**
+ * Abstract base component for form-related functionality.
+ * Extends the BaseComponent class and provides common form handling methods.
+ */
 export abstract class BaseFormComponent extends BaseComponent {
 
-  public statusMessage: string = ''
+  /** The status message to display for form-related actions. */
+  public statusMessage: string = '';
+
+  /** The main form group for the component. */
   protected fleenForm: FormGroup = new FormGroup<any>({});
-  private readonly ERROR_FIELD_NAME: string = "field_name";
-  private readonly ERROR_MESSAGES_NAME: string = "errors";
+
+  /** The name of the API field that represents the name of the field in which the error occurred. */
+  private readonly API_ERROR_FIELD_NAME: string = "field";
+
+  /** The name of the API field that represents error messages of all input parameters or fields. */
+  private readonly API_ERROR_MESSAGES_NAME: string = "errors";
+
+  /** Indicates whether the form is currently submitting. */
   public isSubmitting: boolean = false;
-  protected abstract formBuilder: FormBuilder;
+
+  /** Indicates whether the form is ready for interaction. */
   public isFormReady: boolean = false;
 
+  /** Abstract property for the FormBuilder, to be implemented by child classes. */
+  protected abstract formBuilder: FormBuilder;
+
+  /** Abstract method to get the Router instance, to be implemented by child classes. */
   protected abstract getRouter(): Router;
 
+  /**
+   * Recursively retrieves all property keys from an object.
+   * @param obj - The object from which to retrieve property keys.
+   * @returns An array of all property keys.
+   */
   private getAllPropertyKeys(obj: any): string[] {
     const keys: string[] = [];
     if (isObject(obj)) {
@@ -37,40 +60,99 @@ export abstract class BaseFormComponent extends BaseComponent {
     return keys;
   }
 
+  /**
+   * Sets errors on form controls based on the API response.
+   * @param errors - The array of errors from the API response.
+   */
   protected setErrorsFromApiResponse(errors: AnyObject[] | any): void {
     if (isTruthy(errors) && Array.isArray(errors)) {
       errors.forEach((error): void => {
-        this.setControlError(this.fleenForm, error[this.ERROR_FIELD_NAME], this.getMessagesInSentence(error[this.ERROR_MESSAGES_NAME]));
+        this.setControlError(this.fleenForm, error[this.API_ERROR_FIELD_NAME], this.getMessagesInSentence(error[this.API_ERROR_MESSAGES_NAME]));
       });
       this.fleenForm.markAsTouched();
     }
   }
 
+  /**
+   * Sets external form errors based on the API response.
+   * @param errors - The array of errors from the API response.
+   * @param form - The form group to set errors on.
+   */
   protected setExternalFormErrorsFromApiResponse(errors: AnyObject[], form: FormGroup): void {
     if (isTruthy(errors) && Array.isArray(errors)) {
       errors.forEach((error): void => {
-        this.setControlError(form, error[this.ERROR_FIELD_NAME], this.getMessagesInSentence(error[this.ERROR_MESSAGES_NAME]));
+        this.setControlError(form, error[this.API_ERROR_FIELD_NAME], this.getMessagesInSentence(error[this.API_ERROR_MESSAGES_NAME]));
       });
       form.markAsTouched();
     }
   }
 
+  /**
+   * Sets error messages for form controls recursively.
+   *
+   * @param value The value to set errors for (FormGroup, AbstractControl, Array, or Object).
+   * @param fieldName The name of the field for which to set the error.
+   * @param errorMessage The error message to set.
+   *
+   * @example
+   * // Consider a scenario with a dynamic user profile form having nested form groups.
+   * // You want to set a common error message for the 'lastName' field across all sections.
+   * const userForm: FormGroup = new FormGroup({
+   *   personalInfo: new FormGroup({
+   *     firstName: new FormControl('', Validators.required),
+   *     lastName: new FormControl('', Validators.required),
+   *   }),
+   *   contactInfo: new FormGroup({
+   *     email: new FormControl('', Validators.email),
+   *     phone: new FormControl('', Validators.pattern('[0-9]+')),
+   *   }),
+   *   addressInfo: new FormGroup({
+   *     street: new FormControl(''),
+   *     city: new FormControl(''),
+   *   }),
+   * });
+   *
+   * // Set an error for the 'lastName' field across all form sections
+   * this.setControlError(userForm, 'lastName', 'Last Name is required.');
+   *
+   * // In a scenario where the form is dynamic and has multiple 'phone' controls nested in an array:
+   * const dynamicForm: FormGroup = new FormGroup({
+   *   phones: this.formBuilder.array([
+   *     new FormControl('', Validators.pattern('[0-9]+')),
+   *     new FormControl('', Validators.pattern('[0-9]+')),
+   *   ]),
+   * });
+   *
+   * // Set a common error message for all 'phone' controls in the array
+   * this.setControlError(dynamicForm, 'phone', 'Invalid phone number.');
+   */
   protected setControlError(value: FormGroup | AbstractControl | any[] | any, fieldName: string, errorMessage: string): void {
+    // Attempt to get the form control using the field name and its camelCase variant
     const control: AbstractControl | any = value.get(fieldName) || value.get(toCamelCase(fieldName));
+
+    // If the value is a FormGroup, set error for the specified field
     if (value instanceof FormGroup) {
       this.setFieldError(control, errorMessage, convertToDesiredFormat(fieldName));
-    } else if (Array.isArray(value)) {
-      value.forEach((subGroup): void => {
-        this.setControlError(subGroup, fieldName, errorMessage);
+    }
+    // If the value is an array, recursively call setControlError for each element
+    else if (Array.isArray(value)) {
+      // Example: Set error for each 'phone' control in the 'phones' array
+      value.forEach((subControl): void => {
+        this.setControlError(subControl, fieldName, errorMessage);
       });
-    } else if (value instanceof AbstractControl) {
+    }   // If the value is an AbstractControl, set error for the specified field
+    else if (value instanceof AbstractControl) {
       this.setFieldError(control, errorMessage, convertToDesiredFormat(fieldName));
+
+      // If the AbstractControl is a FormGroup, iterate over its controls and call setControlError
       if (value instanceof FormGroup) {
-        Object.keys(value.controls).forEach((key): void => {
+        Object.keys(value.controls).forEach((key: string): void => {
           this.setControlError(value.get(key), fieldName, errorMessage);
         });
       }
-    } else if (isObject(value) && Array.isArray(value)) {
+    }
+    // If the value is an Object and an Array, recursively call setControlError for each property
+    else if (isObject(value) && Array.isArray(value)) {
       for (const key in (<any>value)) {
         if (value.hasOwnProperty(key) && isObject(value[key])) {
           this.setControlError(value[key], fieldName, errorMessage);
@@ -79,17 +161,42 @@ export abstract class BaseFormComponent extends BaseComponent {
     }
   }
 
+  /**
+   * Retrieves error messages from an array and formats them into a single sentence.
+   * If the array contains only one message, that message is returned.
+   * If the array contains multiple messages, they are joined with periods and spaces.
+   * If the input is not a truthy array, an empty string is returned.
+   *
+   * @param messages - The array of error messages to be formatted.
+   * @returns A single sentence containing the formatted error messages.
+   */
   protected getMessagesInSentence(messages: string[]): string {
+    // Check if the messages array is truthy and an array
     if (isTruthy(messages) && Array.isArray(messages)) {
-      if (messages.length < 2) {
+      // If there is only one message in the array, return that message
+      if (messages.length === 1) {
         return messages[0];
       }
+      // If there are multiple messages, join them with periods and spaces
       return messages.join('. ') + '.';
     }
+    // Return an empty string if the input is not a truthy array
     return '';
   }
 
-  protected setFieldError(control: any, errorMessage, fieldName): void {
+  /**
+   * Sets error for a form control.
+   *
+   * @param control The form control for which to set the error.
+   * @param errorMessage The error message to set.
+   * @param fieldName The name of the field associated with the control.
+   *
+   * @example
+   * // Consider a scenario where you want to set a custom error for a specific form control.
+   * const lastNameControl: FormControl = userForm.get('personalInfo.lastName') as FormControl;
+   * this.setFieldError(lastNameControl, 'Last Name is required.', 'lastName');
+   */
+  protected setFieldError(control: any, errorMessage: string, fieldName: string): void {
     if (isTruthy(control)) {
       control.setErrors({ fieldError: errorMessage, labelName: convertToDesiredFormat(fieldName) });
       control.markAsTouched();

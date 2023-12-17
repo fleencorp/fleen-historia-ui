@@ -76,7 +76,26 @@ export class AuthenticationService {
    */
   public isEmailExists(emailAddress: string): Observable<EntityExistsResponse> {
     const req: BaseRequest = this.httpService.toRequestV2(['misc', 'email-address', 'exists'], { emailAddress });
-    return this.httpService.get(req);
+    return this.httpService.get(req)
+      .pipe(
+        map(data => new EntityExistsResponse(data))
+      );
+  }
+
+  /**
+   * @method isPhoneNumberExists
+   * @description
+   *   Checks if a phone number already exists in the system.
+   *
+   * @param phoneNumber - The email address to check for existence.
+   * @returns {Observable<EntityExistsResponse>} - An observable emitting an EntityExistsResponse.
+   */
+  public isPhoneNumberExists(phoneNumber: string): Observable<EntityExistsResponse> {
+    const req: BaseRequest = this.httpService.toRequestV2(['misc', 'phone-number', 'exists'], { phoneNumber });
+    return this.httpService.get(req)
+      .pipe(
+        map(data => new EntityExistsResponse(data))
+      );
   }
 
   /**

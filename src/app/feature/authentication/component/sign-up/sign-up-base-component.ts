@@ -3,7 +3,7 @@ import {
   emailExistsValidator,
   enumTypeValidator,
   fieldsMatchValidator,
-  passwordValidator,
+  passwordValidator, phoneNumberExistsValidator,
   phoneNumberValidator
 } from "@app/shared/validator";
 import {DEFAULT_FORM_CONTROL_VALUE, DEFAULT_VERIFICATION_TYPE, VERIFICATION_TYPES} from "@app/constant";
@@ -28,7 +28,11 @@ export abstract class SignUpBaseComponent extends AuthBaseComponent {
         }
       ],
       phoneNumber: [DEFAULT_FORM_CONTROL_VALUE,
-        [Validators.required, Validators.minLength(4), Validators.maxLength(15), phoneNumberValidator(PHONE_NUMBER)]
+        {
+          validators: [Validators.required, phoneNumberValidator(PHONE_NUMBER), Validators.minLength(4), Validators.maxLength(15), ],
+          asyncValidators: [phoneNumberExistsValidator(this.getAuthenticationService())],
+          updateOn: 'blur'
+        }
       ],
       password: [DEFAULT_FORM_CONTROL_VALUE,
         [Validators.required, passwordValidator(PASSWORD_PATTERNS)]

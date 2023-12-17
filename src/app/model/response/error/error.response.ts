@@ -1,4 +1,5 @@
 import {AnyObject} from "@app/model/type";
+import {ERROR_TYPE_KEY} from "@app/constant";
 
 /**
  * @class ErrorResponse
@@ -61,7 +62,7 @@ export class ErrorResponse {
   public constructor(data: ErrorResponse) {
     this.message = data?.message ? data?.message : '';
     this.status = data?.status;
-    this.type = data?.type ? data?.type : null;
+    this.type = data?.type || data[ERROR_TYPE_KEY] ? data?.type || data[ERROR_TYPE_KEY] : null;
     this.timestamp = (data?.timestamp ? new Date(data?.timestamp) : new Date());
     this.fields = data?.fields ? data?.fields : [];
     this.path = data?.path ? data?.path : null;
