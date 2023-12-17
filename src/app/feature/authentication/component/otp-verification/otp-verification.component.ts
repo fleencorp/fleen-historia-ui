@@ -29,7 +29,6 @@ export class OtpVerificationComponent extends MfaOtpBaseComponent {
 
   public override ngOnInit() {
     super.ngOnInit();
-    console.log("Starting.................");
   }
 
   /**

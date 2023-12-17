@@ -146,9 +146,6 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
         this.changePasswordType = ChangePasswordType.ONBOARDING;
         break;
     }
-
-    console.log(this.isPreVerificationStage);
-    console.log(this.isVerificationStage);
   }
 
 
