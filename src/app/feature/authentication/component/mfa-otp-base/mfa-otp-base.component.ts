@@ -28,9 +28,6 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
   /** Override the formBuilder property from the parent class. */
   protected override formBuilder!: FormBuilder;
 
-  /** Holds the verification message displayed to the user. */
-  public verificationMessage: string = '';
-
   /** FormControl for the OTP input field. */
   public otp: FormControl = new FormControl<string>('');
 
@@ -97,13 +94,6 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
    */
   public toResendVerificationCodePayload(): ResendVerificationCodePayload {
     return { verificationType: this.verificationType, emailAddress: this.emailAddress, phoneNumber: this.phoneNumber };
-  }
-
-  /**
-   * Clears the verification message.
-   * */
-  private clearVerificationMessage(): void {
-    this.verificationMessage = '';
   }
 
   /**

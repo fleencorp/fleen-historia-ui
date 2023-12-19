@@ -44,6 +44,7 @@ export class MfaVerificationComponent extends MfaOtpBaseComponent  {
         code,
         mfaType: this.mfaType,
         type: AuthVerificationType.MFA });
+      this.clearVerificationMessage();
     }
   }
 

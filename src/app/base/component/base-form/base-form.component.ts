@@ -39,6 +39,9 @@ export abstract class BaseFormComponent extends BaseComponent {
   /** Abstract method to get the Router instance, to be implemented by child classes. */
   protected abstract getRouter(): Router;
 
+  /** Holds the verification message displayed to the user. */
+  public verificationMessage: string = '';
+
   /**
    * Recursively retrieves all property keys from an object.
    * @param obj - The object from which to retrieve property keys.
@@ -395,5 +398,12 @@ export abstract class BaseFormComponent extends BaseComponent {
   }
 
   protected setVerificationMessage(): void { }
+
+  /**
+   * Clears the verification message.
+   * */
+  protected clearVerificationMessage(): void {
+    this.verificationMessage = '';
+  }
 
 }
