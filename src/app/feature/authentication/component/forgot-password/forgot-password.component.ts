@@ -28,7 +28,8 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
   public emailAddress: FormControl = new FormControl<string>('');
   public verificationCode: FormControl = new FormControl<string>('');
   public changePasswordType: ChangePasswordType = ChangePasswordType.RESET;
-  public isDetailValid: boolean = false;
+  public isForgotEmailAddressStage: boolean = false;
+  public isVerificationCodeStage: boolean = false;
   public isChangePasswordStage: boolean = false;
   public phoneNumber: string | undefined;
   protected formBuilder;
@@ -41,6 +42,7 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
 
   ngOnInit(): void {
     this.configureValidators();
+    this.isForgotEmailAddressStage = true;
   }
 
   protected override getRouter(): Router {
@@ -90,7 +92,8 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
    */
   private handleForgotPasswordSuccess(result: ForgotPasswordResponse): void {
     this.phoneNumber = result.phoneNumber;
-    this.isDetailValid = true;
+    this.isVerificationCodeStage = true;
+    this.isForgotEmailAddressStage = false;
   }
 
 
@@ -128,6 +131,7 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
   private handleVerificationSuccess(result: InitiatePasswordChangeResponse): void {
     this.clearAndSaveAccessToken(result.accessToken);
     this.isChangePasswordStage = true;
+    this.isVerificationCodeStage = false;
   }
 
   /**

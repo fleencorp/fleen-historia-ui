@@ -4,7 +4,7 @@ import {ForgotPasswordComponent, SignInComponent, SignUpComponent} from "./compo
 
 const resolveSignUpTitle: ResolveFn<string> = () => Promise.resolve('Sign Up');
 const resolveSignInTitle: ResolveFn<string> = () => Promise.resolve('Sign In');
-const resolveForgotPasswordTitle: ResolveFn<string> = () => Promise.resolve('Sign In');
+const resolveForgotPasswordTitle: ResolveFn<string> = () => Promise.resolve('Forgot Password');
 
 const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent, title: resolveSignUpTitle },
