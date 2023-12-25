@@ -6,7 +6,7 @@ import {BaseFormComponent} from "@app/base/component";
 import {VerificationType} from "@app/model/enum";
 import {codeOrOtpValidator} from "@app/shared/validator";
 import {VERIFICATION_CODE} from "@app/model/pattern";
-import {ErrorResponse, FleenResponse} from "@app/model/response";
+import {ErrorResponse} from "@app/model/response";
 import {ANY_EMPTY} from "@app/constant";
 import {isFalsy} from "@app/shared/helper";
 import {AuthVerificationPayload, ResendVerificationCodePayload} from "@app/model/type";

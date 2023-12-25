@@ -63,15 +63,9 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
       this.clearAuthTokensAndResetForm();
 
       this.authenticationService.forgotPassword(payload).subscribe({
-        next: (result: ForgotPasswordResponse): void => {
-          this.handleForgotPasswordSuccess(result);
-        },
-        error: (result: ErrorResponse): void => {
-          this.handleError(result);
-        },
-        complete: (): void => {
-          this.enableSubmitting();
-        },
+        next: (result: ForgotPasswordResponse): void => { this.handleForgotPasswordSuccess(result); },
+        error: (result: ErrorResponse): void => { this.handleError(result); },
+        complete: (): void => { this.enableSubmitting(); },
       });
     }
   }
@@ -117,15 +111,9 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
       this.disableSubmittingAndResetErrorMessage();
 
       this.authenticationService.verifyResetPasswordCode(payload).subscribe({
-        next: (result: InitiatePasswordChangeResponse): void => {
-          this.handleVerificationSuccess(result);
-        },
-        error: (result: ErrorResponse): void => {
-          this.handleError(result);
-        },
-        complete: (): void => {
-          this.enableSubmitting();
-        },
+        next: (result: InitiatePasswordChangeResponse): void => { this.handleVerificationSuccess(result); },
+        error: (result: ErrorResponse): void => { this.handleError(result); },
+        complete: (): void => { this.enableSubmitting(); },
       });
     }
   }
