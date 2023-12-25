@@ -42,6 +42,16 @@ const HTTP_REQUEST_RETRY_TIMES: number = 3;
 
 
 /**
+ * @constant HTTP_REQUEST_DELAY_TIME
+ * @description
+ *   The delay time for HTTP requests in milliseconds.
+ *   Represents the time interval before initiating an HTTP request.
+ *   Example: 10_000 milliseconds is equivalent to 10 seconds or 10_000 / 1000
+ */
+const HTTP_REQUEST_DELAY_TIME_IN_MILLISECONDS: number = 10_000;
+
+
+/**
  * @constant httpServiceConfig
  * @description
  *   Configuration settings for the HTTP service in the application.
@@ -53,6 +63,7 @@ const HTTP_REQUEST_RETRY_TIMES: number = 3;
 export const httpServiceConfig: HttpServiceConfig = {
   hostUrl: API_HOST_URL,
   basePath: API_BASE_PATH,
-  retryTimes: HTTP_REQUEST_RETRY_TIMES
+  retryTimes: HTTP_REQUEST_RETRY_TIMES,
+  delayRequestTime: HTTP_REQUEST_DELAY_TIME_IN_MILLISECONDS
 };
 

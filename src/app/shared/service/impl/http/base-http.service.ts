@@ -1,6 +1,6 @@
 import {AnyArray, AnyObject, BaseRequest, RequestMethod} from "@app/model/type";
 import {isObject, isTruthy, toBody, toCamelCaseKeys, toSnakeCasePayload} from "@app/shared/helper";
-import {catchError, map, Observable, retry, tap, throwError} from "rxjs";
+import {catchError, map, Observable, retry, switchMap, tap, throwError, timer} from "rxjs";
 import {ErrorResponse} from "@app/model/response";
 import {LoggerService} from "@app/base/service";
 import {HttpServiceConfig} from "@app/model/interface";
@@ -110,11 +110,14 @@ export class BaseHttpService {
    * @returns {Observable<T>} - The resulting Observable after applying the pipeline.
    */
   protected pipeline<T>(source: Observable<T>): Observable<T> {
-    return source.pipe(
-      retry(this.config.retryTimes),
-      tap(() => this.logger.log),
-      map((res: T) => toCamelCaseKeys(res)),
-      catchError(this.handleError)
+    return timer(this.config.delayRequestTime).pipe(
+      switchMap(() => source.pipe(
+          retry(this.config.retryTimes),
+          tap(() => this.logger.log),
+          map((res: T) => toCamelCaseKeys(res)),
+          catchError(this.handleError)
+        )
+      )
     );
   }
 

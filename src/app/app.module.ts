@@ -8,6 +8,7 @@ import {AuthorizationInterceptor, ContentTypeInterceptor} from "@app/base/interc
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthenticationService} from "@app/feature/authentication/service";
 import {SharedServiceModule} from "@app/shared/service/shared-service.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {SharedServiceModule} from "@app/shared/service/shared-service.module";
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     BaseModule,
     SharedServiceModule,
     AppRoutingModule
