@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core
 import {Router} from "@angular/router";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MfaStatusResponse} from "@app/model/response/mfa/mfa-status.response";
-import {MfaService} from "../../service/mfa.service";
+import {MfaService} from "../../service";
 import {MfaDetailResponse} from "@app/model/response/mfa/mfa-detail.response";
 import {ANY_EMPTY, DEFAULT_FORM_CONTROL_VALUE, MFA_SETUP_TYPE} from "@app/constant";
 import {BaseFormComponent} from "@app/base/component";

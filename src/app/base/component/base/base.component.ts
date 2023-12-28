@@ -21,4 +21,8 @@ export abstract class BaseComponent {
   protected disableLoading(): void {
     this.isLoading = false;
   }
+
+  get canDisplay(): boolean {
+    return !this.isLoading;
+  }
 }

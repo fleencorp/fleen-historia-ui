@@ -57,6 +57,7 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
    */
   public submit(event: Event): void {
     this.stopEvent(event);
+    this.enableLoading();
 
     if (this.emailAddress.valid && isFalsy(this.isSubmitting)) {
       const emailAddress: string = this.emailAddress.value.toString();
@@ -67,7 +68,10 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
       this.authenticationService.forgotPassword(payload).subscribe({
         next: (result: ForgotPasswordResponse): void => { this.handleForgotPasswordSuccess(result); },
         error: (result: ErrorResponse): void => { this.handleError(result); },
-        complete: (): void => { this.enableSubmitting(); },
+        complete: (): void => {
+          this.enableSubmitting();
+          this.disableLoading();
+        },
       });
     }
   }
