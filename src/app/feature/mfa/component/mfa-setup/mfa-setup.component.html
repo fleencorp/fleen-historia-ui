@@ -1,7 +1,3 @@
-
-
-
-
 <form *ngIf="isFormReady" [formGroup]="mfaSetupForm" (ngSubmit)="setupMfa()" method="post" enctype="application/x-www-form-urlencoded" class="sign-up-form">
   <div class="form-error-message">
     {{errorMessage}}
@@ -11,7 +7,7 @@
     {{statusMessage}}
   </div>
 
-  <div class="form-group" *ngIf="!isCodeVerification">
+  <div class="form-group" *ngIf="!isCodeVerificationStage">
     <input type ="radio" formControlName="mfaType" value="PHONE" id="mfa_type_phone"/>
     <label for="mfa_type_phone">Phone</label>
 
@@ -27,26 +23,23 @@
   </div>
 
 
-
     <div class="qr-box" #qrCodeImage>
-      <ng-container *ngIf="isQrVerification">
+      <ng-container *ngIf="isQrVerificationStage">
         <p *ngIf="qrCodeSecret">{{ qrCodeSecret }}</p>
 
       </ng-container>
     </div>
 
-  <ng-container *ngIf="isCodeVerification">
-    <p *ngIf="isVerificationCodeSent">Code has been sent</p>
-    <label for="verification_code">Verification Code:</label>
+  <p *ngIf="isVerificationCodeSent">Code has been sent</p>
+
+  <ng-container *ngIf="isCodeVerificationStage">
+      <label for="verification_code">Verification Code:</label>
     <input type="text" formControlName="code" id="verification_code"/>
     <app-validation-error [control]="code" [control-label]="'Verification code'"></app-validation-error>
-    <ng-container *ngIf="!isQrVerification">
-      <button (click)="resendVerificationCode()" [disabled]="isSubmitting"> Resend Verification Code </button>
-    </ng-container>
-    <button *ngIf="isCodeVerification && !isAllVerificationComplete" type="button" [disabled]="isSubmitting" (click)="confirmMfaSetup()">Confirm Setup</button>
   </ng-container>
 
-  <button *ngIf="!isCodeVerification" type="submit" [disabled]="isSubmitting">Submit</button>
+  <button *ngIf="canResendCode" type="button" [disabled]="isSubmitting" (click)="resendVerificationCode()"> Resend Verification Code </button>
+  <button *ngIf="!isCodeVerificationStage" type="submit" [disabled]="isSubmitting">Submit</button>
+  <button *ngIf="canConfirmMfaSetup" type="button" [disabled]="isSubmitting" (click)="confirmMfaSetup()">Confirm Setup</button>
 
 </form>
-

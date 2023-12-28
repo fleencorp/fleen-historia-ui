@@ -6,7 +6,7 @@
   <p>Multi Factor Authentication Status : {{ mfaStatus.enabled ? 'Enabled' : 'Disabled' }}</p>
 
   <ng-container *ngIf="mfaStatus.mfaType != MfaType.NONE">
-    The Multi Factor Authentication (MFA) Type : {{ capitalize(mfaStatus.mfaType) }}
+    The Multi Factor Authentication (MFA) Type : {{ mfaStatus.mfaType | titlecase }}
   </ng-container>
 
   <button *ngIf="!mfaStatus.enabled" (click)="reEnableOrDisableMfa(true)">Enable</button>

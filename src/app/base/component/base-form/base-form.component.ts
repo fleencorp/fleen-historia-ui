@@ -401,9 +401,24 @@ export abstract class BaseFormComponent extends BaseComponent {
 
   /**
    * Clears the verification message.
-   * */
+   */
   protected clearVerificationMessage(): void {
     this.verificationMessage = '';
+  }
+
+  /**
+   * Clears the status message.
+   */
+  protected clearStatusMessage(): void {
+    this.statusMessage = '';
+  }
+
+  /**
+   * Clears the status and verification message.
+   */
+  protected clearMessages(): void {
+    this.clearStatusMessage();
+    this.clearVerificationMessage();
   }
 
 }

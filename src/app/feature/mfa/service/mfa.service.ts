@@ -30,6 +30,14 @@ export class MfaService {
       );
   }
 
+  public resendMfaCode(body: MfaTypePayload): Observable<MfaDetailResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'resend-mfa-setup-code'], null, { ...body });
+    return this.httpService.update(req)
+      .pipe(
+        map(data => new MfaDetailResponse(data))
+      );
+  }
+
   public confirmSetup(body: ConfirmMfaPayload): Observable<FleenResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'confirm-mfa-setup'], null, { ...body });
     return this.httpService.update(req)
