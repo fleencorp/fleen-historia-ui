@@ -1,8 +1,8 @@
 /**
- * Represents the key used for storing the authentication status in user data or storage.
+ * Represents the key used for identifying the authentication status in user JWT or token.
  * @type {string}
  */
-export const AUTHENTICATION_STATUS_KEY: string = 'AUTHENTICATION_STATUS';
+export const AUTHENTICATION_STATUS_KEY: string = 'authenticationStatus';
 
 
 /**
