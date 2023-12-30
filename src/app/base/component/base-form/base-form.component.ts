@@ -1,22 +1,17 @@
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {convertToDesiredFormat, equalsIgnoreCase, isObject, isTruthy, toCamelCase} from "@app/shared/helper";
-import {Router} from "@angular/router";
 import {Observable, of} from "rxjs";
 import {BaseComponent} from "@app/base/component";
 import {AnyObject} from "@app/model/type";
 import {ErrorResponse} from "@app/model/response";
 import {ErrorType} from "@app/model/enum";
 import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
-import {BASE_PATH} from "@app/constant/config.const";
 
 /**
  * Abstract base component for form-related functionality.
  * Extends the BaseComponent class and provides common form handling methods.
  */
 export abstract class BaseFormComponent extends BaseComponent {
-
-  /** The status message to display for form-related actions. */
-  public statusMessage: string = '';
 
   /** The main form group for the component. */
   protected fleenForm: FormGroup = new FormGroup<any>({});
@@ -35,12 +30,6 @@ export abstract class BaseFormComponent extends BaseComponent {
 
   /** Abstract property for the FormBuilder, to be implemented by child classes. */
   protected abstract formBuilder: FormBuilder;
-
-  /** Abstract method to get the Router instance, to be implemented by child classes. */
-  protected abstract getRouter(): Router;
-
-  /** Holds the verification message displayed to the user. */
-  public verificationMessage: string = '';
 
   /**
    * Recursively retrieves all property keys from an object.
@@ -263,7 +252,6 @@ export abstract class BaseFormComponent extends BaseComponent {
     this.enableSubmitting();
   }
 
-
   /**
    * Stops the propagation and default behavior of the provided event.
    *
@@ -275,17 +263,6 @@ export abstract class BaseFormComponent extends BaseComponent {
   protected stopEvent(evt: Event): void {
     evt.preventDefault();
     evt.stopPropagation();
-  }
-
-  /**
-   * Resets the error message to an empty string.
-   *
-   * Sets the error message property to an empty string.
-   *
-   * @public
-   */
-  public resetErrorMessage(): void {
-    this.errorMessage = '';
   }
 
   /**
@@ -304,18 +281,6 @@ export abstract class BaseFormComponent extends BaseComponent {
     if (this.errorMessage.includes(ERR_CONNECTION_REFUSED_MESSAGE)) {
       this.errorMessage = DEFAULT_ERROR_MESSAGE;
     }
-  }
-
-  /**
-   * Sets the status message with the provided string.
-   *
-   * Assigns the provided message to the status message property.
-   *
-   * @param {string} message - The status message to be set.
-   * @protected
-   */
-  protected setStatusMessage(message: string): void {
-    this.statusMessage = message;
   }
 
   /**
@@ -361,18 +326,6 @@ export abstract class BaseFormComponent extends BaseComponent {
     await this.getRouter().navigate([newRoute], { state: { error: errorMessage } }).then((m: boolean) => m);
   }
 
-
-  /**
-   * Navigates to the home route.
-   *
-   * Uses the Angular Router to navigate to the base path, directing the user to the home route of the application.
-   *
-   * @returns {Promise<void>} A Promise that resolves once the navigation is complete.
-   */
-  async goHome(): Promise<void> {
-    await this.getRouter().navigate([BASE_PATH]);
-  }
-
   /**
    * Returns a no-operation function.
    *
@@ -395,30 +348,6 @@ export abstract class BaseFormComponent extends BaseComponent {
    */
   public noOpFunction$(...data: any[]): Observable<any> {
     return of(ANY_EMPTY);
-  }
-
-  protected setVerificationMessage(): void { }
-
-  /**
-   * Clears the verification message.
-   */
-  protected clearVerificationMessage(): void {
-    this.verificationMessage = '';
-  }
-
-  /**
-   * Clears the status message.
-   */
-  protected clearStatusMessage(): void {
-    this.statusMessage = '';
-  }
-
-  /**
-   * Clears the status and verification message.
-   */
-  protected clearMessages(): void {
-    this.clearStatusMessage();
-    this.clearVerificationMessage();
   }
 
 }

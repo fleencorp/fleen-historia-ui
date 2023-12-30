@@ -16,8 +16,6 @@ export class AuthGuardService {
   public canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log(this.isAuthenticated());
-    console.log("Line 20");
     if (this.isAuthenticated()) {
       return true;
     } else {

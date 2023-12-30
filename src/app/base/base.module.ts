@@ -1,13 +1,15 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FleenComgroupComponent} from "./component";
-import {AuthTokenService, LocalStorageService, LoggerService, SessionStorageService} from "@app/base/service";
-import {AuthGuardService} from "@app/base/guard";
+import {AuthTokenService, LocalStorageService, LoggerService, SessionStorageService} from "./service";
+import {AuthGuardService} from "./guard";
+import {ValidIfTruthyPipe} from "./pipe";
 
 
 @NgModule({
   declarations: [
     FleenComgroupComponent,
+    ValidIfTruthyPipe
   ],
   providers: [
     AuthGuardService,
@@ -15,6 +17,9 @@ import {AuthGuardService} from "@app/base/guard";
     LocalStorageService,
     LoggerService,
     SessionStorageService
+  ],
+  exports: [
+    ValidIfTruthyPipe
   ],
   imports: [
     CommonModule

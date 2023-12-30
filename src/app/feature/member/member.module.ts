@@ -15,6 +15,7 @@ import {MemberService} from "./service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedComponentModule} from "@app/shared/component/shared-component.module";
 import {SharedServiceModule} from "@app/shared/service/shared-service.module";
+import {BaseModule} from "@app/base/base.module";
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import {SharedServiceModule} from "@app/shared/service/shared-service.module";
     SharedServiceModule,
     SharedComponentModule,
     MemberRoutingModule,
+    BaseModule,
   ],
   providers: [
     MemberService

@@ -1,3 +1,28 @@
 <p>member-detail works!</p>
+<h2 class ="bold"> {{pageTitle}} </h2>
 
+<ng-container *ngIf="memberDetails">
+  <div id ="table-curves">
+
+    <table id ='entry-detail'>
+      <colgroup>
+        <col class ='parameter'/>
+        <col class ='prop-data'/>
+      </colgroup>
+
+      <tbody>
+        <tr>
+          <th>First Name</th>
+          <td>{{memberDetails.firstName | isValid}}</td>
+        </tr>
+
+        <tr>
+          <th>Last Name</th>
+          <td>{{memberDetails.lastName | isValid}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</ng-container>
 

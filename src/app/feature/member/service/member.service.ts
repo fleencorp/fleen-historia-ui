@@ -5,7 +5,7 @@ import {MfaStatusResponse} from "@app/model/response/mfa";
 import {BaseRequest} from "@app/model/type";
 import {GetMemberUpdateDetailsResponse} from "@app/model/response/member";
 import {UpdateDetailPayload} from "@app/model/type/member.type";
-import {UpdateMemberDetailsResponse} from "@app/model/response/member/update.member.details.response";
+import {UpdateMemberDetailsResponse} from "@app/model/response/member/update-member-details.response";
 
 @Injectable()
 export class MemberService {
