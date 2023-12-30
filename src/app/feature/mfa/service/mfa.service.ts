@@ -19,7 +19,7 @@ export class MfaService {
     return this.httpService.get(req)
       .pipe(
         map(data => new MfaStatusResponse(data))
-      )
+      );
   }
 
   public setup(body: MfaTypePayload): Observable<MfaDetailResponse> {
