@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
-import {enumTypeValidator, typeValidator} from "../../validator";
+import {enumTypeValidator, typeValidator} from "../../validator/custom";
 import {createBetweenDateObj, getPropsValueAsArray, isFalsy, propExists} from "../../helper";
 import {BaseFormComponent} from "../../../base/component";
 import {Router} from "@angular/router";

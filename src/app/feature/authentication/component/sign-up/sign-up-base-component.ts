@@ -1,10 +1,15 @@
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {
+  email,
   emailExistsValidator,
   enumTypeValidator,
   fieldsMatchValidator,
-  passwordValidator, phoneNumberExistsValidator,
-  phoneNumberValidator
+  maxLength,
+  minLength,
+  passwordValidator,
+  phoneNumberExistsValidator,
+  phoneNumberValidator,
+  required
 } from "@app/shared/validator";
 import {DEFAULT_FORM_CONTROL_VALUE, DEFAULT_VERIFICATION_TYPE, VERIFICATION_TYPES} from "@app/constant";
 import {AuthBaseComponent} from "../sign-in-up-base/auth-base.component";
@@ -14,34 +19,29 @@ export abstract class SignUpBaseComponent extends AuthBaseComponent {
 
   protected initForm(): void {
     this.fleenForm = this.getFormBuilder().group({
-      firstName: [DEFAULT_FORM_CONTROL_VALUE,
-        [Validators.required, Validators.minLength(2), Validators.maxLength(100)]
+      firstName: [DEFAULT_FORM_CONTROL_VALUE, [required, minLength(2), maxLength(100)]
       ],
-      lastName: [DEFAULT_FORM_CONTROL_VALUE,
-        [Validators.required, Validators.minLength(2), Validators.maxLength(100)]
+      lastName: [DEFAULT_FORM_CONTROL_VALUE, [required, minLength(2), maxLength(100)]
       ],
       emailAddress: [DEFAULT_FORM_CONTROL_VALUE,
         {
-          validators: [Validators.required, Validators.email, Validators.minLength(4), Validators.maxLength(150)],
+          validators: [required, email, minLength(4), maxLength(150)],
           asyncValidators: [emailExistsValidator(this.getAuthenticationService())],
           updateOn: 'blur'
         }
       ],
       phoneNumber: [DEFAULT_FORM_CONTROL_VALUE,
         {
-          validators: [Validators.required, phoneNumberValidator(PHONE_NUMBER), Validators.minLength(4), Validators.maxLength(15), ],
+          validators: [required, phoneNumberValidator(PHONE_NUMBER), minLength(4), maxLength(15), ],
           asyncValidators: [phoneNumberExistsValidator(this.getAuthenticationService())],
           updateOn: 'blur'
         }
       ],
-      password: [DEFAULT_FORM_CONTROL_VALUE,
-        [Validators.required, passwordValidator(PASSWORD_PATTERNS)]
+      password: [DEFAULT_FORM_CONTROL_VALUE, [required, passwordValidator(PASSWORD_PATTERNS)]
       ],
-      confirmPassword: [DEFAULT_FORM_CONTROL_VALUE,
-        [Validators.required, passwordValidator(PASSWORD_PATTERNS)]
+      confirmPassword: [DEFAULT_FORM_CONTROL_VALUE, [required, passwordValidator(PASSWORD_PATTERNS)]
       ],
-      verificationType: [DEFAULT_VERIFICATION_TYPE,
-        [Validators.required, enumTypeValidator(VERIFICATION_TYPES)]
+      verificationType: [DEFAULT_VERIFICATION_TYPE, [required, enumTypeValidator(VERIFICATION_TYPES)]
       ]
     }, {
       validators: [fieldsMatchValidator('password', 'confirmPassword', 'Password', 'Confirm Password')]

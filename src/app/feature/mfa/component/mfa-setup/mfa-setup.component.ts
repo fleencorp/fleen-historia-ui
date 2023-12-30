@@ -7,7 +7,7 @@ import {MfaDetailResponse} from "@app/model/response/mfa/mfa-detail.response";
 import {ANY_EMPTY, DEFAULT_FORM_CONTROL_VALUE, MFA_SETUP_TYPE} from "@app/constant";
 import {BaseFormComponent} from "@app/base/component";
 import {ErrorResponse, FleenResponse} from "@app/model/response";
-import {codeOrOtpValidator, enumTypeValidator} from "@app/shared/validator";
+import {codeOrOtpValidator, enumTypeValidator, maxLength, minLength, required} from "@app/shared/validator";
 import {isFalsy, isTruthy} from "@app/shared/helper";
 import {VERIFICATION_CODE} from "@app/model/pattern";
 import {MfaType} from "@app/model/enum";
@@ -194,7 +194,7 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
   private addCodeFormControl(): void {
     this.fleenForm.addControl(
       'code', this.formBuilder.control('', [
-        Validators.required, Validators.minLength(1), Validators.maxLength(6), codeOrOtpValidator(VERIFICATION_CODE)]
+        required, minLength(1), maxLength(6), codeOrOtpValidator(VERIFICATION_CODE)]
       )
     );
   }

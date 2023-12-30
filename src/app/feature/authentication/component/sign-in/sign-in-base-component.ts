@@ -1,18 +1,14 @@
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {AuthBaseComponent} from "../sign-in-up-base/auth-base.component";
-import {passwordValidator} from "@app/shared/validator";
+import {email, maxLength, minLength, passwordValidator, required} from "@app/shared/validator";
 import {PASSWORD_PATTERNS} from "@app/model/pattern";
 
 export abstract class SignInBaseComponent extends AuthBaseComponent {
 
   public initForm(): void {
     this.fleenForm = this.getFormBuilder().group({
-      emailAddress: ['',
-        [Validators.required, Validators.email, Validators.minLength(5), Validators.maxLength(150)]
-      ],
-      password: ['',
-        [Validators.required, passwordValidator(PASSWORD_PATTERNS)]
-      ],
+      emailAddress: ['', [required, email, minLength(5), maxLength(150)]],
+      password: ['', [required, passwordValidator(PASSWORD_PATTERNS)]],
     });
     this.formReady();
   }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
+import {FormControl} from "@angular/forms";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Router} from "@angular/router";
 import {BaseFormComponent} from "@app/base/component";
@@ -9,7 +9,7 @@ import {isFalsy} from "@app/shared/helper";
 import {ChangePasswordPayload, ForgotPasswordPayload, ResetPasswordPayload} from "@app/model/type";
 import {ForgotPasswordResponse, InitiatePasswordChangeResponse} from "@app/model/response/authentication";
 import {ErrorResponse} from "@app/model/response";
-import {codeOrOtpValidator} from "@app/shared/validator";
+import {codeOrOtpValidator, email, maxLength, minLength, required} from "@app/shared/validator";
 import {VERIFICATION_CODE} from "@app/model/pattern";
 
 @Component({
@@ -196,13 +196,8 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
    * @private
    */
   private configureValidators(): void {
-    this.emailAddress.addValidators([
-      Validators.required, Validators.email, Validators.minLength(4), Validators.maxLength(150)
-    ]);
-
-    this.verificationCode.addValidators([
-      Validators.required, Validators.minLength(1), Validators.maxLength(6), codeOrOtpValidator(VERIFICATION_CODE)
-    ]);
+    this.emailAddress.addValidators([required, email, minLength(4), maxLength(150)]);
+    this.verificationCode.addValidators([required, minLength(1), maxLength(6), codeOrOtpValidator(VERIFICATION_CODE)]);
   }
 
 

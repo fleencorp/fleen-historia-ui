@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseFormComponent} from "@app/base/component";
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {MemberService} from "@app/feature/member/service";
 import {GetMemberUpdateDetailsResponse, UpdateMemberDetailsResponse} from "@app/model/response/member";
 import {ErrorResponse} from "@app/model/response";
 import {Router} from "@angular/router";
 import {ANY_EMPTY} from "@app/constant";
 import {isFalsy} from "@app/shared/helper";
+import {maxLength, minLength, required} from "@app/shared/validator";
 
 @Component({
   selector: 'app-update-detail',
@@ -23,11 +24,6 @@ export class UpdateDetailComponent extends BaseFormComponent implements OnInit {
     super();
   }
 
-  /**
-   * Retrieves the router associated with the component.
-   *
-   * @returns The Router instance.
-   */
   protected override getRouter(): Router {
     return ANY_EMPTY;
   }
@@ -53,12 +49,8 @@ export class UpdateDetailComponent extends BaseFormComponent implements OnInit {
 
   protected initForm(): void {
     this.fleenForm = this.formBuilder.group({
-      firstName: [this.memberUpdateDetailsResponse?.firstName,
-        [Validators.required, Validators.minLength(2), Validators.maxLength(100)]
-      ],
-      lastName: [this.memberUpdateDetailsResponse?.lastName,
-        [Validators.required, Validators.minLength(2), Validators.maxLength(100)]
-      ],
+      firstName: [this.memberUpdateDetailsResponse?.firstName, [required, minLength(2), maxLength(100)]],
+      lastName: [this.memberUpdateDetailsResponse?.lastName, [required, minLength(2), maxLength(100)]],
     });
     this.formReady();
   }
