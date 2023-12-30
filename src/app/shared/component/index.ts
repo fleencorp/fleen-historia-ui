@@ -1,5 +1,6 @@
 export * from './change-password/change-password.component';
 export * from './entries-delete-all/entries-delete-all.component';
+export * from './form-message/form-message.component';
 export * from './loading-spinner/loading-spinner.component';
 export * from './pagination/pagination.component';
 export * from './row-entry-option/row-entry-option.component';

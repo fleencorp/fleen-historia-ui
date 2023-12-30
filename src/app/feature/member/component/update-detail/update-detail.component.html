@@ -1,23 +1,21 @@
-<form *ngIf="isFormReady" [formGroup]="updateDetailForm" (ngSubmit)="updateDetail()" method="post" enctype="application/x-www-form-urlencoded" class="update-detail-form">
+<ng-container *ngIf="isFormReady">
 
-  <div *ngIf="errorMessage" class="form-error-message">
-    {{errorMessage}}
+  <form [formGroup]="updateDetailForm" (ngSubmit)="updateDetail()" method="post" enctype="application/x-www-form-urlencoded" class="update-detail-form">
+    <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+  <div class="form-group">
+    <label for="first_name">First Name</label>
+    <input type="text" formControlName="firstName" id="first_name"/>
+    <app-validation-error [control]="firstName" [control-label]="'First Name'"></app-validation-error>
   </div>
 
-  <div *ngIf="statusMessage" class="form-status-message">
-    {{statusMessage}}
+  <div class="form-group">
+    <label for="last_name">Last Name</label>
+    <input type="text" formControlName="lastName" id="last_name"/>
+    <app-validation-error [control]="lastName" [control-label]="'Last Name'"></app-validation-error>
   </div>
 
-<div class="form-group">
-  <label for="first_name">First Name</label>
-  <input type="text" formControlName="firstName" id="first_name"/>
-  <app-validation-error [control]="firstName" [control-label]="'First Name'"></app-validation-error>
-</div>
+    <button type="submit" [disabled]="isSubmitting">Submit</button>
+  </form>
 
-<div class="form-group">
-  <label for="last_name">Last Name</label>
-  <input type="text" formControlName="lastName" id="last_name"/>
-  <app-validation-error [control]="lastName" [control-label]="'Last Name'"></app-validation-error>
-</div>
-
-</form>
+</ng-container>

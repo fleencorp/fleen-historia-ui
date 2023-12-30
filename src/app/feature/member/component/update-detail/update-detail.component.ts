@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BaseFormComponent} from "@app/base/component";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MemberService} from "@app/feature/member/service";
-import {MemberUpdateDetailsResponse} from "@app/model/response/member";
+import {GetMemberUpdateDetailsResponse, UpdateMemberDetailsResponse} from "@app/model/response/member";
 import {ErrorResponse} from "@app/model/response";
 import {Router} from "@angular/router";
 import {ANY_EMPTY} from "@app/constant";
@@ -15,7 +15,7 @@ import {isFalsy} from "@app/shared/helper";
 })
 export class UpdateDetailComponent extends BaseFormComponent implements OnInit {
 
-  private memberUpdateDetailsResponse!: MemberUpdateDetailsResponse;
+  private memberUpdateDetailsResponse!: GetMemberUpdateDetailsResponse;
 
   public constructor(
     protected readonly formBuilder: FormBuilder,
@@ -35,7 +35,7 @@ export class UpdateDetailComponent extends BaseFormComponent implements OnInit {
   public ngOnInit(): void {
     this.memberService.getDetail()
       .subscribe({
-        next: (result: MemberUpdateDetailsResponse): void => { this.memberUpdateDetailsResponse = result; },
+        next: (result: GetMemberUpdateDetailsResponse): void => { this.memberUpdateDetailsResponse = result; },
         error: (error: ErrorResponse): void => { this.handleError(error); },
         complete: (): void => { this.initForm(); }
     });
@@ -45,7 +45,7 @@ export class UpdateDetailComponent extends BaseFormComponent implements OnInit {
     if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
       this.memberService.updateDetail(this.fleenForm.value)
         .subscribe({
-          next: (): void => { this.statusMessage = 'Success'; },
+          next: (result: UpdateMemberDetailsResponse): void => { this.statusMessage = result.message; },
           error: (error: ErrorResponse): void => { this.handleError(error); },
       });
     }
