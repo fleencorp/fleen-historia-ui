@@ -6,8 +6,9 @@ import {
   MemberDashboardComponent,
   MemberDetailComponent,
   UpdateDetailComponent,
-  UpdateEmailOrPhoneComponent,
+  UpdateEmailComponent,
   UpdatePasswordComponent,
+  UpdatePhoneComponent,
   UpdatePhotoComponent
 } from "./component";
 
@@ -20,8 +21,9 @@ const routes: Routes = [
       { path: 'dashboard', component: MemberDashboardComponent, title: 'Member Dashboard' },
       { path: 'detail', component: MemberDetailComponent, title: 'View Detail' },
       { path: 'update-detail', component: UpdateDetailComponent, title: 'Update Detail' },
-      { path: 'update-email-phone', component: UpdateEmailOrPhoneComponent, title: 'Update Email or Phone' },
+      { path: 'update-email', component: UpdateEmailComponent, title: 'Update Email' },
       { path: 'update-password', component: UpdatePasswordComponent, title: 'Update Password' },
+      { path: 'update-phone', component: UpdatePhoneComponent, title: 'Update Phone' },
       { path: 'update-photo', component: UpdatePhotoComponent, title: 'Update Photo' },
     ]
   }

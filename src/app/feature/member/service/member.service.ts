@@ -1,11 +1,17 @@
 import {Injectable} from '@angular/core';
 import {HttpClientService} from "@app/shared/service/impl";
 import {map, Observable} from "rxjs";
-import {MfaStatusResponse} from "@app/model/response/mfa";
 import {BaseRequest} from "@app/model/type";
-import {GetMemberUpdateDetailsResponse} from "@app/model/response/member";
-import {UpdateDetailPayload} from "@app/model/type/member.type";
-import {UpdateMemberDetailsResponse} from "@app/model/response/member/update-member-details.response";
+import {
+  GetMemberUpdateDetailsResponse,
+  SendUpdateEmailAddressOrPhoneNumberVerificationCodeResponse, UpdateEmailAddressOrPhoneNumberResponse,
+  UpdateMemberDetailsResponse
+} from "@app/model/response/member";
+import {
+  ConfirmUpdateEmailAddressPayload, ConfirmUpdatePhoneNumberPayload,
+  SendUpdateEmailAddressOrPhoneNumberCodePayload,
+  UpdateDetailPayload
+} from "@app/model/type/member.type";
 
 @Injectable()
 export class MemberService {
@@ -27,6 +33,30 @@ export class MemberService {
     return this.httpService.update(req)
       .pipe(
         map(data => new UpdateMemberDetailsResponse(data))
+      );
+  }
+
+  public sendUpdateEmailAddressOrPhoneNumberCode(body: SendUpdateEmailAddressOrPhoneNumberCodePayload): Observable<SendUpdateEmailAddressOrPhoneNumberVerificationCodeResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'send-update-email-address-phone-number-code'], null, { ...body });
+    return this.httpService.post(req)
+      .pipe(
+        map(data => new SendUpdateEmailAddressOrPhoneNumberVerificationCodeResponse(data))
+      );
+  }
+
+  public confirmUpdateEmailAddress(body: ConfirmUpdateEmailAddressPayload): Observable<UpdateEmailAddressOrPhoneNumberResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'confirm-update-email-address'], null, { ...body });
+    return this.httpService.update(req)
+      .pipe(
+        map(data => new UpdateEmailAddressOrPhoneNumberResponse(data))
+      );
+  }
+
+  public confirmUpdatePhoneNumber(body: ConfirmUpdatePhoneNumberPayload): Observable<UpdateEmailAddressOrPhoneNumberResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'confirm-update-phone-number'], null, { ...body });
+    return this.httpService.update(req)
+      .pipe(
+        map(data => new UpdateEmailAddressOrPhoneNumberResponse(data))
       );
   }
 }

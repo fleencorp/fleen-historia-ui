@@ -46,3 +46,7 @@ export type ResetPasswordPayload = {
   emailAddress: string;
   code: string;
 }
+
+export type VerificationCodePayload = {
+  code: string;
+}

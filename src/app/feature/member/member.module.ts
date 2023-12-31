@@ -7,8 +7,9 @@ import {
   MemberDashboardComponent,
   MemberDetailComponent,
   UpdateDetailComponent,
-  UpdateEmailOrPhoneComponent,
+  UpdateEmailComponent,
   UpdatePasswordComponent,
+  UpdatePhoneComponent,
   UpdatePhotoComponent
 } from './component';
 import {MemberService} from "./service";
@@ -22,11 +23,12 @@ import {BaseModule} from "@app/base/base.module";
   declarations: [
     MemberDetailComponent,
     UpdateDetailComponent,
-    UpdateEmailOrPhoneComponent,
+    UpdateEmailComponent,
+    UpdatePhoneComponent,
     UpdatePhotoComponent,
     UpdatePasswordComponent,
     MemberBaseComponent,
-    MemberDashboardComponent
+    MemberDashboardComponent,
   ],
   imports: [
     CommonModule,

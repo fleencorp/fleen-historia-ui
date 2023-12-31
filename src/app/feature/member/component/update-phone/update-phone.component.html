@@ -1,0 +1,25 @@
+<p>update-email-or-phone works!</p>
+
+
+<ng-container *ngIf="isFormReady">
+
+  <form [formGroup]="updatePhoneNumberForm" method="post" enctype="application/x-www-form-urlencoded" class="update-email-phone-form">
+    <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+    <div class="form-group">
+      <label for="phone_number">Phone Number</label>
+      <input type="text" formControlName="phoneNumber" id="phone_number"/>
+      <app-validation-error [control]="phoneNumber" [control-label]="'Phone Number'"></app-validation-error>
+    </div>
+
+    <ng-container *ngIf="isVerificationCodeStage">
+      <label for="code">Verification Code:</label>
+      <input type="text" formControlName="code" id="code"/>
+      <app-validation-error [control]="code" [control-label]="'Verification code'"></app-validation-error>
+    </ng-container>
+
+    <button type="button" [disabled]="canRequestCode" (click)="sendPhoneCode()" >Send Code</button>
+    <button type="button" [disabled]="isSubmitting" (click)="updatePhoneNumber()">Submit</button>
+  </form>
+
+</ng-container>

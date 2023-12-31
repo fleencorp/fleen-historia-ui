@@ -32,7 +32,7 @@ export abstract class SignUpBaseComponent extends AuthBaseComponent {
       ],
       phoneNumber: [DEFAULT_FORM_CONTROL_VALUE,
         {
-          validators: [required, phoneNumberValidator(PHONE_NUMBER), minLength(4), maxLength(15), ],
+          validators: [required, phoneNumberValidator(PHONE_NUMBER), minLength(4), maxLength(15)],
           asyncValidators: [phoneNumberExistsValidator(this.getAuthenticationService())],
           updateOn: 'blur'
         }

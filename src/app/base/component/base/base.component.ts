@@ -61,7 +61,7 @@ export abstract class BaseComponent {
       this.errorMessage = DEFAULT_ERROR_MESSAGE;
     }
   }
-  
+
   /**
    * Enables the loading state by setting `isLoading` to `true`.
    */
