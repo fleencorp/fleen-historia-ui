@@ -17,3 +17,9 @@ export type ConfirmUpdateEmailAddressPayload = VerificationCodePayload & {
 export type ConfirmUpdatePhoneNumberPayload = VerificationCodePayload & {
   phoneNumber: string;
 }
+
+export type UpdatePasswordPayload = {
+  oldPassword: string;
+  password: string;
+  newPassword: string;
+}

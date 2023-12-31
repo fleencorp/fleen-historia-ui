@@ -45,7 +45,7 @@ export class UpdateDetailComponent extends BaseFormImplComponent implements OnIn
         next: (result: GetMemberUpdateDetailsResponse): void => { this.memberDetail = result; },
         error: (error: ErrorResponse): void => { this.handleError(error); },
         complete: (): void => { this.initForm(); }
-      });
+    });
   }
 
   /**
@@ -56,9 +56,9 @@ export class UpdateDetailComponent extends BaseFormImplComponent implements OnIn
     if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
       this.memberService.updateDetail(this.fleenForm.value)
         .subscribe({
-          next: (result: UpdateMemberDetailsResponse): void => { this.statusMessage = result.message; },
+          next: (result: UpdateMemberDetailsResponse): void => { this.setStatusMessage(result.message) },
           error: (error: ErrorResponse): void => { this.handleError(error); },
-        });
+      });
     }
   }
 
@@ -78,7 +78,7 @@ export class UpdateDetailComponent extends BaseFormImplComponent implements OnIn
    * @returns The value of the 'firstName' form control.
    */
   get firstName(): AbstractControl | null | undefined {
-    return this.fleenForm?.get('firstName')?.value;
+    return this.fleenForm?.get('firstName');
   }
 
   /**
@@ -86,7 +86,7 @@ export class UpdateDetailComponent extends BaseFormImplComponent implements OnIn
    * @returns The value of the 'lastName' form control.
    */
   get lastName(): AbstractControl | null | undefined {
-    return this?.fleenForm?.get('lastName')?.value;
+    return this?.fleenForm?.get('lastName');
   }
 
   /**

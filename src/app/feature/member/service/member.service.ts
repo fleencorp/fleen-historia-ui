@@ -10,8 +10,9 @@ import {
 import {
   ConfirmUpdateEmailAddressPayload, ConfirmUpdatePhoneNumberPayload,
   SendUpdateEmailAddressOrPhoneNumberCodePayload,
-  UpdateDetailPayload
+  UpdateDetailPayload, UpdatePasswordPayload
 } from "@app/model/type/member.type";
+import {FleenResponse} from "@app/model/response";
 
 @Injectable()
 export class MemberService {
@@ -57,6 +58,14 @@ export class MemberService {
     return this.httpService.update(req)
       .pipe(
         map(data => new UpdateEmailAddressOrPhoneNumberResponse(data))
+      );
+  }
+
+  public updatePassword(body: UpdatePasswordPayload): Observable<FleenResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'update-password'], null, { ...body });
+    return this.httpService.update(req)
+      .pipe(
+        map(data => new FleenResponse(data))
       );
   }
 }
