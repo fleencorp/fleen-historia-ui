@@ -37,6 +37,9 @@ export class UpdateEmailComponent extends UpdateEmailOrPhoneComponent implements
     this.fleenForm = this.formBuilder.group({
       emailAddress: [this.memberDetail.emailAddress, [required, email, minLength(4), maxLength(150)]],
     });
+    if (this.isCodeControlNotPresent()) {
+      this.addCodeFormControl();
+    }
     this.formReady();
   }
 
@@ -46,6 +49,10 @@ export class UpdateEmailComponent extends UpdateEmailOrPhoneComponent implements
 
   get emailAddress(): AbstractControl | null | undefined {
     return this.updateEmailAddressForm?.get('emailAddress');
+  }
+
+  get canRequestCode(): boolean {
+    return !(this.emailAddress?.valid);
   }
 
   /**

@@ -12,14 +12,14 @@
       <app-validation-error [control]="emailAddress" [control-label]="'Email Address'"></app-validation-error>
     </div>
 
-    <ng-container *ngIf="isVerificationCodeStage">
+    <div class="form-group">
       <label for="code">Verification Code:</label>
       <input type="text" formControlName="code" id="code"/>
       <app-validation-error [control]="code" [control-label]="'Verification code'"></app-validation-error>
-    </ng-container>
+    </div>
 
     <button type="button" [disabled]="canRequestCode" (click)="sendEmailCode()" >Send Code</button>
-    <button type="button" [disabled]="isSubmitting" (click)="updateEmailAddress()">Submit</button>
+    <button *ngIf="isVerificationCodeStage" type="button" [disabled]="isSubmitting" (click)="updateEmailAddress()">Submit</button>
   </form>
 
 </ng-container>

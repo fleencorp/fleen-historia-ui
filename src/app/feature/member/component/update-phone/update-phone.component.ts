@@ -35,14 +35,25 @@ export class UpdatePhoneComponent extends UpdateEmailOrPhoneComponent implements
   }
 
   protected initForm(): void {
-    this.formBuilder.group({
+    this.fleenForm = this.formBuilder.group({
       phoneNumber: [this.memberDetail.phoneNumber, [required, phoneNumberValidator(PHONE_NUMBER), minLength(4), maxLength(15)]],
     });
+    if (this.isCodeControlNotPresent()) {
+      this.addCodeFormControl();
+    }
     this.formReady();
   }
 
   public sendPhoneCode(): void {
     this.sendUpdateEmailAddressOrPhoneNumberCode(VerificationType.PHONE);
+  }
+
+  get phoneNumber(): AbstractControl | null | undefined {
+    return this.updatePhoneNumberForm?.get('phoneNumber');
+  }
+
+  get canRequestCode(): boolean {
+    return !(this.phoneNumber?.valid);
   }
 
   /**
@@ -51,10 +62,6 @@ export class UpdatePhoneComponent extends UpdateEmailOrPhoneComponent implements
    */
   get updatePhoneNumberForm(): FormGroup {
     return this.fleenForm;
-  }
-
-  get phoneNumber(): AbstractControl | null | undefined {
-    return this.updatePhoneNumberForm?.get('phoneNumber');
   }
 
 }

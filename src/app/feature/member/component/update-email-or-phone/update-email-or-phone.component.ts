@@ -9,14 +9,15 @@ import {
 import {ErrorResponse} from "@app/model/response";
 import {VERIFICATION_CODE} from "@app/model/pattern";
 import {VerificationType} from "@app/model/enum";
+import {isFalsy} from "@app/shared/helper";
 
 
 export abstract class UpdateEmailOrPhoneComponent extends BaseFormImplComponent {
 
   protected memberDetail!: GetMemberUpdateDetailsResponse;
-  public canRequestCode: boolean = true;
   public isVerificationCodeSent: boolean = false;
   public isVerificationCodeStage: boolean = false;
+  protected isSendingCode: boolean = false;
 
   protected constructor(
     protected override readonly formBuilder: FormBuilder,
@@ -36,20 +37,30 @@ export abstract class UpdateEmailOrPhoneComponent extends BaseFormImplComponent 
   }
 
   protected sendUpdateEmailAddressOrPhoneNumberCode(verificationType: VerificationType): void {
-    this.memberService.sendUpdateEmailAddressOrPhoneNumberCode({ verificationType })
-      .subscribe({
-        next: (result: SendUpdateEmailAddressOrPhoneNumberVerificationCodeResponse): void => { this.handleSendVerificationCodeSuccess(result); },
-        error: (error: ErrorResponse): void => { this.handleError(error); }
-    });
+    if (isFalsy(this.isSendingCode)) {
+      this.enableIsSendingCode();
+
+      this.memberService.sendUpdateEmailAddressOrPhoneNumberCode({ verificationType })
+        .subscribe({
+          next: (result: SendUpdateEmailAddressOrPhoneNumberVerificationCodeResponse): void => { this.handleSendVerificationCodeSuccess(result); },
+          error: (error: ErrorResponse): void => { this.handleError(error); },
+          complete: (): void => { this.disableIsSendingCode(); }
+      });
+    }
   }
 
   private handleSendVerificationCodeSuccess(result: SendUpdateEmailAddressOrPhoneNumberVerificationCodeResponse): void {
-    if (this.isCodeControlNotPresent()) {
-      this.addCodeFormControl();
-    }
     this.isVerificationCodeStage = true;
     this.isVerificationCodeSent = true;
     this.statusMessage = result.message;
+  }
+
+  private enableIsSendingCode(): void {
+    this.isSendingCode = true;
+  }
+
+  private disableIsSendingCode(): void {
+    this.isSendingCode = false;
   }
 
   /**
@@ -57,7 +68,7 @@ export abstract class UpdateEmailOrPhoneComponent extends BaseFormImplComponent 
    * This method is used during the Multi-Factor Authentication (MFA) setup process to dynamically add
    * the verification code field to the form based on the selected MFA type.
    */
-  private addCodeFormControl(): void {
+  protected addCodeFormControl(): void {
     this.fleenForm.addControl(
       'code', this.formBuilder.control('', [
         required, minLength(1), maxLength(6), codeOrOtpValidator(VERIFICATION_CODE)]
@@ -65,7 +76,7 @@ export abstract class UpdateEmailOrPhoneComponent extends BaseFormImplComponent 
     );
   }
 
-  private isCodeControlNotPresent(): boolean {
+  protected isCodeControlNotPresent(): boolean {
     return this.fleenForm?.get('code') === null;
   }
 
