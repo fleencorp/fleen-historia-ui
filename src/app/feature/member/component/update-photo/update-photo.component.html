@@ -1,1 +1,9 @@
 <p>update-photo works!</p>
+
+<ng-container *ngIf="isFormReady">
+
+  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+  <app-upload-file [control-label]="'Profile Photo'" [control]="profilePhoto" [file-constraints]="photoConstraints" [file-id]="'profile_photo'" [file-key]="'profilePhoto'"
+                   [file-url]="signedUrl" [signed-url-method]="signedUrlMethod" [save-file-method]="saveFileMethod" [delete-file-method]="deleteFileMethod"></app-upload-file>
+
+</ng-container>

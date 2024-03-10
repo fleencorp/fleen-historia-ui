@@ -4,15 +4,20 @@ import {map, Observable} from "rxjs";
 import {BaseRequest} from "@app/model/type";
 import {
   GetMemberUpdateDetailsResponse,
-  SendUpdateEmailAddressOrPhoneNumberVerificationCodeResponse, UpdateEmailAddressOrPhoneNumberResponse,
+  SendUpdateEmailAddressOrPhoneNumberVerificationCodeResponse,
+  UpdateEmailAddressOrPhoneNumberResponse,
   UpdateMemberDetailsResponse
 } from "@app/model/response/member";
 import {
-  ConfirmUpdateEmailAddressPayload, ConfirmUpdatePhoneNumberPayload,
+  ConfirmUpdateEmailAddressPayload,
+  ConfirmUpdatePhoneNumberPayload,
   SendUpdateEmailAddressOrPhoneNumberCodePayload,
-  UpdateDetailPayload, UpdatePasswordPayload
+  UpdateDetailPayload,
+  UpdatePasswordPayload,
+  UpdateProfilePhotoPayload
 } from "@app/model/type/member.type";
 import {FleenResponse} from "@app/model/response";
+import {DeleteResponse} from "@app/model/response/common";
 
 @Injectable()
 export class MemberService {
@@ -64,6 +69,31 @@ export class MemberService {
   public updatePassword(body: UpdatePasswordPayload): Observable<FleenResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'update-password'], null, { ...body });
     return this.httpService.update(req)
+      .pipe(
+        map(data => new FleenResponse(data))
+      );
+  }
+
+  public updateProfilePhoto(body: UpdateProfilePhotoPayload): Observable<FleenResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'update-profile-photo'], null, { ...body });
+    return this.httpService.update(req)
+      .pipe(
+        map(data => new FleenResponse(data))
+      );
+  }
+
+
+  public removeProfilePhoto(): Observable<DeleteResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'delete-profile-photo']);
+    return this.httpService.delete(req)
+      .pipe(
+        map(data => new DeleteResponse(data))
+      );
+  }
+
+  public signOut(): Observable<FleenResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'sign-out']);
+    return this.httpService.get(req)
       .pipe(
         map(data => new FleenResponse(data))
       );

@@ -23,3 +23,7 @@ export type UpdatePasswordPayload = {
   password: string;
   newPassword: string;
 }
+
+export type UpdateProfilePhotoPayload = {
+  profilePhoto: string;
+}
