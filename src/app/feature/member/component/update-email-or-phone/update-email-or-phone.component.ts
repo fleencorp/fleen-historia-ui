@@ -32,13 +32,14 @@ export abstract class UpdateEmailOrPhoneComponent extends BaseFormImplComponent 
       .subscribe({
         next: (result: GetMemberUpdateDetailsResponse): void => { this.memberDetail = result; },
         error: (error: ErrorResponse): void => { this.handleError(error); },
-        complete: () => { this.initForm(); }
+        complete: (): void => { this.initForm(); }
     });
   }
 
   protected sendUpdateEmailAddressOrPhoneNumberCode(verificationType: VerificationType): void {
     if (isFalsy(this.isSendingCode)) {
       this.enableIsSendingCode();
+      this.clearMessages();
 
       this.memberService.sendUpdateEmailAddressOrPhoneNumberCode({ verificationType })
         .subscribe({

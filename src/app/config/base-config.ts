@@ -22,7 +22,7 @@ export const AUTHENTICATION_ENTRY_POINT: string = '/auth/sign-in';
  * @description
  *   The base URL for the API in the application.
  */
-export const API_HOST_URL: string = "http://localhost:9898";
+export const API_HOST_URL: string = "http://localhost:7987";
 
 
 /**

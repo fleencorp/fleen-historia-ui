@@ -18,7 +18,7 @@
       <app-validation-error [control]="code" [control-label]="'Verification code'"></app-validation-error>
     </div>
 
-    <button type="button" [disabled]="canRequestCode" (click)="sendEmailCode()" >Send Code</button>
+    <button type="button" [disabled]="canRequestCode" (click)="sendEmailCode($event)" >Send Code</button>
     <button *ngIf="isVerificationCodeStage" type="button" [disabled]="isSubmitting" (click)="updateEmailAddress()">Submit</button>
   </form>
 

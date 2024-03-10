@@ -43,7 +43,8 @@ export class UpdateEmailComponent extends UpdateEmailOrPhoneComponent implements
     this.formReady();
   }
 
-  public sendEmailCode(): void {
+  public sendEmailCode($event): void {
+    this.stopEvent($event);
     this.sendUpdateEmailAddressOrPhoneNumberCode(VerificationType.EMAIL);
   }
 
