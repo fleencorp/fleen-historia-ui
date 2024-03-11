@@ -42,7 +42,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
   /**
    * @description Subscription to handle canceling ongoing requests.
    */
-  private cancelRequest$!: Subscription;
+  public cancelRequest$!: Subscription;
 
   /**
    * @description Flag indicating whether the upload operation has completed.

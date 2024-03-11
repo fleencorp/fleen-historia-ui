@@ -7,8 +7,8 @@
       <p>{{ uploadMessage }}</p>
     </ng-container>
     <app-validation-error [control]="control" [control-label]="controlLabel" [control-options]="fileConstraints"></app-validation-error>
-    <button type="button" (click)="deleteFile(elem)">Delete</button>
-    <button type="button" (click)="cancelUpload(elem)">Cancel</button>
+    <button *ngIf="fileNameOrUrl" type="button" (click)="deleteFile(elem)">Delete</button>
+    <button *ngIf="cancelRequest$" type="button" (click)="cancelUpload(elem)">Cancel</button>
   </form>
 
   <button type="button" *ngIf="canDownloadOrView && fileNameOrUrl && readyForDownload()" (click)="downloadOrView(fileNameOrUrl, fileKey)">Download</button>

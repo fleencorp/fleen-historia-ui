@@ -1,1 +1,1 @@
-export * from './signed-url.response';
+export * from '../common/signed-url.response';

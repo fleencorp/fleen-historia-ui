@@ -11,8 +11,7 @@ import {DEFAULT_IMAGE_CONSTRAINT} from "@app/constant/file.const";
 import {FileConstraints} from "@app/model/type";
 import {MemberService} from "@app/feature/member/service";
 import {S3Service, SignedUrlService} from "@app/shared/service/impl";
-import {SignedUrlResponse} from "@app/model/response/object/signed-url.response";
-import {DeleteResponse} from "@app/model/response/common";
+import {DeleteResponse, SignedUrlResponse} from "@app/model/response/common";
 
 @Component({
   selector: 'app-update-photo',
@@ -41,10 +40,9 @@ export class UpdatePhotoComponent extends BaseFormComponent implements OnInit {
       .subscribe({
         next: (result: GetMemberUpdateDetailsResponse): void => {
           this.signedUrl = result.profilePhoto;
+          this.formReady();
         },
-        error: (error: ErrorResponse): void => {
-          this.handleError(error);
-        }
+        error: (error: ErrorResponse): void => { this.handleError(error); }
       });
   }
 
