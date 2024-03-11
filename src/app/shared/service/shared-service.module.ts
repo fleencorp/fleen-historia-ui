@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {BaseHttpService, FileUploadDownloadService, HttpClientService, S3Service, SignedUrlService} from "./impl";
 import {HttpServiceConfig} from "@app/config";
 import {HttpClientModule} from "@angular/common/http";
+import {MiscService} from "@app/shared/service/impl/common/misc.service";
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import {HttpClientModule} from "@angular/common/http";
     FileUploadDownloadService,
     SignedUrlService,
     S3Service,
+    MiscService,
     HttpServiceConfig
   ],
   exports: [

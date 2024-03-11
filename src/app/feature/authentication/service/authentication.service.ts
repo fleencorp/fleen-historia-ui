@@ -27,6 +27,7 @@ import {Router} from "@angular/router";
 import {AUTHENTICATION_ENTRY_POINT} from "@app/config";
 import {AuthenticationStatus} from "@app/model/enum";
 import {hasAtLeastAProperty} from "@app/shared/helper";
+import {MiscService} from "@app/shared/service/impl/common/misc.service";
 
 
 /**
@@ -59,11 +60,13 @@ export class AuthenticationService {
    * @param httpService - An instance of the HttpClientService for making HTTP requests.
    * @param localStorageService - An instance of the LocalStorageService for handling local storage operations.
    * @param tokenService - An instance of the AuthTokenService for managing authentication tokens.
+   * @param miscService - An instance for basic common service and feature like checking if an email exists
    */
   constructor(
     private httpService: HttpClientService,
     private localStorageService: LocalStorageService,
-    private tokenService: AuthTokenService
+    private tokenService: AuthTokenService,
+    private miscService: MiscService
   ) { }
 
   /**
@@ -75,11 +78,7 @@ export class AuthenticationService {
    * @returns {Observable<EntityExistsResponse>} - An observable emitting an EntityExistsResponse.
    */
   public isEmailExists(emailAddress: string): Observable<EntityExistsResponse> {
-    const req: BaseRequest = this.httpService.toRequestV2(['misc', 'email-address', 'exists'], { emailAddress });
-    return this.httpService.get(req)
-      .pipe(
-        map(data => new EntityExistsResponse(data))
-      );
+    return this.miscService.isEmailExists(emailAddress);
   }
 
   /**
@@ -91,11 +90,7 @@ export class AuthenticationService {
    * @returns {Observable<EntityExistsResponse>} - An observable emitting an EntityExistsResponse.
    */
   public isPhoneNumberExists(phoneNumber: string): Observable<EntityExistsResponse> {
-    const req: BaseRequest = this.httpService.toRequestV2(['misc', 'phone-number', 'exists'], { phoneNumber });
-    return this.httpService.get(req)
-      .pipe(
-        map(data => new EntityExistsResponse(data))
-      );
+    return this.miscService.isPhoneNumberExists(phoneNumber);
   }
 
   /**
