@@ -1,1 +1,34 @@
-<p>user-videos works!</p>
+<app-search-form-delete-menu [is-submitting]="isSubmitting" [search-filter]="searchFilter" (searchSubmitted)="search($event)" (deleteConfirmed)="confirmDeleteEntries()"></app-search-form-delete-menu>
+
+<p>The current page is {{currentPage}}</p>
+
+<div *ngIf="entries.length > 0">
+  <table>
+
+    <thead>
+    <tr>
+      <th>S/N</th>
+      <th>Title</th>
+      <th>Code</th>
+      <th>Created On</th>
+      <th>Updated On</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let video of entries; let i = index; trackBy: trackByFn">
+      <td>{{ addOneToIndex(i) }}</td>
+      <td>{{ video.videoTitle }}</td>
+      <td>{{ video.channel.title }}</td>
+      <td>{{ video.createdOn | date:'mediumDate' }}</td>
+      <td>{{ video.updatedOn | date:'mediumDate' }}</td>
+      <app-row-entry-option [entry-id]="video.videoId" (detailClicked)="viewDetail(video.videoId)"
+                            (updateClicked)="updateEntry(video.videoId)" (checkedChanged)="handleChecked(video.videoId, $event)"></app-row-entry-option>
+    </tr>
+    </tbody>
+  </table>
+
+  <app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"
+                  (toNextPage)="nextPage()" (toPreviousPage)="previousPage()"></app-pagination>
+
+</div>

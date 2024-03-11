@@ -1,4 +1,6 @@
 import {AnyObject} from "@app/model/type";
+import {SearchResultView} from "@app/model/view";
+import {Newable} from "@app/model/interface";
 
 /**
  * @function isTruthy
@@ -623,4 +625,43 @@ export function capitalize(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
   }
   return '';
+}
+
+
+
+/**
+ * Maps a response to a search result view.
+ *
+ * This function takes a constructor function, `Constructor`, and a response object and maps the response
+ * to a search result view with values created by instantiating `Constructor` for each item in the response.
+ *
+ * @param Constructor A constructor function used to create objects for the search result view.
+ * @param response The response object containing data to map to the search result view.
+ *
+ * @returns A search result view containing values created from the response using the specified constructor.
+ *
+ * @example
+ * // Example usage:
+ * const response = {
+ *   totalResults: 3,
+ *   values: [
+ *     { id: 1, name: 'Alice' },
+ *     { id: 2, name: 'Bob' },
+ *     { id: 3, name: 'Charlie' },
+ *   ],
+ * };
+ *
+ * class User {
+ *   constructor(public id: number, public name: string) {}
+ * }
+ *
+ * const searchResult = mapToSearchResult(User, response);
+ * // Result: SearchResultView<User> object with 'totalResults' and 'values' properties.
+ * // 'values' property contains an array of User instances.
+ */
+export function mapToSearchResult<T extends Object>(Constructor: Newable<T>, response: any): SearchResultView<T> {
+  const values = response.values.map((value: any) => new Constructor(value));
+  const searchResultView : SearchResultView<T> = new SearchResultView(response);
+  searchResultView.values = values;
+  return searchResultView;
 }

@@ -1,7 +1,7 @@
 export class FleenBaseView {
 
-  private readonly createdOn: Date;
-  private readonly updatedOn: Date;
+  public readonly createdOn: Date;
+  public readonly updatedOn: Date;
 
   public constructor(data: FleenBaseView) {
     this.createdOn = data?.createdOn ? new Date(data.createdOn) : new Date();
