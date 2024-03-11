@@ -22,7 +22,7 @@
       <td>{{ video.channel.title }}</td>
       <td>{{ video.createdOn | date:'mediumDate' }}</td>
       <td>{{ video.updatedOn | date:'mediumDate' }}</td>
-      <app-row-entry-option [entry-id]="video.videoId" (detailClicked)="viewDetail(video.videoId)"
+      <app-row-entry-option [entry-id]="video.videoId" [can-check]="false" (detailClicked)="viewDetail(video.videoId)"
                             (updateClicked)="updateEntry(video.videoId)" (checkedChanged)="handleChecked(video.videoId, $event)"></app-row-entry-option>
     </tr>
     </tbody>

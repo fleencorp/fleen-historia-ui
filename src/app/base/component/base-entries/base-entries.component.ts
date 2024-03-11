@@ -208,8 +208,7 @@ export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
   public async nextPage(): Promise<void> {
     if (this.entries && !this.isLast && this.isNextPageAvailable()) {
       this.currentPage++;
-      await this.updateUrlWithPage();
-      this.getEntries();
+      await this.handlePagination();
     }
   }
 
@@ -221,8 +220,21 @@ export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
   public async previousPage(): Promise<void> {
     if (this.currentPage > 0) {
       this.currentPage--;
-      this.getEntries();
+      await this.handlePagination();
     }
+  }
+
+  /**
+   * Handles pagination by updating the URL with the current page and retrieving entries.
+   *
+   * @returns A Promise that resolves when the pagination is complete.
+   */
+  public async handlePagination(): Promise<void> {
+    // Update the URL with the current page
+    await this.updateUrlWithPage();
+
+    // Retrieve entries based on the updated page
+    this.getEntries();
   }
 
   /**

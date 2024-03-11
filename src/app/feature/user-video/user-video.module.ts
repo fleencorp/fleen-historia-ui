@@ -14,6 +14,7 @@ import {
   UserVideosComponent
 } from '@app/feature/user-video/component';
 import {SharedModule} from "@app/shared/shared.module";
+import {UserVideoService} from "@app/feature/user-video/service/user-video.service";
 
 
 @NgModule({
@@ -32,6 +33,9 @@ import {SharedModule} from "@app/shared/shared.module";
     CommonModule,
     SharedModule,
     UserVideoRoutingModule
+  ],
+  providers: [
+    UserVideoService
   ]
 })
 export class UserVideoModule { }

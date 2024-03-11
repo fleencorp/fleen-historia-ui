@@ -11,26 +11,29 @@ import {
 } from "@app/constant/search.const";
 import {SearchFilter} from "@app/model/type";
 
+/**
+ * Search filters for searching with all date options.
+ */
 export const SEARCH_FILTER_ALL_DATE: SearchFilter[] = [
-  {key: NO_INPUT_KEY, label: ''},
-  {key: BETWEEN_DATE_SEARCH_KEY, type: BETWEEN_DATE_TYPE, label: BETWEEN_DATE_SEARCH_LABEL },
-  {key: AFTER_DATE_SEARCH_KEY, type: DATE_TYPE, label: AFTER_DATE_SEARCH_LABEL },
-  {key: BEFORE_DATE_SEARCH_KEY, type: DATE_TYPE, label: BEFORE_DATE_SEARCH_LABEL }
+  { key: NO_INPUT_KEY, label: '' },
+  { key: BETWEEN_DATE_SEARCH_KEY, type: BETWEEN_DATE_TYPE, label: BETWEEN_DATE_SEARCH_LABEL },
+  { key: AFTER_DATE_SEARCH_KEY, type: DATE_TYPE, label: AFTER_DATE_SEARCH_LABEL },
+  { key: BEFORE_DATE_SEARCH_KEY, type: DATE_TYPE, label: BEFORE_DATE_SEARCH_LABEL }
 ];
 
+/**
+ * Search filters for searching with between date option.
+ */
 export const SEARCH_FILTER_BETWEEN_DATE: SearchFilter[] = [
-  {key: NO_INPUT_KEY, label: ''},
-  {key: BETWEEN_DATE_SEARCH_KEY, type: BETWEEN_DATE_TYPE, label: BETWEEN_DATE_SEARCH_LABEL },
+  { key: NO_INPUT_KEY, label: '' },
+  { key: BETWEEN_DATE_SEARCH_KEY, type: BETWEEN_DATE_TYPE, label: BETWEEN_DATE_SEARCH_LABEL },
 ];
 
-export const SEARCH_FILTER_VIEW_PROFESSIONALS: SearchFilter[] = [
+/**
+ * Search filters for viewing Fleen videos.
+ */
+export const SEARCH_FILTER_VIEW_FLEEN_VIDEOS: SearchFilter[] = [
   ...SEARCH_FILTER_BETWEEN_DATE,
-  {key: 'firstName', label: 'First Name'},
-  {key: 'lastName', label: 'Last Name' },
-  {key: 'emailAddress', label: 'Email Address' },
-  {key: 'verificationStatus', label: 'Verification Status' },
-  {key: 'availabilityStatus', label: 'Availability Status'},
-  {key: 'professionalType', label: 'Professional Type'},
-  {key: 'professionalQualificationType', label: 'Qualification Type'},
-  {key: 'languageSpoken', label: 'Language Spoken'}
+  { key: 'title', label: 'Title' },
+  { key: 'visibility', label: 'Visibility' }
 ];
