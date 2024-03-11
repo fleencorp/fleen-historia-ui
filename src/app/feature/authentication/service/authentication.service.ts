@@ -27,7 +27,7 @@ import {Router} from "@angular/router";
 import {AUTHENTICATION_ENTRY_POINT} from "@app/config";
 import {AuthenticationStatus} from "@app/model/enum";
 import {hasAtLeastAProperty} from "@app/shared/helper";
-import {MiscService} from "@app/shared/service/impl/common/misc.service";
+import {MiscService} from "@app/shared/service/impl/common";
 
 
 /**
