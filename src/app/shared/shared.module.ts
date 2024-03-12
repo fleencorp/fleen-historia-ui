@@ -13,7 +13,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     SharedComponentModule
   ],
   exports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
     SharedServiceModule,
     SharedComponentModule,
   ]
