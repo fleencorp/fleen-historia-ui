@@ -11,5 +11,9 @@
     <app-update-video-info [video-id]="entryView.videoId"></app-update-video-info>
   </ng-container>
 
+  <ng-container *ngIf="startUpdateVideoObject">
+    <app-update-video-object [video-id]="entryView.videoId" ></app-update-video-object>
+  </ng-container>
+
 
 </ng-container>

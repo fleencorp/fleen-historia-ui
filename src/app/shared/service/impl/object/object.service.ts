@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClientService} from "@app/shared/service/impl";
+import {HttpClientService, S3Service} from "@app/shared/service/impl";
 import {map, Observable} from "rxjs";
 import {DeleteResponse} from "@app/model/response/common";
 import {BaseRequest} from "@app/model/type";
@@ -9,18 +9,24 @@ export class ObjectService {
 
   private readonly BASE_PATH: string = "";
 
-  public constructor(protected httpService: HttpClientService) { }
+  public constructor(
+      protected httpService: HttpClientService,
+      protected s3Service: S3Service) { }
 
-  public deleteVideoContent(key: string): Observable<DeleteResponse> {
+  public deleteVideoContent(keyOrObjectUrl: string): Observable<DeleteResponse> {
+    const key: string | null = this.s3Service.extractBaseUrl(keyOrObjectUrl);
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'delete', 'video'], { key });
+
     return this.httpService.delete(req)
       .pipe(
         map(data => new DeleteResponse(data))
       );
   }
 
-  public deleteVideoThumbnail(key: string): Observable<DeleteResponse> {
+  public deleteVideoThumbnail(keyOrObjectUrl: string): Observable<DeleteResponse> {
+    const key: string | null = this.s3Service.extractBaseUrl(keyOrObjectUrl);
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'delete', 'video-thumbnail'], { key });
+
     return this.httpService.delete(req)
       .pipe(
         map(data => new DeleteResponse(data))

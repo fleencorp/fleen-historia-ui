@@ -21,6 +21,7 @@ export class UpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, An
   public isVideoNotApprovedYet: boolean = false;
   public canUpdateObjectOrVideoContent: boolean = false;
   public startUpdateVideoInfo: boolean = false;
+  public startUpdateVideoObject: boolean = false;
 
   public constructor(
       private userVideoService: UserVideoService,
@@ -35,7 +36,7 @@ export class UpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, An
   }
 
   public updateVideoObject(): void {
-
+    this.startUpdateVideoObject = true;
   }
 
   public async ngOnInit(): Promise<void> {

@@ -2,11 +2,9 @@ import {Component, Input} from '@angular/core';
 import {BaseFormComponent} from "@app/base/component";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
-import {DEFAULT_IMAGE_CONSTRAINT, DEFAULT_VIDEO_CONSTRAINT} from "@app/constant/file.const";
+import {ANY_EMPTY, DEFAULT_IMAGE_CONSTRAINT, DEFAULT_VIDEO_CONSTRAINT} from "@app/constant";
 import {FileConstraints} from "@app/model/type";
-import {ObjectService, S3Service, SignedUrlService} from "@app/shared/service/impl";
-import {ANY_EMPTY} from "@app/constant";
-import {GetMemberUpdateDetailsResponse} from "@app/model/response/member";
+import {ObjectService, SignedUrlService} from "@app/shared/service/impl";
 import {ErrorResponse} from "@app/model/response";
 import {Observable} from "rxjs";
 import {DeleteResponse, SignedUrlResponse} from "@app/model/response/common";
@@ -24,7 +22,6 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
   public readonly photoConstraints: FileConstraints = DEFAULT_IMAGE_CONSTRAINT;
   public readonly videoConstraints: FileConstraints = DEFAULT_VIDEO_CONSTRAINT;
   protected override formBuilder!: FormBuilder;
-  public signedUrl: string | null = null;
   public videoContentUrl: string | null = null;
   public videoThumbnailUrl: string | null = null;
   public videoContent: FormControl = new FormControl<string>('');
@@ -35,7 +32,6 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
 
   public constructor(protected userVideoService: UserVideoService,
                      protected signedUrlService: SignedUrlService,
-                     protected s3Service: S3Service,
                      protected objectService: ObjectService) {
     super();
   }
