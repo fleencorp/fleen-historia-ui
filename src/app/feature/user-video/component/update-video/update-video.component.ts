@@ -51,6 +51,12 @@ export class UpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, An
     return of(ANY_EMPTY);
   }
 
+  get canUpdateVideoInfoOrObject(): boolean {
+    return !(this.isVideoInReview)
+      && !(this.startUpdateVideoInfo)
+      && !(this.startUpdateVideoObject);
+  }
+
   protected override initForm(): void {}
 
   protected start(): void {

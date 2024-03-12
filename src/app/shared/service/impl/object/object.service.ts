@@ -7,7 +7,7 @@ import {BaseRequest} from "@app/model/type";
 @Injectable()
 export class ObjectService {
 
-  private readonly BASE_PATH: string = "";
+  private readonly BASE_PATH: string = "object";
 
   public constructor(
       protected httpService: HttpClientService,
@@ -15,7 +15,7 @@ export class ObjectService {
 
   public deleteVideoContent(keyOrObjectUrl: string): Observable<DeleteResponse> {
     const key: string | null = this.s3Service.extractBaseUrl(keyOrObjectUrl);
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'delete', 'video'], { key });
+    const req: BaseRequest = this.httpService.toRequest(['this.BASE_PATH', 'delete', 'video'], { key });
 
     return this.httpService.delete(req)
       .pipe(

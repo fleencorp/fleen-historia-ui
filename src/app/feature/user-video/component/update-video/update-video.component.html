@@ -2,7 +2,7 @@
 
   <p *ngIf="isVideoInReview">Video is In Review at the moment and cannot be updated</p>
 
-  <ng-container *ngIf="!isVideoInReview && !startUpdateVideoInfo">
+  <ng-container *ngIf="canUpdateVideoInfoOrObject">
     <button type="button" (click)="updateVideoInfo()">Update Video Info</button>
     <button *ngIf="canUpdateObjectOrVideoContent" type="button" (click)="updateVideoObject()">Update Video Object</button>
   </ng-container>

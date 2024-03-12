@@ -8,7 +8,7 @@ export const DEFAULT_IMAGE_CONSTRAINT: FileConstraints = {
 }
 
 export const DEFAULT_VIDEO_CONSTRAINT: FileConstraints = {
-  maxFileSize: 1,
+  maxFileSize: 5000,
   allowableTypes: DEFAULT_VIDEO_TYPES,
   fileSizeUnit: 'MB'
 }
