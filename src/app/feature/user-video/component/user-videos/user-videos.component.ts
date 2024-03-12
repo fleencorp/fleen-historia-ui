@@ -51,7 +51,8 @@ export class UserVideosComponent extends BaseEntriesComponent<FleenVideoView> im
 
   public canPublish(video: FleenVideoView): boolean {
     if (isTruthy(video)) {
-      return video.videoStatus === VideoStatus.APPROVED;
+      return video.videoStatus === VideoStatus.APPROVED
+        && !video.isPublished;
     }
     return false;
   }
