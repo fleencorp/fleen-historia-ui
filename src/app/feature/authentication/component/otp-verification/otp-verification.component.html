@@ -1,7 +1,5 @@
 <div class="otp-input-container">
-  <div class="form-message">
-    {{errorMessage}}
-  </div>
+  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <form>
     <p>{{verificationMessage}}</p>

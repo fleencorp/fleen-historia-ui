@@ -1,1 +1,68 @@
-<p>update-video-info works!</p>
+
+<form *ngIf="isFormReady" [formGroup]="updateVideoForm" (ngSubmit)="updateVideo()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
+  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" formControlName="title" id="title"/>
+    <app-validation-error [control]="title" [control-label]="'Title'" ></app-validation-error>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input type="text" formControlName="description" id="description"/>
+    <app-validation-error [control]="description" [control-label]="'Description'"></app-validation-error>
+  </div>
+
+  <div class="form-group">
+    <label for="tags">Tags</label>
+    <input type="text" formControlName="tags" id="tags"/>
+    <app-validation-error [control]="tags" [control-label]="'Tags'"></app-validation-error>
+  </div>
+
+  <div class="form-group">
+    <label for="reference_or_source">Reference or Source</label>
+    <input type="text" formControlName="referenceOrSource" id="reference_or_source"/>
+    <app-validation-error [control]="referenceOrSource" [control-label]="'Reference or Source'"></app-validation-error>
+  </div>
+
+  <div class="form-group">
+    <label for="is_for_kids">Is for Kids?</label>
+    <select formControlName="isForKids" id="is_for_kids">
+      <option value=""></option>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+    <app-validation-error [control]="isForKids" [control-label]="'Is for Kids'"></app-validation-error>
+  </div>
+
+  <div class="form-group">
+    <label for="visibility">Visibility</label>
+    <select formControlName="visibility" id="visibility">
+      <option value=""></option>
+      <option value="PUBLIC">Public</option>
+      <option value="PRIVATE">Private</option>
+    </select>
+    <app-validation-error [control]="visibility" [control-label]="'Visibility'"></app-validation-error>
+  </div>
+
+  <div class="form-group">
+    <label for="categoryId">Channel</label>
+    <select formControlName="categoryId" id="categoryId">
+      <option *ngFor="let category of categories" [value]="category.categoryId">{{ category.title }}</option>
+    </select>
+    <app-validation-error [control]="categoryId" [control-label]="'Category'"></app-validation-error>
+  </div>
+
+  <div class="form-group">
+    <label for="channelId">Channel</label>
+    <select formControlName="channelId" id="channelId">
+      <option *ngFor="let channel of channels" [value]="channel.channelId">{{ channel.title }}</option>
+    </select>
+    <app-validation-error [control]="channelId" [control-label]="'Channel'"></app-validation-error>
+  </div>
+
+  <button type="submit" [disabled]="isSubmitting">Submit</button>
+
+</form>
+

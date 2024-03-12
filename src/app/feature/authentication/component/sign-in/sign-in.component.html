@@ -4,9 +4,7 @@
 
 <ng-container *ngIf="isFormReady">
   <form *ngIf="!isVerificationStage" [formGroup]="signInForm" (ngSubmit)="signIn()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
-    <div class="form-error-message">
-      {{errorMessage}}
-    </div>
+    <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
     <div class="form-group">
       <label for="email_address">Email Address</label>

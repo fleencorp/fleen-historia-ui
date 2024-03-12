@@ -1,8 +1,6 @@
 
 <form *ngIf="isFormReady" [formGroup]="createVideoForm" (ngSubmit)="createVideo()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
-  <div class="form-error-message">
-    {{errorMessage}}
-  </div>
+  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <div class="form-group">
     <label for="title">Title</label>

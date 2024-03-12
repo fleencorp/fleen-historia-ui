@@ -1,11 +1,5 @@
 <form *ngIf="isFormReady" [formGroup]="mfaSetupForm" (ngSubmit)="setupMfa()" method="post" enctype="application/x-www-form-urlencoded" class="sign-up-form">
-  <div class="form-error-message">
-    {{errorMessage}}
-  </div>
-
-  <div class="form-error-message">
-    {{statusMessage}}
-  </div>
+  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <div class="form-group" *ngIf="!isCodeVerificationStage">
     <input type ="radio" formControlName="mfaType" value="PHONE" id="mfa_type_phone"/>
