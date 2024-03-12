@@ -63,11 +63,11 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
   }
 
   get saveVideoMethod(): (...data: any[]) => Observable<any> {
-    return ANY_EMPTY;
+    return this.noOpFunction$;
   }
 
   get saveVideoThumbnailMethod(): (...data: any[]) => Observable<any> {
-    return ANY_EMPTY;
+    return this.noOpFunction$;
   }
 
   get deleteVideoMethod(): (...data: any[]) => Observable<DeleteResponse> {

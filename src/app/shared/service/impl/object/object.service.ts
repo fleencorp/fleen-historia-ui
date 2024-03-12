@@ -15,7 +15,7 @@ export class ObjectService {
 
   public deleteVideoContent(keyOrObjectUrl: string): Observable<DeleteResponse> {
     const key: string | null = this.s3Service.extractBaseUrl(keyOrObjectUrl);
-    const req: BaseRequest = this.httpService.toRequest(['this.BASE_PATH', 'delete', 'video'], { key });
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'delete', 'video'], { key });
 
     return this.httpService.delete(req)
       .pipe(
