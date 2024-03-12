@@ -9,7 +9,8 @@
     <tr>
       <th>S/N</th>
       <th>Title</th>
-      <th>Code</th>
+      <th>Channel</th>
+      <th>Status</th>
       <th>Created On</th>
       <th>Updated On</th>
       <th></th>
@@ -20,6 +21,7 @@
       <td>{{ addOneToIndex(i) }}</td>
       <td>{{ video.videoTitle }}</td>
       <td>{{ video.channel.title }}</td>
+      <td>{{ video.videoStatus }}</td>
       <td>{{ video.createdOn | date:'mediumDate' }}</td>
       <td>{{ video.updatedOn | date:'mediumDate' }}</td>
       <app-row-entry-option [entry-id]="video.videoId" [can-check]="false" (detailClicked)="viewDetail(video.videoId)"

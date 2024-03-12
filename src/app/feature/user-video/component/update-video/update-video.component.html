@@ -1,5 +1,6 @@
 
-<div id="update-video-links">
-  <button type="button" (click)="updateVideoInfo()">Update Video Info</button>
-  <button type="button" (click)="updateVideoObject()">Update Video Object</button>
-</div>
+<p *ngIf="isVideoInReview">Video is In Review at the moment and cannot be updated</p>
+
+<button type="button" (click)="updateVideoInfo()">Update Video Info</button>
+<button *ngIf="canUpdateObjectOrVideoContent" type="button" (click)="updateVideoObject()">Update Video Object</button>
+

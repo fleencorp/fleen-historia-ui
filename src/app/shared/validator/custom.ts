@@ -32,6 +32,10 @@ import {EntityExistsResponse} from "@app/model/response/common";
     };
   }
 
+  export function enumValid(type: AnyObject): ValidatorFn {
+    return enumTypeValidator(Object.values(type));
+  }
+
 
   /**
    * Validator function to check if two form fields have matching values.

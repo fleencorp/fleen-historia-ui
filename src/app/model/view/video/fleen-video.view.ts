@@ -18,6 +18,7 @@ export class FleenVideoView extends FleenBaseView {
   public readonly videoStatus: VideoStatus;
   public readonly isPublished: boolean;
   public readonly isForKids: boolean;
+  public readonly isObjectApproved: boolean;
   public readonly category: CategoryView;
   public readonly channel: ChannelView;
   public readonly videoReview: VideoReviewView;
@@ -39,5 +40,6 @@ export class FleenVideoView extends FleenBaseView {
     this.category = new CategoryView(data?.category);
     this.channel = new ChannelView(data?.channel);
     this.videoReview = new VideoReviewView(data?.videoReview);
+    this.isObjectApproved = data?.isObjectApproved;
   }
 }

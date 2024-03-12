@@ -1,7 +1,7 @@
 import {BaseFormComponent} from "@app/base/component";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {isFalsy, isTruthy} from "@app/shared/helper";
+import {isFalsy, isTruthy, nonNull} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
 
 /**
@@ -57,7 +57,7 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
    * and fetching the corresponding entry from the service.
    * If the ID is not valid, it redirects to the entries page.
    */
-  public initEntry(): void {
+  public initEntry(cb?: Function): void {
     this.route.paramMap.subscribe(async (params: ParamMap): Promise<void> => {
       const id: number | string | null | any = params?.get('id');
       if (isNaN(id)) {
@@ -65,7 +65,7 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
         return;
       }
       this.entryId = id;
-      this.getEntry(id);
+      this.getEntry(id, cb);
     });
   }
 
@@ -74,14 +74,16 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
    * If successful, it initializes the entry view, form, and details.
    * If an error occurs, it redirects to the entries page with an optional error message.
    * @param id The ID of the entry to retrieve.
+   * @param cb A callback function to execute after successful retrieval of data
    */
-  protected getEntry(id: number | string): void {
+  protected getEntry(id: number | string, cb?: Function): void {
     this.getServiceEntry(id)
       .subscribe({
         next: (result: T): void => {
           this.entryView = result;
           this.initForm();
           this.initDetails();
+          this.invokeCallback(cb);
         },
         error: async (error: ErrorResponse): Promise<void> => {
           await this.goToEntries(error.message);
@@ -117,6 +119,10 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
    */
   protected override getRouter(): Router {
     return this.router;
+  }
+
+  protected invokeCallback(cb?: Function): void {
+    if (cb) { cb(); }
   }
 
 }

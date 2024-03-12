@@ -13,8 +13,9 @@ import {ReactiveFormsModule} from "@angular/forms";
     SharedComponentModule
   ],
   exports: [
+    ReactiveFormsModule
     SharedServiceModule,
-    SharedComponentModule
+    SharedComponentModule,
   ]
 })
 export class SharedModule { }

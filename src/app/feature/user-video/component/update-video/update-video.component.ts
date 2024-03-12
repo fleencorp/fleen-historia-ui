@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Observable, of} from "rxjs";
 import {ANY_EMPTY} from "@app/constant";
 import {UserVideoService} from "@app/feature/user-video/service";
+import {VideoStatus} from "@app/model/enum";
 
 @Component({
   selector: 'app-update-video',
@@ -16,6 +17,8 @@ import {UserVideoService} from "@app/feature/user-video/service";
 export class UpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, AnyObject> implements OnInit {
 
   public override entryView!: FleenVideoView;
+  public isVideoInReview: boolean = false;
+  public canUpdateObjectOrVideoContent: boolean = false;
 
   public constructor(
       private userVideoService: UserVideoService,
@@ -34,7 +37,7 @@ export class UpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, An
   }
 
   public ngOnInit(): void {
-    this.initEntry();
+    this.initEntry(this.start.bind(this));
   }
 
   protected override getServiceEntry(id: number | string): Observable<FleenVideoView> {
@@ -47,4 +50,20 @@ export class UpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, An
 
   protected override initForm(): void {}
 
+  protected start(): void {
+    this.checkIsVideoInReview();
+    this.checkCanUpdateVideoContent();
+  }
+
+  protected checkIsVideoInReview(): void {
+    if (this.entryView.videoStatus == VideoStatus.IN_REVIEW) {
+      this.isVideoInReview = true;
+    }
+  }
+
+  protected checkCanUpdateVideoContent(): void {
+    if (!(this.entryView.isObjectApproved)) {
+      this.canUpdateObjectOrVideoContent = true;
+    }
+  }
 }
