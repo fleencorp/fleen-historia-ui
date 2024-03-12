@@ -57,16 +57,20 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
    * and fetching the corresponding entry from the service.
    * If the ID is not valid, it redirects to the entries page.
    */
-  public initEntry(cb?: Function): void {
+  public async initEntry(cb?: Function): Promise<void> {
     this.route.paramMap.subscribe(async (params: ParamMap): Promise<void> => {
       const id: number | string | null | any = params?.get('id');
-      if (isNaN(id)) {
-        await this.goToEntries();
-        return;
-      }
-      this.entryId = id;
-      this.getEntry(id, cb);
+      await this.initAndGetEntry(id, cb);
     });
+  }
+
+  public async initAndGetEntry(id: string | number | any | null, cb?: Function): Promise<void> {
+    if (isNaN(id)) {
+      await this.goToEntries();
+      return;
+    }
+    this.entryId = id;
+    this.getEntry(id, cb);
   }
 
   /**

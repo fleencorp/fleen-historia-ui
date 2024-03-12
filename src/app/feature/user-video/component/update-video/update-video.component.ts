@@ -18,7 +18,9 @@ export class UpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, An
 
   public override entryView!: FleenVideoView;
   public isVideoInReview: boolean = false;
+  public isVideoNotApprovedYet: boolean = false;
   public canUpdateObjectOrVideoContent: boolean = false;
+  public startUpdateVideoInfo: boolean = false;
 
   public constructor(
       private userVideoService: UserVideoService,
@@ -29,15 +31,15 @@ export class UpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, An
   }
 
   public updateVideoInfo(): void {
-
+    this.startUpdateVideoInfo = true;
   }
 
   public updateVideoObject(): void {
 
   }
 
-  public ngOnInit(): void {
-    this.initEntry(this.start.bind(this));
+  public async ngOnInit(): Promise<void> {
+    await this.initEntry(this.start.bind(this));
   }
 
   protected override getServiceEntry(id: number | string): Observable<FleenVideoView> {
@@ -53,11 +55,18 @@ export class UpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, An
   protected start(): void {
     this.checkIsVideoInReview();
     this.checkCanUpdateVideoContent();
+    this.checkIsVideoNotApprovedYet();
   }
 
   protected checkIsVideoInReview(): void {
-    if (this.entryView.videoStatus == VideoStatus.IN_REVIEW) {
+    if (this.entryView.videoStatus === VideoStatus.IN_REVIEW) {
       this.isVideoInReview = true;
+    }
+  }
+
+  protected checkIsVideoNotApprovedYet(): void {
+    if (this.entryView.videoStatus !== VideoStatus.APPROVED) {
+      this.isVideoNotApprovedYet = true;
     }
   }
 

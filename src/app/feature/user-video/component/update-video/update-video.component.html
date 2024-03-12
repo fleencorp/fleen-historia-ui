@@ -1,6 +1,15 @@
+<ng-container *ngIf="entryView">
 
-<p *ngIf="isVideoInReview">Video is In Review at the moment and cannot be updated</p>
+  <p *ngIf="isVideoInReview">Video is In Review at the moment and cannot be updated</p>
 
-<button type="button" (click)="updateVideoInfo()">Update Video Info</button>
-<button *ngIf="canUpdateObjectOrVideoContent" type="button" (click)="updateVideoObject()">Update Video Object</button>
+  <ng-container *ngIf="!isVideoInReview && !startUpdateVideoInfo">
+    <button type="button" (click)="updateVideoInfo()">Update Video Info</button>
+    <button *ngIf="canUpdateObjectOrVideoContent" type="button" (click)="updateVideoObject()">Update Video Object</button>
+  </ng-container>
 
+  <ng-container *ngIf="startUpdateVideoInfo">
+    <app-update-video-info [video-id]="entryView.videoId"></app-update-video-info>
+  </ng-container>
+
+
+</ng-container>

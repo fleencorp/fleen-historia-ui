@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BaseUpdateComponent} from "@app/base/component";
 import {FleenVideoView} from "@app/model/view/video";
 import {UpdateVideoPayload} from "@app/model/type/video.type";
@@ -24,6 +24,9 @@ export class UpdateVideoInfoComponent extends BaseUpdateComponent<FleenVideoView
   public categories: CategoryView[] = [];
   public override entryView!: FleenVideoView;
 
+  @Input('video-id')
+  public videoId!: number | string;
+
   public constructor(
     private userVideoService: UserVideoService,
     protected formBuilder: FormBuilder,
@@ -32,8 +35,8 @@ export class UpdateVideoInfoComponent extends BaseUpdateComponent<FleenVideoView
     super(router, route);
   }
 
-  public ngOnInit(): void {
-    this.initEntry();
+  public async ngOnInit(): Promise<void> {
+    await this.initAndGetEntry(this.videoId);
     this.getDataForCreateVideo();
   }
 
