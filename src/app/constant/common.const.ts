@@ -10,6 +10,8 @@ export const DEFAULT_FORM_CONTROL_VALUE: string = '';
 
 export const DEFAULT_IMAGE_TYPES: string[] = ['image/jpeg', 'image/png'];
 
+export const DEFAULT_VIDEO_TYPES: string[] = ['video/*'];
+
 export const DEFAULT_DOCUMENT_TYPES: string[] = ['application/pdf'];
 
 export const PROFILE_TYPES: string[] = ['PROFESSIONAL', 'USER'];

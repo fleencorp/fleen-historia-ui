@@ -1,6 +1,12 @@
 import {Injectable} from "@angular/core";
 import {map, Observable} from "rxjs";
-import {AnyObject, BaseRequest, CreateVideoPayload, UpdateVideoPayload} from "@app/model/type";
+import {
+  AnyObject,
+  BaseRequest,
+  CreateVideoPayload,
+  UpdateVideoObjectPayload,
+  UpdateVideoPayload
+} from "@app/model/type";
 import {SearchResultView} from "@app/model/view";
 import {FleenVideoView} from "@app/model/view/video";
 import {HttpClientService} from "@app/shared/service/impl";
@@ -49,7 +55,15 @@ export class UserVideoService {
   }
 
   public updateVideoInfo(id: number | string, body: UpdateVideoPayload): Observable<FleenVideoView> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'detail', +id], null, { ...body });
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'update', 'info', +id], null, { ...body });
+    return this.httpService.update(req)
+      .pipe(
+        map(data => new FleenVideoView(data))
+      );
+  }
+
+  public updateVideoObject(id: number | string, body: UpdateVideoObjectPayload): Observable<FleenVideoView> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'update', 'object', +id], null, { ...body });
     return this.httpService.update(req)
       .pipe(
         map(data => new FleenVideoView(data))

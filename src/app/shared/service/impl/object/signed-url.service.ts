@@ -18,4 +18,20 @@ export class SignedUrlService {
         map(data => new SignedUrlResponse(data))
       );
   }
+
+  public generateForVideoObject(fileName: string): Observable<SignedUrlResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video-object'], { fileName });
+    return this.httpService.get(req)
+      .pipe(
+        map(data => new SignedUrlResponse(data))
+      );
+  }
+
+  public generateForVideoThumbnail(fileName: string): Observable<SignedUrlResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video-thumbnail'], { fileName });
+    return this.httpService.get(req)
+      .pipe(
+        map(data => new SignedUrlResponse(data))
+      );
+  }
 }

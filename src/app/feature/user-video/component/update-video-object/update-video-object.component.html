@@ -1,1 +1,11 @@
-<p>update-video-object works!</p>
+<ng-container *ngIf="isFormReady">
+
+  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+  <app-upload-file [control-label]="'Video Content'" [control]="videoContent" [file-constraints]="photoConstraints" [file-id]="'object_or_video_url'" [file-key]="'objectOrVideoUrl'"
+                   [file-url]="videoContentUrl" [signed-url-method]="signedUrlForVideoMethod" [save-file-method]="saveVideoMethod" [delete-file-method]="deleteVideoMethod"></app-upload-file>
+
+  <app-upload-file [control-label]="'Video Thumbnail'" [control]="videoContent" [file-constraints]="photoConstraints" [file-id]="'object_or_thumbnail_url'" [file-key]="'objectOrThumbnailUrl'"
+                   [file-url]="videoThumbnailUrl" [signed-url-method]="signedUrlForVideoThumbnailMethod" [save-file-method]="saveVideoThumbnailMethod" [delete-file-method]="deleteVideoThumbnailMethod"></app-upload-file>
+
+</ng-container>

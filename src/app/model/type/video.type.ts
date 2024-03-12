@@ -12,3 +12,8 @@ export type CreateVideoPayload = {
 }
 
 export type UpdateVideoPayload = CreateVideoPayload;
+
+export type UpdateVideoObjectPayload = {
+  objectOrVideoUrl: string;
+  objectOrThumbnailUrl: string;
+}
