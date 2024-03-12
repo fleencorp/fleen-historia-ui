@@ -1,1 +1,32 @@
-<p>user-video works!</p>
+<ng-container *ngIf="fleenVideoView">
+  <p>{{fleenVideoView | json }}</p>
+  <table>
+    <thead>
+    <tr>
+      <td colspan="2">Video Detail</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>ID</th>
+
+    </tr>
+    <tr>
+      <th>Title</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Code</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Created On</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Updated On</th>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</ng-container>
