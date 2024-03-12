@@ -9,6 +9,8 @@ import {Observable} from "rxjs";
 import {Location} from "@angular/common";
 import {SearchResultView} from "@app/model/view";
 import {ANY_EMPTY} from "@app/constant";
+import {VideoStatus} from "@app/model/enum";
+import {isTruthy} from "@app/shared/helper";
 
 @Component({
   selector: 'app-user-videos',
@@ -37,6 +39,21 @@ export class UserVideosComponent extends BaseEntriesComponent<FleenVideoView> im
 
   override deleteEntries(payload: DeleteIdsPayload): Observable<any> {
     return ANY_EMPTY;
+  }
+
+  public canRequestForReview(video: FleenVideoView): boolean {
+    if (isTruthy(video)) {
+      return video.videoStatus === VideoStatus.DRAFT
+        || video.videoStatus === VideoStatus.DISAPPROVED;
+    }
+    return false;
+  }
+
+  public canPublish(video: FleenVideoView): boolean {
+    if (isTruthy(video)) {
+      return video.videoStatus === VideoStatus.APPROVED;
+    }
+    return false;
   }
 
 }
