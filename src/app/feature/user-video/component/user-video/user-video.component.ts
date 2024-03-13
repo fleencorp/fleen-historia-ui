@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseDetailComponent} from "@app/base/component/base-detail/base-detail.component";
+import {BaseDetailComponent} from "@app/base/component/base/base-detail.component";
 import {FleenVideoView} from "@app/model/view/video";
 import {UserVideoService} from "@app/feature/user-video/service/user-video.service";
 import {ActivatedRoute, Router} from "@angular/router";

@@ -1,5 +1,5 @@
 import {ActivatedRoute, Router} from "@angular/router";
-import {BaseUpdateComponent} from "../base-update/base-update.component";
+import {BaseUpdateComponent} from "@app/base/component";
 import {Observable, of} from "rxjs";
 import {ANY_EMPTY} from "@app/constant";
 

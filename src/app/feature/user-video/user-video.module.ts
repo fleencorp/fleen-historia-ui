@@ -13,7 +13,7 @@ import {
   UserVideosComponent
 } from '@app/feature/user-video/component';
 import {SharedModule} from "@app/shared/shared.module";
-import {UserVideoService} from "@app/feature/user-video/service/user-video.service";
+import {UserVideoService} from "@app/feature/user-video/service";
 
 
 @NgModule({

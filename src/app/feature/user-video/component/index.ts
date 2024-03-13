@@ -1,5 +1,4 @@
 export * from './create-video/create-video.component';
-export * from './request-review/request-review.component';
 export * from './update-video/update-video.component';
 export * from './update-video-info/update-video-info.component';
 export * from './update-video-object/update-video-object.component';
