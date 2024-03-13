@@ -11,6 +11,8 @@ import {SearchResultView} from "@app/model/view";
 import {ANY_EMPTY} from "@app/constant";
 import {VideoStatus} from "@app/model/enum";
 import {isTruthy} from "@app/shared/helper";
+import {RequestForReviewResponse} from "@app/model/response/video/request-for-review.response";
+import {ErrorResponse} from "@app/model/response";
 
 @Component({
   selector: 'app-user-videos',
@@ -55,6 +57,22 @@ export class UserVideosComponent extends BaseEntriesComponent<FleenVideoView> im
         && !video.isPublished;
     }
     return false;
+  }
+
+  public requestForReview(videoId: number | string): void {
+    this.userVideoService.requestForReview(videoId)
+      .subscribe({
+        next: (result: RequestForReviewResponse): void => { this.setStatusMessage(result.message); },
+        error: (error: ErrorResponse): void => { this.handleError(error); }
+    });
+  }
+
+  public publishVideo(id: number | string): void {
+    this.userVideoService.requestForReview(id)
+      .subscribe({
+        next: (result: RequestForReviewResponse): void => { this.setStatusMessage(result.message); },
+        error: (error: ErrorResponse): void => { this.handleError(error); }
+      });
   }
 
 }

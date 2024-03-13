@@ -26,8 +26,8 @@
       <td>{{ video.updatedOn | date:'mediumDate' }}</td>
       <app-row-entry-option [entry-id]="video.videoId" [can-check]="false" (detailClicked)="viewDetail(video.videoId)"
                             (updateClicked)="updateEntry(video.videoId)" (checkedChanged)="handleChecked(video.videoId, $event)"></app-row-entry-option>
-      <button type="button" *ngIf="canRequestForReview(video)">Request for Review</button>
-      <button type="button" *ngIf="canPublish(video)">Publish</button>
+      <button type="button" *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Request for Review</button>
+      <button type="button" *ngIf="canPublish(video)" (click)="publishVideo(video.videoId)">Publish</button>
     </tr>
     </tbody>
   </table>

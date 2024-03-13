@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {map, Observable} from "rxjs";
+import {map, ObjectUnsubscribedError, Observable} from "rxjs";
 import {
   AnyObject,
   BaseRequest,
@@ -12,6 +12,7 @@ import {FleenVideoView} from "@app/model/view/video";
 import {HttpClientService} from "@app/shared/service/impl";
 import {mapToSearchResult} from "@app/shared/helper";
 import {GetCreateVideoResponse} from "@app/model/response/video/get-create-video.response";
+import {RequestForReviewResponse} from "@app/model/response/video/request-for-review.response";
 
 @Injectable()
 export class UserVideoService {
@@ -64,6 +65,22 @@ export class UserVideoService {
 
   public updateVideoObject(id: number | string, body: UpdateVideoObjectPayload): Observable<FleenVideoView> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'update', 'object', +id], null, { ...body });
+    return this.httpService.update(req)
+      .pipe(
+        map(data => new FleenVideoView(data))
+      );
+  }
+
+  public requestForReview(videoId: number | string): Observable<RequestForReviewResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'request-review', +videoId]);
+    return this.httpService.update(req)
+      .pipe(
+        map(data => new RequestForReviewResponse(data))
+      );
+  }
+
+  public publishVideo(id: number | string): Observable<FleenVideoView> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'publish', +id]);
     return this.httpService.update(req)
       .pipe(
         map(data => new FleenVideoView(data))
