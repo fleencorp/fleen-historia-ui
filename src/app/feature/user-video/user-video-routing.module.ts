@@ -3,9 +3,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from "@app/base/guard";
 import {
   CreateVideoComponent,
-  RequestReviewComponent,
   UpdateVideoComponent,
-  UserVideoBaseComponent, UserVideoComponent,
+  UserVideoBaseComponent,
+  UserVideoComponent,
   UserVideoDashboardComponent,
   UserVideosComponent
 } from "@app/feature/user-video/component";
@@ -21,7 +21,6 @@ const routes: Routes = [
       { path: 'detail/:id', component: UserVideoComponent, title: 'User Video' },
       { path: 'update/:id', component: UpdateVideoComponent, title: 'Update Video' },
       { path: 'create-video', component: CreateVideoComponent, title: 'Submit a Video' },
-      { path: 'request-review', component: RequestReviewComponent, title: 'Request Review' },
     ]
   }
 ];

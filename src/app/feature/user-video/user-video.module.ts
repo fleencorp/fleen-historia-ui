@@ -4,7 +4,6 @@ import {CommonModule} from '@angular/common';
 import {UserVideoRoutingModule} from './user-video-routing.module';
 import {
   CreateVideoComponent,
-  RequestReviewComponent,
   UpdateVideoComponent,
   UpdateVideoInfoComponent,
   UpdateVideoObjectComponent,
@@ -25,7 +24,6 @@ import {UserVideoService} from "@app/feature/user-video/service/user-video.servi
     UpdateVideoComponent,
     UpdateVideoInfoComponent,
     UpdateVideoObjectComponent,
-    RequestReviewComponent,
     UserVideoBaseComponent,
     UserVideoDashboardComponent
   ],

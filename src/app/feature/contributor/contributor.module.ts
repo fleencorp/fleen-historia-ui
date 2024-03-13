@@ -1,15 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { ContributorRoutingModule } from './contributor-routing.module';
-import { PendingVideosComponent } from './component/pending-videos/pending-videos.component';
-import { PendingVideoComponent } from './component/pending-video/pending-video.component';
-import { SubmitVideoReviewComponent } from './component/submit-video-review/submit-video-review.component';
-import { ReviewHistoryComponent } from './component/review-history/review-history.component';
-import { MyReviewHistoryComponent } from './component/my-review-history/my-review-history.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import {SharedComponentModule} from "@app/shared/component/shared-component.module";
+import {ContributorRoutingModule} from './contributor-routing.module';
+import {
+  ContributorBaseComponent,
+  ContributorDashboardComponent,
+  MyReviewHistoryComponent,
+  PendingVideoComponent,
+  PendingVideosComponent,
+  ReviewHistoryComponent,
+  SubmitVideoReviewComponent
+} from './component';
 import {SharedModule} from "@app/shared/shared.module";
+import {ContributorService} from "@app/feature/contributor/service";
 
 
 @NgModule({
@@ -18,14 +21,17 @@ import {SharedModule} from "@app/shared/shared.module";
     PendingVideoComponent,
     SubmitVideoReviewComponent,
     ReviewHistoryComponent,
-    MyReviewHistoryComponent
+    MyReviewHistoryComponent,
+    ContributorBaseComponent,
+    ContributorDashboardComponent
   ],
   imports: [
     CommonModule,
-    ContributorRoutingModule,
-    ReactiveFormsModule,
-    SharedComponentModule,
-    SharedModule
+    SharedModule,
+    ContributorRoutingModule
+  ],
+  providers: [
+    ContributorService
   ]
 })
 export class ContributorModule { }
