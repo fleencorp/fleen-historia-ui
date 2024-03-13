@@ -62,7 +62,10 @@ export class UserVideosComponent extends BaseEntriesComponent<FleenVideoView> im
   public requestForReview(videoId: number | string): void {
     this.userVideoService.requestForReview(videoId)
       .subscribe({
-        next: (result: RequestForReviewResponse): void => { this.setStatusMessage(result.message); },
+        next: (result: RequestForReviewResponse): void => {
+          this.setStatusMessage(result.message);
+          this.replaceOldWithUpdateVideo(result.fleenVideoView.videoId, result.fleenVideoView);
+        },
         error: (error: ErrorResponse): void => { this.handleError(error); }
     });
   }
@@ -73,6 +76,16 @@ export class UserVideosComponent extends BaseEntriesComponent<FleenVideoView> im
         next: (result: RequestForReviewResponse): void => { this.setStatusMessage(result.message); },
         error: (error: ErrorResponse): void => { this.handleError(error); }
       });
+  }
+
+  private replaceOldWithUpdateVideo(videoId: number | string, newVideo: FleenVideoView): void {
+    const videoPositionOrIndex: number = this.entries
+      .findIndex((entry: FleenVideoView): boolean => entry.videoId === videoId);
+    if (videoPositionOrIndex !== -1) {
+      // Update the property of the found entry
+      this.entries[videoPositionOrIndex] = newVideo;
+    }
+    this.entries = [ ...this.entries ];
   }
 
 }

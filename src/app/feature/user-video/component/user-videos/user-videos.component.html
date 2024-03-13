@@ -1,4 +1,5 @@
 <app-search-form-delete-menu [is-submitting]="isSubmitting" [search-filter]="searchFilter" (searchSubmitted)="search($event)" (deleteConfirmed)="confirmDeleteEntries()"></app-search-form-delete-menu>
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <p>The current page is {{currentPage}}</p>
 
