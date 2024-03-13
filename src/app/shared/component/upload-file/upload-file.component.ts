@@ -167,6 +167,8 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
   public ngOnInit(): void {
     if (this.checkConfig()) {
       this.formReady();
+      console.log('Checking urls');
+      console.log(this.fileNameOrUrl);
     }
   }
 

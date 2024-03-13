@@ -3,11 +3,14 @@
   <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <app-upload-file [control-label]="'Video Thumbnail'" [control]="videoThumbnail" [file-constraints]="photoConstraints" [file-id]="'object_or_thumbnail_url'" [file-key]="'objectOrThumbnailUrl'"
-                   [file-url]="videoThumbnailUrl" [signed-url-method]="signedUrlForVideoThumbnailMethod" [save-file-method]="saveVideoThumbnailMethod" [delete-file-method]="deleteVideoThumbnailMethod"></app-upload-file>
+                   [file-url]="videoThumbnailUrl" [signed-url-method]="signedUrlForVideoThumbnailMethod" [save-file-method]="saveVideoThumbnailMethod"
+                   [delete-file-method]="deleteVideoThumbnailMethod" #videoThumbnailComponent></app-upload-file>
 
   <app-upload-file [control-label]="'Video Content'" [control]="videoContent" [file-constraints]="videoConstraints" [file-id]="'object_or_video_url'" [file-key]="'objectOrVideoUrl'"
-                   [file-url]="videoContentUrl" [signed-url-method]="signedUrlForVideoMethod" [save-file-method]="saveVideoMethod" [delete-file-method]="deleteVideoMethod"></app-upload-file>
+                   [file-url]="videoContentUrl" [signed-url-method]="signedUrlForVideoMethod" [save-file-method]="saveVideoMethod"
+                   [delete-file-method]="deleteVideoMethod" #videoContentComponent></app-upload-file>
 
+  <button type="submit" [disabled]="canSubmitAndUpdateData" (click)="submit($event)">Submit</button>
 </ng-container>
 
-<button type="submit" *ngIf="canSubmitAndUpdateData" (click)="submit($event)">Submit</button>
+

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {BaseFormComponent} from "@app/base/component";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -12,6 +12,7 @@ import {UserVideoService} from "@app/feature/user-video/service";
 import {FleenVideoView} from "@app/model/view/video";
 import {isFalsy, isTruthy} from "@app/shared/helper";
 import {required} from "@app/shared/validator";
+import {UploadFileComponent} from "@app/shared/component";
 
 @Component({
   selector: 'app-update-video-object',
@@ -27,6 +28,10 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
   public videoThumbnailUrl: string | null = null;
   public videoContent: FormControl = new FormControl<string>('', [required]);
   public videoThumbnail: FormControl = new FormControl<string>('');
+
+  @ViewChild('videoThumbnailComponent') videoThumbnailComponent!: UploadFileComponent;
+  @ViewChild('videoContentComponent') videoContentComponent!: UploadFileComponent;
+
 
   @Input('video-id')
   public videoId!: number | string;
@@ -46,13 +51,17 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
       this.userVideoService.findUserVideo(this.videoId)
         .subscribe({
           next: (result: FleenVideoView): void => {
-            this.videoContentUrl = result.objectUrl;
-            this.videoThumbnailUrl = result.objectThumbnail;
+            this.updateFormData(result);
             this.formReady();
           },
           error: (error: ErrorResponse): void => { this.handleError(error); }
       });
     }
+  }
+
+  public updateFormData(result: FleenVideoView): void {
+    this.videoContentUrl = result.objectUrl;
+    this.videoThumbnailUrl = result.objectThumbnail;
   }
 
   /**
@@ -65,13 +74,9 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
     this.stopEvent(event);
     this.enableLoading();
 
-    console.log(this.videoContent);
+    const payload: UpdateVideoObjectPayload = this.payloadForUpdate;
 
-    if (this.videoContent.valid && isFalsy(this.isSubmitting)) {
-      const videoContentUrl: string = this.videoContent.value.toString();
-      const videoThumbnailUrl: string = this.videoThumbnail.value.toString();
-      const payload: UpdateVideoObjectPayload = { objectOrVideoUrl: videoContentUrl, objectOrThumbnailUrl: videoThumbnailUrl };
-
+    if (isTruthy(payload.objectOrVideoUrl) && isFalsy(this.isSubmitting)) {
       this.userVideoService.updateVideoObject(this.videoId, payload)
         .subscribe({
           next: (): void => { this.setStatusMessage('Update successful') },
@@ -82,6 +87,16 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
           },
       });
     }
+  }
+
+  get payloadForUpdate(): UpdateVideoObjectPayload {
+    const videoContentUrl: string | null = this.videoContentComponent.fileNameOrUrl;
+    const videoThumbnailUrl: string | null = this.videoThumbnailComponent.fileNameOrUrl;
+
+    return {
+      objectOrVideoUrl: videoContentUrl as string,
+      objectOrThumbnailUrl: videoThumbnailUrl as string
+    };
   }
 
   get signedUrlForVideoMethod(): (...data: any[]) => Observable<SignedUrlResponse> {
@@ -109,6 +124,6 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
   }
 
   get canSubmitAndUpdateData(): boolean {
-    return this.videoContent.valid;
+    return isFalsy(this.videoContentUrl);
   }
 }
