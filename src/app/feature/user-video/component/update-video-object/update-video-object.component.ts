@@ -65,6 +65,8 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
     this.stopEvent(event);
     this.enableLoading();
 
+    console.log(this.videoContent);
+
     if (this.videoContent.valid && isFalsy(this.isSubmitting)) {
       const videoContentUrl: string = this.videoContent.value.toString();
       const videoThumbnailUrl: string = this.videoThumbnail.value.toString();
@@ -104,5 +106,9 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
 
   get deleteVideoThumbnailMethod(): (...data: any[]) => Observable<DeleteResponse> {
     return this.objectService.deleteVideoThumbnail.bind(this.objectService);
+  }
+
+  get canSubmitAndUpdateData(): boolean {
+    return this.videoContent.valid;
   }
 }

@@ -10,4 +10,4 @@
 
 </ng-container>
 
-<button type="submit">Submit</button>
+<button type="submit" *ngIf="canSubmitAndUpdateData" (click)="submit($event)">Submit</button>
