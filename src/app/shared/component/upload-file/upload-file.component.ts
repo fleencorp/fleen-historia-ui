@@ -42,7 +42,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
   /**
    * @description Subscription to handle canceling ongoing requests.
    */
-  public cancelRequest$!: Subscription;
+  public cancelRequest$!: Subscription | null;
 
   /**
    * @description Flag indicating whether the upload operation has completed.
@@ -258,6 +258,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
     this.uploadDetails.emit({
       [(this.fileKey)]: this.fileNameOrUrl
     });
+    this.resetCancelRequest();
   }
 
   /**
@@ -270,7 +271,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
    */
   public cancelUpload(element: HTMLInputElement): void {
     // If there is an ongoing cancel request, unsubscribe to halt the upload process
-    if (isTruthy(this.cancelRequest$)) {
+    if (isTruthy(this.cancelRequest$) && this.cancelRequest$ !== null) {
       this.cancelRequest$.unsubscribe();
     }
     // Clear the input files
@@ -342,6 +343,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
             });
             // Clear any associated input files
             this.fileService.clearInputFiles(elem);
+            this.resetCancelRequest();
           }
         });
     }
@@ -438,5 +440,8 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
     return this.canDownloadOrView && this.uploadCompleted;
   }
 
+  protected resetCancelRequest(): void {
+    this.cancelRequest$ = null;
+  }
 
 }

@@ -14,7 +14,7 @@ export class ObjectService {
       protected s3Service: S3Service) { }
 
   public deleteVideoContent(keyOrObjectUrl: string): Observable<DeleteResponse> {
-    const key: string | null = this.s3Service.extractBaseUrl(keyOrObjectUrl);
+    const key: string | null = this.s3Service.getObjectKeyFromSignedUrl(keyOrObjectUrl);
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'delete', 'video'], { key });
 
     return this.httpService.delete(req)
@@ -24,7 +24,7 @@ export class ObjectService {
   }
 
   public deleteVideoThumbnail(keyOrObjectUrl: string): Observable<DeleteResponse> {
-    const key: string | null = this.s3Service.extractBaseUrl(keyOrObjectUrl);
+    const key: string | null = this.s3Service.getObjectKeyFromSignedUrl(keyOrObjectUrl);
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'delete', 'video-thumbnail'], { key });
 
     return this.httpService.delete(req)

@@ -52,8 +52,8 @@ export class AuthorizationInterceptor implements HttpInterceptor {
    * External whitelisted domains.
    * @public
    */
-  public readonly EXTERNAL_WHITELIST: string[] = [
-    's3.amazonaws.com'
+  public readonly EXTERNAL_WHITELIST: RegExp[] = [
+    /^(https?:\/\/)?[^\/]*\.s3\.amazonaws\.com/
   ];
 
   /**
@@ -267,7 +267,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
    * @private
    */
   private isUrlWhitelistedAndExternal(url: string): boolean {
-    return this.EXTERNAL_WHITELIST.some((excludedUrl: string): boolean => url.includes(excludedUrl));
+    return this.EXTERNAL_WHITELIST.some((pattern: RegExp): boolean => pattern.test(url));
   }
 
   /**

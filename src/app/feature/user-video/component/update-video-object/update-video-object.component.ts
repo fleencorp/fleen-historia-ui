@@ -3,14 +3,15 @@ import {BaseFormComponent} from "@app/base/component";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
 import {ANY_EMPTY, DEFAULT_IMAGE_CONSTRAINT, DEFAULT_VIDEO_CONSTRAINT} from "@app/constant";
-import {FileConstraints} from "@app/model/type";
+import {FileConstraints, UpdateVideoObjectPayload} from "@app/model/type";
 import {ObjectService, SignedUrlService} from "@app/shared/service/impl";
 import {ErrorResponse} from "@app/model/response";
 import {Observable} from "rxjs";
 import {DeleteResponse, SignedUrlResponse} from "@app/model/response/common";
 import {UserVideoService} from "@app/feature/user-video/service";
 import {FleenVideoView} from "@app/model/view/video";
-import {isTruthy} from "@app/shared/helper";
+import {isFalsy, isTruthy} from "@app/shared/helper";
+import {required} from "@app/shared/validator";
 
 @Component({
   selector: 'app-update-video-object',
@@ -24,7 +25,7 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
   protected override formBuilder!: FormBuilder;
   public videoContentUrl: string | null = null;
   public videoThumbnailUrl: string | null = null;
-  public videoContent: FormControl = new FormControl<string>('');
+  public videoContent: FormControl = new FormControl<string>('', [required]);
   public videoThumbnail: FormControl = new FormControl<string>('');
 
   @Input('video-id')
@@ -50,7 +51,34 @@ export class UpdateVideoObjectComponent extends BaseFormComponent {
             this.formReady();
           },
           error: (error: ErrorResponse): void => { this.handleError(error); }
-        });
+      });
+    }
+  }
+
+  /**
+   * Handles the submission of a forgot password request.
+   *
+   * @param {Event} event - The event triggering the submission.
+   * @returns {void}
+   */
+  public submit(event: Event): void {
+    this.stopEvent(event);
+    this.enableLoading();
+
+    if (this.videoContent.valid && isFalsy(this.isSubmitting)) {
+      const videoContentUrl: string = this.videoContent.value.toString();
+      const videoThumbnailUrl: string = this.videoThumbnail.value.toString();
+      const payload: UpdateVideoObjectPayload = { objectOrVideoUrl: videoContentUrl, objectOrThumbnailUrl: videoThumbnailUrl };
+
+      this.userVideoService.updateVideoObject(this.videoId, payload)
+        .subscribe({
+          next: (): void => { this.setStatusMessage('Update successful') },
+          error: (result: ErrorResponse): void => { this.handleError(result); },
+          complete: (): void => {
+            this.enableSubmitting();
+            this.disableLoading();
+          },
+      });
     }
   }
 
