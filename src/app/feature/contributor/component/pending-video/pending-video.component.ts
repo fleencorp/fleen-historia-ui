@@ -7,7 +7,7 @@ import {ContributorService} from "@app/feature/contributor/service";
 import {SubmitVideoReviewPayload} from "@app/model/type";
 import {enumValid, maxLength, required} from "@app/shared/validator";
 import {VideoReviewStatus} from "@app/model/enum";
-import {FormGroup} from "@angular/forms";
+import {AbstractControl, FormGroup} from "@angular/forms";
 import {isFalsy} from "@app/shared/helper";
 import {ErrorResponse, FleenResponse} from "@app/model/response";
 
@@ -62,6 +62,14 @@ export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> i
 
   get submitReviewForm(): FormGroup {
     return this.fleenForm;
+  }
+
+  get videoReviewStatus(): AbstractControl | null | undefined {
+    return this.submitReviewForm?.get('videoReviewStatus');
+  }
+
+  get comment(): AbstractControl | null | undefined {
+    return this.submitReviewForm?.get('comment');
   }
 
 }
