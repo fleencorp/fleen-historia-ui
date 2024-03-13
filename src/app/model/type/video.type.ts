@@ -1,4 +1,4 @@
-import {VideoVisibility} from "@app/model/enum";
+import {VideoReviewStatus, VideoVisibility} from "@app/model/enum";
 
 export type CreateVideoPayload = {
   title: string;
@@ -17,3 +17,9 @@ export type UpdateVideoObjectPayload = {
   objectOrVideoUrl: string;
   objectOrThumbnailUrl: string;
 }
+
+export type SubmitVideoReviewPayload = {
+  videoReviewStatus: VideoReviewStatus;
+  comment: string;
+}
+
