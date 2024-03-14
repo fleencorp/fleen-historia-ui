@@ -7,10 +7,10 @@ import {Location} from "@angular/common";
 import {Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
 import {ANY_EMPTY} from "@app/constant";
-import {AdminCategoryService} from "@app/feature/admin/admin-category/service/admin-category.service";
 import {CategoryView} from "@app/model/view/category";
 import {DeleteResponse} from "@app/model/response/common";
 import {ErrorResponse} from "@app/model/response";
+import {AdminCategoryService} from "@app/feature/admin/admin-category/service";
 
 @Component({
   selector: 'app-category-entries',

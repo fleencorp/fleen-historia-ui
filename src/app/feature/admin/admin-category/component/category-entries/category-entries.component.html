@@ -25,7 +25,8 @@
       <td>{{ category.createdOn | date:'mediumDate' }}</td>
       <td>{{ category.updatedOn | date:'mediumDate' }}</td>
       <app-row-entry-option [entry-id]="category.categoryId" [can-check]="false" [can-delete]="true" (detailClicked)="viewDetail(category.categoryId)"
-                            (updateClicked)="updateEntry(category.categoryId)" (deleteClicked)="" (checkedChanged)="handleChecked(category.categoryId, $event)"></app-row-entry-option>
+                            (updateClicked)="updateEntry(category.categoryId)" (deleteClicked)="deleteEntry(category.categoryId)"
+                            (checkedChanged)="handleChecked(category.categoryId, $event)"></app-row-entry-option>
     </tr>
     </tbody>
   </table>
