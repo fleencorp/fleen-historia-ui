@@ -1,0 +1,36 @@
+<app-search-form-delete-menu [is-submitting]="isSubmitting" [search-filter]="searchFilter" (searchSubmitted)="search($event)" (deleteConfirmed)="confirmDeleteEntries()"></app-search-form-delete-menu>
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+<p>The current page is {{currentPage}}</p>
+
+<div *ngIf="entries.length > 0">
+  <table>
+
+    <thead>
+    <tr>
+      <th>S/N</th>
+      <th>Title</th>
+      <th>Channel</th>
+      <th>Status</th>
+      <th>Created On</th>
+      <th>Updated On</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let category of entries; let i = index; trackBy: trackByFn">
+      <td>{{ addOneToIndex(i) }}</td>
+      <td>{{ category.title }}</td>
+      <td>{{ category.description }}</td>
+      <td>{{ category.createdOn | date:'mediumDate' }}</td>
+      <td>{{ category.updatedOn | date:'mediumDate' }}</td>
+      <app-row-entry-option [entry-id]="category.categoryId" [can-check]="false" (detailClicked)="viewDetail(category.categoryId)"
+                            (updateClicked)="updateEntry(category.categoryId)" (checkedChanged)="handleChecked(category.categoryId, $event)"></app-row-entry-option>
+    </tr>
+    </tbody>
+  </table>
+
+  <app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"
+                  (toNextPage)="nextPage()" (toPreviousPage)="previousPage()"></app-pagination>
+
+</div>

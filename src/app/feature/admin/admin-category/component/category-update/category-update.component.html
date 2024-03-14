@@ -1,0 +1,20 @@
+
+<form *ngIf="isFormReady" [formGroup]="updateCategoryForm" (ngSubmit)="updateCategory()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
+  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" formControlName="title" id="title"/>
+    <app-validation-error [control]="title" [control-label]="'Title'" ></app-validation-error>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input type="text" formControlName="description" id="description"/>
+    <app-validation-error [control]="description" [control-label]="'Description'"></app-validation-error>
+  </div>
+
+  <button type="submit" [disabled]="isSubmitting">Submit</button>
+
+</form>
+
