@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseDetailComponent} from "@app/base/component";
-import {FleenVideoView, VideoReviewView} from "@app/model/view/video";
+import {FleenVideoView} from "@app/model/view/video";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {ContributorService} from "@app/feature/contributor/service";
-import {SubmitVideoReviewPayload} from "@app/model/type";
 import {enumValid, maxLength, required} from "@app/shared/validator";
 import {VideoReviewStatus} from "@app/model/enum";
-import {AbstractControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {isFalsy} from "@app/shared/helper";
-import {ErrorResponse, FleenResponse} from "@app/model/response";
+import {ErrorResponse} from "@app/model/response";
+import {UserCanSubmitReviewResponse} from "@app/model/response/video";
 
 @Component({
   selector: 'app-pending-video',
@@ -19,16 +19,19 @@ import {ErrorResponse, FleenResponse} from "@app/model/response";
 export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> implements OnInit {
 
   public override entryView!: FleenVideoView;
+  public hasSubmittedReview: boolean = false;
   protected override formBuilder;
 
-  public constructor(private contributorService: ContributorService,
+  public constructor(protected contributorService: ContributorService,
+                     formBuilder: FormBuilder,
                      router: Router,
                      route: ActivatedRoute) {
     super(router, route);
+    this.formBuilder = formBuilder;
   }
 
   public async ngOnInit(): Promise<void> {
-    await this.initEntry(this.initForm.bind(this));
+    await this.initEntry(this.checkCanUserSubmitAVideoReview.bind(this));
   }
 
   protected override initForm(): void {
@@ -36,6 +39,7 @@ export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> i
       videoReviewStatus: ['', [required, enumValid(VideoReviewStatus)]],
       comment: ['', [maxLength(2000)]]
     });
+    this.formReady();
   }
 
   protected override getServiceEntry(id: number | string): Observable<FleenVideoView> {
@@ -53,11 +57,32 @@ export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> i
 
       this.contributorService.submitVideoReview(this.entryView.videoId, this.fleenForm.value)
         .subscribe({
-          next: (result: VideoReviewView): void => { this.setStatusMessage('Success'); },
+          next: (): void => {
+            this.setStatusMessage('Review successfully submitted');
+            this.confirmUserHasSubmittedReview();
+          },
           error: (error: ErrorResponse): void => { this.handleError(error); },
           complete: (): void => { this.enableSubmitting(); }
       });
     }
+  }
+
+  private checkCanUserSubmitAVideoReview(): void {
+    this.contributorService.userCanSubmitVideoReview(this.entryId)
+      .subscribe({
+        next: (result: UserCanSubmitReviewResponse): void => {
+          if (result.canSubmitVideoReview) { this.confirmUserHasSubmittedReview(); }
+        },
+        error: (error: ErrorResponse): void => { this.handleError(error); }
+    });
+  }
+
+  private confirmUserHasSubmittedReview(): void {
+    this.hasSubmittedReview = true;
+  }
+
+  get canSubmitReview(): boolean {
+    return !(this.hasSubmittedReview);
   }
 
   get submitReviewForm(): FormGroup {

@@ -5,7 +5,7 @@ import {map, Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
 import {FleenVideoView, VideoReviewView} from "@app/model/view/video";
 import {mapToSearchResult} from "@app/shared/helper";
-import {VideoReviewHistoryResponse} from "@app/model/response/video";
+import {UserCanSubmitReviewResponse, VideoReviewHistoryResponse} from "@app/model/response/video";
 
 @Injectable()
 export class ContributorService {
@@ -52,6 +52,14 @@ export class ContributorService {
     return this.httpService.get(req)
       .pipe(
         map(data => mapToSearchResult(VideoReviewView, data))
+      );
+  }
+
+  public userCanSubmitVideoReview(id: number | string): Observable<UserCanSubmitReviewResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'review', 'is-eligible', +id]);
+    return this.httpService.get(req)
+      .pipe(
+        map(data => new UserCanSubmitReviewResponse(data))
       );
   }
 }
