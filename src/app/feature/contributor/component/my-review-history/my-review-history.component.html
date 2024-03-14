@@ -9,7 +9,7 @@
     <p>Comment : {{ review?.comment }}</p>
     <p>Video Title: {{ review?.fleenVideo?.videoTitle }}</p>
     <p>Video Description: {{ review?.fleenVideo?.videoDescription }}</p>
-    <p>Video Reference: {{review?.fleenVideo?.videoReferenceOrSource}} </p>
+    <p>Video Reference: {{ review?.fleenVideo?.videoReferenceOrSource }} </p>
   </div>
 
   <app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"

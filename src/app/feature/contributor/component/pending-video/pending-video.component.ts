@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseDetailComponent} from "@app/base/component";
-import {FleenVideoView} from "@app/model/view/video";
+import {FleenVideoView, VideoReviewView} from "@app/model/view/video";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {ContributorService} from "@app/feature/contributor/service";
@@ -9,7 +9,11 @@ import {VideoReviewStatus} from "@app/model/enum";
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {isFalsy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
-import {SubmitVideoReviewResponse, UserCanSubmitReviewResponse} from "@app/model/response/video";
+import {
+  SubmitVideoReviewResponse,
+  UserCanSubmitReviewResponse,
+  VideoReviewHistoryResponse
+} from "@app/model/response/video";
 
 @Component({
   selector: 'app-pending-video',
@@ -19,6 +23,7 @@ import {SubmitVideoReviewResponse, UserCanSubmitReviewResponse} from "@app/model
 export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> implements OnInit {
 
   public override entryView!: FleenVideoView;
+  public videoReviews: VideoReviewView[] = [];
   public hasSubmittedReview: boolean = true;
   protected override formBuilder;
 
@@ -65,6 +70,15 @@ export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> i
           complete: (): void => { this.enableSubmitting(); }
       });
     }
+  }
+
+  public showVideoReviewHistory(): void {
+    this.contributorService
+      .findVideoReviewHistory(this.entryId)
+      .subscribe({
+       next: (result: VideoReviewHistoryResponse): void => { this.videoReviews = result.reviews; },
+       error: (error: ErrorResponse): void => { this.handleError(error); }
+    });
   }
 
   private checkCanUserSubmitAVideoReview(): void {

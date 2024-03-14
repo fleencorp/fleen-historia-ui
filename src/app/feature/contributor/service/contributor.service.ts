@@ -41,7 +41,7 @@ export class ContributorService {
   }
 
   public findVideoReviewHistory(id: number | string): Observable<VideoReviewHistoryResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'videos', 'review-history', +id]);
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'review-history', +id]);
     return this.httpService.get(req)
       .pipe(
         map(data => new VideoReviewHistoryResponse(data))

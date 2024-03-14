@@ -36,6 +36,7 @@ export class PendingVideosComponent extends BaseEntriesComponent<FleenVideoView>
     return this.contributorService.findPendingVideos(params);
   }
 
+
   override deleteEntries(payload: DeleteIdsPayload): Observable<any> {
     return ANY_EMPTY;
   }

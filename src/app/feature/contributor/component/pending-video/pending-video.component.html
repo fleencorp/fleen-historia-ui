@@ -1,6 +1,47 @@
 <p>pending-video works!</p>
 
 <ng-container *ngIf="fleenVideoView">
+  <button type="button" (click)="showVideoReviewHistory()">Review History</button>
+
+  <ng-container *ngIf="videoReviews.length > 0">
+    <div *ngFor="let review of videoReviews">
+      <h4>Video Review Status: {{ review?.videoReviewStatus }}</h4>
+      <p>Comment : {{ review?.comment }}</p>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="isFormReady && canSubmitReview">
+  <form [formGroup]="submitReviewForm" (ngSubmit)="submitReview()" method="post" enctype="application/x-www-form-urlencoded" class="sign-up-form">
+    <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+    <div class="form-group">
+      <label for="video_review_status">Video Review Status</label>
+      <select formControlName="videoReviewStatus" id="video_review_status">
+        <option value=""></option>
+        <option value="APPROVED">Approve</option>
+        <option value="DECLINED">Decline</option>
+      </select>
+      <app-validation-error [control]="videoReviewStatus" [control-label]="'Review Status'"></app-validation-error>
+    </div>
+
+    <div class="form-group">
+      <label for="comment">Comment</label>
+      <textarea formControlName="comment" id="comment"></textarea>
+      <app-validation-error [control]="comment" [control-label]="'Comment'" ></app-validation-error>
+    </div>
+
+    <button type="submit" [disabled]="isSubmitting">Submit</button>
+
+  </form>
+</ng-container>
+
+<ng-container *ngIf="fleenVideoView && fleenVideoView.latestReview">
+    <h4>Video Review Status: {{ fleenVideoView.latestReview.videoReviewStatus }}</h4>
+    <p>Comment : {{ fleenVideoView.latestReview.comment }}</p>
+</ng-container>
+
+<ng-container *ngIf="fleenVideoView">
   <p>{{fleenVideoView | json }}</p>
   <table>
     <thead>
@@ -32,30 +73,7 @@
     </tbody>
   </table>
 
-  <ng-container *ngIf="isFormReady && canSubmitReview">
-    <form [formGroup]="submitReviewForm" (ngSubmit)="submitReview()" method="post" enctype="application/x-www-form-urlencoded" class="sign-up-form">
-      <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
-      <div class="form-group">
-        <label for="video_review_status">Video Review Status</label>
-        <select formControlName="videoReviewStatus" id="video_review_status">
-          <option value=""></option>
-          <option value="APPROVED">Approve</option>
-          <option value="DECLINED">Decline</option>
-        </select>
-        <app-validation-error [control]="videoReviewStatus" [control-label]="'Review Status'"></app-validation-error>
-      </div>
-
-      <div class="form-group">
-        <label for="comment">Comment</label>
-        <textarea formControlName="comment" id="comment"></textarea>
-        <app-validation-error [control]="comment" [control-label]="'Comment'" ></app-validation-error>
-      </div>
-
-      <button type="submit" [disabled]="isSubmitting">Submit</button>
-
-    </form>
-  </ng-container>
 </ng-container>
 
 

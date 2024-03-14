@@ -21,7 +21,8 @@ export class FleenVideoView extends FleenBaseView {
   public readonly isObjectApproved: boolean;
   public readonly category: CategoryView;
   public readonly channel: ChannelView;
-  public readonly videoReview: VideoReviewView;
+  public readonly latestReview: VideoReviewView;
+
 
   public constructor(data: FleenVideoView) {
     super(data);
@@ -39,7 +40,7 @@ export class FleenVideoView extends FleenBaseView {
     this.isForKids = data?.isForKids;
     this.category = new CategoryView(data?.category);
     this.channel = new ChannelView(data?.channel);
-    this.videoReview = new VideoReviewView(data?.videoReview);
+    this.latestReview = new VideoReviewView(data?.latestReview);
     this.isObjectApproved = data?.isObjectApproved;
   }
 }
