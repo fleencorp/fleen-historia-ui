@@ -12,7 +12,7 @@ import {VideoVisibility} from "@app/model/enum";
 import {GetCreateVideoResponse} from "@app/model/response/video";
 import {ErrorResponse} from "@app/model/response";
 import {Observable} from "rxjs";
-import {BaseVideosService} from "@app/base/service";
+import {BaseVideoService} from "@app/base/service";
 
 export abstract class BaseCreateVideoComponent extends BaseAddComponent<CreateVideoPayload, FleenVideoView> implements OnInit {
 
@@ -20,7 +20,7 @@ export abstract class BaseCreateVideoComponent extends BaseAddComponent<CreateVi
   public categories: CategoryView[] = [];
 
   protected constructor(
-      protected videosService: BaseVideosService,
+      protected videosService: BaseVideoService,
       formBuilder: FormBuilder,
       router: Router) {
     super(router, formBuilder);

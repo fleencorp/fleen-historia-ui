@@ -7,7 +7,7 @@ import {MfaVerificationComponent, OtpVerificationComponent} from "../../componen
 import {Router} from "@angular/router";
 import {SignUpResponse} from "@app/model/response/authentication";
 import {ErrorResponse} from "@app/model/response";
-import {SessionStorageService} from "@app/base/service/session-storage.service";
+import {SessionStorageService} from "@app/base/service/storage/session-storage.service";
 import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
 
 @Component({

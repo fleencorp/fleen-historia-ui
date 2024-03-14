@@ -9,7 +9,7 @@ import {SignInUpResponse} from "@app/model/response/authentication";
 import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
 import {USER_DESTINATION_PAGE_KEY} from "@app/constant";
 import {AuthenticationStatus, AuthVerificationType, ChangePasswordType} from "@app/model/enum";
-import {SessionStorageService} from "@app/base/service/session-storage.service";
+import {SessionStorageService} from "@app/base/service/storage/session-storage.service";
 import {BASE_PATH} from "@app/constant/config.const";
 
 export abstract class AuthBaseComponent extends BaseFormComponent {

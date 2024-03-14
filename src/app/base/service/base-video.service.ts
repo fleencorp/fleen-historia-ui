@@ -12,7 +12,7 @@ import {FleenVideoView} from "@app/model/view/video";
 import {GetCreateVideoResponse, PublishVideoResponse, RequestForReviewResponse} from "@app/model/response/video";
 import {mapToSearchResult} from "@app/shared/helper";
 
-export abstract class BaseVideosService {
+export abstract class BaseVideoService {
 
   protected abstract readonly BASE_PATH: string;
 

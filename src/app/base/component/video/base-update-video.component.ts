@@ -7,7 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Observable, of} from "rxjs";
 import {ANY_EMPTY} from "@app/constant";
 import {VideoStatus} from "@app/model/enum";
-import {BaseVideosService} from "@app/base/service";
+import {BaseVideoService} from "@app/base/service";
 
 export abstract class BaseUpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, AnyObject> implements OnInit {
 
@@ -19,7 +19,7 @@ export abstract class BaseUpdateVideoComponent extends BaseUpdateComponent<Fleen
   public startUpdateVideoObject: boolean = false;
 
   protected constructor(
-      protected videoService: BaseVideosService,
+      protected videoService: BaseVideoService,
       protected formBuilder: FormBuilder,
       router: Router,
       route: ActivatedRoute) {

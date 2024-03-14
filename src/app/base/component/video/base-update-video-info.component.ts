@@ -11,7 +11,7 @@ import {ErrorResponse} from "@app/model/response";
 import {Observable} from "rxjs";
 import {enumValid, maxLength, minLength, required} from "@app/shared/validator";
 import {VideoVisibility} from "@app/model/enum";
-import {BaseVideosService} from "@app/base/service";
+import {BaseVideoService} from "@app/base/service";
 
 export abstract class BaseUpdateVideoInfoComponent extends BaseUpdateComponent<FleenVideoView, UpdateVideoPayload> implements OnInit {
 
@@ -23,7 +23,7 @@ export abstract class BaseUpdateVideoInfoComponent extends BaseUpdateComponent<F
   public videoId!: number | string;
 
   protected constructor(
-      protected videoService: BaseVideosService,
+      protected videoService: BaseVideoService,
       protected formBuilder: FormBuilder,
       router: Router,
       route: ActivatedRoute) {

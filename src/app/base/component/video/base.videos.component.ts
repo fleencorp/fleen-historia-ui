@@ -12,7 +12,7 @@ import {isFalsy, isTruthy} from "@app/shared/helper";
 import {VideoStatus} from "@app/model/enum";
 import {PublishVideoResponse, RequestForReviewResponse} from "@app/model/response/video";
 import {ErrorResponse} from "@app/model/response";
-import {BaseVideosService} from "@app/base/service";
+import {BaseVideoService} from "@app/base/service";
 
 export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVideoView> implements OnInit {
 
@@ -20,7 +20,7 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
   public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_FLEEN_VIDEOS;
 
   protected constructor(
-      protected videosService: BaseVideosService,
+      protected videosService: BaseVideoService,
       router: Router,
       route: ActivatedRoute,
       location: Location) {

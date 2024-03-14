@@ -12,7 +12,7 @@ import {FleenVideoView} from "@app/model/view/video";
 import {ErrorResponse} from "@app/model/response";
 import {Observable} from "rxjs";
 import {DeleteResponse, SignedUrlResponse} from "@app/model/response/common";
-import {BaseVideosService} from "@app/base/service";
+import {BaseVideoService} from "@app/base/service";
 
 export abstract class BaseUpdateVideoObjectComponent extends BaseFormComponent {
 
@@ -32,7 +32,7 @@ export abstract class BaseUpdateVideoObjectComponent extends BaseFormComponent {
   public videoId!: number | string;
 
   protected constructor(
-      protected videoService: BaseVideosService,
+      protected videoService: BaseVideoService,
       protected signedUrlService: SignedUrlService,
       protected objectService: ObjectService) {
     super();

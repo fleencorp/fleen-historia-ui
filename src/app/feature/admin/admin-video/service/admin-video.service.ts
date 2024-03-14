@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
-import {BaseVideosService} from "@app/base/service/base-videos.service";
 import {HttpClientService} from "@app/shared/service/impl";
 import {BaseRequest, DeleteIdsPayload} from "@app/model/type";
 import {map, Observable} from "rxjs";
 import {CountAllResponse, DeleteResponse} from "@app/model/response/common";
+import {BaseVideoService} from "@app/base/service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminVideoService extends BaseVideosService {
+export class AdminVideoService extends BaseVideoService {
 
   protected override readonly BASE_PATH: string = "admin/video";
 
