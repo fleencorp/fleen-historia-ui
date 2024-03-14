@@ -25,10 +25,18 @@
       <td>{{ video.videoStatus }}</td>
       <td>{{ video.createdOn | date:'mediumDate' }}</td>
       <td>{{ video.updatedOn | date:'mediumDate' }}</td>
-      <app-row-entry-option [entry-id]="video.videoId" [can-check]="false" (detailClicked)="viewDetail(video.videoId)"
-                            (updateClicked)="updateEntry(video.videoId)" (checkedChanged)="handleChecked(video.videoId, $event)"></app-row-entry-option>
-      <button type="button" [disabled]="isSubmitting"  *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Request for Review</button>
-      <button type="button" [disabled]="isSubmitting" *ngIf="canPublish(video)" (click)="publishVideo(video.videoId)">Publish</button>
+      <app-row-entry-option [entry-id]="video.videoId"
+                            [can-check]="true"
+                            [can-delete]="true"
+                            [can-update]="true"
+
+                            (detailClicked)="viewDetail(video.videoId)"
+                            (updateClicked)="updateEntry(video.videoId)"
+                            (deleteClicked)="deleteEntry(video.videoId)"
+                            (checkedChanged)="handleChecked(video.videoId, $event)"></app-row-entry-option>
+
+      <button type="button" *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Request for Review</button>
+      <button type="button" *ngIf="canPublish(video)" (click)="publishVideo(video.videoId)">Publish</button>
     </tr>
     </tbody>
   </table>

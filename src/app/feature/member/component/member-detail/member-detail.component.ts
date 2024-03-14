@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseComponentImpl} from "@app/base/component/base/impl/base.component.impl";
+import {BaseComponentImpl} from "@app/base/component/impl/base.component.impl";
 import {MemberService} from "@app/feature/member/service";
 import {GetMemberUpdateDetailsResponse} from "@app/model/response/member";
 import {ErrorResponse} from "@app/model/response";

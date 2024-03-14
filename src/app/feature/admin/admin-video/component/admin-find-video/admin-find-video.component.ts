@@ -1,22 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseDetailComponent} from "@app/base/component/common/base-detail.component";
+import {BaseDetailComponent} from "@app/base/component";
 import {FleenVideoView} from "@app/model/view/video";
-import {UserVideoService} from "@app/feature/user-video/service/user-video.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {AdminVideoService} from "@app/feature/admin/admin-video/service";
 
 @Component({
-  selector: 'app-user-video',
-  templateUrl: './user-video.component.html',
-  styleUrls: ['./user-video.component.css']
+  selector: 'app-admin-find-video',
+  templateUrl: './admin-find-video.component.html',
+  styleUrls: ['./admin-find-video.component.css']
 })
-export class UserVideoComponent extends BaseDetailComponent<FleenVideoView> implements OnInit {
+export class AdminFindVideoComponent extends BaseDetailComponent<FleenVideoView> implements OnInit {
 
   public override entryView!: FleenVideoView;
   protected override formBuilder;
 
   public constructor(
-      protected userVideoService: UserVideoService,
+      protected adminVideoService: AdminVideoService,
       router: Router,
       route: ActivatedRoute) {
     super(router, route);
@@ -27,7 +27,7 @@ export class UserVideoComponent extends BaseDetailComponent<FleenVideoView> impl
   }
 
   protected override getServiceEntry(id: number | string): Observable<FleenVideoView> {
-    return this.userVideoService.findVideo(id);
+    return this.adminVideoService.findVideo(id);
   }
 
   get fleenVideoView(): FleenVideoView {
