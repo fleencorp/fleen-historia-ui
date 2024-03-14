@@ -10,6 +10,7 @@ import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {isFalsy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
 import {UserCanSubmitReviewResponse} from "@app/model/response/video";
+import {SubmitVideoReviewResponse} from "@app/model/response/video/submit-video-review.response";
 
 @Component({
   selector: 'app-pending-video',
@@ -57,8 +58,8 @@ export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> i
 
       this.contributorService.submitVideoReview(this.entryView.videoId, this.fleenForm.value)
         .subscribe({
-          next: (): void => {
-            this.setStatusMessage('Review successfully submitted');
+          next: (result: SubmitVideoReviewResponse): void => {
+            this.setStatusMessage(result.message);
             this.confirmUserHasSubmittedReview(true);
           },
           error: (error: ErrorResponse): void => { this.handleError(error); },
@@ -70,9 +71,7 @@ export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> i
   private checkCanUserSubmitAVideoReview(): void {
     this.contributorService.userCanSubmitVideoReview(this.entryId)
       .subscribe({
-        next: (result: UserCanSubmitReviewResponse): void => {
-          this.confirmUserHasSubmittedReview(result.canSubmitVideoReview);
-        },
+        next: (result: UserCanSubmitReviewResponse): void => { this.confirmUserHasSubmittedReview(result.hasSubmittedReview); },
         error: (error: ErrorResponse): void => { this.handleError(error); }
     });
   }

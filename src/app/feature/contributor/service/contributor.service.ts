@@ -6,6 +6,7 @@ import {SearchResultView} from "@app/model/view";
 import {FleenVideoView, VideoReviewView} from "@app/model/view/video";
 import {mapToSearchResult} from "@app/shared/helper";
 import {UserCanSubmitReviewResponse, VideoReviewHistoryResponse} from "@app/model/response/video";
+import {SubmitVideoReviewResponse} from "@app/model/response/video/submit-video-review.response";
 
 @Injectable()
 export class ContributorService {
@@ -31,11 +32,11 @@ export class ContributorService {
       );
   }
 
-  public submitVideoReview(id: number | string, body: SubmitVideoReviewPayload): Observable<VideoReviewView> {
+  public submitVideoReview(id: number | string, body: SubmitVideoReviewPayload): Observable<SubmitVideoReviewResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'review', +id], null, { ...body });
     return this.httpService.post(req)
       .pipe(
-        map(data => new VideoReviewView(data))
+        map(data => new SubmitVideoReviewResponse(data))
       );
   }
 
