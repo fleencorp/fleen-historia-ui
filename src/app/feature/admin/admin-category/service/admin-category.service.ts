@@ -5,6 +5,7 @@ import {SearchResultView} from "@app/model/view";
 import {mapToSearchResult} from "@app/shared/helper";
 import {HttpClientService} from "@app/shared/service/impl";
 import {CategoryView} from "@app/model/view/category";
+import {DeleteResponse} from "@app/model/response/common";
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,14 @@ export class AdminCategoryService {
     return this.httpService.update(req)
       .pipe(
         map(data => new CategoryView(data))
+      );
+  }
+
+  public deleteCategory(id: number | string): Observable<DeleteResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'delete', +id]);
+    return this.httpService.delete(req)
+      .pipe(
+        map(data => new DeleteResponse(data))
       );
   }
 }

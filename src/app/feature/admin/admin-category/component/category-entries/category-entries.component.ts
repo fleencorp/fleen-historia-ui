@@ -9,6 +9,8 @@ import {SearchResultView} from "@app/model/view";
 import {ANY_EMPTY} from "@app/constant";
 import {AdminCategoryService} from "@app/feature/admin/admin-category/service/admin-category.service";
 import {CategoryView} from "@app/model/view/category";
+import {DeleteResponse} from "@app/model/response/common";
+import {ErrorResponse} from "@app/model/response";
 
 @Component({
   selector: 'app-category-entries',
@@ -35,6 +37,13 @@ export class CategoryEntriesComponent extends BaseEntriesComponent<CategoryView>
     return this.categoryService.findCategories(params);
   }
 
+  public deleteEntry(categoryId: number | string): void {
+    this.categoryService.deleteCategory(categoryId)
+      .subscribe({
+        next: (result: DeleteResponse): void => { this.setStatusMessage(result.message); },
+        error: (error: ErrorResponse): void => { this.handleError(error); }
+      })
+  }
 
   override deleteEntries(payload: DeleteIdsPayload): Observable<any> {
     return ANY_EMPTY;

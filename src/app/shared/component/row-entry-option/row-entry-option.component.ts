@@ -10,9 +10,11 @@ export class RowEntryOptionComponent {
   @Input('entry-id') public entryId!: number;
   @Output() public detailClicked: EventEmitter<number> = new EventEmitter<number>();
   @Output() public updateClicked: EventEmitter<number> = new EventEmitter<number>();
+  @Output() public deleteClicked: EventEmitter<number> = new EventEmitter<number>();
   @Output() public checkedChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input('can-check') public canCheck: boolean = true;
   @Input('can-update') public canUpdate: boolean = true;
+  @Input('can-delete') public canDelete: boolean = true;
 
   public viewDetail(): void {
     this.detailClicked.emit(this.entryId);
@@ -20,6 +22,10 @@ export class RowEntryOptionComponent {
 
   public updateEntry(): void {
     this.updateClicked.emit(this.entryId);
+  }
+
+  public deleteEntry(): void {
+    this.deleteClicked.emit(this.entryId);
   }
 
   public handleChecked(checked: boolean): void {
