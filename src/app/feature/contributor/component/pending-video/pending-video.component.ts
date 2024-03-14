@@ -59,7 +59,7 @@ export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> i
         .subscribe({
           next: (): void => {
             this.setStatusMessage('Review successfully submitted');
-            this.confirmUserHasSubmittedReview();
+            this.confirmUserHasSubmittedReview(true);
           },
           error: (error: ErrorResponse): void => { this.handleError(error); },
           complete: (): void => { this.enableSubmitting(); }
@@ -71,14 +71,14 @@ export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> i
     this.contributorService.userCanSubmitVideoReview(this.entryId)
       .subscribe({
         next: (result: UserCanSubmitReviewResponse): void => {
-          if (result.canSubmitVideoReview) { this.confirmUserHasSubmittedReview(); }
+          this.confirmUserHasSubmittedReview(result.canSubmitVideoReview);
         },
         error: (error: ErrorResponse): void => { this.handleError(error); }
     });
   }
 
-  private confirmUserHasSubmittedReview(): void {
-    this.hasSubmittedReview = true;
+  private confirmUserHasSubmittedReview(canSubmit: boolean): void {
+    this.hasSubmittedReview = canSubmit;
   }
 
   get canSubmitReview(): boolean {

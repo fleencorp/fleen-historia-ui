@@ -1,7 +1,7 @@
 export class UserCanSubmitReviewResponse {
-  public readonly canSubmitVideoReview: boolean;
+  public readonly hasSubmittedReview: boolean;
 
   public constructor(data: UserCanSubmitReviewResponse) {
-    this.canSubmitVideoReview = data?.canSubmitVideoReview ? data.canSubmitVideoReview : false;
+    this.hasSubmittedReview = data?.hasSubmittedReview ? data.hasSubmittedReview : data.hasSubmittedReview;
   }
 }
