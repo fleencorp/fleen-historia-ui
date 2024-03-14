@@ -1,1 +1,18 @@
-<p>my-review-history works!</p>
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+<p>The current page is {{currentPage}}</p>
+
+<div *ngIf="entries.length > 0">
+
+  <div *ngFor="let review of entries">
+    <h4>Video Review Status: {{ review?.videoReviewStatus }}</h4>
+    <p>Comment : {{ review?.comment }}</p>
+    <p>Video Title: {{ review?.fleenVideo?.videoTitle }}</p>
+    <p>Video Description: {{ review?.fleenVideo?.videoDescription }}</p>
+    <p>Video Reference: {{review?.fleenVideo?.videoReferenceOrSource}} </p>
+  </div>
+
+  <app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"
+                  (toNextPage)="nextPage()" (toPreviousPage)="previousPage()"></app-pagination>
+
+</div>

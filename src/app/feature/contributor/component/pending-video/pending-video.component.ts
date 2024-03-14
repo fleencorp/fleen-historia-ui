@@ -9,8 +9,7 @@ import {VideoReviewStatus} from "@app/model/enum";
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {isFalsy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
-import {UserCanSubmitReviewResponse} from "@app/model/response/video";
-import {SubmitVideoReviewResponse} from "@app/model/response/video/submit-video-review.response";
+import {SubmitVideoReviewResponse, UserCanSubmitReviewResponse} from "@app/model/response/video";
 
 @Component({
   selector: 'app-pending-video',
@@ -20,7 +19,7 @@ import {SubmitVideoReviewResponse} from "@app/model/response/video/submit-video-
 export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> implements OnInit {
 
   public override entryView!: FleenVideoView;
-  public hasSubmittedReview: boolean = false;
+  public hasSubmittedReview: boolean = true;
   protected override formBuilder;
 
   public constructor(protected contributorService: ContributorService,
