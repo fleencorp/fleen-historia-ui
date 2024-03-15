@@ -21,6 +21,11 @@ export class CreateVideoComponent extends BaseCreateVideoComponent implements On
     super(userVideoService, formBuilder, router);
   }
 
+  public ngOnInit(): void {
+    this.initForm();
+    this.getDataForCreateVideo();
+  }
+
   protected override $saveEntry(payload: CreateVideoPayload): Observable<FleenVideoView> {
     return this.userVideoService.createVideo(payload);
   }

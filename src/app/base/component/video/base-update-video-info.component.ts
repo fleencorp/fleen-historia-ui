@@ -1,17 +1,16 @@
 import {BaseUpdateComponent} from "@app/base/component";
 import {FleenVideoView} from "@app/model/view/video";
 import {UpdateVideoPayload} from "@app/model/type";
-import {Input} from "@angular/core";
 import {ChannelView} from "@app/model/view/channel";
 import {CategoryView} from "@app/model/view/category";
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {GetCreateVideoResponse} from "@app/model/response/video";
-import {ErrorResponse} from "@app/model/response";
 import {Observable} from "rxjs";
 import {enumValid, maxLength, minLength, required} from "@app/shared/validator";
 import {VideoVisibility} from "@app/model/enum";
 import {BaseVideoService} from "@app/base/service";
+import {ErrorResponse} from "@app/model/response";
 
 export abstract class BaseUpdateVideoInfoComponent extends BaseUpdateComponent<FleenVideoView, UpdateVideoPayload> {
 
@@ -19,7 +18,6 @@ export abstract class BaseUpdateVideoInfoComponent extends BaseUpdateComponent<F
   public categories: CategoryView[] = [];
   public override entryView!: FleenVideoView;
 
-  @Input('video-id')
   public videoId!: number | string;
 
   protected constructor(
@@ -30,12 +28,7 @@ export abstract class BaseUpdateVideoInfoComponent extends BaseUpdateComponent<F
     super(router, route);
   }
 
-  public async ngOnInit(): Promise<void> {
-    await this.initAndGetEntry(this.videoId);
-    this.getDataForCreateVideo();
-  }
-
-  private getDataForCreateVideo(): void {
+  protected getDataForCreateVideo(): void {
     this.videoService.getDataForCreateVideo()
       .subscribe({
         next: (result: GetCreateVideoResponse): void => {
@@ -46,7 +39,7 @@ export abstract class BaseUpdateVideoInfoComponent extends BaseUpdateComponent<F
       });
   }
 
-  private initDataForCreateVideo(result: GetCreateVideoResponse): void {
+  protected initDataForCreateVideo(result: GetCreateVideoResponse): void {
     this.channels = result.channels;
     this.categories = result.categories;
   }

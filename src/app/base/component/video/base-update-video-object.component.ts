@@ -24,11 +24,9 @@ export abstract class BaseUpdateVideoObjectComponent extends BaseFormComponent {
   public videoContent: FormControl = new FormControl<string>('', [required]);
   public videoThumbnail: FormControl = new FormControl<string>('');
 
-  @ViewChild('videoThumbnailComponent') videoThumbnailComponent!: UploadFileComponent;
-  @ViewChild('videoContentComponent') videoContentComponent!: UploadFileComponent;
+  public videoThumbnailComponent!: UploadFileComponent;
+  public videoContentComponent!: UploadFileComponent;
 
-
-  @Input('video-id')
   public videoId!: number | string;
 
   protected constructor(
@@ -42,17 +40,15 @@ export abstract class BaseUpdateVideoObjectComponent extends BaseFormComponent {
     return ANY_EMPTY;
   }
 
-  public ngOnInit(): void {
-    if (isTruthy(this.videoId)) {
-      this.videoService.findVideo(this.videoId)
-        .subscribe({
-          next: (result: FleenVideoView): void => {
-            this.updateFormData(result);
-            this.formReady();
-          },
-          error: (error: ErrorResponse): void => { this.handleError(error); }
-        });
-    }
+  protected initEntry(): void {
+    this.videoService.findVideo(this.videoId)
+      .subscribe({
+        next: (result: FleenVideoView): void => {
+          this.updateFormData(result);
+          this.formReady();
+        },
+        error: (error: ErrorResponse): void => { this.handleError(error); }
+    });
   }
 
   public updateFormData(result: FleenVideoView): void {

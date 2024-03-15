@@ -22,6 +22,11 @@ export class AdminCreateVideoComponent extends BaseCreateVideoComponent implemen
     super(adminVideoService, formBuilder, router);
   }
 
+  public ngOnInit(): void {
+    this.initForm();
+    this.getDataForCreateVideo();
+  }
+
   protected override $saveEntry(payload: CreateVideoPayload): Observable<FleenVideoView> {
     return this.adminVideoService.createVideo(payload);
   }

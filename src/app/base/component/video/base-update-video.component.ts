@@ -33,10 +33,6 @@ export abstract class BaseUpdateVideoComponent extends BaseUpdateComponent<Fleen
     this.startUpdateVideoObject = true;
   }
 
-  public async ngOnInit(): Promise<void> {
-    await this.initEntry(this.start.bind(this));
-  }
-
   protected override getServiceEntry(id: number | string): Observable<FleenVideoView> {
     return this.videoService.findVideo(id);
   }

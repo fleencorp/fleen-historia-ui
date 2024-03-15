@@ -19,4 +19,8 @@ export class AdminUpdateVideoComponent extends BaseUpdateVideoComponent implemen
     super(adminVideoService, formBuilder, router, route);
   }
 
+  public async ngOnInit(): Promise<void> {
+    await this.initEntry(this.start.bind(this));
+  }
+
 }

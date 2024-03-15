@@ -1,6 +1,5 @@
 import {BaseEntriesComponent} from "@app/base/component";
 import {FleenVideoView} from "@app/model/view/video";
-import {OnInit} from "@angular/core";
 import {AnyObject, DeleteIdsPayload, SearchFilter} from "@app/model/type";
 import {SEARCH_FILTER_VIEW_FLEEN_VIDEOS} from "@app/constant/search-filter.const";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -14,7 +13,7 @@ import {PublishVideoResponse, RequestForReviewResponse} from "@app/model/respons
 import {ErrorResponse} from "@app/model/response";
 import {BaseVideoService} from "@app/base/service";
 
-export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVideoView> implements OnInit {
+export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVideoView> {
 
   public override entries: FleenVideoView[] = [];
   public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_FLEEN_VIDEOS;
@@ -25,10 +24,6 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
       route: ActivatedRoute,
       location: Location) {
     super(router, route, location);
-  }
-
-  public ngOnInit(): void {
-    this.startComponent();
   }
 
   override findEntries(params: AnyObject): Observable<SearchResultView<FleenVideoView>> {

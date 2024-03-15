@@ -25,11 +25,6 @@ export abstract class BaseCreateVideoComponent extends BaseAddComponent<CreateVi
     super(router, formBuilder);
   }
 
-  public ngOnInit(): void {
-    this.initForm();
-    this.getDataForCreateVideo();
-  }
-
   protected override initForm(): void {
     this.fleenForm = this.formBuilder.group({
       title: [DEFAULT_FORM_CONTROL_VALUE, [required, minLength(1), maxLength(255)]],
@@ -50,7 +45,7 @@ export abstract class BaseCreateVideoComponent extends BaseAddComponent<CreateVi
     });
   }
 
-  private getDataForCreateVideo(): void {
+  protected getDataForCreateVideo(): void {
     this.videosService.getDataForCreateVideo()
       .subscribe({
         next: (result: GetCreateVideoResponse): void => {

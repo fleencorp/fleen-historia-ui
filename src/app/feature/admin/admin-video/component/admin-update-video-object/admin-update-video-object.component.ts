@@ -1,9 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {BaseUpdateVideoObjectComponent} from "@app/base/component/video";
 import {ObjectService, SignedUrlService} from "@app/shared/service/impl";
 import {Router} from "@angular/router";
 import {ANY_EMPTY} from "@app/constant";
 import {AdminVideoService} from "@app/feature/admin/admin-video/service";
+import {UploadFileComponent} from "@app/shared/component";
+import {isTruthy} from "@app/shared/helper";
 
 @Component({
   selector: 'app-admin-update-video-object',
@@ -11,6 +13,12 @@ import {AdminVideoService} from "@app/feature/admin/admin-video/service";
   styleUrls: ['./admin-update-video-object.component.css']
 })
 export class AdminUpdateVideoObjectComponent extends BaseUpdateVideoObjectComponent {
+
+  @Input('video-id')
+  public override videoId!: number | string;
+
+  @ViewChild('videoThumbnailComponent') public override videoThumbnailComponent!: UploadFileComponent;
+  @ViewChild('videoContentComponent') public override videoContentComponent!: UploadFileComponent;
 
   public constructor(
       adminVideoService: AdminVideoService,
@@ -21,6 +29,12 @@ export class AdminUpdateVideoObjectComponent extends BaseUpdateVideoObjectCompon
 
   protected override getRouter(): Router {
     return ANY_EMPTY;
+  }
+
+  public ngOnInit(): void {
+    if (isTruthy(this.videoId)) {
+      this.initEntry();
+    }
   }
 
 }

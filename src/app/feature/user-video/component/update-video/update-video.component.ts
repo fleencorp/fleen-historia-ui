@@ -19,4 +19,8 @@ export class UpdateVideoComponent extends BaseUpdateVideoComponent implements On
     super(userVideoService, formBuilder, router, route);
   }
 
+  public async ngOnInit(): Promise<void> {
+    await this.initEntry(this.start.bind(this));
+  }
+
 }
