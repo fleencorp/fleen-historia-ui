@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -13,7 +13,7 @@ import {AdminVideoService} from "@app/feature/admin/admin-video/service";
   templateUrl: './admin-create-video.component.html',
   styleUrls: ['./admin-create-video.component.css']
 })
-export class AdminCreateVideoComponent extends BaseCreateVideoComponent {
+export class AdminCreateVideoComponent extends BaseCreateVideoComponent implements OnInit {
 
   public constructor(
       protected adminVideoService: AdminVideoService,

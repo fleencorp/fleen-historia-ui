@@ -1,7 +1,6 @@
 import {BaseUpdateComponent} from "@app/base/component";
 import {FleenVideoView} from "@app/model/view/video";
 import {AnyObject} from "@app/model/type";
-import {OnInit} from "@angular/core";
 import {FormBuilder} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable, of} from "rxjs";
@@ -9,7 +8,7 @@ import {ANY_EMPTY} from "@app/constant";
 import {VideoStatus} from "@app/model/enum";
 import {BaseVideoService} from "@app/base/service";
 
-export abstract class BaseUpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, AnyObject> implements OnInit {
+export abstract class BaseUpdateVideoComponent extends BaseUpdateComponent<FleenVideoView, AnyObject> {
 
   public override entryView!: FleenVideoView;
   public isVideoInReview: boolean = false;

@@ -1,7 +1,6 @@
 import {BaseAddComponent} from "@app/base/component";
 import {CreateVideoPayload} from "@app/model/type";
 import {FleenVideoView} from "@app/model/view/video";
-import {OnInit} from "@angular/core";
 import {ChannelView} from "@app/model/view/channel";
 import {CategoryView} from "@app/model/view/category";
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
@@ -14,7 +13,7 @@ import {ErrorResponse} from "@app/model/response";
 import {Observable} from "rxjs";
 import {BaseVideoService} from "@app/base/service";
 
-export abstract class BaseCreateVideoComponent extends BaseAddComponent<CreateVideoPayload, FleenVideoView> implements OnInit {
+export abstract class BaseCreateVideoComponent extends BaseAddComponent<CreateVideoPayload, FleenVideoView> {
 
   public channels: ChannelView[] = [];
   public categories: CategoryView[] = [];

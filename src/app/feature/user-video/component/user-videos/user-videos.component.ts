@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 import {Location} from "@angular/common";
 import {SearchResultView} from "@app/model/view";
 import {ANY_EMPTY} from "@app/constant";
-import {BaseVideosComponent} from "@app/base/component";
+import {BaseVideosComponent} from "@app/base/component/video";
 import {UserVideoService} from "@app/feature/user-video/service";
 
 @Component({

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserVideoService} from "@app/feature/user-video/service";
 import {FormBuilder} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -9,7 +9,7 @@ import {BaseUpdateVideoInfoComponent} from "@app/base/component/video";
   templateUrl: './update-video-info.component.html',
   styleUrls: ['./update-video-info.component.css']
 })
-export class UpdateVideoInfoComponent extends BaseUpdateVideoInfoComponent {
+export class UpdateVideoInfoComponent extends BaseUpdateVideoInfoComponent implements OnInit {
 
   public constructor(
       userVideoService: UserVideoService,

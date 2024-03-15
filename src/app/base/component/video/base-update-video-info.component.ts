@@ -1,7 +1,7 @@
 import {BaseUpdateComponent} from "@app/base/component";
 import {FleenVideoView} from "@app/model/view/video";
 import {UpdateVideoPayload} from "@app/model/type";
-import {Input, OnInit} from "@angular/core";
+import {Input} from "@angular/core";
 import {ChannelView} from "@app/model/view/channel";
 import {CategoryView} from "@app/model/view/category";
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
@@ -13,7 +13,7 @@ import {enumValid, maxLength, minLength, required} from "@app/shared/validator";
 import {VideoVisibility} from "@app/model/enum";
 import {BaseVideoService} from "@app/base/service";
 
-export abstract class BaseUpdateVideoInfoComponent extends BaseUpdateComponent<FleenVideoView, UpdateVideoPayload> implements OnInit {
+export abstract class BaseUpdateVideoInfoComponent extends BaseUpdateComponent<FleenVideoView, UpdateVideoPayload> {
 
   public channels: ChannelView[] = [];
   public categories: CategoryView[] = [];

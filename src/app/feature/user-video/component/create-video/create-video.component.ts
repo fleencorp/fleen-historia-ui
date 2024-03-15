@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CreateVideoPayload} from "@app/model/type";
 import {FleenVideoView} from "@app/model/view/video";
 import {UserVideoService} from "@app/feature/user-video/service";
@@ -12,7 +12,7 @@ import {BaseCreateVideoComponent} from "@app/base/component/video";
   templateUrl: './create-video.component.html',
   styleUrls: ['./create-video.component.css']
 })
-export class CreateVideoComponent extends BaseCreateVideoComponent {
+export class CreateVideoComponent extends BaseCreateVideoComponent implements OnInit {
 
   public constructor(
       protected userVideoService: UserVideoService,
