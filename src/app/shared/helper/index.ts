@@ -65,6 +65,17 @@ export function isObject(value: any): boolean {
 
 
 /**
+ * Determines whether a given value is a function.
+ *
+ * @param value - The value to be checked.
+ * @returns `true` if the value is a function, `false` otherwise.
+ */
+export function isFunction(value: any): boolean {
+  return isTruthy(value) && typeof value === 'function';
+}
+
+
+/**
  * Capitalize the first letter of a word and convert the rest of the letters to lowercase.
  *
  * This function takes a word as input and returns the word with its first letter capitalized and the rest of the letters in lowercase.

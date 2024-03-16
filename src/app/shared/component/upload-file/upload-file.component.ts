@@ -1,6 +1,6 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl} from "@angular/forms";
-import {FileUploadDownloadService} from "@app/shared/service/impl/file/file-upload-download.service";
+import {FileUploadDownloadService} from "@app/shared/service/impl";
 import {isFalsy, isTruthy, nonNull} from "@app/shared/helper";
 import {catchError, Observable, Subscription, switchMap, tap, throwError} from "rxjs";
 import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
@@ -167,8 +167,6 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
   public ngOnInit(): void {
     if (this.checkConfig()) {
       this.formReady();
-      console.log('Checking urls');
-      console.log(this.fileNameOrUrl);
     }
   }
 

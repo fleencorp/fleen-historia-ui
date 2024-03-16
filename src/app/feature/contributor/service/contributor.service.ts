@@ -26,26 +26,17 @@ export class ContributorService {
 
   public findPendingVideo(id: number | string): Observable<FleenVideoView> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'detail', +id]);
-    return this.httpService.getOne(req)
-      .pipe(
-        map(data => new FleenVideoView(data))
-      );
+    return this.httpService.getOne(req, FleenVideoView);
   }
 
   public submitVideoReview(id: number | string, body: SubmitVideoReviewPayload): Observable<SubmitVideoReviewResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'review', +id], null, { ...body });
-    return this.httpService.post(req)
-      .pipe(
-        map(data => new SubmitVideoReviewResponse(data))
-      );
+    return this.httpService.post(req, SubmitVideoReviewResponse);
   }
 
   public findVideoReviewHistory(id: number | string): Observable<VideoReviewHistoryResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'review-history', +id]);
-    return this.httpService.get(req)
-      .pipe(
-        map(data => new VideoReviewHistoryResponse(data))
-      );
+    return this.httpService.get(req, VideoReviewHistoryResponse);
   }
 
   public findMyVideoReviewHistory(params: AnyObject): Observable<SearchResultView<VideoReviewView>> {
@@ -58,9 +49,6 @@ export class ContributorService {
 
   public userCanSubmitVideoReview(id: number | string): Observable<UserCanSubmitReviewResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'review', 'is-eligible', +id]);
-    return this.httpService.get(req)
-      .pipe(
-        map(data => new UserCanSubmitReviewResponse(data))
-      );
+    return this.httpService.get(req, UserCanSubmitReviewResponse);
   }
 }

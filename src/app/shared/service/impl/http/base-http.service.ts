@@ -3,8 +3,9 @@ import {isObject, isTruthy, toBody, toCamelCaseKeys, toSnakeCasePayload} from "@
 import {catchError, map, Observable, retry, switchMap, tap, throwError, timer} from "rxjs";
 import {ErrorResponse} from "@app/model/response";
 import {LoggerService} from "@app/base/service";
-import {HttpServiceConfig} from "@app/model/interface";
+import {Constructor, HttpServiceConfig} from "@app/model/interface";
 import {Inject, Injectable} from "@angular/core";
+import {toModel} from "@app/shared/rxjs";
 
 
 /**
@@ -107,14 +108,16 @@ export class BaseHttpService {
    *   Applies a set of operations to an Observable source, including retrying, logging, mapping keys, and error handling.
    *
    * @param source - The source Observable to apply the pipeline operations.
-   * @returns {Observable<T>} - The resulting Observable after applying the pipeline.
+   * @param clazz The class constructor used to instantiate a new instance of an object with the data
+   * @returns {Observable} - The resulting Observable after applying the pipeline.
    */
-  protected pipeline<T>(source: Observable<T>): Observable<T> {
+  protected pipeline<T extends Object>(source: Observable<T>, clazz?: Constructor<T>): Observable<T> {
     return timer(this.config.delayRequestTime).pipe(
       switchMap(() => source.pipe(
           retry(this.config.retryTimes),
           tap(() => this.logger.log),
           map((res: T) => toCamelCaseKeys(res)),
+          toModel(clazz),
           catchError(this.handleError)
         )
       )

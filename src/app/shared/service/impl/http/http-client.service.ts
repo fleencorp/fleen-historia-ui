@@ -4,7 +4,7 @@ import {BaseRequest, ExchangeRequest} from "@app/model/type";
 import {BaseHttpService} from "./base-http.service";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {HttpServiceConfig} from "@app/model/interface";
+import {Constructor, HttpServiceConfig} from "@app/model/interface";
 
 /**
  * @class HttpClientService
@@ -42,12 +42,13 @@ export class HttpClientService extends BaseHttpService {
    *   Makes a generic HTTP request using the provided BaseRequest object.
    *
    * @param req - The BaseRequest object containing information about the request.
+   * @param clazz The class constructor used to instantiate a new instance of an object with the data
    * @returns {Observable<any>} - An Observable emitting the response of the HTTP request.
    */
-  public request(req: BaseRequest): Observable<any> {
+  public request<T extends Object>(req: BaseRequest, clazz?: Constructor<T>): Observable<any> {
     const { body } = req;
     const request: Observable<Object> = this.httpClient.request(req.method as string, this.buildUri(req), { body });
-    return this.pipeline(request);
+    return this.pipeline(request, clazz);
   }
 
   /**
@@ -68,11 +69,12 @@ export class HttpClientService extends BaseHttpService {
    *   Makes an HTTP GET request using the provided BaseRequest object.
    *
    * @param req - The BaseRequest object containing information about the request.
+   * @param clazz The class constructor used to instantiate a new instance of an object with the data
    * @returns {Observable<any>} - An Observable emitting the response of the HTTP request.
    */
-  public get(req: BaseRequest): Observable<any> {
+  public get<T extends Object>(req: BaseRequest, clazz?: Constructor<T>): Observable<any> {
     const request: Observable<Object> = this.httpClient.get(this.buildUri(req));
-    return this.pipeline(request);
+    return this.pipeline(request, clazz);
   }
 
   /**
@@ -81,10 +83,11 @@ export class HttpClientService extends BaseHttpService {
    *   Alias for the `get` method. Makes an HTTP GET request using the provided BaseRequest object.
    *
    * @param req - The BaseRequest object containing information about the request.
+   * @param clazz The class constructor used to instantiate a new instance of an object with the data
    * @returns {Observable<any>} - An Observable emitting the response of the HTTP request.
    */
-  public getOne(req: BaseRequest): Observable<any> {
-    return this.get(req);
+  public getOne<T extends Object>(req: BaseRequest, clazz?: Constructor<T>): Observable<any> {
+    return this.get(req, clazz);
   }
 
   /**
@@ -93,11 +96,12 @@ export class HttpClientService extends BaseHttpService {
    *   Makes an HTTP POST request using the provided BaseRequest object.
    *
    * @param req - The BaseRequest object containing information about the request.
+   * @param clazz The class constructor used to instantiate a new instance of an object with the data
    * @returns {Observable<any>} - An Observable emitting the response of the HTTP request.
    */
-  public post(req: BaseRequest): Observable<any> {
+  public post<T extends Object>(req: BaseRequest, clazz?: Constructor<T>): Observable<any> {
     const request: Observable<Object> = this.httpClient.post(this.buildUri(req), req.body);
-    return this.pipeline(request);
+    return this.pipeline(request, clazz);
   }
 
   /**
@@ -106,10 +110,11 @@ export class HttpClientService extends BaseHttpService {
    *   Alias for the `post` method. Makes an HTTP POST request using the provided BaseRequest object.
    *
    * @param req - The BaseRequest object containing information about the request.
+   * @param clazz The class constructor used to instantiate a new instance of an object with the data
    * @returns {Observable<any>} - An Observable emitting the response of the HTTP request.
    */
-  public saveMany(req: BaseRequest): Observable<any> {
-    return this.post(req);
+  public saveMany<T extends Object>(req: BaseRequest, clazz?: Constructor<T>): Observable<any> {
+    return this.post(req, clazz);
   }
 
   /**
@@ -118,11 +123,12 @@ export class HttpClientService extends BaseHttpService {
    *   Makes an HTTP PUT request using the provided BaseRequest object.
    *
    * @param req - The BaseRequest object containing information about the request.
+   * @param clazz The class constructor used to instantiate a new instance of an object with the data
    * @returns {Observable<any>} - An Observable emitting the response of the HTTP request.
    */
-  public update(req: BaseRequest): Observable<any> {
+  public update<T extends Object>(req: BaseRequest, clazz?: Constructor<T>): Observable<any> {
     const request: Observable<Object> = this.httpClient.put(this.buildUri(req), req.body);
-    return this.pipeline(request);
+    return this.pipeline(request, clazz);
   }
 
   /**
@@ -131,11 +137,12 @@ export class HttpClientService extends BaseHttpService {
    *   Makes an HTTP DELETE request using the provided BaseRequest object.
    *
    * @param req - The BaseRequest object containing information about the request.
+   * @param clazz The class constructor used to instantiate a new instance of an object with the data
    * @returns {Observable<any>} - An Observable emitting the response of the HTTP request.
    */
-  public delete(req: BaseRequest): Observable<any> {
+  public delete<T extends Object>(req: BaseRequest, clazz?: Constructor<T>): Observable<any> {
     const request: Observable<Object> = this.httpClient.delete(this.buildUri(req));
-    return this.pipeline(request);
+    return this.pipeline(request, clazz);
   }
 
   /**
@@ -144,11 +151,12 @@ export class HttpClientService extends BaseHttpService {
    *   Makes an HTTP DELETE request using the provided BaseRequest object (using the `request` method).
    *
    * @param req - The BaseRequest object containing information about the request.
+   * @param clazz The class constructor used to instantiate a new instance of an object with the data
    * @returns {Observable<any>} - An Observable emitting the response of the HTTP request.
    */
-  public deleteMany(req: BaseRequest): Observable<any> {
+  public deleteMany<T extends Object>(req: BaseRequest, clazz?: Constructor<T>): Observable<any> {
     req.method = 'DELETE';
-    return this.request(req);
+    return this.request(req, clazz);
   }
 
 }

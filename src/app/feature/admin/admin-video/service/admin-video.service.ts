@@ -27,7 +27,7 @@ export class AdminVideoService extends BaseVideoService {
 
   public deleteManyVideos(body: DeleteIdsPayload): Observable<DeleteResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'delete', 'many'], null, { ...body });
-    return this.httpService.delete(req)
+    return this.httpService.deleteMany(req)
       .pipe(
         map(data => new DeleteResponse(data))
       );

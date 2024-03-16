@@ -1,3 +1,6 @@
+import {isFunction, isTruthy} from "@app/shared/helper";
+import {Constructor} from "@app/model/interface";
+
 /**
  * @class SearchResultView
  * @template T - The type of values stored in the search result.
@@ -9,7 +12,7 @@
  *
  * @author Yusuf Alamu Musa
  */
-export class SearchResultView<T> {
+export class SearchResultView<T extends Object> {
 
   /**
    * @property pageNo
@@ -67,7 +70,7 @@ export class SearchResultView<T> {
    *
    * @param data - The data object containing information about the search results.
    */
-  public constructor(data: SearchResultView<T>) {
+  public constructor(data: SearchResultView<T>, Constructor?: Constructor<T>) {
     this.pageNo = data?.pageNo ? data.pageNo : data?.pageNo;
     this.pageSize = data?.pageSize ? data.pageSize : data?.pageSize;
     this.totalEntries = data?.totalEntries ? data.totalEntries : data?.totalEntries;
@@ -75,5 +78,15 @@ export class SearchResultView<T> {
     this.isLast = data?.isLast ? data.isLast : data?.isLast;
     this.isFirst = data?.isFirst ? data.isFirst : data?.isFirst;
     this.values = data?.values ? data.values : [];
+    this.toValues(Constructor);
+  }
+
+  public toValues(Constructor: Constructor<T>): void {
+    const entries: T[] = [];
+    if (isTruthy(this.values) && Array.isArray(this.values)
+        && Constructor != null && isFunction(Constructor)) {
+        this.values.forEach((value: T): void => { entries.push(new Constructor(value)); });
+      this.values = entries;
+    }
   }
 }

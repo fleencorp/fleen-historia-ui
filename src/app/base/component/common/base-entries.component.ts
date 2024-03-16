@@ -15,7 +15,7 @@ import {isFalsy, isTruthy} from "@app/shared/helper";
  * @author Yusuf Alamu Musa
  * @version 1.0
  */
-export abstract class BaseEntriesComponent<T> extends BaseFormComponent {
+export abstract class BaseEntriesComponent<T extends Object> extends BaseFormComponent {
 
   /**
    * The current page number.

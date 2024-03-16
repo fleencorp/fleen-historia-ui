@@ -1,16 +1,26 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { AdminYoutubeRoutingModule } from './admin-youtube-routing.module';
-import { AdminYoutubeCategoryEntriesComponent } from '@app/feature/admin/admin-youtube/component/admin-youtube-category-entries/admin-youtube-category-entries.component';
+import {AdminYoutubeRoutingModule} from './admin-youtube-routing.module';
+import {
+  AdminYoutubeAuthenticationComponent,
+  AdminYoutubeCategoryEntriesComponent,
+  AdminYoutubeChannelEntriesComponent,
+  AdminYoutubeChannelVideoEntriesComponent
+} from '@app/feature/admin/admin-youtube/component';
+import {SharedModule} from "@app/shared/shared.module";
 
 
 @NgModule({
   declarations: [
-    AdminYoutubeCategoryEntriesComponent
+    AdminYoutubeCategoryEntriesComponent,
+    AdminYoutubeChannelEntriesComponent,
+    AdminYoutubeChannelVideoEntriesComponent,
+    AdminYoutubeAuthenticationComponent
   ],
   imports: [
     CommonModule,
+    SharedModule,
     AdminYoutubeRoutingModule
   ]
 })

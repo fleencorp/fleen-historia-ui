@@ -26,8 +26,8 @@ import {SharedModule} from "@app/shared/shared.module";
   ],
   imports: [
     CommonModule,
-    AdminVideoRoutingModule,
-    SharedModule
+    SharedModule,
+    AdminVideoRoutingModule
   ]
 })
 export class AdminVideoModule { }

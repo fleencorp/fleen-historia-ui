@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClientService} from "@app/shared/service/impl";
 import {AuthTokenService, LocalStorageService} from "@app/base/service";
-import {map, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {EntityExistsResponse} from "@app/model/response/common";
 import {
   AnyObject,
@@ -103,10 +103,7 @@ export class AuthenticationService {
    */
   public signUp(body: SignUpPayload): Observable<SignUpResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'sign-up'], null, { ...body });
-    return this.httpService.post(req)
-      .pipe(
-        map(data => new SignUpResponse(data))
-      );
+    return this.httpService.post(req, SignUpResponse);
   }
 
   /**
@@ -119,10 +116,7 @@ export class AuthenticationService {
    */
   public signIn(body: SignInPayload): Observable<SignInResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'sign-in'], null, { ...body });
-    return this.httpService.post(req)
-      .pipe(
-        map(data => new SignInResponse(data))
-      );
+    return this.httpService.post(req, SignInResponse);
   }
 
   /**
@@ -135,10 +129,7 @@ export class AuthenticationService {
    */
   public completeSignUp(body: AuthVerificationPayload): Observable<SignUpResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.VERIFICATION_BASE_PATH, 'complete-sign-up'], null, { ...body });
-    return this.httpService.post(req)
-      .pipe(
-        map(data => new SignUpResponse(data))
-      );
+    return this.httpService.post(req, SignUpResponse);
   }
 
   /**
@@ -151,10 +142,7 @@ export class AuthenticationService {
    */
   public validateSignInMfa(body: AuthVerificationPayload): Observable<SignInResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.VERIFICATION_BASE_PATH, 'validate-sign-in-mfa'], null, { ...body });
-    return this.httpService.post(req)
-      .pipe(
-        map(data => new SignInResponse(data))
-      );
+    return this.httpService.post(req, SignInResponse);
   }
 
   /**
@@ -167,10 +155,7 @@ export class AuthenticationService {
    */
   public completeOnboarding(body: ChangePasswordPayload): Observable<SignInResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.VERIFICATION_BASE_PATH, 'complete-onboarding'], null, { ...body });
-    return this.httpService.post(req)
-      .pipe(
-        map(data => new SignInResponse(data))
-      );
+    return this.httpService.post(req, SignInResponse);
   }
 
   /**
@@ -183,10 +168,7 @@ export class AuthenticationService {
    */
   public resendOtp(body: ResendVerificationCodePayload): Observable<FleenResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.VERIFICATION_BASE_PATH, 'resend-pre-verification-code'], null, { ...body });
-    return this.httpService.post(req)
-      .pipe(
-        map(data => new FleenResponse(data))
-      );
+    return this.httpService.post(req, FleenResponse);
   }
 
   /**
@@ -199,10 +181,7 @@ export class AuthenticationService {
    */
   public resendPreAuthenticationOtp(body: ResendVerificationCodePayload): Observable<FleenResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.VERIFICATION_BASE_PATH, 'resend-pre-authentication-code'], null, { ...body });
-    return this.httpService.post(req)
-      .pipe(
-        map(data => new FleenResponse(data))
-      );
+    return this.httpService.post(req, FleenResponse);
   }
 
   /**
@@ -215,10 +194,7 @@ export class AuthenticationService {
    */
   public forgotPassword(body: ForgotPasswordPayload): Observable<ForgotPasswordResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'forgot-password'], null, { ...body });
-    return this.httpService.post(req)
-      .pipe(
-        map(data => new ForgotPasswordResponse(data))
-      );
+    return this.httpService.post(req, ForgotPasswordResponse);
   }
 
   /**
@@ -231,10 +207,7 @@ export class AuthenticationService {
    */
   public verifyResetPasswordCode(body: ResetPasswordPayload): Observable<InitiatePasswordChangeResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'verify-reset-password-code'], null, { ...body });
-    return this.httpService.post(req)
-      .pipe(
-        map(data => new InitiatePasswordChangeResponse(data))
-      );
+    return this.httpService.post(req, InitiatePasswordChangeResponse);
   }
 
   /**
@@ -304,10 +277,7 @@ export class AuthenticationService {
    */
   public resetAndChangePassword(body: ChangePasswordPayload): Observable<FleenResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.VERIFICATION_BASE_PATH, 'reset-change-password'], null, { ...body });
-    return this.httpService.post(req)
-      .pipe(
-        map(data => new FleenResponse(data))
-      );
+    return this.httpService.post(req, FleenResponse);
   }
 
 

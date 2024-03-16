@@ -3,8 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {AdminCategoryRoutingModule} from './admin-category-routing.module';
 import {CategoryEntriesComponent, CategoryEntryComponent, CategoryUpdateComponent} from './component';
-import {SharedComponentModule} from "@app/shared/component/shared-component.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import {SharedModule} from "@app/shared/shared.module";
 
 
 @NgModule({
@@ -15,9 +14,8 @@ import {ReactiveFormsModule} from "@angular/forms";
   ],
   imports: [
     CommonModule,
-    AdminCategoryRoutingModule,
-    SharedComponentModule,
-    ReactiveFormsModule
+    SharedModule,
+    AdminCategoryRoutingModule
   ]
 })
 export class AdminCategoryModule { }

@@ -11,6 +11,7 @@ import {
 import {SearchResultView} from "@app/model/view";
 import {mapToSearchResult} from "@app/shared/helper";
 import {DeleteResponse} from "@app/model/response/common";
+import {toModel} from "@app/shared/rxjs";
 
 @Injectable()
 export class AdminYoutubeService {
