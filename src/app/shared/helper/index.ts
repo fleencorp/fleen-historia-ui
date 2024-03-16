@@ -1,6 +1,6 @@
 import {AnyObject} from "@app/model/type";
 import {SearchResultView} from "@app/model/view";
-import {Newable} from "@app/model/interface";
+import {Constructor} from "@app/model/interface";
 
 /**
  * @function isTruthy
@@ -670,9 +670,24 @@ export function capitalize(value: string): string {
  * // Result: SearchResultView<User> object with 'totalResults' and 'values' properties.
  * // 'values' property contains an array of User instances.
  */
-export function mapToSearchResult<T extends Object>(Constructor: Newable<T>, response: any): SearchResultView<T> {
-  const values = response.values.map((value: any) => new Constructor(value));
+export function mapToSearchResult<T extends Object>(Constructor: Constructor<T>, response: any): SearchResultView<T> {
+  const values = response.values.map((value: any): T | null => { return Constructor ? new Constructor(value) : null; });
   const searchResultView : SearchResultView<T> = new SearchResultView(response);
-  searchResultView.values = values;
+  searchResultView.values = removeEmptyElement(values);
   return searchResultView;
+}
+
+
+/**
+ * Removes empty elements (null values) from an array.
+ *
+ * @param data - The array to be filtered.
+ * @returns A new array with empty elements removed.
+ */
+export function removeEmptyElement<T>(data: T[]): T[] {
+  if (isTruthy(data) && Array.isArray(data)) {
+    return data.filter((value: T): boolean => value != null);
+  } else {
+    return data; // Return the original array if input is not valid
+  }
 }

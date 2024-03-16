@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClientService} from "@app/shared/service/impl";
 import {AnyObject, BaseRequest, SubmitVideoReviewPayload} from "@app/model/type";
-import {map, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
 import {FleenVideoView, VideoReviewView} from "@app/model/view/video";
-import {mapToSearchResult} from "@app/shared/helper";
 import {UserCanSubmitReviewResponse, VideoReviewHistoryResponse} from "@app/model/response/video";
 import {SubmitVideoReviewResponse} from "@app/model/response/video/submit-video-review.response";
+import {toSearchResult} from "@app/shared/rxjs";
 
 @Injectable()
 export class ContributorService {
@@ -20,7 +20,7 @@ export class ContributorService {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'entries', 'videos'], params);
     return this.httpService.get(req)
       .pipe(
-        map(data => mapToSearchResult(FleenVideoView, data))
+        toSearchResult(FleenVideoView),
       );
   }
 
@@ -43,7 +43,7 @@ export class ContributorService {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'review-history'], params);
     return this.httpService.get(req)
       .pipe(
-        map(data => mapToSearchResult(VideoReviewView, data))
+        toSearchResult(VideoReviewView)
       );
   }
 

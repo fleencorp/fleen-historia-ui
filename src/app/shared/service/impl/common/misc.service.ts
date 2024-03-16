@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClientService} from "@app/shared/service/impl";
-import {map, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {EntityExistsResponse, GetEncodedPasswordResponse} from "@app/model/response/common";
 import {BaseRequest} from "@app/model/type";
 
@@ -22,10 +22,7 @@ export class MiscService {
    */
   public isEmailExists(emailAddress: string): Observable<EntityExistsResponse> {
     const req: BaseRequest = this.httpService.toRequestV2([this.BASE_PATH, 'email-address', 'exists'], { emailAddress });
-    return this.httpService.get(req)
-      .pipe(
-        map(data => new EntityExistsResponse(data))
-      );
+    return this.httpService.get(req, EntityExistsResponse);
   }
 
   /**
@@ -38,10 +35,7 @@ export class MiscService {
    */
   public isPhoneNumberExists(phoneNumber: string): Observable<EntityExistsResponse> {
     const req: BaseRequest = this.httpService.toRequestV2([this.BASE_PATH, 'phone-number', 'exists'], { phoneNumber });
-    return this.httpService.get(req)
-      .pipe(
-        map(data => new EntityExistsResponse(data))
-      );
+    return this.httpService.get(req, EntityExistsResponse);
   }
 
   /**
@@ -53,9 +47,6 @@ export class MiscService {
    */
   public generateAndGetEncodedPassword(password: string): Observable<GetEncodedPasswordResponse> {
     const req: BaseRequest = this.httpService.toRequestV2([this.BASE_PATH, 'password'], { password });
-    return this.httpService.get(req)
-      .pipe(
-        map(data => new GetEncodedPasswordResponse(data))
-      );
+    return this.httpService.get(req, GetEncodedPasswordResponse);
   }
 }

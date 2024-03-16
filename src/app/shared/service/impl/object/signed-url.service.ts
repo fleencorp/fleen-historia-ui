@@ -13,25 +13,16 @@ export class SignedUrlService {
 
   public generateForProfilePhoto(fileName: string): Observable<SignedUrlResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'profile-photo'], { fileName });
-    return this.httpService.get(req)
-      .pipe(
-        map(data => new SignedUrlResponse(data))
-      );
+    return this.httpService.get(req, SignedUrlResponse);
   }
 
   public generateForVideoObject(fileName: string): Observable<SignedUrlResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video-object'], { fileName });
-    return this.httpService.get(req)
-      .pipe(
-        map(data => new SignedUrlResponse(data))
-      );
+    return this.httpService.get(req, SignedUrlResponse);
   }
 
   public generateForVideoThumbnail(fileName: string): Observable<SignedUrlResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video-thumbnail'], { fileName });
-    return this.httpService.get(req)
-      .pipe(
-        map(data => new SignedUrlResponse(data))
-      );
+    return this.httpService.get(req, SignedUrlResponse);
   }
 }
