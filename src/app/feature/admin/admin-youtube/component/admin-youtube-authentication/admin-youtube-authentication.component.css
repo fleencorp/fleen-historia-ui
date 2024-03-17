@@ -1,0 +1,29 @@
+#authorization-uri-box {
+  font-family: 'Roboto';
+  font-size: 13px;
+  text-align: center;
+  padding: 8px 10px 0 5px;
+  border-radius: 8px;
+  width: 70%;
+  height: 25px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-overflow: ellipsis;
+  border-bottom: 3px solid #009fff;
+  color: white;
+  background-color: #0986e1;
+}
+
+#authorization-uri-box span {
+  text-align: right;
+  float:right;
+}
+
+#start-auth-wrapper {
+  width: 180px;
+  margin: 10px auto;
+}
+
+#start-auth-btn {
+  width: inherit;
+}

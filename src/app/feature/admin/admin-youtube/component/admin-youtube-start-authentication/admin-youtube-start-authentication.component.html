@@ -1,0 +1,7 @@
+<p id="authorization-uri-box">{{authorizationUri}} <span (click)="copyAuthorizationUriToClipboard()"><fa-icon [icon]="faCopy"></fa-icon></span></p>
+
+<p id="start-auth-wrapper">
+  <button id="start-auth-btn" [disabled]="isSubmitting" (click)="startAuthentication()">Start Authentication
+    <fa-icon *ngIf="isSubmitting" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+  </button>
+</p>

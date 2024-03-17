@@ -4,13 +4,17 @@ import {CommonModule} from '@angular/common';
 import {AdminYoutubeRoutingModule} from './admin-youtube-routing.module';
 import {
   AdminYoutubeAuthenticationComponent,
+  AdminYoutubeBaseComponent,
   AdminYoutubeCategoryEntriesComponent,
   AdminYoutubeChannelEntriesComponent,
-  AdminYoutubeChannelVideoEntriesComponent
+  AdminYoutubeChannelVideoEntriesComponent,
+  AdminYoutubeDashboardComponent,
+  AdminYoutubeStartAuthenticationComponent,
+  AdminYoutubeVerifyAuthorizationCodeComponent
 } from '@app/feature/admin/admin-youtube/component';
 import {SharedModule} from "@app/shared/shared.module";
-import { AdminYoutubeBaseComponent } from './component/admin-youtube-base/admin-youtube-base.component';
-import { AdminYoutubeDashboardComponent } from './component/admin-youtube-dashboard/admin-youtube-dashboard.component';
+import {AdminYoutubeService} from "@app/feature/admin/admin-youtube/service";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -20,12 +24,18 @@ import { AdminYoutubeDashboardComponent } from './component/admin-youtube-dashbo
     AdminYoutubeChannelVideoEntriesComponent,
     AdminYoutubeAuthenticationComponent,
     AdminYoutubeBaseComponent,
-    AdminYoutubeDashboardComponent
+    AdminYoutubeDashboardComponent,
+    AdminYoutubeStartAuthenticationComponent,
+    AdminYoutubeVerifyAuthorizationCodeComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    AdminYoutubeRoutingModule
+    AdminYoutubeRoutingModule,
+    FontAwesomeModule
+  ],
+  providers: [
+    AdminYoutubeService
   ]
 })
 export class AdminYoutubeModule { }
