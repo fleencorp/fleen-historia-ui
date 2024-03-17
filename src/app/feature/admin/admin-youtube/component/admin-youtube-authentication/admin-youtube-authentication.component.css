@@ -17,6 +17,7 @@
 #authorization-uri-box span {
   text-align: right;
   float:right;
+  z-index: 99;
 }
 
 #start-auth-wrapper {

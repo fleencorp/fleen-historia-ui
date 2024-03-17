@@ -63,3 +63,7 @@ button:hover {
 button:active {
   background-color: #1b76ae;
 }
+
+#clipboard-icon:hover, #clipboard-icon:active {
+  cursor: pointer;
+}
