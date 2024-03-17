@@ -9,6 +9,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthenticationService} from "@app/feature/authentication/service";
 import {SharedServiceModule} from "@app/shared/service/shared-service.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FontAwesomeModule,
     BaseModule,
     SharedServiceModule,
     AppRoutingModule
