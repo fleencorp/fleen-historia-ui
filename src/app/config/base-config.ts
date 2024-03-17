@@ -48,7 +48,7 @@ const HTTP_REQUEST_RETRY_TIMES: number = 3;
  *   Represents the time interval before initiating an HTTP request.
  *   Example: 10_000 milliseconds is equivalent to 10 seconds or 10_000 / 1000
  */
-const HTTP_REQUEST_DELAY_TIME_IN_MILLISECONDS: number = 0;
+const HTTP_REQUEST_DELAY_TIME_IN_MILLISECONDS: number = 3000;
 
 
 /**

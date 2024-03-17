@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseFormImplComponent} from "@app/base/component";
-import {faCopy, faSpinner, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight, faCheck, faCopy, faSpinner, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {AdminYoutubeService} from "@app/feature/admin/admin-youtube/service";
 import {Clipboard} from "@angular/cdk/clipboard";
 import {isFalsy, isTruthy} from "@app/shared/helper";
@@ -14,8 +14,7 @@ import {ErrorResponse} from "@app/model/response";
 export class AdminYoutubeStartAuthenticationComponent extends BaseFormImplComponent implements OnInit {
 
   protected authorizationUri: string = '';
-  protected readonly faCopy: IconDefinition = faCopy;
-  protected readonly faSpinner: IconDefinition = faSpinner;
+
 
   public constructor(
       protected youTubeService: AdminYoutubeService,
@@ -49,4 +48,9 @@ export class AdminYoutubeStartAuthenticationComponent extends BaseFormImplCompon
       ? 'Authorization Ready'
       : '';
   }
+
+  protected readonly faCopy: IconDefinition = faCopy;
+  protected readonly faSpinner: IconDefinition = faSpinner;
+  protected readonly faCheck: IconDefinition = faCheck;
+  protected readonly faArrowRight: IconDefinition = faArrowRight;
 }

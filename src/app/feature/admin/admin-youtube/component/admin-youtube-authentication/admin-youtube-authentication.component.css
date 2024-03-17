@@ -1,14 +1,22 @@
+#youtube-authentication-wrapper {
+  width: 80%;
+  padding: 8px 10px 0 10px;
+  overflow: hidden;
+}
+
+#verify-authorization-code-wrapper {
+  margin-top: 50px;
+}
+
 #authorization-uri-box {
   font-family: 'Roboto';
   font-size: 13px;
   text-align: center;
-  padding: 8px 10px 0 5px;
   border-radius: 8px;
-  width: 70%;
   height: 25px;
-  max-width: 800px;
-  margin: 0 auto;
+  margin: 0 10px 0 5px;
   text-overflow: ellipsis;
+  padding: 8px 10px 0 5px;
   border-bottom: 3px solid #009fff;
   color: white;
   background-color: #0986e1;
@@ -20,11 +28,26 @@
   z-index: 99;
 }
 
-#start-auth-wrapper {
-  width: 180px;
-  margin: 10px auto;
+#start-auth-wrapper, #verify-auth-code-btn, #auth-code-status-btn {
+  width: 220px;
+  float: right;
+  margin: 10px 20px;
 }
 
 #start-auth-btn {
   width: inherit;
+}
+
+input {
+  width: 97%;
+  padding: 10px;
+  display: block;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+}
+
+
+#verify-authorization-code-wrapper {
+  margin-top: 200px;
 }

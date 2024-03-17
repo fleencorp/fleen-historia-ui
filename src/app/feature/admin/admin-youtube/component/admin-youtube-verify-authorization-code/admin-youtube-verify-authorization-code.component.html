@@ -1,1 +1,20 @@
-<p>admin-youtube-verify-authorization-code works!</p>
+
+<div id="verify-authorization-code-wrapper">
+  <form *ngIf="isFormReady">
+
+    <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+    <div class="form-group">
+      <label for="authorization_code">Authorization Code:</label>
+      <input type="text" [formControl]="authorizationCodeCtrl" id="authorization_code"/>
+      <app-validation-error [control]="authorizationCodeCtrl" [control-label]="'Authorization Code'"></app-validation-error>
+    </div>
+
+    <button type="button" id="verify-auth-code-btn" *ngIf="!authorizationComplete" [disabled]="isSubmitting" (click)="verifyAuthorizationCode()">Verify Authorization Code
+      <fa-icon *ngIf="!isSubmitting" [icon]="faArrowRight"></fa-icon>
+      <fa-icon *ngIf="isSubmitting" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+    </button>
+
+    <button id="auth-code-status-btn" *ngIf="authorizationComplete" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
+  </form>
+
+</div>
