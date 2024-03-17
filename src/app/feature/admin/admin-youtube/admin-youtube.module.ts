@@ -9,6 +9,8 @@ import {
   AdminYoutubeChannelVideoEntriesComponent
 } from '@app/feature/admin/admin-youtube/component';
 import {SharedModule} from "@app/shared/shared.module";
+import { AdminYoutubeBaseComponent } from './component/admin-youtube-base/admin-youtube-base.component';
+import { AdminYoutubeDashboardComponent } from './component/admin-youtube-dashboard/admin-youtube-dashboard.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import {SharedModule} from "@app/shared/shared.module";
     AdminYoutubeCategoryEntriesComponent,
     AdminYoutubeChannelEntriesComponent,
     AdminYoutubeChannelVideoEntriesComponent,
-    AdminYoutubeAuthenticationComponent
+    AdminYoutubeAuthenticationComponent,
+    AdminYoutubeBaseComponent,
+    AdminYoutubeDashboardComponent
   ],
   imports: [
     CommonModule,
