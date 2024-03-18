@@ -4,10 +4,11 @@
   <p (click)="copyAuthorizationUriToClipboard()" id="authorization-uri-box">{{isAuthorizationUriAvailable}} <span id="clipboard-icon"><fa-icon [icon]="faCopy"></fa-icon></span></p>
 
   <p id="start-auth-wrapper">
-    <button id="start-auth-btn" [disabled]="isSubmitting" (click)="startAuthentication()">Start Authentication
-      <fa-icon *ngIf="!isSubmitting" [icon]="faArrowRight"></fa-icon>
-      <fa-icon *ngIf="isSubmitting" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+    <button id="start-auth-btn" *ngIf="!isFormCompleted" [disabled]="isSubmitting" (click)="startAuthentication()">Start Authentication
+      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
     </button>
   </p>
+
+  <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
 
 </ng-container>

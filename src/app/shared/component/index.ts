@@ -7,3 +7,5 @@ export * from './row-entry-option/row-entry-option.component';
 export * from './search-form-delete-menu/search-form-delete-menu.component';
 export * from './upload-file/upload-file.component';
 export * from './validation-error/validation-error.component';
+export * from './submit-loading-icon/submit-loading-icon.component';
+export * from '@app/shared/component/success-button/success-button.component';

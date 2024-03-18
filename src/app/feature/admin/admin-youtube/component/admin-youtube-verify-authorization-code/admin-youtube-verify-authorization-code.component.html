@@ -13,7 +13,8 @@
       <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
     </button>
 
-    <button id="auth-code-status-btn" *ngIf="isFormCompleted" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+
   </form>
 
 </div>

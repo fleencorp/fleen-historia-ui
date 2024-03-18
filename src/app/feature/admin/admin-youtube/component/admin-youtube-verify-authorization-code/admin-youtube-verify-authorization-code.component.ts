@@ -5,7 +5,7 @@ import {ErrorResponse} from "@app/model/response";
 import {AdminYoutubeService} from "@app/feature/admin/admin-youtube/service";
 import {FormControl} from "@angular/forms";
 import {minLength, required} from "@app/shared/validator";
-import {faArrowRight, faCheck, faSpinner} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight, faCheck, faSpinner, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-admin-youtube-verify-authorization-code',
@@ -45,7 +45,7 @@ export class AdminYoutubeVerifyAuthorizationCodeComponent extends BaseFormImplCo
     return this.authorizationCodeCtrl?.value;
   }
 
-  protected readonly faCheck = faCheck;
-  protected readonly faArrowRight = faArrowRight;
+  protected readonly faCheck: IconDefinition = faCheck;
   protected readonly faSpinner = faSpinner;
+  protected readonly faArrowRight = faArrowRight;
 }

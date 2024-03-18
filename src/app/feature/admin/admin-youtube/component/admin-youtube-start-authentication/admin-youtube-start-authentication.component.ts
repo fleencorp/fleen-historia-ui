@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseFormImplComponent} from "@app/base/component";
-import {faArrowRight, faCopy, faSpinner, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faCopy, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {AdminYoutubeService} from "@app/feature/admin/admin-youtube/service";
 import {Clipboard} from "@angular/cdk/clipboard";
 import {isFalsy, isTruthy} from "@app/shared/helper";
@@ -29,10 +29,14 @@ export class AdminYoutubeStartAuthenticationComponent extends BaseFormImplCompon
   public startAuthentication(): void {
     if (isFalsy(this.isSubmitting)) {
       this.disableSubmittingAndResetErrorMessage();
+      this.resetAuthorizationUri();
 
       this.youTubeService.startAuthentication()
         .subscribe({
-          next: (result: YouTubeApiStartAuthenticationResponse): void => { this.authorizationUri = result.authorizationUri; },
+          next: (result: YouTubeApiStartAuthenticationResponse): void => {
+            this.formCompleted();
+            this.authorizationUri = result.authorizationUri;
+          },
           error: (error: ErrorResponse): void => { this.handleError(error); },
           complete: async (): Promise<void> => { this.enableSubmitting(); }
       });
@@ -49,7 +53,9 @@ export class AdminYoutubeStartAuthenticationComponent extends BaseFormImplCompon
       : '';
   }
 
+  protected resetAuthorizationUri(): void {
+    this.authorizationUri = '';
+  }
+
   protected readonly faCopy: IconDefinition = faCopy;
-  protected readonly faSpinner: IconDefinition = faSpinner;
-  protected readonly faArrowRight: IconDefinition = faArrowRight;
 }

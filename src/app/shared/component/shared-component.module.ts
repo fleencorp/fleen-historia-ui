@@ -9,11 +9,12 @@ import {
   PaginationComponent,
   RowEntryOptionComponent,
   SearchFormDeleteMenuComponent,
+  SubmitLoadingIconComponent,
+  SuccessButtonComponent,
   UploadFileComponent,
   ValidationErrorComponent,
 } from "./index";
 import {ReactiveFormsModule} from "@angular/forms";
-import {SubmitLoadingIconComponent} from './submit-loading-icon/submit-loading-icon.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
@@ -27,7 +28,8 @@ const components: AnyArray = [
   SearchFormDeleteMenuComponent,
   UploadFileComponent,
   ValidationErrorComponent,
-  SubmitLoadingIconComponent
+  SubmitLoadingIconComponent,
+  SuccessButtonComponent
 ]
 
 @NgModule({
