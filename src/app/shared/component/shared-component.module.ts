@@ -13,6 +13,8 @@ import {
   ValidationErrorComponent,
 } from "./index";
 import {ReactiveFormsModule} from "@angular/forms";
+import {SubmitLoadingIconComponent} from './submit-loading-icon/submit-loading-icon.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 const components: AnyArray = [
@@ -24,17 +26,18 @@ const components: AnyArray = [
   RowEntryOptionComponent,
   SearchFormDeleteMenuComponent,
   UploadFileComponent,
-  ValidationErrorComponent
+  ValidationErrorComponent,
+  SubmitLoadingIconComponent
 ]
 
 @NgModule({
   declarations: [
     ...components,
-    FormMessageComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
   ],
   exports: [
     ...components

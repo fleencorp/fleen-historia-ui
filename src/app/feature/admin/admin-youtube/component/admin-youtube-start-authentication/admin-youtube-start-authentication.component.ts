@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseFormImplComponent} from "@app/base/component";
-import {faArrowRight, faCheck, faCopy, faSpinner, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight, faCopy, faSpinner, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {AdminYoutubeService} from "@app/feature/admin/admin-youtube/service";
 import {Clipboard} from "@angular/cdk/clipboard";
 import {isFalsy, isTruthy} from "@app/shared/helper";
@@ -51,6 +51,5 @@ export class AdminYoutubeStartAuthenticationComponent extends BaseFormImplCompon
 
   protected readonly faCopy: IconDefinition = faCopy;
   protected readonly faSpinner: IconDefinition = faSpinner;
-  protected readonly faCheck: IconDefinition = faCheck;
   protected readonly faArrowRight: IconDefinition = faArrowRight;
 }

@@ -14,7 +14,6 @@ import {faArrowRight, faCheck, faSpinner} from "@fortawesome/free-solid-svg-icon
 export class AdminYoutubeVerifyAuthorizationCodeComponent extends BaseFormImplComponent {
 
   public authorizationCodeCtrl: FormControl = new FormControl<string>('', [required, minLength(10)]);
-  public authorizationComplete: boolean = false;
 
   public constructor(
       protected youTubeService: AdminYoutubeService) {
@@ -31,7 +30,7 @@ export class AdminYoutubeVerifyAuthorizationCodeComponent extends BaseFormImplCo
 
       this.youTubeService.verifyAuthorizationCodeAndInitializeCredentials(this.getAuthorizationCode())
         .subscribe({
-          next: (): void => {  },
+          next: (): void => { this.formCompleted(); },
           error: (error: ErrorResponse): void => { this.handleError(error); },
           complete: async (): Promise<void> => { this.enableSubmitting(); }
         });

@@ -28,6 +28,9 @@ export abstract class BaseFormComponent extends BaseComponent {
   /** Indicates whether the form is ready for interaction. */
   public isFormReady: boolean = false;
 
+  /** Indicates whether the form submission and processing is completed. */
+  public isFormCompleted: boolean = false;
+
   /** Abstract property for the FormBuilder, to be implemented by child classes. */
   protected abstract formBuilder: FormBuilder;
 
@@ -294,6 +297,30 @@ export abstract class BaseFormComponent extends BaseComponent {
     this.isFormReady = true;
   }
 
+  /**
+   * Marks the form submission as completed.
+   *
+   * This method sets the `isFormCompleted` property to `true` to indicate that the form submission
+   * has been completed successfully. Optionally, you can provide a delay (in milliseconds) after
+   * which the `isFormCompleted` property will be reset to `false`.
+   *
+   * @param delayToReset Optional. The delay (in milliseconds) after which to reset the `isFormCompleted`
+   * property to `false`. Defaults to 5000 milliseconds (5 seconds). If set to 0 or falsy value, the
+   * `isFormCompleted` property will not be automatically reset.
+   *
+   * @public
+   */
+  protected formCompleted(delayToReset: number = 5000): void {
+    // Marks the form submission as completed
+    this.isFormCompleted = true;
+
+    // Reset the `isFormCompleted` property after the specified delay
+    if (delayToReset) {
+      setTimeout(() => {
+        this.isFormCompleted = false;
+      }, delayToReset);
+    }
+  }
 
   /**
    * Navigates to the 'entries' route, optionally removing specified segments from the current URL.

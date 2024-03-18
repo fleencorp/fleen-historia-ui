@@ -9,12 +9,11 @@
       <app-validation-error [control]="authorizationCodeCtrl" [control-label]="'Authorization Code'"></app-validation-error>
     </div>
 
-    <button type="button" id="verify-auth-code-btn" *ngIf="!authorizationComplete" [disabled]="isSubmitting" (click)="verifyAuthorizationCode()">Verify Authorization Code
-      <fa-icon *ngIf="!isSubmitting" [icon]="faArrowRight"></fa-icon>
-      <fa-icon *ngIf="isSubmitting" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+    <button type="button" id="verify-auth-code-btn" *ngIf="!isFormCompleted" [disabled]="isSubmitting" (click)="verifyAuthorizationCode()">Verify Authorization Code
+      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
     </button>
 
-    <button id="auth-code-status-btn" *ngIf="authorizationComplete" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
+    <button id="auth-code-status-btn" *ngIf="isFormCompleted" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
   </form>
 
 </div>
