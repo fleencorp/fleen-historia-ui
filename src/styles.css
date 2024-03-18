@@ -59,7 +59,6 @@ body {
   padding: 10px;
   margin: 10px 5px;
   width: 100%;
-  border: 2px solid black;
 }
 
 label, p {
@@ -85,8 +84,8 @@ form {
 }
 
 button {
-  width: 200px;
-  height: 30px;
+  width: 210px;
+  height: 37px;
   display: block;
   cursor: pointer;
   font-weight: bold;
@@ -140,6 +139,10 @@ button:active {
 
 .col-95 {
   width: 95%;
+}
+
+.col-100 {
+  width: 100%;
 }
 
 input {

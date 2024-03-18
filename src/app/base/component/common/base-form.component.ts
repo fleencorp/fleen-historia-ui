@@ -247,8 +247,10 @@ export abstract class BaseFormComponent extends BaseComponent {
     // Check for data validation error type
     if (isTruthy(type) && equalsIgnoreCase(type, ErrorType.DATA_VALIDATION)) {
       this.setErrorsFromApiResponse(error.fields);
-    } else {
+    } else if (error?.message) {
       this.setErrorMessage(error?.message);
+    } else {
+      this.setErrorMessage(ERR_CONNECTION_REFUSED_MESSAGE);
     }
 
     // Enable submitting after handling the error

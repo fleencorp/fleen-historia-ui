@@ -1,15 +1,15 @@
 <ng-container *ngIf="isFormReady">
 
-  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
-  <p (click)="copyAuthorizationUriToClipboard()" id="authorization-uri-box">{{isAuthorizationUriAvailable}} <span id="clipboard-icon"><fa-icon [icon]="faCopy"></fa-icon></span></p>
+  <form class="col-55">
+    <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+    <p (click)="copyAuthorizationUriToClipboard()" id="authorization-uri-box">{{isAuthorizationUriAvailable}} <span id="clipboard-icon"><fa-icon [icon]="faCopy"></fa-icon></span></p>
 
-  <div class="form-group">
-    <button class="fright" *ngIf="!isFormCompleted" [disabled]="isSubmitting" (click)="startAuthentication()">Start Authentication
-      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
-    </button>
-    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
-  </div>
-
-
-
+    <div class="form-group">
+      <button class="fright" *ngIf="!isFormCompleted" [disabled]="isSubmitting" (click)="startAuthentication()">Start Authentication
+        <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
+      </button>
+      <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+    </div>
+  </form>
+  
 </ng-container>

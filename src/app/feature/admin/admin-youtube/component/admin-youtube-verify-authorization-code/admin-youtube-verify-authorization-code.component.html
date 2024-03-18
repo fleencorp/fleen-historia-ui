@@ -1,11 +1,11 @@
 
 <div id="verify-authorization-code-wrapper">
-  <form *ngIf="isFormReady">
+  <form class="col-55" *ngIf="isFormReady">
 
     <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
     <div class="form-group">
       <label for="authorization_code">Authorization Code:</label>
-      <input class="col-95" type="text" [formControl]="authorizationCodeCtrl" id="authorization_code"/>
+      <input class="col-100" type="text" [formControl]="authorizationCodeCtrl" id="authorization_code"/>
       <app-validation-error [control]="authorizationCodeCtrl" [control-label]="'Authorization Code'"></app-validation-error>
     </div>
 
