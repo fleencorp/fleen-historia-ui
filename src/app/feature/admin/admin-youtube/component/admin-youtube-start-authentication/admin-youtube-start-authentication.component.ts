@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {BaseFormImplComponent} from "@app/base/component";
 import {faCopy, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {AdminYoutubeService} from "@app/feature/admin/admin-youtube/service";
@@ -9,7 +9,8 @@ import {ErrorResponse} from "@app/model/response";
 
 @Component({
   selector: 'app-admin-youtube-start-authentication',
-  templateUrl: './admin-youtube-start-authentication.component.html'
+  templateUrl: './admin-youtube-start-authentication.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 export class AdminYoutubeStartAuthenticationComponent extends BaseFormImplComponent implements OnInit {
 

@@ -91,3 +91,19 @@ button:active {
 #clipboard-icon:hover, #clipboard-icon:active {
   cursor: pointer;
 }
+
+#start-auth-btn, #verify-auth-code-btn, #success-btn {
+  display: block;
+  width: 220px;
+  float: right;
+  margin: 10px 20px;
+}
+
+input {
+  width: 97%;
+  padding: 10px;
+  display: block;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+}

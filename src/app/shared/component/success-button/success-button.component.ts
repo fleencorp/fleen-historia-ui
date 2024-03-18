@@ -4,7 +4,7 @@ import {faCheck, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 @Component({
   selector: 'app-success-button',
   template: `
-    <button id="auth-code-status-btn" *ngIf="isFormCompleted" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
+    <button id="success-btn" *ngIf="isFormCompleted" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
   `,
   styles: [
     `
