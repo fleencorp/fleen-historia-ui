@@ -5,15 +5,17 @@
     <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
     <div class="form-group">
       <label for="authorization_code">Authorization Code:</label>
-      <input type="text" [formControl]="authorizationCodeCtrl" id="authorization_code"/>
+      <input class="col-95" type="text" [formControl]="authorizationCodeCtrl" id="authorization_code"/>
       <app-validation-error [control]="authorizationCodeCtrl" [control-label]="'Authorization Code'"></app-validation-error>
     </div>
 
-    <button type="button" id="verify-auth-code-btn" *ngIf="!isFormCompleted" [disabled]="isSubmitting" (click)="verifyAuthorizationCode()">Verify Authorization Code
+    <div class="form-group">
+    <button type="button" class="fright" *ngIf="!isFormCompleted" [disabled]="isSubmitting" (click)="verifyAuthorizationCode()">Verify Authorization Code
       <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
     </button>
 
     <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+    </div>
 
   </form>
 

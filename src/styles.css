@@ -42,17 +42,24 @@
 }
 
 * {
-  box-sizing: content-box;
-  padding: 0;
-  margin: 0;
-  border: 0;
+  box-sizing : border-box;
+  padding : 0;
+  margin : 0;
+  border : 0;
+  text-decoration : none;
+  outline : none;
+  background : none;
+  box-shadow : none;
+  word-break : break-word;
+  border-collapse : collapse;
 }
 
 body {
   font-family: 'Open Sans';
   padding: 10px;
-  margin: 0px auto;
-  width: 98%;
+  margin: 10px 5px;
+  width: 100%;
+  border: 2px solid black;
 }
 
 label, p {
@@ -63,21 +70,32 @@ label {
   font-family: 'Roboto Bold';
 }
 
+label, input {
+  display: block;
+}
+
+form {
+  padding: 10px;
+  width: 100%;
+}
+
 .form-group {
   margin-bottom: 20px;
+  padding: 5px;
 }
 
 button {
-  text-align: center;
-  border-radius: 8px;
-  outline: 0;
-  background-color: #0986e1;
-  color: white;
-  font-weight: bold;
-  width: 120px;
+  width: 200px;
   height: 30px;
-  border: 0;
+  display: block;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background-color: #0986e1;
+  border-radius: 8px;
   border-bottom: 3px solid #5dcdfc;
+  margin: 10px;
 }
 
 button:hover {
@@ -92,18 +110,65 @@ button:active {
   cursor: pointer;
 }
 
-#start-auth-btn, #verify-auth-code-btn, #success-btn {
+.block {
   display: block;
-  width: 220px;
+}
+
+.fleft {
+  float: left;
+}
+
+.fright {
   float: right;
-  margin: 10px 20px;
+}
+
+.col-55 {
+  width: 55%;
+}
+
+.col-65 {
+  width: 65%;
+}
+
+.col-75 {
+  width: 75%;
+}
+
+.col-85 {
+  width: 85%;
+}
+
+.col-95 {
+  width: 95%;
 }
 
 input {
-  width: 97%;
   padding: 10px;
   display: block;
   margin-top: 10px;
   border-radius: 8px;
   border: 2px solid #e0e0e0;
+}
+
+.form-group:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+
+@media screen and (max-width: 600px) {
+  .col-25, .col-55, .col-65, .col-75, .col-85, .col-95, button {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  button {
+    height: 50px;
+    margin: 0;
+  }
+
+  #authorization-uri-box {
+    margin: 0;
+  }
 }
