@@ -1,6 +1,6 @@
 import {ErrorResponse} from "@app/model/response";
 import {COPIED_MESSAGE, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
-import {Router} from "@angular/router";
+import {NavigationExtras, Router} from "@angular/router";
 import {BASE_PATH} from "@app/constant/config.const";
 import {isTruthy, nonNull} from "@app/shared/helper";
 
@@ -157,6 +157,11 @@ export abstract class BaseComponent {
    */
   protected invokeCallback(cb?: Function): void {
     if (cb) { cb(); }
+  }
+
+  protected navigateTo(pathVars: string[], queryParams?: any, extras?: NavigationExtras): void {
+    this.getRouter().navigate(pathVars, {queryParams, ...extras})
+      .then((r: boolean): boolean => r);
   }
 
 }

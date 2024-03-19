@@ -691,3 +691,8 @@ export function removeEmptyElement<T>(data: T[]): T[] {
     return data; // Return the original array if input is not valid
   }
 }
+
+
+export function joinPaths(parameters?: any[]): string {
+  return parameters?.join('/') || '';
+}

@@ -1,5 +1,5 @@
 import {AnyArray, AnyObject, BaseRequest, RequestMethod} from "@app/model/type";
-import {isObject, isTruthy, toBody, toCamelCaseKeys, toSnakeCasePayload} from "@app/shared/helper";
+import {isObject, isTruthy, joinPaths, toBody, toCamelCaseKeys, toSnakeCasePayload} from "@app/shared/helper";
 import {catchError, map, Observable, retry, switchMap, tap, throwError, timer} from "rxjs";
 import {ErrorResponse} from "@app/model/response";
 import {LoggerService} from "@app/base/service";
@@ -38,7 +38,7 @@ export class BaseHttpService {
    * @returns {string} - The constructed path.
    */
   protected getPath(parameters?: any[]): string {
-    return parameters?.join('/') || '';
+    return joinPaths(parameters);
   }
 
   /**

@@ -16,6 +16,7 @@ import {SharedModule} from "@app/shared/shared.module";
 import {AdminYoutubeService} from "@app/feature/admin/admin-youtube/service";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AdminCategoryModule} from "@app/feature/admin/admin-category/admin-category.module";
+import {AdminChannelModule} from "@app/feature/admin/admin-channel/admin-channel.module";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {AdminCategoryModule} from "@app/feature/admin/admin-category/admin-categ
     SharedModule,
     FontAwesomeModule,
     AdminYoutubeRoutingModule,
-    AdminCategoryModule
+    AdminCategoryModule,
+    AdminChannelModule
   ],
   providers: [
     AdminYoutubeService

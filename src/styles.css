@@ -126,6 +126,18 @@ button:disabled {
   float: right;
 }
 
+.col-25 {
+  width: 25%;
+}
+
+.col-35 {
+  width: 35%;
+}
+
+.col-45 {
+  width: 45%;
+}
+
 .col-55 {
   width: 55%;
 }
@@ -167,7 +179,7 @@ input, textarea, select {
 
 
 @media screen and (max-width: 600px) {
-  .col-25, .col-55, .col-65, .col-75, .col-85, .col-95, button {
+  .col-25, .col-35, .col-45, .col-55, .col-65, .col-75, .col-85, .col-95, button {
     width: 100%;
     margin-top: 0;
   }

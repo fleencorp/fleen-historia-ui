@@ -7,9 +7,7 @@ import {CategoryView} from "@app/model/view/category";
 import {DeleteResponse} from "@app/model/response/common";
 import {toSearchResult} from "@app/shared/rxjs";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AdminCategoryService {
 
   private readonly BASE_PATH: string = "admin/category";
