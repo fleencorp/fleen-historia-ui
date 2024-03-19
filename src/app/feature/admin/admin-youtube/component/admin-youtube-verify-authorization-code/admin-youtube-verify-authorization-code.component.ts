@@ -5,7 +5,6 @@ import {ErrorResponse} from "@app/model/response";
 import {AdminYoutubeService} from "@app/feature/admin/admin-youtube/service";
 import {FormControl} from "@angular/forms";
 import {minLength, required} from "@app/shared/validator";
-import {faArrowRight, faCheck, faSpinner, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-admin-youtube-verify-authorization-code',
@@ -30,11 +29,16 @@ export class AdminYoutubeVerifyAuthorizationCodeComponent extends BaseFormImplCo
 
       this.youTubeService.verifyAuthorizationCodeAndInitializeCredentials(this.getAuthorizationCode())
         .subscribe({
-          next: (): void => { this.formCompleted(); },
+          next: (): void => { this.handleCompletedVerificationOfCode(); },
           error: (error: ErrorResponse): void => { this.handleError(error); },
           complete: async (): Promise<void> => { this.enableSubmitting(); }
-        });
+      });
     }
+  }
+
+  public handleCompletedVerificationOfCode(): void {
+    this.formCompleted();
+    this.authorizationCodeCtrl.patchValue('');
   }
 
   private isAuthorizationCodeValid(): boolean {
@@ -45,7 +49,4 @@ export class AdminYoutubeVerifyAuthorizationCodeComponent extends BaseFormImplCo
     return this.authorizationCodeCtrl?.value;
   }
 
-  protected readonly faCheck: IconDefinition = faCheck;
-  protected readonly faSpinner = faSpinner;
-  protected readonly faArrowRight = faArrowRight;
 }
