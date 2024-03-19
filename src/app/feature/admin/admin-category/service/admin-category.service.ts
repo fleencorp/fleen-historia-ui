@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {AnyObject, BaseRequest, UpdateCategoryPayload} from "@app/model/type";
-import {map, Observable} from "rxjs";
+import {AnyObject, BaseRequest, CreateCategoryPayload, UpdateCategoryPayload} from "@app/model/type";
+import {Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
 import {HttpClientService} from "@app/shared/service/impl";
 import {CategoryView} from "@app/model/view/category";
@@ -29,6 +29,11 @@ export class AdminCategoryService {
   public findCategory(id: number | string): Observable<CategoryView> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'detail', +id]);
     return this.httpService.get(req, CategoryView);
+  }
+
+  public addCategory(body: CreateCategoryPayload): Observable<CategoryView> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'add'], null, { ...body });
+    return this.httpService.post(req, CategoryView);
   }
 
   public updateCategory(id: number | string, body: UpdateCategoryPayload): Observable<CategoryView> {

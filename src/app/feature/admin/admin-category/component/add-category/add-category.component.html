@@ -1,0 +1,22 @@
+<ng-container *ngIf="entry">
+
+  <div class="fleft col-100">
+    <p><b>Title: {{entry.categoryDetails.snippet.title}}</b></p>
+    <p>YouTube Category ID: <b>{{entry.categoryDetails.id}}</b></p>
+    <p>Added to the record: <b>{{entry.isAlreadyExistInSystem ? 'Yes' : 'No'}}</b></p>
+  </div>
+
+  <div class="form-group" *appUnless="entry.isAlreadyExistInSystem">
+    <label for="description">Description:</label>
+    <textarea class="col-100" [formControl]="$description" id="description">{{description}}</textarea>
+    <app-validation-error [control]="$description" [control-label]="'Description'"></app-validation-error>
+  </div>
+
+  <div class="fright col-25">
+    <button type="button" *ngIf="!isFormCompleted" [disabled]="entry.isAlreadyExistInSystem" (click)="addCategory()">Add Category
+      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
+    </button>
+
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+  </div>
+</ng-container>

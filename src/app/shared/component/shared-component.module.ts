@@ -1,10 +1,11 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {AnyArray} from "@app/model/type";
 import {
   ChangePasswordComponent,
   EntriesDeleteAllComponent,
   FormMessageComponent,
+  LoadingCameraComponent,
   LoadingSpinnerComponent,
   PaginationComponent,
   RowEntryOptionComponent,
@@ -29,7 +30,8 @@ const components: AnyArray = [
   UploadFileComponent,
   ValidationErrorComponent,
   SubmitLoadingIconComponent,
-  SuccessButtonComponent
+  SuccessButtonComponent,
+  LoadingCameraComponent,
 ]
 
 @NgModule({
@@ -40,6 +42,7 @@ const components: AnyArray = [
     CommonModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    NgOptimizedImage,
   ],
   exports: [
     ...components

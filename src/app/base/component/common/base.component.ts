@@ -150,4 +150,13 @@ export abstract class BaseComponent {
       }, delayBeforeRestore);
     }
   }
+
+  /**
+   * Invokes the provided callback function if it exists.
+   * @param cb The callback function to invoke.
+   */
+  protected invokeCallback(cb?: Function): void {
+    if (cb) { cb(); }
+  }
+
 }

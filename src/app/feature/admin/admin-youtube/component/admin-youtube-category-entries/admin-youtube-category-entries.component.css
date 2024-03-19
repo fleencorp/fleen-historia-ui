@@ -1,0 +1,16 @@
+.category-row {
+  padding: 10px 10px 0 10px;
+  line-height: 2.0em;
+  margin-bottom: 10px;
+  border-bottom: 1px solid lightgray;
+}
+
+.category-row button {
+  margin: 5px;
+}
+
+.category-row:after {
+  clear: both;
+  display: table;
+  content: '';
+}

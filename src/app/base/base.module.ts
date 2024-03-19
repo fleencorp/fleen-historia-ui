@@ -4,12 +4,14 @@ import {FleenComgroupComponent} from "./component";
 import {AuthTokenService, LocalStorageService, LoggerService, SessionStorageService} from "./service";
 import {AuthGuardService} from "./guard";
 import {ValidIfTruthyPipe} from "./pipe";
+import {UnlessDirective} from '@app/base/directive';
 
 
 @NgModule({
   declarations: [
     FleenComgroupComponent,
-    ValidIfTruthyPipe
+    ValidIfTruthyPipe,
+    UnlessDirective
   ],
   providers: [
     AuthGuardService,
@@ -19,7 +21,8 @@ import {ValidIfTruthyPipe} from "./pipe";
     SessionStorageService
   ],
   exports: [
-    ValidIfTruthyPipe
+    ValidIfTruthyPipe,
+    UnlessDirective
   ],
   imports: [
     CommonModule

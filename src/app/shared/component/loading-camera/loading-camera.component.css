@@ -1,0 +1,10 @@
+
+#loading-camera {
+  text-align: center;
+}
+
+img {
+  position: relative;
+  top: 50%;
+  transform: translateY(50%);
+}

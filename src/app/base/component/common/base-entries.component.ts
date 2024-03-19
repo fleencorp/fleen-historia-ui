@@ -240,7 +240,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   /**
    * Retrieves entries based on the current search parameters.
    */
-  protected getEntries(): void {
+  protected getEntries(cb?: Function): void {
     // Prepare search parameters
     const params: AnyObject = this.prepareSearchParams();
 
@@ -253,6 +253,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
         next: (result: SearchResultView<T>): void => {
           // Initialize component properties with the search result
           this.initResult(result);
+          this.invokeCallback(cb);
         },
         error: (): void => {
           // Handle error by clearing entries and enabling form submission
@@ -350,7 +351,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   /**
    * Initializes the component by retrieving entries based on the initial URL parameters.
    */
-  protected startComponent(): void {
+  protected startComponent(cb?: Function): void {
     this.route.queryParams.subscribe((params: Params): void => {
       const page = params[DEFAULT_PAGE_NO_KEY];
       this.searchParams = { ...params };
@@ -358,7 +359,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
       if (page !== undefined && !isNaN(page)) {
         this.currentPage = +page;
       }
-      this.getEntries();
+      this.getEntries(cb);
     });
   }
 
@@ -391,5 +392,13 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    */
   protected deleteKeyIfExists(params: AnyObject, key: string): void {
     delete params[key];
+  }
+
+  /**
+   * Resets the 'entries' array by creating a shallow copy of the existing array.
+   * This method can be used to trigger change detection when updating the array reference.
+   */
+  protected resetEntries(): void {
+    this.entries = [ ...this.entries];
   }
 }

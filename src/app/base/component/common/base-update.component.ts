@@ -1,7 +1,7 @@
 import {BaseFormComponent} from "@app/base/component";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {isFalsy, isTruthy, nonNull} from "@app/shared/helper";
+import {isFalsy, isTruthy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
 
 /**
@@ -57,14 +57,20 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
    * and fetching the corresponding entry from the service.
    * If the ID is not valid, it redirects to the entries page.
    */
-  public async initEntry(cb?: Function): Promise<void> {
+  protected async initEntry(cb?: Function): Promise<void> {
     this.route.paramMap.subscribe(async (params: ParamMap): Promise<void> => {
       const id: number | string | null | any = params?.get('id');
       await this.initAndGetEntry(id, cb);
     });
   }
 
-  public async initAndGetEntry(id: string | number | any | null, cb?: Function): Promise<void> {
+  /**
+   * Initializes and retrieves an entry based on the provided ID.
+   * @param id The ID of the entry to retrieve. Can be a string, number, or null.
+   * @param cb An optional callback function to execute after retrieving the entry.
+   * @returns A Promise that resolves when the entry retrieval process is complete.
+   */
+  protected async initAndGetEntry(id: string | number | any | null, cb?: Function): Promise<void> {
     if (isNaN(id)) {
       await this.goToEntries();
       return;
@@ -93,7 +99,7 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
           await this.goToEntries(error.message);
           return;
         }
-      });
+    });
   }
 
   /**
@@ -123,10 +129,6 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
    */
   protected override getRouter(): Router {
     return this.router;
-  }
-
-  protected invokeCallback(cb?: Function): void {
-    if (cb) { cb(); }
   }
 
 }

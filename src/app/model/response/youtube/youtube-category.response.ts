@@ -3,10 +3,10 @@ import {VideoCategory} from "@app/model/youtube/video-category";
 export class YouTubeCategoryResponse {
 
   public isAlreadyExistInSystem: boolean;
-  public videoCategory: VideoCategory;
+  public categoryDetails: VideoCategory;
 
   public constructor(data: YouTubeCategoryResponse) {
     this.isAlreadyExistInSystem = data?.isAlreadyExistInSystem;
-    this.videoCategory = new VideoCategory(data?.videoCategory);
+    this.categoryDetails = new VideoCategory(data?.categoryDetails);
   }
 }

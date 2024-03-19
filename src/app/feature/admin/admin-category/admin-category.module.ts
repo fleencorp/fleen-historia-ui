@@ -2,12 +2,19 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {AdminCategoryRoutingModule} from './admin-category-routing.module';
-import {CategoryEntriesComponent, CategoryEntryComponent, CategoryUpdateComponent} from './component';
+import {
+  AddCategoryComponent,
+  CategoryEntriesComponent,
+  CategoryEntryComponent,
+  CategoryUpdateComponent
+} from './component';
 import {SharedModule} from "@app/shared/shared.module";
+import {BaseModule} from "@app/base/base.module";
 
 
 @NgModule({
   declarations: [
+    AddCategoryComponent,
     CategoryEntryComponent,
     CategoryUpdateComponent,
     CategoryEntriesComponent,
@@ -15,7 +22,11 @@ import {SharedModule} from "@app/shared/shared.module";
   imports: [
     CommonModule,
     SharedModule,
-    AdminCategoryRoutingModule
+    AdminCategoryRoutingModule,
+    BaseModule
+  ],
+  exports: [
+    AddCategoryComponent
   ]
 })
 export class AdminCategoryModule { }

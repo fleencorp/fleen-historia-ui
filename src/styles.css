@@ -65,7 +65,7 @@ label, p {
   font-size: 15px;
 }
 
-label {
+label, b {
   font-family: 'Roboto Bold';
 }
 
@@ -103,6 +103,11 @@ button:hover {
 
 button:active {
   background-color: #1b76ae;
+}
+
+button:disabled {
+  background-color: #046cb8;
+  cursor: auto;
 }
 
 #clipboard-icon:hover, #clipboard-icon:active {
@@ -145,12 +150,13 @@ button:active {
   width: 100%;
 }
 
-input {
+input, textarea, select {
   padding: 10px;
   display: block;
   margin-top: 10px;
   border-radius: 8px;
   border: 2px solid #e0e0e0;
+  resize: vertical;
 }
 
 .form-group:after {

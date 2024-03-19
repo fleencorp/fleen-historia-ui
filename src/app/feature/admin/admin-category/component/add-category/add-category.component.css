@@ -1,0 +1,6 @@
+
+.category-info:after {
+  clear: both;
+  display: table;
+  content: '';
+}

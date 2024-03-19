@@ -1,5 +1,8 @@
 <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <div *ngIf="entries.length > 0">
-  <app-add-category *ngFor="let entry of entries" [entry]="entry"></app-add-category>
+  <div *ngFor="let entry of entries; trackBy: trackByFn" class="category-row">
+    <app-add-category (addedCategory)="updateEntries($event)" [entry]="entry"></app-add-category>
+  </div>
 </div>
+
