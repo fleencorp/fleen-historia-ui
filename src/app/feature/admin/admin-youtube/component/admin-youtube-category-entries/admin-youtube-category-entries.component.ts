@@ -65,6 +65,7 @@ export class AdminYoutubeCategoryEntriesComponent extends BaseEntriesComponent<Y
     if (index !== -1) {
       this.entries[index].isAlreadyExistInSystem = true;
       this.resetEntries();
+      this.sortEntries();
     }
   }
 

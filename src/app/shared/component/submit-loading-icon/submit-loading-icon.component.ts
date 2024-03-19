@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {faArrowRight, faCheck, faSpinner, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight, faSpinner, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-submit-loading-icon',
@@ -14,7 +14,6 @@ import {faArrowRight, faCheck, faSpinner, IconDefinition} from "@fortawesome/fre
 })
 export class SubmitLoadingIconComponent {
 
-  protected readonly faCheck: IconDefinition = faCheck;
   protected readonly faSpinner: IconDefinition = faSpinner;
   protected readonly faArrowRight:IconDefinition = faArrowRight;
 

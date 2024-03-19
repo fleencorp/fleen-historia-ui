@@ -5,7 +5,6 @@ import {isFalsy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
 import {AdminCategoryService} from "@app/feature/admin/admin-category/service";
 import {CreateCategoryPayload} from "@app/model/type";
-import {CategoryView} from "@app/model/view/category";
 import {FormControl} from "@angular/forms";
 import {maxLength} from "@app/shared/validator";
 
