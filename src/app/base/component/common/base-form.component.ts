@@ -309,17 +309,18 @@ export abstract class BaseFormComponent extends BaseComponent {
    * @param delayToReset Optional. The delay (in milliseconds) after which to reset the `isFormCompleted`
    * property to `false`. Defaults to 5000 milliseconds (5 seconds). If set to 0 or falsy value, the
    * `isFormCompleted` property will not be automatically reset.
-   *
+   * @param cb Callback to invoke after completion
    * @public
    */
-  protected formCompleted(delayToReset: number = 5000): void {
+  protected formCompleted(cb?: Function, delayToReset: number = 5000): void {
     // Marks the form submission as completed
     this.isFormCompleted = true;
 
     // Reset the `isFormCompleted` property after the specified delay
     if (delayToReset) {
-      setTimeout(() => {
+      setTimeout((): void => {
         this.isFormCompleted = false;
+        this.invokeCallback(cb);
       }, delayToReset);
     }
   }

@@ -38,7 +38,7 @@ export class AddCategoryComponent extends BaseFormImplComponent {
 
       this.categoryService.addCategory(this.getAddCategoryPayload())
         .subscribe({
-          next: (): void => { this.notifyNewAddedCategory(); },
+          next: (): void => { this.formCompleted(this.notifyNewAddedCategory.bind(this)); },
           error: (error: ErrorResponse): void => { this.handleError(error); },
           complete: async (): Promise<void> => { this.enableSubmitting(); }
       });
