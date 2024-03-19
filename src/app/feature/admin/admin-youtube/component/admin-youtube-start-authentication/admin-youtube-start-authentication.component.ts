@@ -15,6 +15,7 @@ import {ErrorResponse} from "@app/model/response";
 export class AdminYoutubeStartAuthenticationComponent extends BaseFormImplComponent implements OnInit {
 
   protected authorizationUri: string = '';
+  protected authorizationUriMessage: string = 'Authorization URI Ready';
 
 
   public constructor(
@@ -46,11 +47,12 @@ export class AdminYoutubeStartAuthenticationComponent extends BaseFormImplCompon
 
   public copyAuthorizationUriToClipboard(): void {
     this.clipBoard.copy(this.authorizationUri);
+    this.setAndRestoreAfterDelay('authorizationUriMessage');
   }
 
   get isAuthorizationUriAvailable(): string {
     return isTruthy(this.authorizationUri)
-      ? 'Authorization Ready'
+      ? this.authorizationUriMessage
       : '';
   }
 

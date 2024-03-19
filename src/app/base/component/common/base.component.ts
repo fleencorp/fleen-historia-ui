@@ -1,7 +1,8 @@
 import {ErrorResponse} from "@app/model/response";
-import {DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
+import {COPIED_MESSAGE, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
 import {Router} from "@angular/router";
 import {BASE_PATH} from "@app/constant/config.const";
+import {isTruthy, nonNull} from "@app/shared/helper";
 
 /**
  * BaseComponent serves as a base class for Angular components,
@@ -129,5 +130,24 @@ export abstract class BaseComponent {
   protected clearMessages(): void {
     this.clearStatusMessage();
     this.clearVerificationMessage();
+  }
+
+  /**
+   * Sets a property to a new value temporarily and restores it after a specified delay.
+   * @param propName The name of the property to set.
+   * @param newValue The new value to set the property to temporarily. Defaults to 'Copied'.
+   * @param delayBeforeRestore The delay in milliseconds before restoring the property to its original value. Defaults to 3000 milliseconds.
+   */
+  protected setAndRestoreAfterDelay(propName: string, newValue: string = COPIED_MESSAGE, delayBeforeRestore: number = 3000): void {
+    const currentMessage: string = this[propName];
+
+    // Check if currentMessage is truthy and non-null
+    if (isTruthy(currentMessage) && nonNull(currentMessage)) {
+      this[propName] = newValue;
+
+      setTimeout((): void => {
+        this[propName] = currentMessage;
+      }, delayBeforeRestore);
+    }
   }
 }

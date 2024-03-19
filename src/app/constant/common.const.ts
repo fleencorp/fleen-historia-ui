@@ -52,3 +52,8 @@ export const UNAUTHORIZED_REQUEST_STATUS_CODE: number = 401;
  * Key used to identify error type.
  */
 export const ERROR_TYPE_KEY: string = 'ERROR_TYPE';
+
+/**
+ * A constant string representing a message indicating that an action has been copied.
+ */
+export const COPIED_MESSAGE: string = 'Copied';
