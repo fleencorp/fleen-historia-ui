@@ -2,6 +2,7 @@ import {MonoTypeOperatorFunction, Observable, Subscriber} from 'rxjs';
 import {Constructor} from "@app/model/interface";
 import {SearchResultView} from "@app/model/view";
 import {mapToSearchResult} from "@app/shared/helper";
+import {ErrorResponse} from "@app/model/response";
 
 /**
  * Transforms an observable stream of objects into an observable stream of model instances.
@@ -50,7 +51,7 @@ export function toSearchResult<T extends Object, R>(Constructor: Constructor<T>)
       next(data: SearchResultView<T>): void {
         const searchResult: SearchResultView<T> = mapToSearchResult(Constructor, data);
         subscriber.next(searchResult); },
-      error(err): void { subscriber.error(err); },
+      error(err: ErrorResponse): void { subscriber.error(err); },
       complete(): void { subscriber.complete(); },
     });
   });

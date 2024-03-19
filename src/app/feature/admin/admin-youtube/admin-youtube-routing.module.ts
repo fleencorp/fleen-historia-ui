@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from "@app/base/guard";
 import {
   AdminYoutubeAuthenticationComponent,
-  AdminYoutubeBaseComponent,
+  AdminYoutubeBaseComponent, AdminYoutubeCategoryEntriesComponent,
   AdminYoutubeDashboardComponent
 } from "@app/feature/admin/admin-youtube/component";
 
@@ -14,7 +14,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: AdminYoutubeDashboardComponent, title: 'YouTube Dashboard' },
-      { path: 'auth', component: AdminYoutubeAuthenticationComponent, title: 'Authentication and Authorization' }
+      { path: 'auth', component: AdminYoutubeAuthenticationComponent, title: 'Authentication and Authorization' },
+      { path: 'category', component: AdminYoutubeCategoryEntriesComponent, title: 'YouTube Categories' }
     ]
   }
 ];

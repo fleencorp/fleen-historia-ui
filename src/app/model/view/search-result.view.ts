@@ -71,12 +71,12 @@ export class SearchResultView<T extends Object> {
    * @param data - The data object containing information about the search results.
    */
   public constructor(data: SearchResultView<T>, Constructor?: Constructor<T>) {
-    this.pageNo = data?.pageNo ? data.pageNo : data?.pageNo;
-    this.pageSize = data?.pageSize ? data.pageSize : data?.pageSize;
-    this.totalEntries = data?.totalEntries ? data.totalEntries : data?.totalEntries;
-    this.totalPages = data?.totalPages ? data.totalPages : data?.totalPages;
-    this.isLast = data?.isLast ? data.isLast : data?.isLast;
-    this.isFirst = data?.isFirst ? data.isFirst : data?.isFirst;
+    this.pageNo = data?.pageNo;
+    this.pageSize = data?.pageSize;
+    this.totalEntries = data?.totalEntries;
+    this.totalPages = data?.totalPages;
+    this.isLast = data?.isLast;
+    this.isFirst = data?.isFirst;
     this.values = data?.values ? data.values : [];
     this.toValues(Constructor);
   }

@@ -20,9 +20,12 @@ export class AdminYoutubeService {
 
   constructor(protected httpService: HttpClientService) { }
 
-  public findYouTubeCategories(): Observable<YouTubeCategoryResponse> {
+  public findYouTubeCategories(): Observable<SearchResultView<YouTubeCategoryResponse>> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'category', 'entries']);
-    return this.httpService.get(req, YouTubeCategoryResponse);
+    return this.httpService.get(req)
+      .pipe(
+        toSearchResult(YouTubeCategoryResponse)
+      );
   }
 
   public findYouTubeChannels(): Observable<YouTubeChannelResponse> {

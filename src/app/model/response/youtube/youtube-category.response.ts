@@ -7,6 +7,6 @@ export class YouTubeCategoryResponse {
 
   public constructor(data: YouTubeCategoryResponse) {
     this.isAlreadyExistInSystem = data?.isAlreadyExistInSystem;
-    this.videoCategory = data?.videoCategory;
+    this.videoCategory = new VideoCategory(data?.videoCategory);
   }
 }
