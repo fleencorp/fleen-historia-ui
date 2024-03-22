@@ -1,4 +1,4 @@
-import {ActivatedRoute, Navigation, ParamMap, Params, Router} from "@angular/router";
+import {ActivatedRoute, Navigation, Params, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {BaseFormComponent} from "@app/base/component";
 import {Location} from "@angular/common";
@@ -31,6 +31,20 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    * Indicates whether the current page is the first page.
    */
   public isFirst: boolean | undefined;
+
+  /**
+   * @property nextPageToken
+   * @description
+   *   A string indicating whether there is a next page token.
+   */
+  public nextPageToken: string | undefined;
+
+  /**
+   * @property prevPageToken
+   * @description
+   *   A string indicating whether there is a previous page token.
+   */
+  public prevPageToken: string | undefined;
 
   /**
    * Indicates whether the current page is the last page.
@@ -126,7 +140,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
       this.deleteIds.push(id);
     } else {
       this.deleteIds = this.deleteIds
-        .filter((val: number | string) => val !== id);
+        .filter((val: number | string): boolean => val !== id);
     }
   }
 
@@ -172,6 +186,8 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   private initResult(result: SearchResultView<any>): void {
     this.isFirst = result.isFirst;
     this.isLast = result.isLast;
+    this.nextPageToken = result.nextPageToken;
+    this.prevPageToken = result.prevPageToken;
     this.entries = result.values;
     this.totalEntries = result.totalEntries;
   }
@@ -349,7 +365,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   private async updateUrlWithPage(params: AnyObject = {}): Promise<void> {
     await this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { page: this.currentPage, ...params },
+      queryParams: { page: this.currentPage, nextPage: this.nextPageToken, prevPage: this.prevPageToken, ...params },
       queryParamsHandling: 'merge',
     })
   }

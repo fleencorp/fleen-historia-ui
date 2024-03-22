@@ -18,6 +18,7 @@ import {AdminYoutubeService} from "@app/feature/admin/admin-youtube/service";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AdminCategoryModule} from "@app/feature/admin/admin-category/admin-category.module";
 import {AdminChannelModule} from "@app/feature/admin/admin-channel/admin-channel.module";
+import {BaseModule} from "@app/base/base.module";
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {AdminChannelModule} from "@app/feature/admin/admin-channel/admin-channel
     FontAwesomeModule,
     AdminYoutubeRoutingModule,
     AdminCategoryModule,
-    AdminChannelModule
+    AdminChannelModule,
+    BaseModule
   ],
   providers: [
     AdminYoutubeService

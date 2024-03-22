@@ -1,1 +1,12 @@
-<p>youtube-video-item works!</p>
+<ng-container *ngIf="entryView">
+    <div class="video">
+      <p>Video Title: {{video.searchResult.snippet.title}}</p>
+      <p>Description: {{video.searchResult.snippet.description}}</p>
+      <p>Published At {{video.searchResult.snippet.publishedAt | date: 'medium'}}</p>
+      <p>Other Detail {{video.searchResult.snippet.thumbnails}}</p>
+      <p><iframe [src]="video.videoUrl | safeUrl" allowfullscreen="true"></iframe></p>
+      <button type="button" (click)="deleteVideo()">Delete Video</button>
+    </div>
+
+
+</ng-container>

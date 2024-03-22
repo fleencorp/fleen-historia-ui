@@ -1,1 +1,14 @@
 <p>admin-youtube-channel-video-entries works!</p>
+
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+<div *ngIf="entries.length > 0">
+  <div class="video-container">
+    <app-youtube-video-item *ngFor="let entry of entries" [entry]="entry" (deleted-video)="deletedVideo($event)"></app-youtube-video-item>
+  </div>
+</div>
+
+
+
+<app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"
+                (toNextPage)="nextPage()" (toPreviousPage)="previousPage()"></app-pagination>

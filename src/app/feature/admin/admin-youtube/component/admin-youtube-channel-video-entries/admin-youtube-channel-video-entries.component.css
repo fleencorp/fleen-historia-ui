@@ -1,0 +1,23 @@
+.video-container {
+}
+
+.video {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 400px;
+  float: left;
+  margin-right: 30px;
+}
+
+@media (max-width: 992px) {
+  .video {
+    width: calc(50% - 10px); /* Adjust the width for smaller screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .video {
+    width: 100%; /* Adjust the width for smaller screens */
+  }
+}

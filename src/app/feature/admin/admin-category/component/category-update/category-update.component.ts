@@ -13,7 +13,7 @@ import {AdminCategoryService} from "@app/feature/admin/admin-category/service";
   templateUrl: './category-update.component.html',
   styleUrls: ['./category-update.component.css']
 })
-export class CategoryUpdateComponent  extends BaseUpdateComponent<CategoryView, UpdateCategoryPayload> implements OnInit {
+export class CategoryUpdateComponent extends BaseUpdateComponent<CategoryView, UpdateCategoryPayload> implements OnInit {
 
   public override entryView!: CategoryView;
 

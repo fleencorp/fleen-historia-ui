@@ -57,6 +57,20 @@ export class SearchResultView<T extends Object> {
   public isFirst: boolean;
 
   /**
+   * @property nextPageToken
+   * @description
+   *   A string indicating whether there is a next page token.
+   */
+  public nextPageToken: string | undefined;
+
+  /**
+   * @property prevPageToken
+   * @description
+   *   A string indicating whether there is a previous page token.
+   */
+  public prevPageToken: string | undefined;
+
+  /**
    * @property values
    * @description
    *   An array containing the actual search results.
@@ -77,6 +91,8 @@ export class SearchResultView<T extends Object> {
     this.totalPages = data?.totalPages;
     this.isLast = data?.isLast;
     this.isFirst = data?.isFirst;
+    this.nextPageToken = data?.nextPageToken;
+    this.prevPageToken = data?.prevPageToken;
     this.values = data?.values ? data.values : [];
     this.toValues(Constructor);
   }

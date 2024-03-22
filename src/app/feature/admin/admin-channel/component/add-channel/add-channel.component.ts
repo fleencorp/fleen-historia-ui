@@ -57,7 +57,7 @@ export class AddChannelComponent extends BaseFormImplComponent {
 
   public viewChannelVideos(channelId: string | number): void {
     if (isTruthy(channelId)) {
-      this.navigateTo(['admin', 'youtube', 'channel', channelId.toString(), 'videos']);
+      this.navigateTo(['admin-youtube', 'channel', channelId.toString(), 'videos']);
     }
   }
 

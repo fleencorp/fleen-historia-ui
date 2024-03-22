@@ -11,7 +11,7 @@ import {AdminCategoryService} from "@app/feature/admin/admin-category/service";
   templateUrl: './category-entry.component.html',
   styleUrls: ['./category-entry.component.css']
 })
-export class CategoryEntryComponent  extends BaseDetailComponent<CategoryView> implements OnInit {
+export class CategoryEntryComponent extends BaseDetailComponent<CategoryView> implements OnInit {
 
   public override entryView!: CategoryView;
   protected override formBuilder;
