@@ -1,5 +1,5 @@
 <div *ngIf="entries.length > 0">
-  <div *ngFor="let entry of entries; trackBy: trackByFn" class="category-row">
+  <div *ngFor="let entry of entries; trackBy: trackByFn" class="channel-row">
     <app-add-channel (addedChannel)="updateEntries($event)" [entry]="entry"></app-add-channel>
   </div>
 </div>

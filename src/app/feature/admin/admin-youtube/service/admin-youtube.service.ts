@@ -36,7 +36,8 @@ export class AdminYoutubeService {
       );
   }
 
-  public findYouTubeChannelVideos(id: number | string, params: AnyObject): Observable<SearchResultView<YoutubeVideoResponse>> {
+  public findYouTubeChannelVideos(params: AnyObject): Observable<SearchResultView<YoutubeVideoResponse>> {
+    const { id } = params;
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'channel', 'detail', id, 'videos'], params);
     return this.httpService.get(req)
       .pipe(

@@ -1,4 +1,4 @@
-import {ActivatedRoute, Navigation, Params, Router} from "@angular/router";
+import {ActivatedRoute, Navigation, ParamMap, Params, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {BaseFormComponent} from "@app/base/component";
 import {Location} from "@angular/common";
@@ -241,8 +241,14 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    * Retrieves entries based on the current search parameters.
    */
   protected getEntries(cb?: Function): void {
+    const id: string | null = this.route.snapshot.paramMap.get('id');
+
     // Prepare search parameters
-    const params: AnyObject = this.prepareSearchParams();
+    let params: AnyObject = this.prepareSearchParams();
+    params = {
+      ...params,
+      id
+    };
 
     // Disable form submission and reset error message
     this.disableSubmittingAndResetErrorMessage();

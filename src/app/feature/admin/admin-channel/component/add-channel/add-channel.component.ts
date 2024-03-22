@@ -3,11 +3,12 @@ import {BaseFormImplComponent} from "@app/base/component";
 import {FormControl} from "@angular/forms";
 import {maxLength} from "@app/shared/validator";
 import {YouTubeChannelResponse} from "@app/model/response/youtube";
-import {isFalsy} from "@app/shared/helper";
+import {isFalsy, isTruthy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
 import {AdminChannelService} from "@app/feature/admin/admin-channel/service";
 import {CreateChannelPayload} from "@app/model/type/channel.type";
 import {faFilm, faSpinner, faVideo, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-channel',
@@ -28,12 +29,17 @@ export class AddChannelComponent extends BaseFormImplComponent {
   public addedChannel: EventEmitter<string> = new EventEmitter<string>();
 
   public constructor(
-    protected channelService: AdminChannelService) {
+      protected channelService: AdminChannelService,
+      protected router: Router) {
     super();
   }
 
   public ngOnInit(): void {
     this.formReady();
+  }
+
+  protected override getRouter(): Router {
+    return this.router;
   }
 
   public addChannel(): void {
@@ -49,8 +55,10 @@ export class AddChannelComponent extends BaseFormImplComponent {
     }
   }
 
-  public viewChannelVideos(): void {
-    this.navigateTo(['admin', ''])
+  public viewChannelVideos(channelId: string | number): void {
+    if (isTruthy(channelId)) {
+      this.navigateTo(['admin', 'youtube', 'channel', channelId.toString(), 'videos']);
+    }
   }
 
   private getAddCategoryPayload(): CreateChannelPayload {

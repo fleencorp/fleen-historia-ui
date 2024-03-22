@@ -10,6 +10,7 @@ import {
 } from './component';
 import {SharedModule} from "@app/shared/shared.module";
 import {BaseModule} from "@app/base/base.module";
+import {AdminCategoryService} from "@app/feature/admin/admin-category/service";
 
 
 @NgModule({
@@ -24,6 +25,9 @@ import {BaseModule} from "@app/base/base.module";
     SharedModule,
     AdminCategoryRoutingModule,
     BaseModule
+  ],
+  providers: [
+    AdminCategoryService
   ],
   exports: [
     AddCategoryComponent

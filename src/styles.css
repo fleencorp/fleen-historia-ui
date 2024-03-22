@@ -86,7 +86,6 @@ form {
 button {
   width: 210px;
   height: 37px;
-  display: block;
   cursor: pointer;
   font-weight: bold;
   text-align: center;
@@ -95,6 +94,10 @@ button {
   border-radius: 8px;
   border-bottom: 3px solid #5dcdfc;
   margin: 10px;
+}
+
+.button-180 {
+  width: 180px;
 }
 
 button:hover {
@@ -171,7 +174,7 @@ input, textarea, select {
   resize: vertical;
 }
 
-.form-group:after {
+.form-group:after, button:after, div:after {
   clear: both;
   content: "";
   display: table;
@@ -185,8 +188,11 @@ input, textarea, select {
   }
 
   button {
-    height: 50px;
-    margin: 0;
+    width: 100% !important;
+    height: 45px;
+    display: block;
+    float: none !important;
+    clear: both !important;
   }
 
   #authorization-uri-box {

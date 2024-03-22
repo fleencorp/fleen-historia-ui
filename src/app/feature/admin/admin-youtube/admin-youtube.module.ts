@@ -10,7 +10,8 @@ import {
   AdminYoutubeChannelVideoEntriesComponent,
   AdminYoutubeDashboardComponent,
   AdminYoutubeStartAuthenticationComponent,
-  AdminYoutubeVerifyAuthorizationCodeComponent
+  AdminYoutubeVerifyAuthorizationCodeComponent,
+  YoutubeVideoItemComponent
 } from '@app/feature/admin/admin-youtube/component';
 import {SharedModule} from "@app/shared/shared.module";
 import {AdminYoutubeService} from "@app/feature/admin/admin-youtube/service";
@@ -28,7 +29,8 @@ import {AdminChannelModule} from "@app/feature/admin/admin-channel/admin-channel
     AdminYoutubeBaseComponent,
     AdminYoutubeDashboardComponent,
     AdminYoutubeStartAuthenticationComponent,
-    AdminYoutubeVerifyAuthorizationCodeComponent
+    AdminYoutubeVerifyAuthorizationCodeComponent,
+    YoutubeVideoItemComponent
   ],
   imports: [
     CommonModule,
