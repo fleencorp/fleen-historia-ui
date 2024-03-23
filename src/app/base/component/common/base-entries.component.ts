@@ -2,7 +2,14 @@ import {ActivatedRoute, Navigation, Params, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {BaseFormComponent} from "@app/base/component";
 import {Location} from "@angular/common";
-import {AnyObject, DeleteIdsPayload, SearchFilter, SearchPayload} from "@app/model/type";
+import {
+  AnyObject,
+  DeleteIdsPayload,
+  PaginationAction,
+  PaginationToken,
+  SearchFilter,
+  SearchPayload
+} from "@app/model/type";
 import {DEFAULT_PAGE_NO_KEY, DEFAULT_PAGE_SIZE} from "@app/constant";
 import {SearchResultView} from "@app/model/view";
 import {isFalsy, isTruthy} from "@app/shared/helper";
@@ -16,6 +23,14 @@ import {isFalsy, isTruthy} from "@app/shared/helper";
  * @version 1.0
  */
 export abstract class BaseEntriesComponent<T extends Object> extends BaseFormComponent {
+
+  /**
+   * Represents a constant specifying a pagination action, which can be either 'next' or 'previous'.
+   *
+   * @remarks
+   * The value of this constant can only be 'next' or 'previous' or 'none'.
+   */
+  private paginationAction: PaginationAction = 'none';
 
   /**
    * The current page number.
@@ -217,6 +232,26 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   }
 
   /**
+   * Prepares a pagination token based on the current pagination action.
+   *
+   * @returns A PaginationToken object containing the appropriate pagination token based on the current pagination action.
+   *
+   * @remarks
+   * - If the pagination action is 'next', the next_page_token is included in the PaginationToken object.
+   * - If the pagination action is 'previous', the prev_page_token is included in the PaginationToken object.
+   * - If the pagination action is neither 'next' nor 'previous', an empty object is returned.
+   */
+  private preparePaginationToken(): PaginationToken {
+    if (this.paginationAction === 'next') {
+      return { next_page_token: this.nextPageToken };
+    } else if (this.paginationAction === 'previous') {
+      return { prev_page_token: this.prevPageToken };
+    } else {
+      return {};
+    }
+  }
+
+  /**
    * Moves to the next page of entries if available.
    *
    * @returns A Promise that resolves when the operation is complete.
@@ -224,6 +259,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   public async nextPage(): Promise<void> {
     if (this.entries && !this.isLast && this.isNextPageAvailable()) {
       this.currentPage++;
+      this.paginationAction = 'next';
       await this.handlePagination();
     }
   }
@@ -236,6 +272,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   public async previousPage(): Promise<void> {
     if (this.currentPage > 0) {
       this.currentPage--;
+      this.paginationAction = 'previous';
       await this.handlePagination();
     }
   }
@@ -363,9 +400,10 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    * @returns A Promise that resolves when the navigation is complete.
    */
   private async updateUrlWithPage(params: AnyObject = {}): Promise<void> {
+
     await this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { page: this.currentPage, nextPage: this.nextPageToken, prevPage: this.prevPageToken, ...params },
+      queryParams: { page: this.currentPage, ...params, ...(this.preparePaginationToken()) },
       queryParamsHandling: 'merge',
     })
   }

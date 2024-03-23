@@ -228,7 +228,9 @@ export function toRequestBody(data: any): Record<string, string> {
   if (isObject(data)) {
     for (const property of Object.keys(data)) {
       const transformedProperty: string = property.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
-      newData[transformedProperty] = data[property];
+      if (isTruthy(data[property])) {
+        newData[transformedProperty] = data[property];
+      }
     }
   }
   return newData;
@@ -693,6 +695,52 @@ export function removeEmptyElement<T>(data: T[]): T[] {
 }
 
 
+/**
+ * Joins an array of path segments into a single path string.
+ *
+ * @param parameters An optional array of path segments to join.
+ * @returns A string representing the joined path segments.
+ *
+ * @example
+ *
+ * const pathSegments = ['folder1', 'folder2', 'file.txt'];
+ * const path = joinPaths(pathSegments); // Returns 'folder1/folder2/file.txt'
+ *
+ * @remarks
+ * - If the `parameters` array is empty or `undefined`, an empty string is returned.
+ * - Each path segment is separated by a forward slash ('/').
+ * - If a path segment contains forward slashes, they are preserved in the resulting path string.
+ */
 export function joinPaths(parameters?: any[]): string {
   return parameters?.join('/') || '';
+}
+
+
+/**
+ * Removes a property from an object if it exists.
+ *
+ * @param obj The object from which the property will be removed.
+ * @param prop A string representing the name of the property to be removed.
+ *
+ * @returns void
+ *
+ * @example
+ *
+ * let myObj = {
+ *     name: 'John',
+ *     age: 30,
+ *     city: 'New York'
+ * };
+ *
+ * removeProperty(myObj, 'age'); // This will remove the 'age' property from the 'myObj' object.
+ *
+ * @remarks
+ * - This function modifies the original object by removing the specified property.
+ * - If the property does not exist in the object, no action is taken.
+ * - It's recommended to use this function with caution, as it directly modifies the object passed as an argument.
+ */
+export function removeProperty(obj: any, prop: string): void {
+  if (obj.hasOwnProperty(prop)) {
+    delete obj[prop];
+  }
 }

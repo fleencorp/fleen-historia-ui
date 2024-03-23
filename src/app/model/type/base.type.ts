@@ -105,3 +105,26 @@ export type DateAndTimeConstraints = {
   pattern?: string;
   minTime?: string;
 };
+
+
+/**
+ * Represents a pagination action, which can be either 'next' or 'previous'.
+ */
+export type PaginationAction = 'next' | 'previous' | 'none';
+
+
+/**
+ * Represents a pagination token object containing tokens for navigating to the next or previous page.
+ */
+export type PaginationToken = {
+  /**
+   * An optional token for navigating to the next page.
+   */
+  next_page_token?: string;
+
+  /**
+   * An optional token for navigating to the previous page.
+   */
+  prev_page_token?: string;
+}
+

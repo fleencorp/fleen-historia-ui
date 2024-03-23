@@ -12,6 +12,7 @@ import {
 import {SearchResultView} from "@app/model/view";
 import {DeleteResponse} from "@app/model/response/common";
 import {toSearchResult} from "@app/shared/rxjs";
+import {removeProperty} from "@app/shared/helper";
 
 @Injectable()
 export class AdminYoutubeService {
@@ -38,6 +39,7 @@ export class AdminYoutubeService {
 
   public findYouTubeChannelVideos(params: AnyObject): Observable<SearchResultView<YoutubeVideoResponse>> {
     const { id } = params;
+    removeProperty(params, 'id');
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'channel', 'detail', id, 'videos'], params);
     return this.httpService.get(req)
       .pipe(
