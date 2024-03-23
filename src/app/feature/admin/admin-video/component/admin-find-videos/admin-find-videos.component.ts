@@ -7,8 +7,8 @@ import {ErrorResponse} from "@app/model/response";
 import {DeleteResponse} from "@app/model/response/common";
 import {DeleteIdsPayload} from "@app/model/type";
 import {Observable} from "rxjs";
-import {BaseVideosComponent} from "@app/base/component";
 import {AdminVideoService} from "@app/feature/admin/admin-video/service";
+import {BaseVideosComponent} from "@app/base/component/video";
 
 @Component({
   selector: 'app-admin-find-videos',

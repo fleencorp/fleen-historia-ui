@@ -9,7 +9,9 @@ import {
   AdminFindVideosComponent,
   AdminUpdateVideoComponent,
   AdminUpdateVideoInfoComponent,
-  AdminUpdateVideoObjectComponent
+  AdminUpdateVideoObjectComponent,
+  AdminVideoBaseComponent,
+  AdminVideoDashboardComponent
 } from '@app/feature/admin/admin-video/component';
 import {SharedModule} from "@app/shared/shared.module";
 
@@ -22,7 +24,9 @@ import {SharedModule} from "@app/shared/shared.module";
     AdminUpdateVideoInfoComponent,
     AdminUpdateVideoObjectComponent,
     AdminDeleteAllVideosComponent,
-    AdminUpdateVideoComponent
+    AdminUpdateVideoComponent,
+    AdminVideoBaseComponent,
+    AdminVideoDashboardComponent
   ],
   imports: [
     CommonModule,
