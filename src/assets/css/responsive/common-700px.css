@@ -70,7 +70,7 @@
 	}
 
 
-	table#entries .cust-checkbox-container {
+	table#entries .custom-checkbox-container {
 
 		float : right;
 	}
@@ -119,9 +119,9 @@
 	width : 80px;
 	display : inline-block;
 	font-size : 11px;
-	font-family : 'RobotoRegular';
+	font-family : 'Roboto';
 	margin-right : 10px;
-} 
+}
 
 .pagination {
 
@@ -154,5 +154,5 @@
 .delete-menu button , .delete-menu span {
 
 	font-size : 11px;
-	font-family : 'RobotoRegular';
+	font-family : 'Roboto';
 }

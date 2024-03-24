@@ -13,8 +13,8 @@ import {BaseVideosComponent} from "@app/base/component/video";
 @Component({
   selector: 'app-admin-find-videos',
   templateUrl: './admin-find-videos.component.html',
-  // styleUrls: ['./admin-find-videos.component.css']
-  styleUrls: ['assets/css/internal-one.css']
+  styleUrls: ['./admin-find-videos.component.css']
+  // styleUrls: ['assets/css/internal-one.css']
 })
 export class AdminFindVideosComponent extends BaseVideosComponent implements OnInit {
 

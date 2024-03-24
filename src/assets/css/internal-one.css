@@ -19,6 +19,10 @@
 @import url('./responsive/common-700px.css') screen and (max-width : 700px);
 @import url('./responsive/common-760px.css') screen and (max-width : 760px);
 
+* {
+  background-color: blue;
+}
+
 col:nth-of-type(1) {
 
 	width : 7%;

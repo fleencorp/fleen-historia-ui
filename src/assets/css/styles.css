@@ -1,3 +1,4 @@
+/*
 @import "./font.css";
 @import "./base.css";
 @import "./header-nav.css";
@@ -19,7 +20,7 @@
 @import url('./responsive/common-700px.css') screen and (max-width : 700px);
 @import url('./responsive/common-760px.css') screen and (max-width : 760px);
 
-* {
+!** {
   box-sizing : border-box;
   padding : 0;
   margin : 0;
@@ -156,7 +157,7 @@ input, textarea, select {
   clear: both;
   content: "";
   display: table;
-}
+}*!
 
 .related-entries {
 
@@ -312,3 +313,253 @@ ul.ctrl-error-list {
 	}
 
 }
+*/
+
+
+/* You can add global styles to this file, and also import other style files */
+/*@font-face {
+  font-family: 'Open Sans';
+  src: url('assets/fonts/Open_Sans/OpenSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans Bold';
+  src: url('assets/fonts/Open_Sans/OpenSans-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans Light';
+  src: url('assets/fonts/Open_Sans/OpenSans-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto Light';
+  src: url('assets/fonts/Roboto/Roboto-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto Bold';
+  src: url('assets/fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}*/
+
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Open Sans';
+  src: url(../fonts/Open_Sans/OpenSans-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans Bold';
+  src: url(../fonts/Open_Sans/OpenSans-Bold.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans Light';
+  src: url(../fonts/Open_Sans/OpenSans-Light.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url(../fonts/Roboto/Roboto-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto Light';
+  src: url(../fonts/Roboto/Roboto-Light.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto Bold';
+  src: url(../fonts/Roboto/Roboto-Bold.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+/*
+* {
+  box-sizing : border-box;
+  padding : 0;
+  margin : 0;
+  border : 0;
+  text-decoration : none;
+  outline : none;
+  background : none;
+  box-shadow : none;
+  word-break : break-word;
+  border-collapse : collapse;
+}
+
+body {
+  font-family: 'Open Sans';
+  padding: 10px;
+  margin: 10px 5px;
+  width: 100%;
+}
+
+label, p {
+  font-size: 15px;
+}
+
+label, b {
+  font-family: 'Roboto Bold';
+}
+
+label, input {
+  display: block;
+}
+
+form {
+  padding: 10px;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
+button {
+  width: 210px;
+  height: 37px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background-color: #0986e1;
+  border-radius: 8px;
+  border-bottom: 3px solid #5dcdfc;
+  margin: 10px;
+}
+
+.button-180 {
+  width: 180px;
+}
+
+button:hover {
+  background-color: #1893de;
+}
+
+button:active {
+  background-color: #1b76ae;
+}
+
+button:disabled {
+  background-color: #046cb8;
+  cursor: auto;
+}
+
+#clipboard-icon:hover, #clipboard-icon:active {
+  cursor: pointer;
+}
+
+.block {
+  display: block;
+}
+
+.fleft {
+  float: left;
+}
+
+.fright {
+  float: right;
+}
+
+.col-25 {
+  width: 25%;
+}
+
+.col-35 {
+  width: 35%;
+}
+
+.col-45 {
+  width: 45%;
+}
+
+.col-55 {
+  width: 55%;
+}
+
+.col-65 {
+  width: 65%;
+}
+
+.col-75 {
+  width: 75%;
+}
+
+.col-85 {
+  width: 85%;
+}
+
+.col-95 {
+  width: 95%;
+}
+
+.col-100 {
+  width: 100%;
+}
+
+input, textarea, select {
+  padding: 10px;
+  display: block;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  resize: vertical;
+}
+
+.form-group:after, button:after, div:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+
+@media screen and (max-width: 600px) {
+  .col-25, .col-35, .col-45, .col-55, .col-65, .col-75, .col-85, .col-95, button {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  button {
+    width: 100% !important;
+    height: 45px;
+    display: block;
+    float: none !important;
+    clear: both !important;
+  }
+
+  #authorization-uri-box {
+    margin: 0;
+  }
+}
+*/

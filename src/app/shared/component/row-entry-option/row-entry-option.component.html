@@ -1,8 +1,10 @@
-<button (click)="viewDetail()">View</button>
-<button *ngIf="canUpdate" (click)="updateEntry()">Update</button>
-<button *ngIf="canUpdate" (click)="deleteEntry()">Delete</button>
+<td class="tr-changes-menu center">
+  <button class="btn-navy" (click)="viewDetail()">View <fa-icon [icon]="faEye"></fa-icon></button>
+  <button class="btn-aqua" *ngIf="canUpdate" (click)="updateEntry()">Update <fa-icon [icon]="faPencil"></fa-icon></button>
+  <button class="btn-red" *ngIf="canDelete" (click)="deleteEntry()">Delete <fa-icon [icon]="faTrash"></fa-icon></button>
 
-<label *ngIf="canCheck" class="custom-checkbox" [class.checked]="checked.checked">
-  <input type="checkbox" (change)="handleChecked(checked.checked)" #checked>
-  <span class="checkmark"></span>
-</label>
+  <label *ngIf="canCheck" class="custom-checkbox-container" [class.checked]="checked.checked">
+    <input type="checkbox" (change)="handleChecked(checked.checked)" #checked>
+    <span class="checkmark"></span>
+  </label>
+</td>

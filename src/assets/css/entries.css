@@ -7,10 +7,10 @@ table#entries:before {
 
 table#entries {
 
-	width : 1270px;
+	width : 1450px;
 	table-layout: fixed;
 	padding : 5px;
-	margin-top : 20px;
+	margin : 20px auto 0;
 }
 
 table#entries th , table#entries td {
@@ -31,7 +31,7 @@ th {
 
 table#entries tr td a {
 
-	font-family : 'RobotoRegular';
+	font-family : 'Roboto';
 }
 
 table#entries tr:hover {
@@ -41,7 +41,7 @@ table#entries tr:hover {
 
 .tr-changes-menu a , .tr-changes-menu button , .item-download {
 
-	font-family : 'RobotoRegular';
+	font-family : 'Roboto';
 	display : inline-block;
 	width : 80px;
 	margin : 0% 1.3351134846461949265687583444593% 0% 0%;
@@ -88,7 +88,7 @@ table#entry-detail tr:first-child th , table#entry-detail tr:first-child td {
 table#entry-detail tr:last-child th , table#entry-detail tr:last-child td {
 
 	border-bottom: 0;
-} 
+}
 
 table#entry-detail col:nth-of-type(1) {
 
@@ -120,7 +120,7 @@ table#entry-detail .main-content {
 table#entry-detail .main-content {
 
 	line-height : 2.0em !important;
-	font-family : 'RobotoRegular';
+	font-family : 'Roboto';
 	font-size : 13.3px;
 }
 
@@ -148,31 +148,31 @@ table#entry-detail .main-content h1 {
 	font-size : 22px;
 	font-family : 'Comic sans ms';
 	font-weight : bold;
-} 
+}
 
 table#entry-detail .main-content h2 {
 
 	font-size : 20px;
 	font-weight : normal;
-} 
+}
 
 table#entry-detail .main-content h3 {
 
 	font-size : 18px;
 	font-weight : normal;
-} 
+}
 
 table#entry-detail .main-content h4 {
 
 	font-size : 16px;
 	font-weight : bold;
-} 
+}
 
 table#entry-detail .main-content h5 {
 
 	font-size : 14px;
 	font-weight : bold;
-} 
+}
 
 table#entry-detail .main-content h6 {
 

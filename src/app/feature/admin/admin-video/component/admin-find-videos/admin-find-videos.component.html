@@ -19,13 +19,12 @@
 
     <thead>
     <tr>
-      <th>S/N</th>
-      <th>Title</th>
-      <th>Channel</th>
-      <th>Status</th>
-      <th>Created On</th>
-      <th>Updated On</th>
-      <th></th>
+      <th class="center">S/N</th>
+      <th class="left">Title</th>
+      <th class="left">Channel</th>
+      <th class="center">Status</th>
+      <th class="center">Updated On</th>
+      <th class="center"></th>
     </tr>
     </thead>
     <tbody>
@@ -33,9 +32,8 @@
       <td>{{ addOneToIndex(i) }}</td>
       <td>{{ video.videoTitle }}</td>
       <td>{{ video.channel.title }}</td>
-      <td>{{ video.videoStatus }}</td>
-      <td>{{ video.createdOn | date:'mediumDate' }}</td>
-      <td>{{ video.updatedOn | date:'mediumDate' }}</td>
+      <td class="center">{{ video.videoStatus }}</td>
+      <td class="center">{{ video.updatedOn | date:'mediumDate' }}</td>
       <app-row-entry-option [entry-id]="video.videoId"
                             [can-check]="true"
                             [can-delete]="true"

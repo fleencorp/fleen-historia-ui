@@ -1,0 +1,89 @@
+/*
+@import "../../../../../../assets/css/internal-1.css";
+
+col:nth-of-type(1) {
+  width : 7%;
+  border: 1px solid black;
+}
+
+col:nth-of-type(2) {
+  width : 18%;
+  border: 1px solid blue;
+}
+
+col:nth-of-type(3) {
+  width : 14%;
+  border: 1px solid red;
+}
+
+col:nth-of-type(4) {
+  width : 13%;
+  border: 1px solid green;
+}
+
+col:nth-of-type(5) {
+  width : 13%;
+  border: 1px solid darkorange;
+}
+
+col:nth-of-type(6) {
+  width : 32%;
+  border: 1px solid maroon;
+}
+
+
+@media screen and (max-width : 700px) {
+
+  table#entries tbody td:nth-child(1)::before {
+
+    content : 'Entry Index : ';
+  }
+
+  table#entries tbody td:nth-child(2)::before {
+
+    content : 'Full Name : ';
+  }
+
+  table#entries tbody td:nth-child(4)::before {
+
+    content : 'Created On : ';
+  }
+
+  table#entries tbody td:nth-child(5)::before {
+
+    content : 'Update On : ';
+  }
+
+  table#entries tbody td:nth-child(6)::before {
+
+    content : 'Options : ';
+  }
+
+  table#entries tbody td:nth-child(1) , table#entries tbody td:nth-child(2) , table#entries tbody td:nth-child(4) , table#entries tbody td:nth-child(5), table#entries tbody td:nth-child(6) {
+
+    display : block;
+    text-align : left;
+  }
+
+  #dashboard a {
+
+    font-size : 13px;
+  }
+
+  .tr-changes-menu {
+
+    display : block;
+  }
+
+  .tr-changes-menu a , .tr-changes-menu button {
+
+    display : inline-block;
+  }
+
+  table#entries td , table#entries td::before , table#entry-detail td , table#entry-detail th , table#entry-detail li {
+
+    font-size : 13.5px;
+  }
+
+}
+*/
