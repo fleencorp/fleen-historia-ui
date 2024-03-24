@@ -14,6 +14,8 @@ import {
   AdminVideoDashboardComponent
 } from '@app/feature/admin/admin-video/component';
 import {SharedModule} from "@app/shared/shared.module";
+import {UserVideoModule} from "@app/feature/user-video/user-video.module";
+import { VideoItemRowComponent } from './component/video-item-row/video-item-row.component';
 
 
 @NgModule({
@@ -26,12 +28,14 @@ import {SharedModule} from "@app/shared/shared.module";
     AdminDeleteAllVideosComponent,
     AdminUpdateVideoComponent,
     AdminVideoBaseComponent,
-    AdminVideoDashboardComponent
+    AdminVideoDashboardComponent,
+    VideoItemRowComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    AdminVideoRoutingModule
+    AdminVideoRoutingModule,
+    UserVideoModule
   ]
 })
 export class AdminVideoModule { }

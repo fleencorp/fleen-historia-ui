@@ -32,6 +32,10 @@ import {UserVideoService} from "@app/feature/user-video/service";
     SharedModule,
     UserVideoRoutingModule
   ],
+  exports: [
+    UpdateVideoInfoComponent,
+    UpdateVideoObjectComponent
+  ],
   providers: [
     UserVideoService
   ]

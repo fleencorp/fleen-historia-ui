@@ -7,8 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body>
+<body id ="container">
+<app-header></app-header>
+
+<main id="main">
   <app-root></app-root>
+</main>
+
+<app-footer></app-footer>
 </body>
 <script>
   global = globalThis // fix for "global not defined" error

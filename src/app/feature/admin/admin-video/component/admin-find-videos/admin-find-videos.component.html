@@ -4,7 +4,18 @@
 <p>The current page is {{currentPage}}</p>
 
 <div *ngIf="entries.length > 0">
-  <table>
+  <table id="entries" class="entries">
+
+    <div class="clear"></div>
+
+    <colgroup>
+      <col />
+      <col />
+      <col />
+      <col />
+      <col />
+      <col />
+    </colgroup>
 
     <thead>
     <tr>
@@ -34,9 +45,6 @@
                             (updateClicked)="updateEntry(video.videoId)"
                             (deleteClicked)="deleteEntry(video.videoId)"
                             (checkedChanged)="handleChecked(video.videoId, $event)"></app-row-entry-option>
-
-      <button type="button" *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Request for Review</button>
-      <button type="button" *ngIf="canPublish(video)" (click)="publishVideo(video.videoId)">Publish</button>
     </tr>
     </tbody>
   </table>
