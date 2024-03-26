@@ -1,0 +1,29 @@
+select, input, button {
+  padding: 8px;
+  border: 2px solid lightgray;
+  border-radius: 8px;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.search-menu input {
+  width: 300px;
+}
+
+button {
+  width: 100px; /* Set a fixed width for the buttons */
+  padding: 8px 12px; /* Adjust button padding */
+  cursor: pointer; /* Show pointer cursor on hover */
+  color: #fff; /* Text color for the buttons */
+  border-radius: 4px; /* Add some border radius for rounded corners */
+  font-weight: bold;
+}
+
+.search-menu button {
+  border: 3px solid #07a4dc; /* Remove button border */
+  background-color: #0986e1; /* Background color for the buttons */
+}
+
+#search-menu-del-btn {
+  margin-top: 10px;
+}

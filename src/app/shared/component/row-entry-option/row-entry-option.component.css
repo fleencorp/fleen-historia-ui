@@ -1,0 +1,58 @@
+:host {
+  display: contents;
+}
+
+.tr-changes-menu {
+  white-space: nowrap; /* Prevent button text from wrapping */
+  text-align: center; /* Center-align button contents */
+}
+
+.tr-changes-menu button {
+  width: 85px; /* Set a fixed width for the buttons */
+  margin: 0 5px; /* Add some spacing between buttons */
+  padding: 8px 8px; /* Add padding to the buttons */
+  cursor: pointer; /* Show pointer cursor on hover */
+  color: #fff;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+/* Hide the default checkbox */
+.custom-checkbox-container input[type="checkbox"] {
+  display: none;
+}
+
+/* Style for the custom checkbox container */
+.custom-checkbox-container {
+  display: inline-block;
+  position: relative;
+  width: 20px; /* Adjust the size of the checkbox container */
+  height: 20px; /* Adjust the size of the checkbox container */
+  vertical-align: middle; /* Align vertically in the middle */
+}
+
+/* Style for the custom checkbox */
+.custom-checkbox-container .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px; /* Adjust the size of the checkbox */
+  height: 20px; /* Adjust the size of the checkbox */
+  border: 1px solid #ffffff; /* Border color */
+  border-radius: 50%; /* Make it round */
+  background-color: #089def;
+}
+
+/* Style for the checked state of the custom checkbox */
+.custom-checkbox-container.checked .checkmark::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px; /* Adjust the size of the tiny circle */
+  height: 6px; /* Adjust the size of the tiny circle */
+  border-radius: 50%; /* Make it round */
+  background-color: #ffffff; /* Color of the tiny circle */
+  display: block;
+}

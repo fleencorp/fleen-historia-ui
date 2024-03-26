@@ -376,6 +376,28 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   }
 
   /**
+   * Resets the search parameters to an empty object and navigates to the current route without any query parameters.
+   * After resetting the search parameters, it triggers the `getEntries()` method to update the entries based on the new search parameters.
+   * @returns A promise that resolves once the navigation is complete.
+   */
+  public async resetSearch(): Promise<void> {
+    // Resetting the search parameters to an empty object
+    this.searchParams = {};
+
+    // Navigating to the current route without any query parameters
+    // This clears any existing query parameters from the URL
+    await this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { }
+    });
+
+    // Triggering the getEntries method to update the entries based on the new search parameters
+    this.getEntries();
+  }
+
+
+
+  /**
    * Refreshes the entries list by removing entries that were deleted.
    */
   private refreshEntries(): void {
@@ -400,6 +422,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    * @returns A Promise that resolves when the navigation is complete.
    */
   private async updateUrlWithPage(params: AnyObject = {}): Promise<void> {
+
 
     await this.router.navigate([], {
       relativeTo: this.route,

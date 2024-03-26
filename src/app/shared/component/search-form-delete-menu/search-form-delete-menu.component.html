@@ -7,8 +7,9 @@
   </select>
 
   <input type="text" formControlName="searchInput" name="search-input">
-  <button type="submit" [disabled]="isSubmitting">Search</button>
+  <button type="submit" [disabled]="isSubmitting">Search <fa-icon [icon]="faSearch"></fa-icon></button>
+  <button type="submit" [disabled]="isSubmitting" (click)="confirmResetSearch()">Reset </button>
 
 </form>
 
-<button (click)="confirmDeleteEntries()" [disabled]="isSubmitting">Delete</button>
+<button id="search-menu-del-btn" class="btn-red" [disabled]="isSubmitting" (click)="confirmDeleteEntries()">Delete <fa-icon [icon]="faTrash"></fa-icon></button>

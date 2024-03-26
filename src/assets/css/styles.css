@@ -1,8 +1,9 @@
+@import "./btn.css";
 /*
 @import "./font.css";
 @import "./base.css";
 @import "./header-nav.css";
-@import "./btn.css";
+
 @import "./search.css";
 @import "./entries.css";
 @import "./commons.css";
@@ -401,6 +402,67 @@ ul.ctrl-error-list {
   font-weight: normal;
   font-style: normal;
 }
+
+* {
+  box-sizing : border-box;
+  padding : 0;
+  margin : 0;
+  border : 0;
+  text-decoration : none;
+  outline : none;
+  background : none;
+  box-shadow : none;
+  word-break : break-word;
+  border-collapse : collapse;
+  font-family: 'Roboto'
+}
+
+b {
+  font-family: "Roboto Bold"
+}
+
+.container {
+  max-width: 1700px;
+  padding: 15px;
+  margin: 0 auto;
+  border: 4px solid purple;
+}
+
+table {
+  width: 1665px;
+  table-layout: fixed;
+  border: 1px solid black;
+  margin-top: 20px;
+}
+
+col {
+  border: 1px solid red;
+}
+
+th, td {
+  padding: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right
+}
+
+table#entries tr:hover {
+  background-color: #f9f9f9;
+}
+
 
 
 /*

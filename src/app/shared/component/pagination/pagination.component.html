@@ -1,5 +1,18 @@
-<div>
-  <button *ngIf="!isFirst" (click)="previousPage()" [disabled]="isFirst">Previous</button>
-  <span>Page {{ currentPageNumber }}</span>
-  <button *ngIf="!isLast" (click)="nextPage()" [disabled]="isLast">Next</button>
+<div class="navigation-container">
+  <button class="navigation-button"
+          *ngIf="!isFirst"
+          [disabled]="isFirst"
+          (click)="previousPage()">
+    <fa-icon [icon]="faArrowLeft"></fa-icon> Previous
+
+  </button>
+
+  <span class="page-number"><b>Page {{ currentPageNumber }}</b></span>
+
+  <button class="navigation-button"
+          *ngIf="!isLast"
+          (click)="nextPage()"
+          [disabled]="isLast">
+    Next <fa-icon [icon]="faArrowRight"></fa-icon>
+  </button>
 </div>

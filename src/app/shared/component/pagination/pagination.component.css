@@ -1,0 +1,22 @@
+.navigation-container {
+  display: flex;
+  justify-content: space-between; /* Align items at the start, center, and end of the container */
+  align-items: center; /* Vertically center-align items */
+  margin-top: 20px; /* Add margin from the top */
+}
+
+.navigation-button {
+  width: 100px; /* Set a fixed width for the buttons */
+  padding: 8px 12px; /* Adjust button padding */
+  cursor: pointer; /* Show pointer cursor on hover */
+  background-color: #0986e1; /* Background color for the buttons */
+  color: #fff; /* Text color for the buttons */
+  border: 3px solid #07a4dc; /* Remove button border */
+  border-radius: 4px; /* Add some border radius for rounded corners */
+  font-weight: bold;
+}
+
+.page-number {
+  flex-grow: 1; /* Allow the page number to grow and occupy available space */
+  text-align: center; /* Center-align the page number */
+}

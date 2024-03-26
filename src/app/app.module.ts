@@ -10,10 +10,13 @@ import {AuthenticationService} from "@app/feature/authentication/service";
 import {SharedServiceModule} from "@app/shared/service/shared-service.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {FooterComponent, HeaderComponent} from "@app/base/component";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +31,10 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     { provide: HTTP_INTERCEPTORS, useClass: ContentTypeInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent
+  ]
 })
 export class AppModule { }

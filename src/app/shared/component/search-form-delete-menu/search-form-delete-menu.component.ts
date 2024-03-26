@@ -1,12 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
-import {enumTypeValidator, typeValidator} from "../../validator/custom";
+import {enumTypeValidator, typeValidator} from "@app/shared/validator";
 import {createBetweenDateObj, getPropsValueAsArray, isFalsy, propExists} from "../../helper";
-import {BaseFormComponent} from "../../../base/component";
+import {BaseFormComponent} from "@app/base/component";
 import {Router} from "@angular/router";
-import {AnyObject, SearchFilter, SearchParamPayload, SearchPayload} from "../../../model/type";
-import {BETWEEN_DATE_SEARCH_KEY} from "../../../constant/search.const";
-import {ANY_EMPTY} from "../../../constant";
+import {AnyObject, SearchFilter, SearchParamPayload, SearchPayload} from "@app/model/type";
+import {BETWEEN_DATE_SEARCH_KEY} from "@app/constant/search.const";
+import {ANY_EMPTY} from "@app/constant";
+import {faTrash, faSearch, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Component for displaying a search form with delete menu functionality.
@@ -19,6 +20,7 @@ import {ANY_EMPTY} from "../../../constant";
 export class SearchFormDeleteMenuComponent extends BaseFormComponent implements OnInit {
 
   /** Object representing search parameters. */
+  @Input('search-params')
   public searchParams: AnyObject = {};
 
   /** Form group for the search form. */
@@ -39,6 +41,10 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
   /** Event emitter for confirming deletion. */
   @Output()
   public deleteConfirmed: EventEmitter<void> = new EventEmitter<void>();
+
+  /** Event emitter for resetting a search. */
+  @Output()
+  public resetSearchSubmitted: EventEmitter<boolean> = new EventEmitter();
 
   /**
    * Constructor of the component.
@@ -66,7 +72,27 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
     }, {
       validators: [typeValidator(['searchType', 'searchInput'], this.searchFilter)]
     });
+
+    this.getMatchingSearchParams();
   }
+
+  /**
+   * Iterates through each filter in `searchFilter` and checks if any of the keys exist in `searchParams`.
+   * If a matching key is found, updates the corresponding form control values with the key and its value from `searchParams`.
+   */
+  private getMatchingSearchParams(): void {
+    // Iterate through each filter in searchFilter
+    for (const filter of this.searchFilter) {
+      // Check if the key exists in searchParams
+      if (this.searchParams.hasOwnProperty(filter.key)) {
+        // If the key exists, update the form control values with the key and its value from searchParams
+        this.searchType?.patchValue(filter.key); // Assuming searchType is a FormControl
+        this.searchInput?.patchValue(this.searchParams[filter.key]); // Assuming searchInput is a FormControl
+        break; // Exit the loop after finding the first matching key
+      }
+    }
+  }
+
 
   /**
    * Initiates the search process if the form is valid and not in a submitting state.
@@ -82,7 +108,7 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
       const { type, value } = this.searchFormValue;
 
       // Set search parameters
-      this.searchParams = { [type]: value };
+      this.searchParams = { ...(this.searchParams), [type]: value };
 
       // Check if the search includes a 'between date' parameter
       this.checkBetweenDateParam();
@@ -97,6 +123,15 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
    */
   public confirmDeleteEntries(): void {
     this.deleteConfirmed.emit();
+  }
+
+  /**
+   * Initiates the process for resetting a search.
+   */
+  public confirmResetSearch(): void {
+    this.searchType?.reset();
+    this.searchInput?.reset();
+    this.resetSearchSubmitted.emit();
   }
 
   /**
@@ -154,4 +189,7 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
   protected override getRouter(): Router {
     return ANY_EMPTY;
   }
+
+  protected readonly faTrash: IconDefinition = faTrash;
+  protected readonly faSearch: IconDefinition = faSearch;
 }

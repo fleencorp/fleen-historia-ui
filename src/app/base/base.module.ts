@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FleenComgroupComponent, FooterComponent, HeaderComponent, NavBarComponent} from "./component";
+import {FleenComgroupComponent, NavBarComponent} from "./component";
 import {AuthTokenService, LocalStorageService, LoggerService, SessionStorageService} from "./service";
 import {AuthGuardService} from "./guard";
 import {ValidIfTruthyPipe} from "./pipe";
@@ -14,8 +14,6 @@ import {SafeUrlPipe} from '@app/base/pipe';
     ValidIfTruthyPipe,
     UnlessDirective,
     SafeUrlPipe,
-    HeaderComponent,
-    FooterComponent,
     NavBarComponent
   ],
   providers: [
@@ -29,8 +27,6 @@ import {SafeUrlPipe} from '@app/base/pipe';
     ValidIfTruthyPipe,
     SafeUrlPipe,
     UnlessDirective,
-    HeaderComponent,
-    FooterComponent,
     NavBarComponent
   ],
   imports: [

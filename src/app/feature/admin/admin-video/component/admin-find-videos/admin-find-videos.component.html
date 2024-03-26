@@ -1,7 +1,21 @@
-<app-search-form-delete-menu [is-submitting]="isSubmitting" [search-filter]="searchFilter" (searchSubmitted)="search($event)" (deleteConfirmed)="confirmDeleteEntries()"></app-search-form-delete-menu>
+
+<div id="status-btn-wrapper">
+  <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.IN_REVIEW}" (click)="setVideoStatusSearchParam(VideoStatus.IN_REVIEW)">Pending</button>
+  <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.DISAPPROVED}" (click)="setVideoStatusSearchParam(VideoStatus.DISAPPROVED)">Declined</button>
+  <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.APPROVED}" (click)="setVideoStatusSearchParam(VideoStatus.APPROVED)">Approved</button>
+</div>
+
+<app-search-form-delete-menu [search-params]="searchParams"
+                             [is-submitting]="isSubmitting"
+                             [search-filter]="searchFilter"
+                             (searchSubmitted)="search($event)"
+                             (deleteConfirmed)="confirmDeleteEntries()"
+                             (resetSearchSubmitted)="resetSearch()"></app-search-form-delete-menu>
+
 <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
-<p>The current page is {{currentPage}}</p>
+<app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"
+                (toNextPage)="nextPage()" (toPreviousPage)="previousPage()"></app-pagination>
 
 <div *ngIf="entries.length > 0">
   <table id="entries" class="entries">
@@ -9,12 +23,12 @@
     <div class="clear"></div>
 
     <colgroup>
-      <col />
-      <col />
-      <col />
-      <col />
-      <col />
-      <col />
+      <col style="width: 5%">
+      <col style="width: 30%">
+      <col style="width: 17%">
+      <col style="width: 13%">
+      <col style="width: 15%">
+      <col style="width: 20%">
     </colgroup>
 
     <thead>
@@ -29,8 +43,8 @@
     </thead>
     <tbody>
     <tr *ngFor="let video of entries; let i = index; trackBy: trackByFn">
-      <td>{{ addOneToIndex(i) }}</td>
-      <td>{{ video.videoTitle }}</td>
+      <td class="center">{{ addOneToIndex(i) }}</td>
+      <td>{{video.videoTitle}}</td>
       <td>{{ video.channel.title }}</td>
       <td class="center">{{ video.videoStatus }}</td>
       <td class="center">{{ video.updatedOn | date:'mediumDate' }}</td>
@@ -45,6 +59,7 @@
                             (checkedChanged)="handleChecked(video.videoId, $event)"></app-row-entry-option>
     </tr>
     </tbody>
+
   </table>
 
   <app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"

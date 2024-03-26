@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {faPencil, faArrowRight, faArrowLeft, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-pagination',
@@ -21,4 +22,6 @@ export class PaginationComponent {
     this.toPreviousPage.emit();
   }
 
+  protected readonly faArrowRight: IconDefinition = faArrowRight;
+  protected readonly faArrowLeft: IconDefinition = faArrowLeft;
 }
