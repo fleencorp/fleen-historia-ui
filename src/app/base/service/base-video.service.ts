@@ -28,8 +28,13 @@ export abstract class BaseVideoService {
       );
   }
 
-  public findVideo(id: number | string): Observable<FleenVideoResponse> {
+  public findVideo(id: number | string): Observable<FleenVideoView> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'detail', +id]);
+    return this.httpService.getOne(req, FleenVideoView);
+  }
+
+  public findVideoWithRelated(id: number | string): Observable<FleenVideoResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'detail', +id, 'related']);
     return this.httpService.getOne(req, FleenVideoResponse);
   }
 

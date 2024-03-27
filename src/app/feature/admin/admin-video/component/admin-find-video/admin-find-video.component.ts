@@ -28,7 +28,7 @@ export class AdminFindVideoComponent extends BaseDetailComponent<FleenVideoRespo
   }
 
   protected override getServiceEntry(id: number | string): Observable<FleenVideoResponse> {
-    return this.adminVideoService.findVideo(id);
+    return this.adminVideoService.findVideoWithRelated(id);
   }
 
   get fleenVideo(): FleenVideoView {
