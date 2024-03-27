@@ -11,6 +11,7 @@ import {SearchResultView} from "@app/model/view";
 import {FleenVideoView} from "@app/model/view/video";
 import {GetCreateVideoResponse, PublishVideoResponse, RequestForReviewResponse} from "@app/model/response/video";
 import {toSearchResult} from "@app/shared/rxjs";
+import {FleenVideoResponse} from "@app/model/response/video/fleen-video.response";
 
 export abstract class BaseVideoService {
 
@@ -27,9 +28,9 @@ export abstract class BaseVideoService {
       );
   }
 
-  public findVideo(id: number | string): Observable<FleenVideoView> {
+  public findVideo(id: number | string): Observable<FleenVideoResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'detail', +id]);
-    return this.httpService.getOne(req, FleenVideoView);
+    return this.httpService.getOne(req, FleenVideoResponse);
   }
 
   public createVideo(body: CreateVideoPayload): Observable<FleenVideoView> {
