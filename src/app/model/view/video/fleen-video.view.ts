@@ -9,6 +9,7 @@ export class FleenVideoView extends FleenBaseView {
   public readonly videoId: number;
   public readonly videoTitle: string;
   public readonly videoDescription: string;
+  public readonly videoUrl: string;
   public readonly videoTags: string;
   public readonly videoReferenceOrSource: string;
   public readonly objectUrl: string;
@@ -29,6 +30,7 @@ export class FleenVideoView extends FleenBaseView {
     this.videoId = data?.videoId;
     this.videoTitle = data?.videoTitle;
     this.videoDescription = data?.videoDescription;
+    this.videoUrl = data?.videoUrl;
     this.videoTags = data?.videoTags;
     this.videoReferenceOrSource = data?.videoReferenceOrSource;
     this.objectUrl = data?.objectUrl;

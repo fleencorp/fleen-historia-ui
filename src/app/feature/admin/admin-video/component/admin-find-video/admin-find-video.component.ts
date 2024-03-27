@@ -30,7 +30,7 @@ export class AdminFindVideoComponent extends BaseDetailComponent<FleenVideoView>
     return this.adminVideoService.findVideo(id);
   }
 
-  get fleenVideoView(): FleenVideoView {
+  get fleenVideo(): FleenVideoView {
     return this.entryView;
   }
 }

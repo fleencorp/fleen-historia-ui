@@ -13,7 +13,7 @@ const routes: Routes = [
   // { path: 'user-video', loadChildren: () => import('./feature/user-video/user-video.module').then(m => m.UserVideoModule), canActivate: [AuthGuard] },
   // { path: 'contributor', loadChildren: () => import('./feature/contributor/contributor.module').then(m => m.ContributorModule), canActivate: [AuthGuard] },
   // { path: 'admin-youtube', loadChildren: () => import('./feature/admin/admin-youtube/admin-youtube.module').then(m => m.AdminYoutubeModule), canActivate: [AuthGuard] },
-  { path: 'yusuf', loadChildren: () => import('./feature/admin/admin-video/admin-video.module').then(m => m.AdminVideoModule), canActivate: [AuthGuard] },
+  { path: 'admin-video', loadChildren: () => import('./feature/admin/admin-video/admin-video.module').then(m => m.AdminVideoModule), canActivate: [AuthGuard] },
   { path: "**", component: FleenComgroupComponent }
 ];
 

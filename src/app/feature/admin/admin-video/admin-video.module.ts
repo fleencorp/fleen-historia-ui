@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 
 import {AdminVideoRoutingModule} from './admin-video-routing.module';
 import {
@@ -16,6 +16,7 @@ import {
 import {SharedModule} from "@app/shared/shared.module";
 import {UserVideoModule} from "@app/feature/user-video/user-video.module";
 import { VideoItemRowComponent } from './component/video-item-row/video-item-row.component';
+import {BaseModule} from "@app/base/base.module";
 
 
 @NgModule({
@@ -35,7 +36,9 @@ import { VideoItemRowComponent } from './component/video-item-row/video-item-row
     CommonModule,
     SharedModule,
     AdminVideoRoutingModule,
-    UserVideoModule
+    UserVideoModule,
+    BaseModule,
+    NgOptimizedImage
   ]
 })
 export class AdminVideoModule { }
