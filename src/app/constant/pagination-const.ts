@@ -20,3 +20,5 @@ export const DEFAULT_NEXT_PAGE_TOKEN_KEY: string = 'next_page_token';
  */
 export const DEFAULT_PREV_PAGE_TOKEN_KEY: string = 'prev_page_token';
 
+export const VIDEO_STATUS_SEARCH_KEY: string = 'status';
+

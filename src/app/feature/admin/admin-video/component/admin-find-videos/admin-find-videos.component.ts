@@ -10,6 +10,7 @@ import {Observable} from "rxjs";
 import {AdminVideoService} from "@app/feature/admin/admin-video/service";
 import {BaseVideosComponent} from "@app/base/component/video";
 import {VideoStatus} from "@app/model/enum";
+import {VIDEO_STATUS_SEARCH_KEY} from "@app/constant";
 
 @Component({
   selector: 'app-admin-find-videos',
@@ -55,21 +56,21 @@ export class AdminFindVideosComponent extends BaseVideosComponent implements OnI
   }
 
   public setVideoStatusSearchParam(status: VideoStatus): void {
-    const currentStatus: VideoStatus = this.searchParams['status'];
+    const currentStatus: VideoStatus = this.searchParams[VIDEO_STATUS_SEARCH_KEY];
     if (currentStatus === status) {
-      removeProperty(this.searchParams, 'status');
+      removeProperty(this.searchParams, VIDEO_STATUS_SEARCH_KEY);
     } else {
       this.searchParams = { ...(this.searchParams), status };
     }
   }
 
   public override async search(payload: SearchPayload): Promise<void> {
-    payload['status'] = this.currentVideoSearchStatus;
+    payload[VIDEO_STATUS_SEARCH_KEY] = this.currentVideoSearchStatus;
     await super.search(payload);
   }
 
   get currentVideoSearchStatus(): VideoStatus {
-    return this.searchParams['status'];
+    return this.searchParams[VIDEO_STATUS_SEARCH_KEY];
   }
 
 }

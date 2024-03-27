@@ -10,7 +10,12 @@ import {
   SearchFilter,
   SearchPayload
 } from "@app/model/type";
-import {DEFAULT_PAGE_NO_KEY, DEFAULT_PAGE_SIZE} from "@app/constant";
+import {
+  DEFAULT_NEXT_PAGE_TOKEN_KEY,
+  DEFAULT_PAGE_NO_KEY,
+  DEFAULT_PAGE_SIZE,
+  DEFAULT_PREV_PAGE_TOKEN_KEY
+} from "@app/constant";
 import {SearchResultView} from "@app/model/view";
 import {isFalsy, isTruthy} from "@app/shared/helper";
 
@@ -250,9 +255,9 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    */
   private preparePaginationToken(): PaginationToken {
     if (this.paginationAction === 'next') {
-      return { next_page_token: this.nextPageToken };
+      return { [DEFAULT_NEXT_PAGE_TOKEN_KEY] : this.nextPageToken };
     } else if (this.paginationAction === 'previous') {
-      return { prev_page_token: this.prevPageToken };
+      return { [DEFAULT_PREV_PAGE_TOKEN_KEY] : this.prevPageToken };
     } else {
       return {};
     }
