@@ -14,8 +14,12 @@
 
 <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
-<app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"
-                (toNextPage)="nextPage()" (toPreviousPage)="previousPage()"></app-pagination>
+<app-pagination [entries-available]="entries.length > 0"
+                [is-first]="isFirst"
+                [is-last]="isLast"
+                [current-page-number]="currentPage"
+                (toNextPage)="nextPage()"
+                (toPreviousPage)="previousPage()"></app-pagination>
 
 <div *ngIf="entries.length > 0">
   <table id="entries" class="entries">
@@ -62,7 +66,11 @@
 
   </table>
 
-  <app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"
-                  (toNextPage)="nextPage()" (toPreviousPage)="previousPage()"></app-pagination>
+  <app-pagination [entries-available]="entries.length > 0"
+                  [is-first]="isFirst"
+                  [is-last]="isLast"
+                  [current-page-number]="currentPage"
+                  (toNextPage)="nextPage()"
+                  (toPreviousPage)="previousPage()"></app-pagination>
 
 </div>

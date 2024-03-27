@@ -17,6 +17,7 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
 
   public override entries: FleenVideoView[] = [];
   public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_FLEEN_VIDEOS;
+  protected override defaultEntryIdKey: string = 'videoId';
 
   protected constructor(
       protected videosService: BaseVideoService,
@@ -26,12 +27,16 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
     super(router, route, location);
   }
 
-  override findEntries(params: AnyObject): Observable<SearchResultView<FleenVideoView>> {
+  public override findEntries(params: AnyObject): Observable<SearchResultView<FleenVideoView>> {
     return this.videosService.findVideos(params);
   }
 
-  override deleteEntries(payload: DeleteIdsPayload): Observable<any> {
+  public override deleteEntries(payload: DeleteIdsPayload): Observable<any> {
     return ANY_EMPTY;
+  }
+
+  public override trackByFn(index: number, item: FleenVideoView): any {
+    return item.videoId;
   }
 
   public canRequestForReview(video: FleenVideoView): boolean {

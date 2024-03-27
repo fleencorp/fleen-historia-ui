@@ -97,6 +97,13 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   protected formBuilder;
 
   /**
+   * A string representing the default key used to identify entries in the application.
+   * By default, it is set to 'id'.
+   * Developers can override this property to specify a different key if needed.
+   */
+  protected defaultEntryIdKey: string = 'id';
+
+  /**
    * Constructs a new BaseEntriesComponent.
    *
    * @param router The Angular router service.
@@ -335,6 +342,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   public async search(payload: SearchPayload): Promise<void> {
     // Set the search parameters to the provided payload
     this.searchParams = payload;
+    this.currentPage = 1;
 
     // Update the URL with the current page and search parameters
     await this.updateUrlWithPage(this.searchParams);
@@ -402,7 +410,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    */
   private refreshEntries(): void {
     this.entries = this.entries
-      .filter((entry: T) => !this.deleteIds.includes(entry['id']))
+      .filter((entry: T) => !this.deleteIds.includes(entry[this.defaultEntryIdKey]))
   }
 
   /**

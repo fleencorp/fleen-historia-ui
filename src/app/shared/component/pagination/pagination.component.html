@@ -1,4 +1,4 @@
-<div class="navigation-container">
+<div class="navigation-container" *ngIf="entriesAvailable">
   <button class="navigation-button"
           *ngIf="!isFirst"
           [disabled]="isFirst"

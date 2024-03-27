@@ -8,6 +8,7 @@ import {faPencil, faArrowRight, faArrowLeft, IconDefinition} from "@fortawesome/
 })
 export class PaginationComponent {
 
+  @Input('entries-available') public entriesAvailable: boolean | undefined;
   @Input('is-first') public isFirst: boolean | undefined;
   @Input('is-last') public isLast: boolean | undefined;
   @Input('current-page-number') public currentPageNumber: number = 0;
