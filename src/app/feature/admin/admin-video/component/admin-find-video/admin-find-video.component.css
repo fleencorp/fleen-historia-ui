@@ -7,7 +7,7 @@ hr {
   border-bottom: 2px solid #d5d3d3;
 }
 
-div#video-container {
+div.video-object {
   width: 400px;
   height: 400px;
   margin: 10px auto 0;
@@ -16,4 +16,91 @@ div#video-container {
 iframe {
   width: 100%;
   height: 100%;
+}
+
+.video-details {
+  width: 55%;
+  float: left;
+  margin-right: 25px;
+}
+
+.related-videos {
+  width: 35%;
+  float: right;
+}
+
+.related-video {
+  margin-top: 15px;
+}
+
+div.related-videos:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.additional-videos {
+  margin-top: 20px;
+}
+
+.additional-videos .additional-video, .related-video-thumbnail, .additional-video-thumbnail {
+  width: 320px;
+  height: 450px;
+  display: inline-block;
+  margin-right: 50px;
+}
+
+.additional-videos iframe {
+  width: 300px;
+  height: 300px;
+}
+
+.additional-video h4.video-title, .related-video h4.video-title {
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.related-video, .additional-video {
+  border: 3px solid black;
+  padding: 5px;
+}
+
+.related-video p, .additional-video p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 940px) {
+
+  .video-details {
+    width: 100%;
+    float: none;
+    margin: 0;
+  }
+
+  .related-videos {
+    width: 100%;
+    float: none;
+  }
+
+  .related-videos {
+    margin-bottom: 20px;
+  }
+
+  .related-videos .related-video {
+    width: 320px;
+    height: 250px;
+    display: inline-block;
+    margin-right: 50px;
+  }
+
+  .related-videos iframe {
+    width: 300px;
+    height: 300px;
+  }
+
+  #additional-video-header, #related-video-header {
+    display: none;
+  }
 }

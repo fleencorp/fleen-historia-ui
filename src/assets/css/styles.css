@@ -458,6 +458,10 @@ table#entries tr:hover {
   background-color: #f9f9f9;
 }
 
+.clear {
+  clear: both;
+}
+
 
 
 /*

@@ -24,7 +24,11 @@ export class AdminFindVideoComponent extends BaseDetailComponent<FleenVideoRespo
   }
 
   public async ngOnInit(): Promise<void> {
-    await this.initEntry();
+    await this.initEntry(this.gane.bind(this));
+  }
+
+  public gane() {
+    console.log(this.entryView.relatedVideos.length + " is the size of related videos");
   }
 
   protected override getServiceEntry(id: number | string): Observable<FleenVideoResponse> {

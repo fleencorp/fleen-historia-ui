@@ -23,33 +23,67 @@
 </div>
 -->
 
-<div *ngIf="entryView">
-  <h2>{{ fleenVideo.videoTitle }}</h2>
-  <p>{{ fleenVideo.videoDescription }}</p><hr/>
-  <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
-  <p><b>Reference/Source:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>
-  <div *ngIf="fleenVideo.videoUrl" id="video-container">
-    <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
+
+<div class="container">
+  <!-- Video details on the left -->
+  <div class="video-details" *ngIf="entryView">
+    <h2>{{ fleenVideo.videoTitle }}</h2>
+    <p>{{ fleenVideo.videoDescription }}</p><hr/>
+    <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
+    <p><b>Reference/Source:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>
+    <div *ngIf="fleenVideo.videoUrl" class="video-object">
+      <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
+    </div>
+    <img *ngIf="fleenVideo.objectThumbnail" ngSrc="fleenVideo.objectThumbnail" alt="Thumbnail">
+
+    <!-- Assuming videoSource, videoVisibility, videoStatus, isPublished, isForKids, isObjectApproved are enums -->
+    <p><b>Source:</b> {{ fleenVideo.videoSource }}</p><hr/>
+    <p><b>Visibility:</b> {{ fleenVideo.videoVisibility }}</p><hr/>
+    <p><b>Status:</b> {{ fleenVideo.videoStatus }}</p><hr/>
+    <p><b>Published:</b> {{ fleenVideo.isPublished ? 'Yes' : 'No' }}</p><hr/>
+    <p><b>For Kids:</b> {{ fleenVideo.isForKids ? 'Yes' : 'No' }}</p><hr/>
+    <p><b>Approved:</b> {{ fleenVideo.isObjectApproved ? 'Yes' : 'No' }}</p><hr/>
+
+    <!-- Assuming category and channel are objects -->
+    <p><b>Category:</b> {{ fleenVideo.category.title }}</p><hr/>
+    <p><b>Channel:</b> {{ fleenVideo.channel.title }}</p><hr/>
+
+    <!-- Assuming latestReview is an object with properties like reviewer, rating, comment -->
+    <div *ngIf="fleenVideo.latestReview.comment">
+      <h3>Latest Review</h3>
+      <p>Comment: {{ fleenVideo.latestReview.comment }}</p>
+      <p>Author: {{ fleenVideo.latestReview.member.firstName }} {{ fleenVideo.latestReview.member.lastName }}</p>
+      <p>Submitted On: {{ fleenVideo.latestReview.createdOn }}</p>
+    </div>
   </div>
-  <img *ngIf="fleenVideo.objectThumbnail" ngSrc="fleenVideo.objectThumbnail" alt="Thumbnail">
 
-  <!-- Assuming videoSource, videoVisibility, videoStatus, isPublished, isForKids, isObjectApproved are enums -->
-  <p><b>Source:</b> {{ fleenVideo.videoSource }}</p><hr/>
-  <p><b>Visibility:</b> {{ fleenVideo.videoVisibility }}</p><hr/>
-  <p><b>Status:</b> {{ fleenVideo.videoStatus }}</p><hr/>
-  <p><b>Published:</b> {{ fleenVideo.isPublished ? 'Yes' : 'No' }}</p><hr/>
-  <p><b>For Kids:</b> {{ fleenVideo.isForKids ? 'Yes' : 'No' }}</p><hr/>
-  <p><b>Approved:</b> {{ fleenVideo.isObjectApproved ? 'Yes' : 'No' }}</p><hr/>
+  <!-- Related videos on the right -->
+  <div *ngIf="entryView && entryView.relatedVideos.length > 0" class="related-videos">
+    <!-- Display four related videos -->
+    <div *ngFor="let fleenVideo of entryView.relatedVideos.slice(0, 2)" class="related-video">
+<!--      <div *ngIf="fleenVideo.videoUrl" class="video-object">
+        <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
+      </div>-->
+      <a [routerLink]="['..', fleenVideo.videoId]"><img class="related-video-thumbnail" *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail" alt="Thumbnail" width="300" height="300"></a>
+      <h4 class="video-title"><a [routerLink]="['..', fleenVideo.videoId]">{{ fleenVideo.videoTitle }}</a></h4>
+      <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
+      <p><b>Credit:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>
+      <p><b>Channel:</b> {{ fleenVideo.channel.title }}</p><hr/>
+    </div>
+  </div>
+  <div class="clear"></div>
 
-  <!-- Assuming category and channel are objects -->
-  <p><b>Category:</b> {{ fleenVideo.category.title }}</p><hr/>
-  <p><b>Channel:</b> {{ fleenVideo.channel.title }}</p><hr/>
-
-  <!-- Assuming latestReview is an object with properties like reviewer, rating, comment -->
-  <div *ngIf="fleenVideo.latestReview.comment">
-    <h3>Latest Review</h3>
-    <p>Comment: {{ fleenVideo.latestReview.comment }}</p>
-    <p>Author: {{ fleenVideo.latestReview.member.firstName }} {{ fleenVideo.latestReview.member.lastName }}</p>
-    <p>Submitted On: {{ fleenVideo.latestReview.createdOn }}</p>
+  <!-- Optionally, additional four videos underneath -->
+  <div *ngIf="entryView && entryView.relatedVideos.length > 4" class="additional-videos">
+    <div *ngFor="let fleenVideo of entryView.relatedVideos.slice(2, 6)" class="additional-video">
+<!--      <div *ngIf="fleenVideo.videoUrl" class="video-object">
+        <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
+      </div>-->
+      <a [routerLink]="['..', fleenVideo.videoId]"><img class="additional-video-thumbnail" *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail" alt="Thumbnail" width="300" height="300"></a>
+      <h4 class="video-title"><a [routerLink]="['..', fleenVideo.videoId]">{{ fleenVideo.videoTitle }}</a></h4>
+      <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
+      <p><b>Credit:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>
+      <p><b>Channel:</b> {{ fleenVideo.channel.title }}</p><hr/>
+    </div>
   </div>
 </div>
