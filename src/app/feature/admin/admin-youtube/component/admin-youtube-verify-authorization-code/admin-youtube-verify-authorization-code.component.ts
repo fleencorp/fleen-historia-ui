@@ -39,6 +39,7 @@ export class AdminYoutubeVerifyAuthorizationCodeComponent extends BaseFormImplCo
   public handleCompletedVerificationOfCode(): void {
     this.formCompleted();
     this.authorizationCodeCtrl.patchValue('');
+    this.authorizationCodeCtrl.reset();
   }
 
   private isAuthorizationCodeValid(): boolean {

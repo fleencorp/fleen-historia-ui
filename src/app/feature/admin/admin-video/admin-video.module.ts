@@ -17,6 +17,7 @@ import {SharedModule} from "@app/shared/shared.module";
 import {UserVideoModule} from "@app/feature/user-video/user-video.module";
 import { VideoItemRowComponent } from './component/video-item-row/video-item-row.component';
 import {BaseModule} from "@app/base/base.module";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {BaseModule} from "@app/base/base.module";
     AdminVideoRoutingModule,
     UserVideoModule,
     BaseModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    FontAwesomeModule
   ]
 })
 export class AdminVideoModule { }

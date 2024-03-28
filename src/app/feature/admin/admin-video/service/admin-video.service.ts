@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClientService} from "@app/shared/service/impl";
-import {BaseRequest, DeleteIdsPayload} from "@app/model/type";
+import {BaseRequest, DeleteIdsPayload, UpdateVideoPayload, UpdateVideoVisibilityPayload} from "@app/model/type";
 import {Observable} from "rxjs";
 import {CountAllResponse, DeleteResponse} from "@app/model/response/common";
 import {BaseVideoService} from "@app/base/service";
+import {FleenVideoView} from "@app/model/view/video";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,11 @@ export class AdminVideoService extends BaseVideoService {
   constructor(
       httpService: HttpClientService) {
     super(httpService);
+  }
+
+  public updateVideoVisibility(id: number | string, body: UpdateVideoVisibilityPayload): Observable<FleenVideoView> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'update', 'visibility', +id], null, { ...body });
+    return this.httpService.update(req, FleenVideoView);
   }
 
   public deleteVideo(id: number | string): Observable<DeleteResponse> {

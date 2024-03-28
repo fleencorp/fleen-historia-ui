@@ -462,7 +462,80 @@ table#entries tr:hover {
   clear: both;
 }
 
+.fleft {
+  float: left;
+}
 
+.fright {
+  float: right;
+}
+
+label, p {
+  font-size: 15px;
+}
+
+label, b {
+  font-family: 'Roboto Bold';
+}
+
+label, input, select {
+  display: block;
+}
+
+form {
+  padding: 10px;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
+button {
+  width: 210px;
+  height: 37px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background-color: #0986e1;
+  border-radius: 8px;
+  border-bottom: 3px solid #5dcdfc;
+  margin: 10px;
+}
+
+#clipboard-icon:hover, #clipboard-icon:active {
+  cursor: pointer;
+}
+
+input, textarea, select {
+  padding: 10px;
+  display: block;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  resize: vertical;
+  width: 100%;
+}
+
+.form-group:after, button:after, div:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+@media screen and (max-width: 600px) {
+
+  button {
+    width: 100% !important;
+    height: 45px;
+    display: block;
+    float: none !important;
+    clear: both !important;
+  }
+
+}
 
 /*
 * {

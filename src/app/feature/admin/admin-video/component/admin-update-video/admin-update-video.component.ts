@@ -1,8 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseUpdateVideoComponent} from "@app/base/component/video";
-import {FormBuilder} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AdminVideoService} from "@app/feature/admin/admin-video/service";
+import {enumValid, required} from "@app/shared/validator";
+import {VideoVisibility} from "@app/model/enum";
+import {isFalsy} from "@app/shared/helper";
+import {ErrorResponse} from "@app/model/response";
+import {faArrowRight, faInfo, faVideo, faCircleInfo, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-admin-update-video',
@@ -11,8 +16,11 @@ import {AdminVideoService} from "@app/feature/admin/admin-video/service";
 })
 export class AdminUpdateVideoComponent extends BaseUpdateVideoComponent implements OnInit {
 
+  protected readonly faInfo: IconDefinition = faCircleInfo;
+  protected readonly faVideo: IconDefinition = faVideo;
+
   public constructor(
-      adminVideoService: AdminVideoService,
+      protected adminVideoService: AdminVideoService,
       formBuilder: FormBuilder,
       router: Router,
       route: ActivatedRoute) {
@@ -23,4 +31,32 @@ export class AdminUpdateVideoComponent extends BaseUpdateVideoComponent implemen
     await this.initEntry(this.start.bind(this));
   }
 
+  public override start(): void {
+    super.start();
+    this.fleenForm = this.formBuilder.group({
+      visibility: new FormControl(this.entryView.videoVisibility, [required, enumValid(VideoVisibility)])
+    });
+    this.formReady();
+  }
+
+  public updateVisibility(): void {
+    if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
+      this.disableSubmittingAndResetErrorMessage();
+
+      this.adminVideoService.updateVideoVisibility(this.entryId, this.fleenForm.value)
+        .subscribe({
+          next: (): void => { this.formCompleted(); },
+          error: (error: ErrorResponse): void => { this.handleError(error); },
+          complete: async (): Promise<void> => { this.enableSubmitting(); }
+      });
+    }
+  }
+
+  get visibility(): AbstractControl | null | undefined {
+    return this.fleenForm?.get('visibility');
+  }
+
+  get updateVideoVisibilityForm(): FormGroup {
+    return this.fleenForm;
+  }
 }

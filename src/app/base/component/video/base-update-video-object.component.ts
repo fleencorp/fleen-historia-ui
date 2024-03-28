@@ -3,7 +3,6 @@ import {FileConstraints, UpdateVideoObjectPayload} from "@app/model/type";
 import {ANY_EMPTY, DEFAULT_IMAGE_CONSTRAINT, DEFAULT_VIDEO_CONSTRAINT} from "@app/constant";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {required} from "@app/shared/validator";
-import {Input, ViewChild} from "@angular/core";
 import {UploadFileComponent} from "@app/shared/component";
 import {ObjectService, SignedUrlService} from "@app/shared/service/impl";
 import {Router} from "@angular/router";

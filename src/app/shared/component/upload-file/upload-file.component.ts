@@ -431,7 +431,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
    *
    * @returns boolean - Returns true if the file is ready for download or viewing; otherwise, false.
    */
-  public readyForDownload(): boolean {
+  get readyForDownload(): boolean {
     // Set the upload completed flag to true if a file name or URL exists
     if (this.fileNameOrUrl) {
       this.uploadCompleted = true;
@@ -442,6 +442,10 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
 
   protected resetCancelRequest(): void {
     this.cancelRequest$ = null;
+  }
+
+  public openFileDialog(): void {
+    this.inputElement.nativeElement.click();
   }
 
 }

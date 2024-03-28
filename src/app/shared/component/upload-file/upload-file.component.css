@@ -1,0 +1,15 @@
+.upload-message {
+  margin-top: 5px;
+  padding-left: 10px;
+}
+
+.file-chooser {
+  width: 80%;
+}
+
+@media screen and (max-width: 600px) {
+
+  file-choose {
+    width: 100%;
+  }
+}

@@ -23,3 +23,6 @@ export type SubmitVideoReviewPayload = {
   comment: string;
 }
 
+export type UpdateVideoVisibilityPayload = {
+  visibility: VideoVisibility;
+}

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserVideoService} from "@app/feature/user-video/service";
 import {FormBuilder} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -14,6 +14,9 @@ export class UpdateVideoInfoComponent extends BaseUpdateVideoInfoComponent imple
   @Input('video-id')
   public override videoId!: number | string;
 
+  @Output()
+  public finishedLoading: EventEmitter<any> = new EventEmitter<any>();
+
   public constructor(
       userVideoService: UserVideoService,
       formBuilder: FormBuilder,
@@ -21,10 +24,11 @@ export class UpdateVideoInfoComponent extends BaseUpdateVideoInfoComponent imple
       route: ActivatedRoute) {
     super(userVideoService, formBuilder, router, route);
   }
-  
+
   public async ngOnInit(): Promise<void> {
     await this.initAndGetEntry(this.videoId);
     this.getDataForCreateVideo();
+    this.finishedLoading.emit();
   }
 
 }
