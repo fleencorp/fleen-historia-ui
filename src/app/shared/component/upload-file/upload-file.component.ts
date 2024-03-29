@@ -50,6 +50,11 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
   private uploadCompleted: boolean = false;
 
   /**
+   * @description Flag indicating whether the upload operation has started.
+   */
+  public uploadStarted: boolean = false;
+
+  /**
    * @input control - The form control for file upload.
    * @required true
    * @description The form control bound to the file upload component.
@@ -190,6 +195,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
       // Validate the file against the provided control and constraints
       if (this.fileService.validationPassed(file, control, constraints)) {
         // Generate a signed URL and upload the file
+        this.uploadMessage = 'Uploading.....';
         this.generateSignedUrlAndUploadFile(file.name, files as any, input);
       }
     }
@@ -208,6 +214,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
   private generateSignedUrlAndUploadFile(fileName: string, files: FileList, input: HTMLInputElement): void {
     // Prepare the request for exchanging file information
     const req: ExchangeRequest = this.fileService.toFileUploadRequest(files, this.fileNameOrUrl as string);
+    this.uploadStarted = true;
 
     // Generate a signed URL for uploading the file
     this.cancelRequest$ = this.generateSignedUrl$(fileName)
@@ -259,6 +266,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
       [(this.fileKey)]: this.fileNameOrUrl
     });
     this.resetCancelRequest();
+    this.uploadStarted = false;
   }
 
   /**
@@ -440,12 +448,50 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
     return this.canDownloadOrView && this.uploadCompleted;
   }
 
+  /**
+   * Resets the cancel request observable to null.
+   * This method is typically used to reset the cancel request state after the cancellation has been processed.
+   */
   protected resetCancelRequest(): void {
     this.cancelRequest$ = null;
   }
 
+  /**
+   * Opens the file dialog by programmatically clicking on the input element.
+   * This method is typically used to trigger the file selection dialog when a user interacts with a custom file input UI.
+   */
   public openFileDialog(): void {
+    // Programmatically trigger a click event on the input element
     this.inputElement.nativeElement.click();
   }
+
+
+  /**
+   * Checks if a file is available in the specified HTMLInputElement and returns a truncated version of its name.
+   * If no file is available, returns an empty string.
+   *
+   * @param input The HTMLInputElement representing the file input field.
+   * @returns A string containing the truncated file name, or an empty string if no file is available.
+   */
+  public isFilesAvailable(input: HTMLInputElement): string {
+    // Check if the input element is truthy, non-null, and has files selected
+    if (isTruthy(input) && nonNull(input) && input.files && input.files.length > 0) {
+      // Extract the file name from the selected file
+      const fileName: string = input.files[0].name;
+
+      // Extract the file name without the extension
+      const fileNameWithoutExtension: string = fileName.split('.')[0];
+
+      // Truncate the file name to the first ten characters followed by three dots if necessary
+      return fileNameWithoutExtension.length > 10 ?
+        fileNameWithoutExtension.substring(0, 16) + '...' :
+        fileNameWithoutExtension;
+    } else {
+      // Return an empty string if no file is available
+      return '';
+    }
+  }
+
+
 
 }

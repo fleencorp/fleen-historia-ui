@@ -8,6 +8,7 @@
 <app-search-form-delete-menu [search-params]="searchParams"
                              [is-submitting]="isSubmitting"
                              [search-filter]="searchFilter"
+                             [is-deleting]="isDeleting"
                              (searchSubmitted)="search($event)"
                              (deleteConfirmed)="confirmDeleteEntries()"
                              (resetSearchSubmitted)="resetSearch()"></app-search-form-delete-menu>
@@ -56,6 +57,8 @@
                             [can-check]="true"
                             [can-delete]="true"
                             [can-update]="true"
+                            [is-deleting]="isDeletingEntry"
+                            [delete-id]="deletedId"
 
                             (detailClicked)="viewDetail(video.videoId)"
                             (updateClicked)="updateEntry(video.videoId)"

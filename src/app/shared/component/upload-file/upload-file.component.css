@@ -1,10 +1,17 @@
 .upload-message {
   margin-top: 5px;
-  padding-left: 10px;
+}
+
+.upload-message p {
+  font-size: 11px;
+  font-weight: bold;
+  padding-left: 13px;
 }
 
 .file-chooser {
   width: 80%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 600px) {

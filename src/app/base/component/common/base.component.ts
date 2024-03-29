@@ -1,8 +1,9 @@
 import {ErrorResponse} from "@app/model/response";
-import {COPIED_MESSAGE, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
+import {ANY_EMPTY, COPIED_MESSAGE, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
 import {NavigationExtras, Router} from "@angular/router";
 import {BASE_PATH} from "@app/constant/config.const";
 import {isTruthy, nonNull} from "@app/shared/helper";
+import {ChangeDetectorRef} from "@angular/core";
 
 /**
  * BaseComponent serves as a base class for Angular components,
@@ -38,6 +39,11 @@ export abstract class BaseComponent {
 
   /** Abstract method to get the Router instance, to be implemented by child classes. */
   protected abstract getRouter(): Router;
+
+  /** Abstract method to get the Change Detector instance, to be implemented by child classes. */
+  protected getChangeDetector(): ChangeDetectorRef {
+    return ANY_EMPTY;
+  }
 
   /**
    * Navigates to the home route.
@@ -159,9 +165,29 @@ export abstract class BaseComponent {
     if (cb) { cb(); }
   }
 
+  /**
+   * Invokes the provided callback function if it exists.
+   * @param cb The callback function to invoke.
+   * @param withDelay the time in seconds before the call back is invoked
+   */
+  protected invokeCallbackWithDelay(cb?: Function, withDelay: number = 3000): void {
+    setTimeout((): void => {
+      if (cb) { cb(); }
+    }, withDelay);
+  }
+
+  /**
+   * Protected method responsible for navigating to a specified route with optional query parameters and navigation extras.
+   *
+   * @param pathVars An array of path segments constituting the route to navigate to.
+   * @param queryParams Optional query parameters to include in the navigation.
+   * @param extras Optional navigation extras such as navigation behavior, query parameters handling, etc.
+   */
   protected navigateTo(pathVars: string[], queryParams?: any, extras?: NavigationExtras): void {
-    this.getRouter().navigate(pathVars, {queryParams, ...extras})
+    // Navigate to the specified route using Angular Router
+    this.getRouter().navigate(pathVars, { queryParams, ...extras })
       .then((r: boolean): boolean => r);
   }
+
 
 }

@@ -12,4 +12,12 @@
 
 </form>
 
-<button id="search-menu-del-btn" class="btn-red" [disabled]="isSubmitting" (click)="confirmDeleteEntries()">Delete <fa-icon [icon]="faTrash"></fa-icon></button>
+<button
+  id="search-menu-del-btn"
+  class="btn-red"
+
+  [disabled]="isSubmitting"
+  (click)="confirmDeleteEntries()"> Delete
+  <fa-icon *ngIf="!isDeleting" [icon]="faTrash"></fa-icon>
+  <fa-icon *ngIf="isDeleting" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+</button>

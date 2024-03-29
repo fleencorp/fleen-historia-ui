@@ -1,5 +1,5 @@
 import {ActivatedRoute, Navigation, Params, Router} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {BaseFormComponent} from "@app/base/component";
 import {Location} from "@angular/common";
 import {
@@ -18,6 +18,9 @@ import {
 } from "@app/constant";
 import {SearchResultView} from "@app/model/view";
 import {isFalsy, isTruthy} from "@app/shared/helper";
+import {DeleteStatusEnum} from "@app/model/enum/base.enum";
+import {DeleteResponse} from "@app/model/response/common";
+import {ErrorResponse} from "@app/model/response";
 
 /**
  * Base abstract class for components dealing with paginated entries.
@@ -97,6 +100,15 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   protected searchFilter: SearchFilter[] = [];
 
   /**
+   * A key indicating the status of deleting entries
+   */
+  public isDeleting: boolean = false;
+
+  public isDeletingEntry: DeleteStatusEnum = DeleteStatusEnum.NOT_STARTED;
+
+  public deletedId: string | number = 0;
+
+  /**
    * The form builder instance.
    */
   protected formBuilder;
@@ -135,6 +147,84 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    * @returns An observable emitting the result of the deletion operation.
    */
   abstract deleteEntries(payload: DeleteIdsPayload): Observable<any>;
+
+
+  /**
+   * Protected method responsible for initiating the deletion of an entry.
+   * Checks if the submission is not in progress and the form is valid before proceeding with the deletion process.
+   * If conditions are met, it disables submission, resets error messages, initializes the entry deletion process, and calls the deleteEntryMethod.
+   * Upon completion of the deletion process, it handles success or error responses and re-enables submission.
+   *
+   * @param id The ID of the entry to be deleted.
+   */
+  protected deleteEntry(id: number | string): void {
+    // Check if submission is not in progress and the form is valid
+    if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
+      // Disable submission and reset error messages
+      this.disableSubmittingAndResetErrorMessage();
+
+      // Initialize entry deletion process
+      this.initEntryDeleteProcess(id);
+
+      // Call deleteEntryMethod to delete the entry
+      this.deleteEntryMethod(id)
+        .subscribe({
+          next: (result: DeleteResponse): void => { this.handleSuccessfulEntryDeletion(result.message) },
+          error: (error: ErrorResponse): void => { this.handleError(error); },
+          complete: async (): Promise<void> => { this.handleDeletedEntry(); }
+      });
+    }
+  }
+
+  /**
+   * Handles the deletion of an entry.
+   * This method typically enables the submitting state for the deletion process.
+   */
+  public handleDeletedEntry(): void {
+    this.enableSubmitting();
+  }
+
+  /**
+   * Handles the successful deletion of an entry.
+   * Sets the deletion status to 'COMPLETED', sets a status message, and invokes a callback function after a delay.
+   *
+   * @param message A string containing the success message.
+   */
+  public handleSuccessfulEntryDeletion(message: string): void {
+    this.isDeletingEntry = DeleteStatusEnum.COMPLETED;
+    this.setStatusMessage(message);
+    this.invokeCallbackWithDelay(this.refreshDeletedEntry.bind(this));
+  }
+
+  /**
+   * Refreshes the entries after a successful deletion by calling 'refreshEntriesByDeletedId()' and resetting the 'deletedId' property.
+   */
+  public refreshDeletedEntry(): void {
+    this.refreshEntriesByDeletedId();
+    this.deletedId = 0;
+  }
+
+  /**
+   * Initiates the entry deletion process by setting the deletion status to 'IN_PROGRESS' and setting the 'deletedId'.
+   *
+   * @param id The ID of the entry to be deleted.
+   */
+  public initEntryDeleteProcess(id: number | string): void {
+    this.isDeletingEntry = DeleteStatusEnum.IN_PROGRESS;
+    this.deletedId = id;
+  }
+
+  /**
+   * Method responsible for deleting an entry.
+   * This method returns an Observable that emits a DeleteResponse object.
+   *
+   * @param id The ID of the entry to be deleted.
+   * @returns An Observable emitting a DeleteResponse object.
+   */
+  protected deleteEntryMethod(id: number | string): Observable<DeleteResponse> {
+    // Placeholder implementation, should be overridden in child components or services
+    return of(new DeleteResponse({} as DeleteResponse));
+  }
 
   /**
    * Returns the router instance.
@@ -367,6 +457,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
     if (this.deleteIds.length > 0 && isFalsy(this.isSubmitting)) {
       // Disable form submission and reset error message
       this.disableSubmittingAndResetErrorMessage();
+      this.isDeleting = true;
 
       // Prepare payload with IDs of entries to delete
       const payload: DeleteIdsPayload = { ids: this.deleteIds };
@@ -383,8 +474,9 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
             this.enableSubmitting();
             this.refreshEntries();
             this.resetDeleteIds();
+            this.completeDeletingEntries();
           }
-        });
+      });
     }
   }
 
@@ -415,7 +507,12 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    */
   private refreshEntries(): void {
     this.entries = this.entries
-      .filter((entry: T) => !this.deleteIds.includes(entry[this.defaultEntryIdKey]))
+      .filter((entry: T) => !this.deleteIds.includes(entry[this.defaultEntryIdKey]));
+  }
+
+  protected refreshEntriesByDeletedId(): void {
+    this.entries = this.entries
+      .filter((entry: T): boolean => entry[this.defaultEntryIdKey] !== this.deletedId);
   }
 
   /**
@@ -464,6 +561,14 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    */
   protected resetDeleteIds(): void {
     this.deleteIds = [];
+  }
+
+  /**
+   * Indicate that deleting of entries has completed
+   * @protected
+   */
+  protected completeDeletingEntries(): void {
+    this.isDeleting = false;
   }
 
   /**

@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 import {MfaRoutingModule} from './mfa-routing.module';
 import {MfaBaseComponent, MfaDashboardComponent, MfaSetupComponent, MfaStatusComponent} from './component';
 import {MfaService} from "./service/mfa.service";
-import {AuthenticationModule} from "../authentication/authentication.module";
+import {AuthenticationModule} from "@app/feature";
 import {SharedModule} from "@app/shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
 

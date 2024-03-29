@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {CountAllResponse, DeleteResponse} from "@app/model/response/common";
 import {BaseVideoService} from "@app/base/service";
 import {FleenVideoView} from "@app/model/view/video";
+import {GetCreateVideoResponse} from "@app/model/response/video";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,11 @@ export class AdminVideoService extends BaseVideoService {
   constructor(
       httpService: HttpClientService) {
     super(httpService);
+  }
+
+  public override getDataForCreateVideo(): Observable<GetCreateVideoResponse> {
+    const req: BaseRequest = this.httpService.toRequest(['user', 'video', 'get-create-video']);
+    return this.httpService.get(req, GetCreateVideoResponse);
   }
 
   public updateVideoVisibility(id: number | string, body: UpdateVideoVisibilityPayload): Observable<FleenVideoView> {

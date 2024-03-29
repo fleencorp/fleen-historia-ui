@@ -342,7 +342,7 @@ export abstract class BaseFormComponent extends BaseComponent {
    * // Navigate to 'entries' route and remove 3 segments from the current URL
    * await this.goToEntries('Custom error message', 3);
    */
-  protected async goToEntries(errorMessage: string | null = '', urlSegmentToRemove: number = 2): Promise<void> {
+  protected async goToEntries(errorMessage: string | null = '', urlSegmentToRemove: number = 1): Promise<void> {
     // Split the current URL into segments
     const currentUrlSegments = this.getRouter().url.split('/');
 

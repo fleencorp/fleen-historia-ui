@@ -1,7 +1,15 @@
 <td class="tr-changes-menu">
-  <button class="btn-navy" (click)="viewDetail()">View <fa-icon [icon]="faEye"></fa-icon></button>
-  <button class="btn-aqua" *ngIf="canUpdate" (click)="updateEntry()">Update <fa-icon [icon]="faPencil"></fa-icon></button>
-  <button class="btn-red" *ngIf="canDelete" (click)="deleteEntry()">Delete <fa-icon [icon]="faTrash"></fa-icon></button>
+  <button class="btn-navy" (click)="viewDetail()">View
+    <fa-icon [icon]="faEye"></fa-icon></button>
+
+  <button class="btn-aqua" *ngIf="canUpdate" (click)="updateEntry()">Update
+    <fa-icon [icon]="faPencil"></fa-icon></button>
+
+  <button class="btn-red" *ngIf="canDelete" (click)="deleteEntry()">Delete
+    <fa-icon *ngIf="isDeleting === DeleteStatusEnum.NOT_STARTED" [icon]="faTrash"></fa-icon>
+    <fa-icon *ngIf="isDeleting === DeleteStatusEnum.IN_PROGRESS && deleteId === entryId" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+    <fa-icon *ngIf="isDeleting === DeleteStatusEnum.COMPLETED && deleteId === entryId" [icon]="faCheck"></fa-icon>
+  </button>
 
   <label *ngIf="canCheck" class="custom-checkbox-container" [class.checked]="checked.checked">
     <input type="checkbox" (change)="handleChecked(checked.checked)" #checked>

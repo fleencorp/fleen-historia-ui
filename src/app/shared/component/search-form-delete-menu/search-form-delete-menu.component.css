@@ -6,7 +6,7 @@ select, input, button {
   margin-right: 8px;
 }
 
-.search-menu input {
+.search-menu input, .search-menu select {
   width: 300px;
 }
 
@@ -26,4 +26,5 @@ button {
 
 #search-menu-del-btn {
   margin-top: 10px;
+  border-radius: 10px;
 }

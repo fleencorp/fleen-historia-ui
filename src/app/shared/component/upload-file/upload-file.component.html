@@ -9,20 +9,28 @@
            (input)="upload(elem, control, fileConstraints)" #elem/>
 
     <label [for]="fileId" style="cursor: pointer;">
-      <button type="button" class="file-chooser" (click)="openFileDialog()">Choose File</button>
+      <button type="button"
+              class="file-chooser"
+              (click)="openFileDialog()">
+        {{ isFilesAvailable(elem) ? isFilesAvailable(elem) : 'Choose File' }}</button>
     </label>
+
     <div class="upload-message" *ngIf="uploadMessage">
       <p>{{ uploadMessage }}</p>
     </div>
+
     <app-validation-error
       [control]="control"
       [control-label]="controlLabel"
-      [control-options]="fileConstraints"></app-validation-error>
+      [control-options]="fileConstraints">
+    </app-validation-error>
 
     <div>
-      <button type="button"
-              *ngIf="fileNameOrUrl"
-              (click)="deleteFile(elem)">Delete</button>
+      <ng-container *ngIf="!uploadStarted">
+        <button type="button"
+                *ngIf="fileNameOrUrl"
+                (click)="deleteFile(elem)">Delete</button>
+      </ng-container>
       <button type="button"
               *ngIf="cancelRequest$"
               (click)="cancelUpload(elem)">Cancel</button>

@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {enumTypeValidator, typeValidator} from "@app/shared/validator";
-import {createBetweenDateObj, getPropsValueAsArray, isFalsy, propExists} from "../../helper";
+import {createBetweenDateObj, getPropsValueAsArray, isFalsy, propExists} from "@app/shared/helper";
 import {BaseFormComponent} from "@app/base/component";
 import {Router} from "@angular/router";
 import {AnyObject, SearchFilter, SearchParamPayload, SearchPayload} from "@app/model/type";
 import {BETWEEN_DATE_SEARCH_KEY} from "@app/constant/search.const";
 import {ANY_EMPTY} from "@app/constant";
-import {faTrash, faSearch, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faSearch, faSpinner, faTrash, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Component for displaying a search form with delete menu functionality.
@@ -45,6 +45,9 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
   /** Event emitter for resetting a search. */
   @Output()
   public resetSearchSubmitted: EventEmitter<boolean> = new EventEmitter();
+
+  @Input('is-deleting')
+  public isDeleting: boolean | undefined;
 
   /**
    * Constructor of the component.
@@ -192,4 +195,5 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
 
   protected readonly faTrash: IconDefinition = faTrash;
   protected readonly faSearch: IconDefinition = faSearch;
+  protected readonly faSpinner = faSpinner;
 }

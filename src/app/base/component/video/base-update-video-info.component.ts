@@ -64,7 +64,7 @@ export abstract class BaseUpdateVideoInfoComponent extends BaseUpdateComponent<F
 
       visibility: [this.fleenVideo?.videoVisibility, [required, enumValid(VideoVisibility)]],
 
-      channelId: [this.fleenVideo?.channel.channelId, [required,]],
+      channelId: [this.fleenVideo?.channel.channelId, [required]],
 
       categoryId: [this.fleenVideo?.category.categoryId, [required]],
 

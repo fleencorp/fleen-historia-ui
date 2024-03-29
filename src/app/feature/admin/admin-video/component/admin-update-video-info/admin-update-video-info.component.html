@@ -49,6 +49,7 @@
   <div class="form-group">
     <label for="categoryId">Category</label>
     <select formControlName="categoryId" id="categoryId">
+      <option value=""></option>
       <option *ngFor="let category of categories" [value]="category.categoryId">{{ category.title }}</option>
     </select>
     <app-validation-error [control]="categoryId" [control-label]="'Category'"></app-validation-error>
@@ -56,13 +57,19 @@
 
   <div class="form-group">
     <label for="channelId">Channel</label>
+    <option value=""></option>
     <select formControlName="channelId" id="channelId">
       <option *ngFor="let channel of channels" [value]="channel.channelId">{{ channel.title }}</option>
     </select>
     <app-validation-error [control]="channelId" [control-label]="'Channel'"></app-validation-error>
   </div>
 
-  <button type="submit" [disabled]="isSubmitting">Submit</button>
+  <div class="form-group">
+    <button type="submit" class="fright" *ngIf="!isFormCompleted" [disabled]="isSubmitting">Submit
+      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
+    </button>
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+  </div>
 
 </form>
 

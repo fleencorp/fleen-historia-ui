@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 
-import {isFalsy, removeProperty} from "@app/shared/helper";
-import {ErrorResponse} from "@app/model/response";
+import {removeProperty} from "@app/shared/helper";
 import {DeleteResponse} from "@app/model/response/common";
 import {DeleteIdsPayload, SearchPayload} from "@app/model/type";
 import {Observable} from "rxjs";
@@ -34,17 +33,8 @@ export class AdminFindVideosComponent extends BaseVideosComponent implements OnI
     this.startComponent(this.setDefaultVideoSearchStatus.bind(this));
   }
 
-  public deleteEntry(id: number | string): void {
-    if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
-      this.disableSubmittingAndResetErrorMessage();
-
-      this.adminVideoService.deleteVideo(id)
-        .subscribe({
-          next: (result: DeleteResponse): void => { this.setStatusMessage(result.message) },
-          error: (error: ErrorResponse): void => { this.handleError(error); },
-          complete: async (): Promise<void> => { this.enableSubmitting(); }
-      });
-    }
+  public override deleteEntryMethod(): any {
+    return this.adminVideoService.deleteVideo.bind(this.adminVideoService);
   }
 
   public override deleteEntries(dto: DeleteIdsPayload): Observable<DeleteResponse> {

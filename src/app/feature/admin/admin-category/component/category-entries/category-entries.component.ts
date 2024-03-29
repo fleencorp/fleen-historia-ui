@@ -22,10 +22,11 @@ export class CategoryEntriesComponent extends BaseEntriesComponent<CategoryView>
   public override entries: CategoryView[] = [];
   public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_FLEEN_VIDEOS;
 
-  public constructor(protected categoryService: AdminCategoryService,
-                     router: Router,
-                     route: ActivatedRoute,
-                     location: Location) {
+  public constructor(
+      protected categoryService: AdminCategoryService,
+      router: Router,
+      route: ActivatedRoute,
+      location: Location) {
     super(router, route, location);
   }
 
@@ -37,12 +38,12 @@ export class CategoryEntriesComponent extends BaseEntriesComponent<CategoryView>
     return this.categoryService.findCategories(params);
   }
 
-  public deleteEntry(categoryId: number | string): void {
+  public override deleteEntry(categoryId: number | string): void {
     this.categoryService.deleteCategory(categoryId)
       .subscribe({
         next: (result: DeleteResponse): void => { this.setStatusMessage(result.message); },
         error: (error: ErrorResponse): void => { this.handleError(error); }
-      })
+    });
   }
 
   override deleteEntries(payload: DeleteIdsPayload): Observable<any> {

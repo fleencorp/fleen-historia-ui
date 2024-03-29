@@ -32,7 +32,6 @@ export class AdminUpdateVideoObjectComponent extends BaseUpdateVideoObjectCompon
   }
 
   public ngOnInit(): void {
-    console.log(this.videoId);
     if (isTruthy(this.videoId)) {
       this.initEntry();
     }
