@@ -5,7 +5,8 @@ import {
   faHome,
   faPlus,
   faSignIn,
-  faSignOut, faSpinner,
+  faSignOut,
+  faSpinner,
   faUser,
   faVideo,
   IconDefinition
@@ -51,6 +52,7 @@ export class NavBarComponent extends BaseComponent {
       .subscribe({
         complete: async (): Promise<void> => {
           this.tokenService.clearAuthTokens();
+          this.isSigningOut = false;
           await this.goHome();
         }
     });
@@ -64,5 +66,5 @@ export class NavBarComponent extends BaseComponent {
   protected readonly faSignIn: IconDefinition = faSignIn;
   protected readonly faPlus: IconDefinition = faPlus;
   protected readonly faBars: IconDefinition = faBars;
-  protected readonly faSpinner = faSpinner;
+  protected readonly faSpinner: IconDefinition = faSpinner;
 }

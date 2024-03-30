@@ -38,12 +38,14 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
+    this.enableLoading();
     if (this.authenticationService.isAuthenticationStatusCompleted()) {
       await this.goHome();
     } else {
       this.authenticationService.clearAuthTokens();
     }
     this.initForm();
+    this.disableLoading();
   }
 
   protected override getSessionStorageService(): SessionStorageService {
