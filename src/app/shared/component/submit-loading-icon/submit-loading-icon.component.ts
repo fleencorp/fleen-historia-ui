@@ -15,7 +15,9 @@ import {faArrowRight, faSpinner, IconDefinition} from "@fortawesome/free-solid-s
 export class SubmitLoadingIconComponent {
 
   protected readonly faSpinner: IconDefinition = faSpinner;
-  protected readonly faArrowRight:IconDefinition = faArrowRight;
+
+  @Input('display-icon')
+  public displayIcon: IconDefinition = faArrowRight;
 
   @Input('is-submitting')
   public isSubmitting: boolean = false;

@@ -18,7 +18,13 @@
       <app-validation-error [control]="password" [control-label]="'Password'"></app-validation-error>
     </div>
 
-    <button type="submit" [disabled]="isSubmitting">Submit</button>
+    <div class="form-group">
+      <button type="submit" class="fright" *ngIf="!isFormCompleted" [disabled]="isSubmitting">Sign In
+        <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faSignIn"></app-submit-loading-icon>
+      </button>
+
+      <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+    </div>
 
   </form>
 </ng-container>

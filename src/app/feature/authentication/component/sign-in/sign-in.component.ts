@@ -4,12 +4,13 @@ import {MfaVerificationComponent, OtpVerificationComponent} from "../../componen
 import {FormBuilder} from "@angular/forms";
 import {AuthenticationService} from "../../service";
 import {isFalsy, isTruthy} from "@app/shared/helper";
-import {AuthenticationStatus, ChangePasswordType, MfaType, AuthenticationStage} from "@app/model/enum";
+import {AuthenticationStage, AuthenticationStatus, ChangePasswordType, MfaType} from "@app/model/enum";
 import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
 import {ErrorResponse} from "@app/model/response";
 import {SignInResponse} from "@app/model/response/authentication";
 import {Router} from "@angular/router";
 import {SessionStorageService} from "@app/base/service";
+import {faSignIn, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-sign-in',
@@ -94,7 +95,7 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
 
     this.authenticationService.signIn(this.signInForm.value)
       .subscribe({
-        next: (result: SignInResponse): void => { this.handleSignInSuccess(result); },
+        next: (result: SignInResponse): void => { this.formCompleted(() => this.handleSignInSuccess(result)); },
         error: (result: ErrorResponse): void => { this.handleError(result); },
         complete: (): void => { this.enableSubmitting(); }
       });
@@ -152,4 +153,6 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
   protected override getRouter(): Router {
     return this.router;
   }
+
+  protected readonly faSignIn: IconDefinition = faSignIn;
 }
