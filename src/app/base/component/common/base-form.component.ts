@@ -258,19 +258,6 @@ export abstract class BaseFormComponent extends BaseComponent {
   }
 
   /**
-   * Stops the propagation and default behavior of the provided event.
-   *
-   * Prevents the default action and stops the event from propagating to parent elements.
-   *
-   * @param {Event} evt - The event to be stopped.
-   * @protected
-   */
-  protected stopEvent(evt: Event): void {
-    evt.preventDefault();
-    evt.stopPropagation();
-  }
-
-  /**
    * Sets the error message with the provided string, handling specific cases.
    *
    * Assigns the provided message to the error message property. If the message includes a connection

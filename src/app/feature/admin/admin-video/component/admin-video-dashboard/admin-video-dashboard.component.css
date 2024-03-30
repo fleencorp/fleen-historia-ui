@@ -1,50 +1,33 @@
 .menu-container {
-  display: flex;
-  justify-content: center; /* Center the menu horizontally */
-  margin-top: 30px;
+  text-align: center; /* Center-align the menu items */
 }
 
 .menu {
-  display: flex; /* Use flexbox layout */
-  list-style-type: none; /* Remove default list styles */
-  padding: 0; /* Remove default padding */
+  list-style-type: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
 }
 
 .menu li {
-  margin-right: 10px; /* Add spacing between menu items */
-  text-align: center;
-}
-
-.menu li:last-child {
-  margin-right: 0; /* Remove margin from the last menu item */
+  width: 80%; /* Set the width of each menu item to 80% of the parent */
+  margin: 10px auto; /* Add some margin and center horizontally */
+  border: 3px solid #07a4dc; /* Remove button border */
+  background-color: #0986e1; /* Background color for the buttons */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  height: 90px; /* Set the height of each menu item */
+  line-height: 90px; /* Vertically center text */
 }
 
 .menu li a {
-  display: flex; /* Use flexbox */
-  align-items: center; /* Center text content vertically */
-  justify-content: center; /* Center text content horizontally */
-  width: 700px; /* Adjust width as needed */
-  height: 100px; /* Adjust height as needed */
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  display: inline-block;
   text-decoration: none;
-  color: #333;
-  transition: background-color 0.3s;
-}
-.menu li a:hover {
-  background-color: #f0f0f0;
-}
-
-.active {
-  background-color: #1f8fea;
-  color: #fff;
+  color: #ffffff;
+  font-size: 15px;
+  font-family: 'Roboto Bold';
+  width: 100%; /* Ensure full width for anchor elements */
+  height: 100%; /* Ensure full height for anchor elements */
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .menu li a {
-    display: block;
-    width: 100%;
-  }
+.menu li:hover {
+  background-color: #0861a1; /* Change background color on hover */
 }

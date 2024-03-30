@@ -425,8 +425,25 @@ b {
   max-width: 1700px;
   padding: 15px;
   margin: 0 auto;
-  border: 4px solid purple;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure that the app takes at least the full height of the viewport */
 }
+
+main {
+  flex: 1; /* Make the main content area take up remaining vertical space */
+}
+
+footer {
+  margin-top: auto; /* Push the footer to the bottom */
+  background-color: #f0f0f0; /* Background color for footer */
+  padding: 20px; /* Add some padding to the footer */
+}
+
+.center {
+  text-align: center; /* Center-align the content within the footer */
+}
+
 
 table {
   width: 1665px;
@@ -523,6 +540,10 @@ input, textarea, select {
   clear: both;
   content: "";
   display: table;
+}
+
+#footer {
+  margin-top: 30px;
 }
 
 @media screen and (max-width: 600px) {

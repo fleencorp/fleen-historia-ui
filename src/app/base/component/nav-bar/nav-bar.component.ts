@@ -1,33 +1,61 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {
-  faArrowRight,
   faBars,
-  faCircleInfo,
   faDashboard,
   faHome,
   faPlus,
   faSignIn,
-  faSignOut,
+  faSignOut, faSpinner,
   faUser,
   faVideo,
   IconDefinition
 } from "@fortawesome/free-solid-svg-icons";
+import {AuthenticationService} from "@app/feature/authentication/service";
+import {AuthTokenService} from "@app/base/service";
+import {BaseComponent} from "@app/base/component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent extends BaseComponent {
 
-  protected readonly faInfo: IconDefinition = faCircleInfo;
+  public isSigningOut: boolean | undefined;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public constructor(
+      protected authenticationService: AuthenticationService,
+      protected tokenService: AuthTokenService,
+      protected router: Router) {
+    super();
   }
 
-  protected readonly faArrowRight: IconDefinition = faArrowRight;
+  protected override getRouter(): Router {
+    return this.router;
+  }
+
+  get isAuthenticated(): boolean {
+    return this.authenticationService.isAuthenticated();
+  }
+
+  get isUnauthenticated(): boolean {
+    return !(this.authenticationService.isAuthenticated());
+  }
+
+  public signOut(event): void {
+    this.stopEvent(event);
+    this.isSigningOut = true;
+
+    this.authenticationService.signOut()
+      .subscribe({
+        complete: async (): Promise<void> => {
+          this.tokenService.clearAuthTokens();
+          await this.goHome();
+        }
+    });
+  }
+
   protected readonly faHome: IconDefinition = faHome;
   protected readonly faUser: IconDefinition = faUser;
   protected readonly faVideo: IconDefinition = faVideo;
@@ -36,4 +64,5 @@ export class NavBarComponent implements OnInit {
   protected readonly faSignIn: IconDefinition = faSignIn;
   protected readonly faPlus: IconDefinition = faPlus;
   protected readonly faBars: IconDefinition = faBars;
+  protected readonly faSpinner = faSpinner;
 }

@@ -120,6 +120,15 @@ export class AuthenticationService {
   }
 
   /**
+   * Signs out the current member.
+   * @returns An Observable that emits a FleenResponse object representing the sign-out response.
+   */
+  public signOut(): Observable<FleenResponse> {
+    const req: BaseRequest = this.httpService.toRequest(['member', 'sign-out']);
+    return this.httpService.get(req);
+  }
+
+  /**
    * @method completeSignUp
    * @description
    *   Completes the user sign-up process with additional verification.

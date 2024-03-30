@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {faArrowRight, faList, faTrash, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-admin-video-dashboard',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AdminVideoDashboardComponent {
 
+  protected readonly faList: IconDefinition = faList;
+  protected readonly faTrash: IconDefinition = faTrash;
 }

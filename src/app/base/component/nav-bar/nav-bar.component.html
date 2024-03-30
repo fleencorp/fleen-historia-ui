@@ -6,10 +6,13 @@
     <li> <a routerLink="/profile"> <fa-icon [icon]="faUser"></fa-icon> Profile </a> </li>
 
     <li> <a routerLink="/"> <fa-icon [icon]="faDashboard"></fa-icon> Dashboard </a> </li>
-    <li> <a routerLink="/sign-out"> <fa-icon [icon]="faSignOut"></fa-icon> Sign out </a> </li>
+    <li *ngIf="isAuthenticated"> <a (click)="signOut($event)">
+      <fa-icon *ngIf="!isSigningOut" [icon]="faSignOut"></fa-icon>
+      <fa-icon *ngIf="isSigningOut" [icon]="faSpinner" [animation]="'spin'"></fa-icon> Sign out
+    </a> </li>
 
-    <li> <a routerLink="/sign-in"> <fa-icon [icon]="faSignIn"></fa-icon> Sign in </a> </li>
-    <li> <a routerLink="/sign-up"> <fa-icon [icon]="faPlus"></fa-icon> Sign up </a> </li>
+    <li *ngIf="isUnauthenticated"> <a routerLink="/auth/sign-in"> <fa-icon [icon]="faSignIn"></fa-icon> Sign in </a> </li>
+    <li *ngIf="isUnauthenticated"> <a routerLink="/auth/sign-up"> <fa-icon [icon]="faPlus"></fa-icon> Sign up </a> </li>
 
     <li> <a href="javascript:void(0);" id="menu-icon"> <fa-icon [icon]="faBars"></fa-icon> </a> </li>
 
