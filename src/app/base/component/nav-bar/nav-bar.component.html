@@ -1,21 +1,17 @@
-<ul>
+<nav class="navbar" id="myTopnav">
+  <ul>
 
-  <li> <a routerLink="/"> <span class="fa fa-home"></span> Home </a> </li>
-  <li> <a routerLink="/student"> <span class="fa fa-user"></span> Student </a> </li>
-  <li> <a routerLink="/subject"> <span class="fa fa-book"></span> Subject </a> </li>
-  <li> <a routerLink="/score"> <span class="fa fa-table"></span> Score </a> </li>
+    <li> <a routerLink="/"> <fa-icon [icon]="faHome"></fa-icon> Home  </a> </li>
+    <li> <a routerLink="/video"> <fa-icon [icon]="faVideo"></fa-icon> Videos </a> </li>
+    <li> <a routerLink="/profile"> <fa-icon [icon]="faUser"></fa-icon> Profile </a> </li>
 
-  <ng-container *ngIf="false">
-    <li> <a routerLink="/"> <span class="fa fa-dashboard"></span> Dashboard </a> </li>
-    <li> <a routerLink="/"> <span class="fa fa-sign-out"></span> Sign out </a> </li>
-  </ng-container>
+    <li> <a routerLink="/"> <fa-icon [icon]="faDashboard"></fa-icon> Dashboard </a> </li>
+    <li> <a routerLink="/sign-out"> <fa-icon [icon]="faSignOut"></fa-icon> Sign out </a> </li>
 
-  <ng-container *ngIf="!true">
-    <li> <a routerLink="/"> <span class="fa fa-sign-in"></span> Sign in </a> </li>
-    <li> <a routerLink="/"> <span class="fa fa-plus"></span> Sign up </a> </li>
-  </ng-container>
+    <li> <a routerLink="/sign-in"> <fa-icon [icon]="faSignIn"></fa-icon> Sign in </a> </li>
+    <li> <a routerLink="/sign-up"> <fa-icon [icon]="faPlus"></fa-icon> Sign up </a> </li>
 
-  <li> <a routerLink="/"> <span class="fa fa-question-circle"></span> More </a> </li>
-  <li> <a href="javascript:void(0);" id="menu-icon"> <span class="fa fa-bars"></span> </a> </li>
+    <li> <a href="javascript:void(0);" id="menu-icon"> <fa-icon [icon]="faBars"></fa-icon> </a> </li>
 
-</ul>
+  </ul>
+</nav>

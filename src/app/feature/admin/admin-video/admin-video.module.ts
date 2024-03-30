@@ -18,6 +18,7 @@ import {UserVideoModule} from "@app/feature/user-video/user-video.module";
 import { VideoItemRowComponent } from './component/video-item-row/video-item-row.component';
 import {BaseModule} from "@app/base/base.module";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {AdminVideoService} from "@app/feature/admin/admin-video/service";
 
 
 @NgModule({
@@ -41,6 +42,9 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     BaseModule,
     NgOptimizedImage,
     FontAwesomeModule
+  ],
+  providers: [
+    AdminVideoService
   ]
 })
 export class AdminVideoModule { }

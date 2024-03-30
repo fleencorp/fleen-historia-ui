@@ -27,8 +27,10 @@
             "styles": [
               "src/assets/css/styles.css"
             ],
-            "scripts": [],
-            "allowedCommonJsDependencies": ["jquery", "stompjs", "sockjs-client"]
+            "scripts": [
+              "src/assets/js/nav.js"
+            ],
+            "allowedCommonJsDependencies": []
           },
           "configurations": {
             "production": {

@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from "@app/base/guard";
 import {
-  AdminCreateVideoComponent,
+  AdminCreateVideoComponent, AdminDeleteAllVideosComponent,
   AdminFindVideoComponent,
   AdminFindVideosComponent,
   AdminUpdateVideoComponent,
@@ -21,6 +21,7 @@ const routes: Routes = [
       { path: 'detail/:id', component: AdminFindVideoComponent, title: 'Video Entry' },
       { path: 'update/:id', component: AdminUpdateVideoComponent, title: 'Update Video' },
       { path: 'create-video', component: AdminCreateVideoComponent, title: 'Submit a Video' },
+      { path: 'delete-all', component: AdminDeleteAllVideosComponent, title: 'Delete All Video' },
     ]
   }
 ];

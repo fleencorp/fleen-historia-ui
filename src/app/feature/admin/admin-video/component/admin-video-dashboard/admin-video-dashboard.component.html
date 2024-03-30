@@ -1,9 +1,10 @@
 <div>
   <h2>Admin Video Dashboard</h2>
 
-  <ul>
-    <li><a [routerLink]="['..', 'entries']" routerLinkActive="active">User Videos</a></li>
-    <li><a [routerLink]="['..', 'create-video']" routerLinkActive="active">Create Video </a></li>
-
-  </ul>
+  <div class="menu-container">
+    <ul class="menu">
+      <li><a [routerLink]="['..', 'entries']" routerLinkActive="active">Videos Entries</a></li>
+      <li><a [routerLink]="['..', 'delete-all']" routerLinkActive="active">Delete All Video </a></li>
+    </ul>
+  </div>
 </div>

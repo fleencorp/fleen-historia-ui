@@ -1,0 +1,11 @@
+#main-header {
+  text-align : center;
+  margin-bottom : 15px;
+}
+
+#main-header #logo-img {
+  font-size : 16px;
+  font-weight : normal;
+  font-family: 'Open Sans';
+}
+

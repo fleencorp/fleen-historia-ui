@@ -6,6 +6,8 @@ import {AuthGuardService} from "./guard";
 import {ValidIfTruthyPipe} from "./pipe";
 import {UnlessDirective} from '@app/base/directive';
 import {SafeUrlPipe} from '@app/base/pipe';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import {SafeUrlPipe} from '@app/base/pipe';
     NavBarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FontAwesomeModule,
+    RouterLink
   ]
 })
 export class BaseModule { }
