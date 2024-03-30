@@ -117,6 +117,23 @@ export abstract class BaseComponent {
   }
 
   /**
+   * Protected method responsible for setting a status message and clearing it after a specified delay.
+   *
+   * @param message The status message to be set.
+   * @param withDelay The delay (in milliseconds) before clearing the status message. Default is 3000 milliseconds (3 seconds).
+   */
+  protected setStatusMessageAndClear(message: string, withDelay: number = 3000): void {
+    // Set the status message
+    this.statusMessage = message;
+
+    // Set a timeout to clear the status message after the specified delay
+    setTimeout((): void => {
+      this.clearStatusMessage();
+    }, withDelay);
+  }
+
+
+  /**
    * Clears the verification message.
    */
   protected clearVerificationMessage(): void {

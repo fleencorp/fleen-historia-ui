@@ -3,7 +3,8 @@
           *ngIf="!isFirst"
           [disabled]="isFirst"
           (click)="previousPage()">
-    <fa-icon [icon]="faArrowLeft"></fa-icon> Previous
+    <fa-icon *ngIf="navigationInProgress" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+    <fa-icon *ngIf="!navigationInProgress" [icon]="faArrowLeft"></fa-icon> Previous
 
   </button>
 
@@ -13,6 +14,7 @@
           *ngIf="!isLast"
           (click)="nextPage()"
           [disabled]="isLast">
-    Next <fa-icon [icon]="faArrowRight"></fa-icon>
+    Next <fa-icon *ngIf="!navigationInProgress" [icon]="faArrowRight"></fa-icon>
+    <fa-icon *ngIf="navigationInProgress" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
   </button>
 </div>

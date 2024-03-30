@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
-
 import {removeProperty} from "@app/shared/helper";
 import {DeleteResponse} from "@app/model/response/common";
 import {DeleteIdsPayload, SearchPayload} from "@app/model/type";
@@ -33,8 +32,8 @@ export class AdminFindVideosComponent extends BaseVideosComponent implements OnI
     this.startComponent(this.setDefaultVideoSearchStatus.bind(this));
   }
 
-  public override deleteEntryMethod(): any {
-    return this.adminVideoService.deleteVideo.bind(this.adminVideoService);
+  public override deleteEntryMethod(id: number | string): Observable<DeleteResponse> {
+    return this.adminVideoService.deleteVideo(id);
   }
 
   public override deleteEntries(dto: DeleteIdsPayload): Observable<DeleteResponse> {

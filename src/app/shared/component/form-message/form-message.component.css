@@ -5,3 +5,11 @@
   margin-bottom: 20px;
   padding-left: 5px;
 }
+
+.form-status-message {
+  color: #009688;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding-left: 10px;
+}

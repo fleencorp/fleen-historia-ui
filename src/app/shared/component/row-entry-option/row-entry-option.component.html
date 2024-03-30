@@ -6,7 +6,7 @@
     <fa-icon [icon]="faPencil"></fa-icon></button>
 
   <button class="btn-red" *ngIf="canDelete" (click)="deleteEntry()">Delete
-    <fa-icon *ngIf="isDeleting === DeleteStatusEnum.NOT_STARTED" [icon]="faTrash"></fa-icon>
+    <fa-icon *ngIf="deleteId === 0 || deleteId !== entryId" [icon]="faTrash"></fa-icon>
     <fa-icon *ngIf="isDeleting === DeleteStatusEnum.IN_PROGRESS && deleteId === entryId" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
     <fa-icon *ngIf="isDeleting === DeleteStatusEnum.COMPLETED && deleteId === entryId" [icon]="faCheck"></fa-icon>
   </button>

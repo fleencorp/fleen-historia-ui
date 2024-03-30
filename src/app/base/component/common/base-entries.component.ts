@@ -104,9 +104,26 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    */
   public isDeleting: boolean = false;
 
+  /**
+   * Represents the deletion status of an entry.
+   * Possible values are defined in the DeleteStatusEnum.
+   * Default value is DeleteStatusEnum.NOT_STARTED.
+   */
   public isDeletingEntry: DeleteStatusEnum = DeleteStatusEnum.NOT_STARTED;
 
+  /**
+   * Represents the ID of the entry that has been deleted.
+   * Default value is 0.
+   * This property is typically used to track the ID of the entry being deleted for reference purposes.
+   */
   public deletedId: string | number = 0;
+
+  /**
+   * Represents whether a navigation process is currently in progress.
+   * This property is typically used to track the state of navigation to prevent multiple navigation attempts.
+   * Default value is false.
+   */
+  public navigationInProgress: boolean = false;
 
   /**
    * The form builder instance.
@@ -192,7 +209,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    */
   public handleSuccessfulEntryDeletion(message: string): void {
     this.isDeletingEntry = DeleteStatusEnum.COMPLETED;
-    this.setStatusMessage(message);
+    this.setStatusMessageAndClear(message);
     this.invokeCallbackWithDelay(this.refreshDeletedEntry.bind(this));
   }
 
@@ -310,6 +327,16 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   }
 
   /**
+   * Private method used to disable the navigation in progress state.
+   * This method sets the 'navigationInProgress' property to false.
+   * It's typically called when the navigation process is completed or canceled.
+   */
+  private disableNavigationInProgress(): void {
+    this.navigationInProgress = false;
+  }
+
+
+  /**
    * Retrieves pagination details for the current page.
    *
    * @returns An object containing the page number and page size.
@@ -407,6 +434,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
 
     // Disable form submission and reset error message
     this.disableSubmittingAndResetErrorMessage();
+    this.navigationInProgress = true;
 
     // Find entries based on the prepared search parameters
     this.findEntries(params)
@@ -424,6 +452,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
         complete: (): void => {
           // Enable form submission when search operation is complete
           this.enableSubmitting();
+          this.disableNavigationInProgress();
         }
       });
   }

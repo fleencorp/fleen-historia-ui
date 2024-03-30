@@ -56,3 +56,7 @@
   background-color: #ffffff; /* Color of the tiny circle */
   display: block;
 }
+
+.status {
+  font-size: 10px;
+}
