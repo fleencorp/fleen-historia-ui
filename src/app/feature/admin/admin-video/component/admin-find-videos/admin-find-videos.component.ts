@@ -29,6 +29,7 @@ export class AdminFindVideosComponent extends BaseVideosComponent implements OnI
   }
 
   public ngOnInit(): void {
+    this.enableLoading();
     this.startComponent(this.setDefaultVideoSearchStatus.bind(this));
   }
 

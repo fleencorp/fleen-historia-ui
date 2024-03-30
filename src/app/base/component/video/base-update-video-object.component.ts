@@ -46,7 +46,8 @@ export abstract class BaseUpdateVideoObjectComponent extends BaseFormComponent {
           this.updateFormData(result);
           this.formReady();
         },
-        error: (error: ErrorResponse): void => { this.handleError(error); }
+        error: (error: ErrorResponse): void => { this.handleError(error); },
+        complete: (): void => { this.disableLoading(); }
     });
   }
 

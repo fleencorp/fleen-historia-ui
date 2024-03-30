@@ -16,6 +16,7 @@ export abstract class BaseUpdateVideoComponent extends BaseUpdateComponent<Fleen
   public canUpdateObjectOrVideoContent: boolean = false;
   public startUpdateVideoInfo: boolean = false;
   public startUpdateVideoObject: boolean = false;
+  public isUpdateComponentDisplayed: boolean = false;
 
   protected constructor(
       protected videoService: BaseVideoService,
@@ -71,5 +72,11 @@ export abstract class BaseUpdateVideoComponent extends BaseUpdateComponent<Fleen
     if (!(this.entryView.isObjectApproved)) {
       this.canUpdateObjectOrVideoContent = true;
     }
+  }
+
+  public goBack(): void {
+    this.isUpdateComponentDisplayed = false;
+    this.startUpdateVideoInfo = false;
+    this.startUpdateVideoObject = false;
   }
 }

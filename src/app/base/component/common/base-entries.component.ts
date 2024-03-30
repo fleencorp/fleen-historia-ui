@@ -505,6 +505,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
           // Enable form submission when search operation is complete
           this.enableSubmitting();
           this.disableInProgressTasks();
+          this.disableLoading();
         }
     });
   }

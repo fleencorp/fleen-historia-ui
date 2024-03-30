@@ -23,6 +23,7 @@ export class AdminUpdateVideoInfoComponent extends BaseUpdateVideoInfoComponent 
   }
 
   public async ngOnInit(): Promise<void> {
+    this.enableLoading();
     await this.initAndGetEntry(this.videoId);
     this.getDataForCreateVideo();
   }

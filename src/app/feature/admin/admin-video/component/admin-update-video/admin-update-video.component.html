@@ -2,6 +2,10 @@
 
   <p *ngIf="isVideoInReview">Video is In Review at the moment and cannot be updated</p>
 
+  <ng-container *ngIf="startUpdateVideoObject || startUpdateVideoInfo">
+    <button (click)="goBack()" class="back-button"><fa-icon [icon]="faArrowLeft"></fa-icon></button>
+  </ng-container>
+
   <div class="can-update-btn-wrapper" *ngIf="canUpdateVideoInfoOrObject">
     <button type="button"
             (click)="updateVideoInfo()">Update Video Info <fa-icon [icon]="faInfo"></fa-icon>
@@ -19,9 +23,11 @@
     <app-admin-update-video-object [video-id]="entryView.videoId" ></app-admin-update-video-object>
   </ng-container>
 
+  <form method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form"
+        *ngIf="isFormReady && canUpdateVideoInfoOrObject"
+        [formGroup]="updateVideoVisibilityForm"
+        (ngSubmit)="updateVisibility()">
 
-
-  <form *ngIf="isFormReady && canUpdateVideoInfoOrObject" [formGroup]="updateVideoVisibilityForm" (ngSubmit)="updateVisibility()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
     <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
     <div class="form-group">
       <label for="visibility">Visibility</label>
@@ -45,3 +51,5 @@
 
 
 </ng-container>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

@@ -98,7 +98,8 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
         error: async (error: ErrorResponse): Promise<void> => {
           await this.goToEntries(error.message);
           return;
-        }
+        },
+        complete: (): void => { this.disableLoading(); }
     });
   }
 

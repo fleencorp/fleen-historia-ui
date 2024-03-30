@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {BaseUpdateVideoComponent} from "@app/base/component/video";
 import {AbstractControl, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -7,17 +7,19 @@ import {enumValid, required} from "@app/shared/validator";
 import {VideoVisibility} from "@app/model/enum";
 import {isFalsy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
-import {faArrowRight, faInfo, faVideo, faCircleInfo, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faArrowLeft, faCircleInfo, faVideo, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-admin-update-video',
   templateUrl: './admin-update-video.component.html',
-  styleUrls: ['./admin-update-video.component.css']
+  styleUrls: ['./admin-update-video.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AdminUpdateVideoComponent extends BaseUpdateVideoComponent implements OnInit {
 
   protected readonly faInfo: IconDefinition = faCircleInfo;
   protected readonly faVideo: IconDefinition = faVideo;
+  protected readonly faArrowLeft: IconDefinition = faArrowLeft;
 
   public constructor(
       protected adminVideoService: AdminVideoService,
@@ -28,6 +30,7 @@ export class AdminUpdateVideoComponent extends BaseUpdateVideoComponent implemen
   }
 
   public async ngOnInit(): Promise<void> {
+    this.enableLoading();
     await this.initEntry(this.start.bind(this));
   }
 
@@ -37,6 +40,7 @@ export class AdminUpdateVideoComponent extends BaseUpdateVideoComponent implemen
       visibility: new FormControl(this.entryView.videoVisibility, [required, enumValid(VideoVisibility)])
     });
     this.formReady();
+    this.disableLoading();
   }
 
   public updateVisibility(): void {
