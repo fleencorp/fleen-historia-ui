@@ -7,8 +7,14 @@
   </select>
 
   <input type="text" formControlName="searchInput" name="search-input">
-  <button type="submit" [disabled]="isSubmitting">Search <fa-icon [icon]="faSearch"></fa-icon></button>
-  <button type="submit" [disabled]="isSubmitting" (click)="confirmResetSearch()">Reset </button>
+  <button type="submit" [disabled]="isSubmitting">Search
+    <fa-icon *ngIf="!isSearching" [icon]="faSearch"></fa-icon>
+    <fa-icon *ngIf="isSearching" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+  </button>
+
+  <button type="submit" [disabled]="isSubmitting" (click)="confirmResetSearch()">Reset
+    <fa-icon *ngIf="isResettingSearch" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+  </button>
 
 </form>
 
@@ -18,6 +24,6 @@
 
   [disabled]="isSubmitting"
   (click)="confirmDeleteEntries()"> Delete
-  <fa-icon *ngIf="!isDeleting" [icon]="faTrash"></fa-icon>
-  <fa-icon *ngIf="isDeleting" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+    <fa-icon *ngIf="!isDeleting" [icon]="faTrash"></fa-icon>
+    <fa-icon *ngIf="isDeleting" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
 </button>

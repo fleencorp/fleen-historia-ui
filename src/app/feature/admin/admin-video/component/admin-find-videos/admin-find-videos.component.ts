@@ -41,7 +41,10 @@ export class AdminFindVideosComponent extends BaseVideosComponent implements OnI
   }
 
   protected setDefaultVideoSearchStatus(): void {
-    this.searchParams = { ...(this.searchParams), status: VideoStatus.IN_REVIEW };
+    this.searchParams = { ...(this.searchParams) };
+    if (!this.searchParams.hasOwnProperty(VIDEO_STATUS_SEARCH_KEY)) {
+      this.searchParams[VIDEO_STATUS_SEARCH_KEY] = VideoStatus.IN_REVIEW;
+    }
   }
 
   public setVideoStatusSearchParam(status: VideoStatus): void {

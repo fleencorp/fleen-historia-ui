@@ -105,6 +105,16 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   public isDeleting: boolean = false;
 
   /**
+   * A key indicating the status of search process
+   */
+  public isSearching: boolean = false;
+
+  /**
+   * A key indicating the status of search reset process
+   */
+  public isResettingSearch: boolean = false;
+
+  /**
    * Represents the deletion status of an entry.
    * Possible values are defined in the DeleteStatusEnum.
    * Default value is DeleteStatusEnum.NOT_STARTED.
@@ -326,6 +336,10 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
     this.totalEntries = result.totalEntries;
   }
 
+  private enableNavigationInProgress(): void {
+    this.navigationInProgress = true;
+  }
+
   /**
    * Private method used to disable the navigation in progress state.
    * This method sets the 'navigationInProgress' property to false.
@@ -334,6 +348,43 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   private disableNavigationInProgress(): void {
     this.navigationInProgress = false;
   }
+
+  /**
+   * Private method used to enable the search in progress state.
+   * This method sets the 'isSearching' property to true.
+   * It's typically called when a search operation starts.
+   */
+  private enableSearchInProgress(): void {
+    this.isSearching = true;
+  }
+
+  /**
+   * Private method used to disable the search in progress state.
+   * This method sets the 'isSearching' property to false.
+   * It's typically called when a search operation is completed or canceled.
+   */
+  private disableSearchInProgress(): void {
+    this.isSearching = false;
+  }
+
+  /**
+   * Private method used to enable the reset search in progress state.
+   * This method sets the 'isResettingSearch' property to true.
+   * It's typically called when a reset search operation starts.
+   */
+  private enableResetSearchInProgress(): void {
+    this.isResettingSearch = true;
+  }
+
+  /**
+   * Private method used to disable the reset search in progress state.
+   * This method sets the 'isResettingSearch' property to false.
+   * It's typically called when a reset search operation is completed or canceled.
+   */
+  private disableResetSearchInProgress(): void {
+    this.isResettingSearch = false;
+  }
+
 
 
   /**
@@ -434,7 +485,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
 
     // Disable form submission and reset error message
     this.disableSubmittingAndResetErrorMessage();
-    this.navigationInProgress = true;
+    this.enableNavigationInProgress();
 
     // Find entries based on the prepared search parameters
     this.findEntries(params)
@@ -448,14 +499,27 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
           // Handle error by clearing entries and enabling form submission
           this.entries = [];
           this.enableSubmitting();
+          this.disableInProgressTasks();
         },
         complete: (): void => {
           // Enable form submission when search operation is complete
           this.enableSubmitting();
-          this.disableNavigationInProgress();
+          this.disableInProgressTasks();
         }
-      });
+    });
   }
+
+  /**
+   * Protected method used to disable tasks that are in progress.
+   * It calls private methods to disable navigation, search, and reset search tasks in progress.
+   * This method is typically called when certain tasks need to be disabled altogether.
+   */
+  protected disableInProgressTasks(): void {
+    this.disableNavigationInProgress();
+    this.disableSearchInProgress();
+    this.disableResetSearchInProgress();
+  }
+
 
   /**
    * Performs a search operation based on the provided payload.
@@ -467,12 +531,10 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
     // Set the search parameters to the provided payload
     this.searchParams = payload;
     this.currentPage = 1;
+    this.enableSearchInProgress();
 
     // Update the URL with the current page and search parameters
     await this.updateUrlWithPage(this.searchParams);
-
-    // Retrieve entries based on the updated search parameters
-    this.getEntries();
   }
 
 
@@ -517,6 +579,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   public async resetSearch(): Promise<void> {
     // Resetting the search parameters to an empty object
     this.searchParams = {};
+    this.enableResetSearchInProgress();
 
     // Navigating to the current route without any query parameters
     // This clears any existing query parameters from the URL
@@ -528,7 +591,6 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
     // Triggering the getEntries method to update the entries based on the new search parameters
     this.getEntries();
   }
-
 
 
   /**
@@ -558,16 +620,17 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    * Updates the URL with the current page and additional parameters.
    *
    * @param params Additional parameters to include in the URL query string.
+   * @param skipLocationChange To skip updating the browser history
    * @returns A Promise that resolves when the navigation is complete.
    */
-  private async updateUrlWithPage(params: AnyObject = {}): Promise<void> {
-
+  private async updateUrlWithPage(params: AnyObject = {}, skipLocationChange: boolean = false): Promise<void> {
 
     await this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: this.currentPage, ...params, ...(this.preparePaginationToken()) },
       queryParamsHandling: 'merge',
-    })
+      skipLocationChange
+    });
   }
 
   /**

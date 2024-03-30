@@ -49,6 +49,12 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
   @Input('is-deleting')
   public isDeleting: boolean | undefined;
 
+  @Input('is-searching')
+  public isSearching: boolean | undefined;
+
+  @Input('is-resetting-search')
+  public isResettingSearch: boolean | undefined;
+
   /**
    * Constructor of the component.
    *
@@ -195,5 +201,5 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
 
   protected readonly faTrash: IconDefinition = faTrash;
   protected readonly faSearch: IconDefinition = faSearch;
-  protected readonly faSpinner = faSpinner;
+  protected readonly faSpinner: IconDefinition = faSpinner;
 }

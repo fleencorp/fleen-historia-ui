@@ -9,6 +9,8 @@
                              [is-submitting]="isSubmitting"
                              [search-filter]="searchFilter"
                              [is-deleting]="isDeleting"
+                             [is-searching]="isSearching"
+                             [is-resetting-search]="isResettingSearch"
                              (searchSubmitted)="search($event)"
                              (deleteConfirmed)="confirmDeleteEntries()"
                              (resetSearchSubmitted)="resetSearch()"></app-search-form-delete-menu>

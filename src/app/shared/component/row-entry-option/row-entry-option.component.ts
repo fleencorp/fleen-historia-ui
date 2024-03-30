@@ -28,10 +28,6 @@ export class RowEntryOptionComponent {
 
   @Output() public checkedChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-  }
-
   public viewDetail(): void {
     this.detailClicked.emit(this.entryId);
   }
