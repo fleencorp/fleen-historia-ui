@@ -3,9 +3,9 @@
 
     <li> <a routerLink="/"> <fa-icon [icon]="faHome"></fa-icon> Home  </a> </li>
     <li> <a routerLink="/video"> <fa-icon [icon]="faVideo"></fa-icon> Videos </a> </li>
-    <li> <a routerLink="/profile"> <fa-icon [icon]="faUser"></fa-icon> Profile </a> </li>
+    <li *ngIf="isAuthenticated"> <a routerLink="/profile"> <fa-icon [icon]="faUser"></fa-icon> Profile </a> </li>
 
-    <li> <a routerLink="/"> <fa-icon [icon]="faDashboard"></fa-icon> Dashboard </a> </li>
+    <li *ngIf="isAuthenticated"> <a routerLink="/"> <fa-icon [icon]="faDashboard"></fa-icon> Dashboard </a> </li>
     <li *ngIf="isAuthenticated"> <a (click)="signOut($event)">
       <fa-icon *ngIf="!isSigningOut" [icon]="faSignOut"></fa-icon>
       <fa-icon *ngIf="isSigningOut" [icon]="faSpinner" [animation]="'spin'"></fa-icon> Sign out

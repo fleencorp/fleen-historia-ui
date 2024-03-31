@@ -1,12 +1,32 @@
 <div>
-  <h2>Country Dashboard</h2>
+  <h2>Profile Dashboard</h2>
 
-  <ul>
-    <li><a [routerLink]="['..', 'detail']" routerLinkActive="active">View Detail</a></li>
-    <li><a [routerLink]="['..', 'update-detail']" routerLinkActive="active">Update Detail</a></li>
-    <li><a [routerLink]="['..', 'update-email']" routerLinkActive="active">Update Email</a></li>
-    <li><a [routerLink]="['..', 'update-phone']" routerLinkActive="active">Update Phone</a></li>
-    <li><a [routerLink]="['..', 'update-password']" routerLinkActive="active">Update Password</a></li>
-    <li><a [routerLink]="['..', 'update-photo']" routerLinkActive="active">Update Photo</a></li>
-  </ul>
+  <div class="menu-container">
+    <ul class="menu">
+      <li>
+        <a [routerLink]="['..', 'detail']" routerLinkActive="active">View Detail
+          <fa-icon [icon]="faAsterisk"></fa-icon></a>
+      </li>
+      <li>
+        <a [routerLink]="['..', 'update-detail']" routerLinkActive="active">Update Detail
+          <fa-icon [icon]="faPenFancy"></fa-icon></a>
+      </li>
+      <li>
+        <a [routerLink]="['..', 'update-email']" routerLinkActive="active">Update Email
+          <fa-icon [icon]="faAt"></fa-icon></a>
+      </li>
+      <li>
+        <a [routerLink]="['..', 'update-phone']" routerLinkActive="active">Update Phone
+          <fa-icon [icon]="faPhone"></fa-icon></a>
+      </li>
+      <li>
+        <a [routerLink]="['..', 'update-password']" routerLinkActive="active">Update Password
+          <fa-icon [icon]="faLock"></fa-icon></a>
+      </li>
+      <li>
+        <a [routerLink]="['..', 'update-photo']" routerLinkActive="active">Update Photo
+          <fa-icon [icon]="faCamera"></fa-icon></a>
+      </li>
+    </ul>
+  </div>
 </div>
