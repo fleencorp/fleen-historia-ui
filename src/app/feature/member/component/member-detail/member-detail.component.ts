@@ -27,4 +27,8 @@ export class MemberDetailComponent extends BaseComponentImpl implements OnInit {
        error: (error: ErrorResponse): void => { this.handleError(error); }
      });
   }
+
+  get profile(): GetMemberUpdateDetailsResponse {
+    return this.memberDetails;
+  }
 }

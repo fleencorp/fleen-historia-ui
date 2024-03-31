@@ -1,5 +1,8 @@
-<p>member-detail works!</p>
-<h2 class ="bold"> {{pageTitle}} </h2>
+<div class="video-details" *ngIf="profile">
+  <h2 class ="bold"> {{pageTitle}} </h2>
+  <p><b>First Name:</b> {{ profile.firstName | isValid }}</p><hr/>
+  <p><b>Last Name:</b> {{ profile.lastName | isValid }}</p><hr/>
+</div>
 
 <ng-container *ngIf="memberDetails">
   <div id ="table-curves">

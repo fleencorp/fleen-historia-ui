@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 
 import {MemberRoutingModule} from './member-routing.module';
 import {
@@ -40,6 +40,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     MemberRoutingModule,
     BaseModule,
     FontAwesomeModule,
+    NgOptimizedImage,
   ],
   providers: [
     MemberService

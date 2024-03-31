@@ -1,5 +1,8 @@
 @import "./btn.css";
 @import "./dashboard.css";
+@import "./header.css";
+@import "./footer.css";
+
 /*
 @import "./font.css";
 @import "./base.css";
@@ -435,12 +438,6 @@ main {
   flex: 1; /* Make the main content area take up remaining vertical space */
 }
 
-footer {
-  margin-top: auto; /* Push the footer to the bottom */
-  background-color: #f0f0f0; /* Background color for footer */
-  padding: 20px; /* Add some padding to the footer */
-}
-
 .center {
   text-align: center; /* Center-align the content within the footer */
 }
@@ -543,8 +540,14 @@ input, textarea, select {
   display: table;
 }
 
-#footer {
-  margin-top: 30px;
+
+
+.entry-detail p {
+  line-height: 3.5em;
+}
+
+.entry-detail hr {
+  border-bottom: 2px solid #d5d3d3;
 }
 
 @media screen and (max-width: 600px) {
