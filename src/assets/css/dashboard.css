@@ -1,44 +1,33 @@
-#dashboard ul {
-
-	list-style-type : none;
-	width : 95%;
-	padding : 10px 5px 5px 5px;
-	margin : 20px auto 0px;
+.menu-container {
+  text-align: center; /* Center-align the menu items */
 }
 
-#dashboard li {
-
-	display : inline-block;
-	width : 43%;
-	height : 60px;
-	margin : 10px 0px 10px 30px;
+.menu {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
 }
 
-#dashboard a {
-
-	font-size : 11px;
-	display : block;
-	border : 2px solid lightblue;
-	background-color : #1d73c5;
-	width : 100%;
-	background-image : url("../images/circle.png");
-	background-repeat : no-repeat;
-	background-position: 2% 80%;
-	background-size : 6px; 
-	height : 100%;
-	line-height : 40px;
-	font-family : 'RobotoLight';
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-	text-align : center;
-	padding : 10px 5px;
-	border-radius : 6px;
-	cursor : pointer;
-	color : white;
+.menu li {
+  width: 80%; /* Set the width of each menu item to 80% of the parent */
+  margin: 10px auto; /* Add some margin and center horizontally */
+  border: 3px solid #07a4dc; /* Remove button border */
+  background-color: #0986e1; /* Background color for the buttons */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  height: 90px; /* Set the height of each menu item */
+  line-height: 90px; /* Vertically center text */
 }
 
-#dashboard a:hover {
+.menu li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 15px;
+  font-family: 'Roboto Bold';
+  width: 100%; /* Ensure full width for anchor elements */
+  height: 100%; /* Ensure full height for anchor elements */
+}
 
-	background-color : #3099fd;
+.menu li:hover {
+  background-color: #0861a1; /* Change background color on hover */
 }
