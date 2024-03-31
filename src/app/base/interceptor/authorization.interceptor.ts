@@ -243,7 +243,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
    * @private
    */
   private getRefreshToken(): string {
-    const refreshToken: string = this.tokenService.getAccessToken();
+    const refreshToken: string = this.tokenService.getAuthorizationRefreshToken();
     return isTruthy(refreshToken) ? AUTHORIZATION_BEARER.replace('{}', refreshToken) : '';
   }
 
