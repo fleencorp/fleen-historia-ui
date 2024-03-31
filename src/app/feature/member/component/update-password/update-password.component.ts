@@ -44,7 +44,10 @@ export class UpdatePasswordComponent extends BaseFormImplComponent implements On
     if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
       this.memberService.updatePassword(this.fleenForm.value)
         .subscribe({
-          next: (result: FleenResponse): void => { this.setStatusMessage(result.message); },
+          next: (result: FleenResponse): void => {
+            this.setStatusMessage(result.message);
+            this.formCompleted();
+          },
           error: (error: ErrorResponse): void => { this.handleError(error); },
       });
     }

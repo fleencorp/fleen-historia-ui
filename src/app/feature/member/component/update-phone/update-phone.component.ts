@@ -29,7 +29,10 @@ export class UpdatePhoneComponent extends UpdateEmailOrPhoneComponent implements
     if (isFalsy(this.isSubmitting) && this.updatePhoneNumberForm?.valid) {
       this.memberService.confirmUpdatePhoneNumber(this.updatePhoneNumberForm.value)
         .subscribe({
-          next: (result: UpdateEmailAddressOrPhoneNumberResponse): void => { this.setStatusMessage(result.message); },
+          next: (result: UpdateEmailAddressOrPhoneNumberResponse): void => {
+            this.setStatusMessage(result.message);
+            this.formCompleted();
+          },
           error: (error: ErrorResponse): void => { this.handleError(error); }
       });
     }

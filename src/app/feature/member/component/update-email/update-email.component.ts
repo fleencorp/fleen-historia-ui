@@ -7,7 +7,7 @@ import {ErrorResponse} from "@app/model/response";
 import {email, maxLength, minLength, required} from "@app/shared/validator";
 import {VerificationType} from "@app/model/enum";
 import {MemberService} from "@app/feature/member/service";
-import {faAt, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faAt, faShield, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-update-email',
@@ -28,7 +28,10 @@ export class UpdateEmailComponent extends UpdateEmailOrPhoneComponent implements
     if (isFalsy(this.isSubmitting) && this.updateEmailAddressForm?.valid) {
       this.memberService.confirmUpdateEmailAddress(this.updateEmailAddressForm.value)
         .subscribe({
-          next: (result: UpdateEmailAddressOrPhoneNumberResponse): void => { this.setStatusMessage(result.message); },
+          next: (result: UpdateEmailAddressOrPhoneNumberResponse): void => {
+            this.setStatusMessage(result.message);
+            this.formCompleted();
+          },
           error: (error: ErrorResponse): void => { this.handleError(error); }
       });
     }
@@ -44,8 +47,7 @@ export class UpdateEmailComponent extends UpdateEmailOrPhoneComponent implements
     this.formReady();
   }
 
-  public sendEmailCode($event): void {
-    this.stopEvent($event);
+  public sendEmailCode(): void {
     this.sendUpdateEmailAddressOrPhoneNumberCode(VerificationType.EMAIL);
   }
 
@@ -66,4 +68,5 @@ export class UpdateEmailComponent extends UpdateEmailOrPhoneComponent implements
   }
 
   protected readonly faAt: IconDefinition = faAt;
+  protected readonly faShield = faShield;
 }

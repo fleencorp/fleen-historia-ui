@@ -1,6 +1,3 @@
-<p>update-email-or-phone works!</p>
-
-
 <ng-container *ngIf="isFormReady">
 
   <form [formGroup]="updateEmailAddressForm" method="post" enctype="application/x-www-form-urlencoded" class="update-email-phone-form">
@@ -18,7 +15,15 @@
       <app-validation-error [control]="code" [control-label]="'Verification code'"></app-validation-error>
     </div>
 
-    <button type="button" [disabled]="canRequestCode" (click)="sendEmailCode($event)" >Send Code</button>
+    <div class="form-group">
+      <button type="button" class="fright"
+              [disabled]="canRequestCode"
+              (click)="sendEmailCode()">Send Code
+        <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faShield"></app-submit-loading-icon>
+      </button>
+
+      <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+    </div>
 
     <div class="form-group">
       <button type="button" class="fright"

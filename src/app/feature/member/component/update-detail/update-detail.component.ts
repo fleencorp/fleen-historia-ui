@@ -59,7 +59,10 @@ export class UpdateDetailComponent extends BaseFormImplComponent implements OnIn
 
       this.memberService.updateDetail(this.fleenForm.value)
         .subscribe({
-          next: (result: UpdateMemberDetailsResponse): void => { this.setStatusMessage(result.message) },
+          next: (result: UpdateMemberDetailsResponse): void => {
+            this.setStatusMessage(result.message);
+            this.formCompleted();
+          },
           error: (error: ErrorResponse): void => { this.handleError(error); },
           complete: async (): Promise<void> => { this.enableSubmitting(); }
       });
