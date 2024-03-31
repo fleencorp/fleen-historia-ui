@@ -19,7 +19,17 @@
     </div>
 
     <button type="button" [disabled]="canRequestCode" (click)="sendEmailCode($event)" >Send Code</button>
-    <button *ngIf="isVerificationCodeStage" type="button" [disabled]="isSubmitting" (click)="updateEmailAddress()">Submit</button>
+
+    <div class="form-group">
+      <button type="button" class="fright"
+              *ngIf="!isFormCompleted && isVerificationCodeStage"
+              [disabled]="isSubmitting"
+              (click)="updateEmailAddress()">Submit
+        <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faAt"></app-submit-loading-icon>
+      </button>
+
+      <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+    </div>
   </form>
 
 </ng-container>

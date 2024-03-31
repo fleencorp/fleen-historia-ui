@@ -17,8 +17,26 @@
       <app-validation-error [control]="code" [control-label]="'Verification code'"></app-validation-error>
     </div>
 
-    <button type="button" [disabled]="canRequestCode" (click)="sendPhoneCode()" >Send Code</button>
-    <button *ngIf="isVerificationCodeStage" type="button" [disabled]="isSubmitting" (click)="updatePhoneNumber()">Submit</button>
+    <div class="form-group">
+      <button type="button" class="fright"
+              [disabled]="canRequestCode"
+              (click)="sendPhoneCode()">Send Code
+        <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faShield"></app-submit-loading-icon>
+      </button>
+
+      <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+    </div>
+
+    <div class="form-group">
+      <button type="button" class="fright"
+              *ngIf="isVerificationCodeStage"
+              [disabled]="isSubmitting"
+              (click)="updatePhoneNumber()">Submit
+        <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faPhone"></app-submit-loading-icon>
+      </button>
+
+      <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+    </div>
   </form>
 
 </ng-container>

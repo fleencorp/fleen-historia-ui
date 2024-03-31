@@ -1,6 +1,8 @@
 <ng-container *ngIf="isFormReady">
 
-  <form [formGroup]="updateDetailForm" (ngSubmit)="updateDetail()" method="post" enctype="application/x-www-form-urlencoded" class="update-detail-form">
+  <form method="post" enctype="application/x-www-form-urlencoded" class="update-detail-form"
+    [formGroup]="updateDetailForm"
+    (ngSubmit)="updateDetail()">
     <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <div class="form-group">
@@ -15,7 +17,13 @@
     <app-validation-error [control]="lastName" [control-label]="'Last Name'"></app-validation-error>
   </div>
 
-    <button type="submit" [disabled]="isSubmitting">Submit</button>
+    <div class="form-group">
+      <button type="submit" class="fright" *ngIf="!isFormCompleted" [disabled]="isSubmitting">Update
+        <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faPencil"></app-submit-loading-icon>
+      </button>
+
+      <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+    </div>
   </form>
 
 </ng-container>

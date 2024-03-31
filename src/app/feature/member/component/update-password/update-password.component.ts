@@ -7,6 +7,7 @@ import {fieldsMatchValidator, passwordValidator, required} from "@app/shared/val
 import {BaseFormImplComponent} from "@app/base/component";
 import {DEFAULT_FORM_CONTROL_VALUE} from "@app/constant";
 import {PASSWORD_PATTERNS} from "@app/model/pattern";
+import {faLock, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-update-password',
@@ -97,4 +98,6 @@ export class UpdatePasswordComponent extends BaseFormImplComponent implements On
   get updatePasswordForm(): FormGroup {
     return this.fleenForm;
   }
+
+  protected readonly faLock: IconDefinition = faLock;
 }

@@ -7,6 +7,7 @@ import {ErrorResponse} from "@app/model/response";
 import {email, maxLength, minLength, required} from "@app/shared/validator";
 import {VerificationType} from "@app/model/enum";
 import {MemberService} from "@app/feature/member/service";
+import {faAt, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-update-email',
@@ -63,4 +64,6 @@ export class UpdateEmailComponent extends UpdateEmailOrPhoneComponent implements
   get updateEmailAddressForm(): FormGroup {
     return this.fleenForm;
   }
+
+  protected readonly faAt: IconDefinition = faAt;
 }

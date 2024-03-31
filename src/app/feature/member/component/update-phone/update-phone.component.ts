@@ -8,6 +8,7 @@ import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {maxLength, minLength, phoneNumberValidator, required} from "@app/shared/validator";
 import {PHONE_NUMBER} from "@app/model/pattern";
 import {MemberService} from "@app/feature/member/service";
+import {faPhone, faShield, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-update-phone',
@@ -64,4 +65,6 @@ export class UpdatePhoneComponent extends UpdateEmailOrPhoneComponent implements
     return this.fleenForm;
   }
 
+  protected readonly faShield: IconDefinition = faShield;
+  protected readonly faPhone: IconDefinition = faPhone;
 }

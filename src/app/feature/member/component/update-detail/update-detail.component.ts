@@ -6,6 +6,7 @@ import {GetMemberUpdateDetailsResponse, UpdateMemberDetailsResponse} from "@app/
 import {ErrorResponse} from "@app/model/response";
 import {isFalsy} from "@app/shared/helper";
 import {maxLength, minLength, required} from "@app/shared/validator";
+import {faPencil, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-update-detail',
@@ -100,4 +101,5 @@ export class UpdateDetailComponent extends BaseFormImplComponent implements OnIn
     return this.fleenForm;
   }
 
+  protected readonly faPencil: IconDefinition = faPencil;
 }
