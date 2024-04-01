@@ -41,11 +41,15 @@ export class UpdateDetailComponent extends BaseFormImplComponent implements OnIn
    * Fetches member details and initializes the form.
    */
   public ngOnInit(): void {
+    this.enableLoading();
     this.memberService.getDetail()
       .subscribe({
         next: (result: GetMemberUpdateDetailsResponse): void => { this.memberDetail = result; },
         error: (error: ErrorResponse): void => { this.handleError(error); },
-        complete: (): void => { this.initForm(); }
+        complete: (): void => {
+          this.initForm();
+          this.disableLoading();
+      }
     });
   }
 
@@ -60,7 +64,7 @@ export class UpdateDetailComponent extends BaseFormImplComponent implements OnIn
       this.memberService.updateDetail(this.fleenForm.value)
         .subscribe({
           next: (result: UpdateMemberDetailsResponse): void => {
-            this.setStatusMessage(result.message);
+            this.setStatusMessageAndClear(result.message);
             this.formCompleted();
           },
           error: (error: ErrorResponse): void => { this.handleError(error); },

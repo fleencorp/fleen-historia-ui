@@ -26,13 +26,16 @@ export class UpdateEmailComponent extends UpdateEmailOrPhoneComponent implements
 
   public updateEmailAddress(): void {
     if (isFalsy(this.isSubmitting) && this.updateEmailAddressForm?.valid) {
+      this.disableSubmittingAndResetErrorMessage();
+
       this.memberService.confirmUpdateEmailAddress(this.updateEmailAddressForm.value)
         .subscribe({
           next: (result: UpdateEmailAddressOrPhoneNumberResponse): void => {
             this.setStatusMessage(result.message);
-            this.formCompleted();
+            this.formCompleted(this.handleUpdateComplete.bind(this));
           },
-          error: (error: ErrorResponse): void => { this.handleError(error); }
+          error: (error: ErrorResponse): void => { this.handleError(error); },
+          complete: (): void => { this.enableSubmitting(); }
       });
     }
   }
@@ -68,5 +71,5 @@ export class UpdateEmailComponent extends UpdateEmailOrPhoneComponent implements
   }
 
   protected readonly faAt: IconDefinition = faAt;
-  protected readonly faShield = faShield;
+  protected readonly faShield: IconDefinition = faShield;
 }

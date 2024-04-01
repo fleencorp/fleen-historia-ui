@@ -124,7 +124,7 @@ export abstract class BaseComponent {
    */
   protected setStatusMessageAndClear(message: string, withDelay: number = 3000): void {
     // Set the status message
-    this.statusMessage = message;
+    this.setStatusMessage(message);
 
     // Set a timeout to clear the status message after the specified delay
     setTimeout((): void => {

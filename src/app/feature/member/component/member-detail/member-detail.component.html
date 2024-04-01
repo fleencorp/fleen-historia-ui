@@ -1,31 +1,16 @@
-<div class="video-details" *ngIf="profile">
+<div class="entry-detail" *ngIf="profile">
   <h2 class ="bold"> {{pageTitle}} </h2>
-  <p><b>First Name:</b> {{ profile.firstName | isValid }}</p><hr/>
-  <p><b>Last Name:</b> {{ profile.lastName | isValid }}</p><hr/>
+
+  <p>
+    <b>First Name:</b>
+    {{ profile.firstName | isValid }}
+  </p><hr/>
+
+  <p>
+    <b>Last Name:</b>
+    {{ profile.lastName | isValid }}
+  </p><hr/>
+
 </div>
 
-<ng-container *ngIf="memberDetails">
-  <div id ="table-curves">
-
-    <table id ='entry-detail'>
-      <colgroup>
-        <col class ='parameter'/>
-        <col class ='prop-data'/>
-      </colgroup>
-
-      <tbody>
-        <tr>
-          <th>First Name</th>
-          <td>{{memberDetails.firstName | isValid}}</td>
-        </tr>
-
-        <tr>
-          <th>Last Name</th>
-          <td>{{memberDetails.lastName | isValid}}</td>
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
-</ng-container>
-
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

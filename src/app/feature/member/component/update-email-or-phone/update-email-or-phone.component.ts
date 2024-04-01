@@ -28,11 +28,15 @@ export abstract class UpdateEmailOrPhoneComponent extends BaseFormImplComponent 
   protected abstract initForm(): void;
 
   public onInit(): void {
+    this.enableLoading();
     this.memberService.getDetail()
       .subscribe({
         next: (result: GetMemberUpdateDetailsResponse): void => { this.memberDetail = result; },
         error: (error: ErrorResponse): void => { this.handleError(error); },
-        complete: (): void => { this.initForm(); }
+        complete: (): void => {
+          this.initForm();
+          this.disableLoading();
+       }
     });
   }
 
@@ -54,6 +58,12 @@ export abstract class UpdateEmailOrPhoneComponent extends BaseFormImplComponent 
     this.isVerificationCodeStage = true;
     this.isVerificationCodeSent = true;
     this.statusMessage = result.message;
+  }
+
+  protected handleUpdateComplete(): void {
+    this.isVerificationCodeStage = false;
+    this.isVerificationCodeSent = false;
+    this.clearStatusMessage();
   }
 
   private enableIsSendingCode(): void {

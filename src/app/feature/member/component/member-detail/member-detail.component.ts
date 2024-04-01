@@ -20,11 +20,13 @@ export class MemberDetailComponent extends BaseComponentImpl implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.enableLoading();
     this.pageTitle = this.route.snapshot.title;
     this.memberService.getDetail()
      .subscribe({
        next: (result: GetMemberUpdateDetailsResponse): void => { this.memberDetails = result; },
-       error: (error: ErrorResponse): void => { this.handleError(error); }
+       error: (error: ErrorResponse): void => { this.handleError(error); },
+       complete: (): void => { this.disableLoading(); }
      });
   }
 

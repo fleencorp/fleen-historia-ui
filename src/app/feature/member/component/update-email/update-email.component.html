@@ -19,15 +19,13 @@
       <button type="button" class="fright"
               [disabled]="canRequestCode"
               (click)="sendEmailCode()">Send Code
-        <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faShield"></app-submit-loading-icon>
+        <app-submit-loading-icon [is-submitting]="isSendingCode" [display-icon]="faShield"></app-submit-loading-icon>
       </button>
-
-      <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="isVerificationCodeStage">
       <button type="button" class="fright"
-              *ngIf="!isFormCompleted && isVerificationCodeStage"
+              *ngIf="!isFormCompleted"
               [disabled]="isSubmitting"
               (click)="updateEmailAddress()">Submit
         <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faAt"></app-submit-loading-icon>
@@ -38,3 +36,5 @@
   </form>
 
 </ng-container>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>
