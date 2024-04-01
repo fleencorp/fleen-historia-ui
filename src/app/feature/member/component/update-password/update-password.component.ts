@@ -7,7 +7,7 @@ import {fieldsMatchValidator, passwordValidator, required} from "@app/shared/val
 import {BaseFormImplComponent} from "@app/base/component";
 import {DEFAULT_FORM_CONTROL_VALUE} from "@app/constant";
 import {PASSWORD_PATTERNS} from "@app/model/pattern";
-import {faLock, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faEye, faEyeSlash, faLock, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-update-password',
@@ -42,13 +42,16 @@ export class UpdatePasswordComponent extends BaseFormImplComponent implements On
    */
   public updatePassword(): void {
     if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
+      this.disableSubmittingAndResetErrorMessage();
+
       this.memberService.updatePassword(this.fleenForm.value)
         .subscribe({
           next: (result: FleenResponse): void => {
-            this.setStatusMessage(result.message);
+            this.setStatusMessageAndClear(result.message);
             this.formCompleted();
           },
           error: (error: ErrorResponse): void => { this.handleError(error); },
+          complete: (): void => { this.enableSubmitting(); }
       });
     }
   }

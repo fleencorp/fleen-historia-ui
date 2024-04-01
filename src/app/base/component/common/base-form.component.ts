@@ -6,6 +6,7 @@ import {AnyObject} from "@app/model/type";
 import {ErrorResponse} from "@app/model/response";
 import {ErrorType} from "@app/model/enum";
 import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
+import {IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Abstract base component for form-related functionality.
@@ -33,6 +34,11 @@ export abstract class BaseFormComponent extends BaseComponent {
 
   /** Abstract property for the FormBuilder, to be implemented by child classes. */
   protected abstract formBuilder: FormBuilder;
+
+  protected hideOldPassword: boolean = true;
+  protected hideNewPassword: boolean = true;
+  protected hideConfirmPassword: boolean = true;
+
 
   /**
    * Recursively retrieves all property keys from an object.
@@ -365,6 +371,16 @@ export abstract class BaseFormComponent extends BaseComponent {
    */
   public noOpFunction$(...data: any[]): Observable<any> {
     return of(ANY_EMPTY);
+  }
+
+  public togglePasswordVisibility(fieldName: string): void {
+    if (fieldName === 'oldPassword') {
+      this.hideOldPassword = !this.hideOldPassword;
+    } else if (fieldName === 'newPassword') {
+      this.hideNewPassword = !this.hideNewPassword;
+    } else if (fieldName === 'confirmPassword') {
+      this.hideConfirmPassword = !this.hideConfirmPassword;
+    }
   }
 
 }
