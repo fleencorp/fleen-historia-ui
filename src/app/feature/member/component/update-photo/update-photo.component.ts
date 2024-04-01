@@ -36,14 +36,16 @@ export class UpdatePhotoComponent extends BaseFormComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.enableLoading();
     this.memberService.getDetail()
       .subscribe({
         next: (result: GetMemberUpdateDetailsResponse): void => {
           this.signedUrl = result.profilePhoto;
           this.formReady();
         },
-        error: (error: ErrorResponse): void => { this.handleError(error); }
-      });
+        error: (error: ErrorResponse): void => { this.handleError(error); },
+        complete: (): void => { this.disableLoading(); }
+    });
   }
 
   private savePhoto(signedUrl: string): Observable<any> {

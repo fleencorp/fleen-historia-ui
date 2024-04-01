@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
   faAsterisk,
   faAt,
   faCamera,
-  faList,
   faLock,
   faPenFancy,
   faPhone,
   IconDefinition
 } from "@fortawesome/free-solid-svg-icons";
+import {AuthTokenService} from "@app/base/service";
 
 @Component({
   selector: 'app-member-dashboard',
@@ -16,6 +16,12 @@ import {
   styleUrls: ['./member-dashboard.component.css']
 })
 export class MemberDashboardComponent {
+
+  public constructor(protected tokenService: AuthTokenService) {}
+
+  get profilePhoto(): string {
+    return this.tokenService.getAccessTokenClaims()['profilePhoto'];
+  }
 
   protected readonly faAsterisk: IconDefinition = faAsterisk;
   protected readonly faPenFancy: IconDefinition = faPenFancy;

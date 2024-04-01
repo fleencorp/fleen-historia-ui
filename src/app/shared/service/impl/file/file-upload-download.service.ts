@@ -125,7 +125,7 @@ export class FileUploadDownloadService {
       req.headers = headers;
     }
     // Perform the file upload by exchanging the request
-    return this.httpService.exchange(req);
+    return this.httpService.multipart(req);
   }
 
   /**

@@ -63,6 +63,10 @@ export class HttpClientService extends BaseHttpService {
     return this.httpClient.request(req.method as string, req.uri, { ...req });
   }
 
+  public multipart(req: ExchangeRequest): Observable<any> {
+    return this.httpClient.request(req.method as string, req.uri, { ...req, body: req.body.get('0') });
+  }
+
   /**
    * @method get
    * @description

@@ -1,0 +1,7 @@
+#profile-photo {
+  text-align: center;
+}
+
+#profile-photo img {
+  border-radius: 50%;
+}
