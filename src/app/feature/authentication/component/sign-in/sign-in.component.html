@@ -1,6 +1,21 @@
-<app-otp-verification *ngIf="isPreVerificationStage" (otpSubmitted)="handleVerificationCode($event)" [email-address]="$emailAddress" [phone-number]="$phoneNumber"></app-otp-verification>
-<app-mfa-verification *ngIf="isMfaVerificationStage" (otpSubmitted)="handleVerificationCode($event)" [mfa-type]="mfaType" [email-address]="$emailAddress" [phone-number]="$phoneNumber"></app-mfa-verification>
-<app-change-password *ngIf="isOnboardingStage" (changePassword)="changePassword($event)" [change-password-type]="changePasswordType"></app-change-password>
+<app-otp-verification
+  *ngIf="isPreVerificationStage"
+  [email-address]="$emailAddress"
+  [phone-number]="$phoneNumber"
+  (otpSubmitted)="handleVerificationCode($event)"></app-otp-verification>
+
+<app-mfa-verification
+  *ngIf="isMfaVerificationStage"
+  [mfa-type]="mfaType"
+  [email-address]="$emailAddress"
+  [phone-number]="$phoneNumber"
+  [is-submitting]="isSubmitting"
+  (otpSubmitted)="handleVerificationCode($event)" ></app-mfa-verification>
+
+<app-change-password
+  *ngIf="isOnboardingStage"
+  [change-password-type]="changePasswordType"
+  (changePassword)="changePassword($event)"></app-change-password>
 
 <ng-container *ngIf="isFormReady">
   <form *ngIf="!isVerificationStage" [formGroup]="signInForm" (ngSubmit)="signIn()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">

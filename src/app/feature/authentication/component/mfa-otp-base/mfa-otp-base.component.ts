@@ -78,13 +78,20 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
     if (isFalsy(this.isSubmitting)) {
       this.disableSubmittingAndResetErrorMessage();
       this.clearVerificationMessage();
+      this.enableIsSendingVerificationCode();
 
       const verificationPayload: ResendVerificationCodePayload = this.toResendVerificationCodePayload();
       this.serviceResendOtp(verificationPayload)
         .subscribe({
-          next: (): void => { this.setVerificationMessage(); },
+          next: (): void => {
+            this.setVerificationMessage();
+            this.formCompleted();
+          },
           error: (result: ErrorResponse): void => { this.handleError(result); },
-          complete: (): void => { this.enableSubmitting(); }
+          complete: (): void => {
+            this.enableSubmitting();
+            this.disableIsSendingVerificationCode();
+          }
       });
     }
   }

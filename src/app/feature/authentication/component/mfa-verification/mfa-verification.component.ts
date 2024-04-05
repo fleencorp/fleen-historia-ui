@@ -5,7 +5,7 @@ import {AuthVerificationType, MfaType} from "@app/model/enum";
 import {AuthenticationService} from "@app/feature/authentication/service";
 import {ResendVerificationCodePayload} from "@app/model/type";
 import {FleenResponse} from "@app/model/response";
-import {faArrowRight, faShield, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faShield, faSignIn, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Component for Multi-Factor Authentication (MFA) verification, extending the base component for MFA OTP functionality.
@@ -23,6 +23,8 @@ export class MfaVerificationComponent extends MfaOtpBaseComponent  {
    * Input property for the MFA type, indicating the specific MFA method (PHONE, EMAIL, AUTHENTICATOR, NONE).
    */
   @Input('mfa-type') public mfaType: MfaType = MfaType.NONE;
+
+  @Input('is-submitting') public override isSubmitting: boolean = false;
 
   /**
    * Constructs an instance of MfaVerificationComponent.
@@ -89,5 +91,5 @@ export class MfaVerificationComponent extends MfaOtpBaseComponent  {
   }
 
   protected readonly faShield: IconDefinition = faShield;
-  protected readonly faArrowRight: IconDefinition = faArrowRight;
+  protected readonly faSignIn: IconDefinition = faSignIn;
 }

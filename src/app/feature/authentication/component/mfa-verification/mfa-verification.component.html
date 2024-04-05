@@ -22,7 +22,8 @@
     <div class="form-group">
       <button type="button" class="fright"
               [disabled]="isSubmitting"
-              (click)="submit()">Submit<fa-icon [icon]="faArrowRight"></fa-icon>
+              (click)="submit()">Submit
+        <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faSignIn"></app-submit-loading-icon>
       </button>
     </div>
 
