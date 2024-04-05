@@ -1,12 +1,23 @@
 <div class="otp-input-container">
-  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <form>
-    <p>{{verificationMessage}}</p>
-    <label for="verification_code">Verification Code:</label>
-    <input type="text" [formControl]="otp" id="verification_code"/>
-    <app-validation-error [control]="otp" [control-label]="'Verification code'"></app-validation-error>
-    <button (click)="resendOtp()" [disabled]="isSubmitting"> Resend Verification Code </button>
+    <app-form-message [status-message]="statusMessage || verificationMessage" [error-message]="errorMessage"></app-form-message>
+    <div class="form-group">
+      <label for="verification_code">Verification Code:</label>
+      <input type="text" [formControl]="otp" id="verification_code"/>
+      <app-validation-error [control]="otp" [control-label]="'Verification code'"></app-validation-error>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="fright"
+              *ngIf="!isFormCompleted"
+              [disabled]="isSendingVerificationCode"
+              (click)="resendOtp()">Resend Code
+        <app-submit-loading-icon [is-submitting]="isSendingVerificationCode" [display-icon]="faShield"></app-submit-loading-icon>
+      </button>
+
+      <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+    </div>
     <button (click)="submit($event)">Submit</button>
     <button (click)="tryAnotherMethod($event)">Try another method</button>
   </form>

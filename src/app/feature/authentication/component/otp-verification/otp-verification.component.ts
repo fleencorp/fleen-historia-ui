@@ -6,6 +6,7 @@ import {AuthenticationService} from "../../service";
 import {AuthVerificationType, VerificationType} from "@app/model/enum";
 import {FleenResponse} from "@app/model/response";
 import {isTruthy} from "@app/shared/helper";
+import {faShield} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Component for OTP verification, extending the base component for MFA OTP functionality.
@@ -95,4 +96,5 @@ export class OtpVerificationComponent extends MfaOtpBaseComponent {
     return this.authenticationService.resendOtp(resendVerificationPayload);
   }
 
+  protected readonly faShield = faShield;
 }
