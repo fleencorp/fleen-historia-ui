@@ -2,6 +2,7 @@
 @import "./dashboard.css";
 @import "./header.css";
 @import "./footer.css";
+@import "./image.css";
 
 /*
 @import "./font.css";
@@ -544,8 +545,6 @@ input, textarea, select {
   display: table;
 }
 
-
-
 .entry-detail p {
   line-height: 3.5em;
 }
@@ -553,6 +552,8 @@ input, textarea, select {
 .entry-detail hr {
   border-bottom: 2px solid #d5d3d3;
 }
+
+
 
 @media screen and (max-width: 600px) {
 

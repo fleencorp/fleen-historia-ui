@@ -5,6 +5,7 @@ import {AuthVerificationType, MfaType} from "@app/model/enum";
 import {AuthenticationService} from "@app/feature/authentication/service";
 import {ResendVerificationCodePayload} from "@app/model/type";
 import {FleenResponse} from "@app/model/response";
+import {faArrowRight, faShield, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Component for Multi-Factor Authentication (MFA) verification, extending the base component for MFA OTP functionality.
@@ -33,11 +34,8 @@ export class MfaVerificationComponent extends MfaOtpBaseComponent  {
 
   /**
    * Handles the submission of the MFA verification form. Emits the MFA code if valid.
-   * @param event - The event triggering the submission.
    */
-  public submit(event: Event): void {
-    this.stopEvent(event);
-
+  public submit(): void {
     if (this.otp.valid) {
       const code: string = this.otp.value.toString();
       this.otpSubmitted.emit({
@@ -90,4 +88,6 @@ export class MfaVerificationComponent extends MfaOtpBaseComponent  {
     return this.authenticationService.resendPreAuthenticationOtp(resendVerificationPayload);
   }
 
+  protected readonly faShield: IconDefinition = faShield;
+  protected readonly faArrowRight: IconDefinition = faArrowRight;
 }

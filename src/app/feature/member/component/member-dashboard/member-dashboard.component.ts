@@ -20,7 +20,7 @@ export class MemberDashboardComponent {
   public constructor(protected tokenService: AuthTokenService) {}
 
   get profilePhoto(): string {
-    return this.tokenService.getAccessTokenClaims()['profilePhoto'];
+    return this.tokenService.getProfilePhoto();
   }
 
   protected readonly faAsterisk: IconDefinition = faAsterisk;

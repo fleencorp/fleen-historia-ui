@@ -43,6 +43,7 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
   /** EventEmitter for emitting the OTP submission. */
   @Output() public otpSubmitted: EventEmitter<AuthVerificationPayload> = new EventEmitter<AuthVerificationPayload>();
 
+
   /** Lifecycle hook called after component initialization. */
   ngOnInit(): void {
     this.setVerificationMessage();
@@ -84,7 +85,7 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
           next: (): void => { this.setVerificationMessage(); },
           error: (result: ErrorResponse): void => { this.handleError(result); },
           complete: (): void => { this.enableSubmitting(); }
-        });
+      });
     }
   }
 

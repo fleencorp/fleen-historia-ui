@@ -7,7 +7,8 @@ import {ValidIfTruthyPipe} from "./pipe";
 import {UnlessDirective} from '@app/base/directive';
 import {SafeUrlPipe} from '@app/base/pipe';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {RouterLink} from "@angular/router";
+import {RouterLink, RouterLinkActive} from "@angular/router";
+import { DashboardComponent } from './component/dashboard/dashboard.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {RouterLink} from "@angular/router";
     ValidIfTruthyPipe,
     UnlessDirective,
     SafeUrlPipe,
-    NavBarComponent
+    NavBarComponent,
+    DashboardComponent
   ],
   providers: [
     AuthGuardService,
@@ -34,7 +36,8 @@ import {RouterLink} from "@angular/router";
   imports: [
     CommonModule,
     FontAwesomeModule,
-    RouterLink
+    RouterLink,
+    RouterLinkActive
   ]
 })
 export class BaseModule { }

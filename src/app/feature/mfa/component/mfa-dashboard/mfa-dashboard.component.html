@@ -1,9 +1,16 @@
 <div>
-  <h2>Country Dashboard</h2>
+  <h2>MFA Dashboard</h2>
 
-  <ul>
-    <li><a [routerLink]="['..', 'setup']" routerLinkActive="active">Start or Update Setup</a></li>
-    <li><a [routerLink]="['..', 'check-status']" routerLinkActive="active">Check Status </a></li>
-
-  </ul>
+  <div class="menu-container">
+    <ul class="menu">
+      <li>
+        <a [routerLink]="['..', 'setup-update']" routerLinkActive="active">Start or Update Setup
+          <fa-icon [icon]="faShield"></fa-icon></a>
+      </li>
+      <li>
+        <a [routerLink]="['..', 'check-status']" routerLinkActive="active">Check Status
+          <fa-icon [icon]="faShieldHalved"></fa-icon></a>
+      </li>
+    </ul>
+  </div>
 </div>

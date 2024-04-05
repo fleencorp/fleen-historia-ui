@@ -121,3 +121,23 @@
   cursor : pointer;
   color : white;
 }
+
+.back-button {
+  border: 2px solid #5dcdfc; /* Adjust thickness of border as needed */
+  border-radius: 50%; /* Makes the button circular */
+  background-color: #0986e1; /* Transparent background */
+  padding: 0; /* No padding */
+  width: 40px; /* Adjust width as needed */
+  height: 40px; /* Adjust height as needed */
+  cursor: pointer; /* Show pointer cursor on hover */
+  transition: background-color 0.3s, border-color 0.3s; /* Add smooth transition */
+}
+
+.back-button:hover {
+  background-color: #0861a1; /* Change background color on hover */
+}
+
+/* If FontAwesome icon inherits font-size */
+.back-button fa-icon {
+  font-size: 15px; /* Adjust icon size as needed */
+}

@@ -7,6 +7,7 @@ import {MfaService} from "./service/mfa.service";
 import {AuthenticationModule} from "@app/feature";
 import {SharedModule} from "@app/shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     SharedModule,
     AuthenticationModule,
     MfaRoutingModule,
+    FontAwesomeModule,
   ],
   providers: [
     MfaService

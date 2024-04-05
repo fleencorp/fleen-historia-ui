@@ -11,6 +11,8 @@ import {codeOrOtpValidator, enumTypeValidator, maxLength, minLength, required} f
 import {isFalsy, isTruthy} from "@app/shared/helper";
 import {VERIFICATION_CODE} from "@app/model/pattern";
 import {MfaType} from "@app/model/enum";
+import {faArrowLeft, faCopy, faLock, faShield, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {Clipboard} from "@angular/cdk/clipboard";
 
 @Component({
   selector: 'app-mfa-setup',
@@ -76,16 +78,20 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
    */
   public isAllVerificationStepsComplete: boolean = false;
 
+  protected authenticatorSecretMessage: string = '';
+
   /**
    * Creates an instance of MfaSetupComponent.
    *
    * @param formBuilder - The FormBuilder instance used for creating and managing forms.
    * @param mfaService - The Multi-Factor Authentication (MFA) service for handling setup and verification.
+   * @param clipBoard - The Clipboard service for copying text to clipboard.
    * @param renderer - The Renderer2 instance for manipulating the DOM.
    */
   public constructor(
     protected formBuilder: FormBuilder,
     protected mfaService: MfaService,
+    protected clipBoard: Clipboard,
     private renderer: Renderer2
   ) {
     super();
@@ -95,13 +101,15 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
    * Lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
    */
   public ngOnInit(): void {
+    this.enableLoading();
     this.mfaService.getStatus()
       .subscribe({
         next: (result: MfaStatusResponse): void => {
           this.mfaStatus = result;
           this.initForm();
         },
-        error: (error: ErrorResponse): void => { this.handleError(error); }
+        error: (error: ErrorResponse): void => { this.handleError(error); },
+        complete: (): void => { this.disableLoading(); }
     });
   }
 
@@ -131,7 +139,11 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
    * Validates form, disables submission during the process, and handles the setup response.
    */
   public setupMfa(): void {
-    if (isFalsy(this.isSubmitting) && this.fleenForm.valid && this.isMfaStatusChanged()) {
+    console.log('Is submitting status ', this.isSubmitting);
+    console.log('is form Valid ', this.fleenForm.valid);
+    console.log('Form Value ', this.fleenForm.value);
+    if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
+      console.log('Getting pass here');
       this.disableSubmittingAndResetErrorMessage();
       this.clearMessages();
 
@@ -155,15 +167,18 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
    * Validates the form and handles the response.
    */
   public resendVerificationCode(): void {
-    if (isFalsy(this.isSubmitting) && this.mfaType?.valid) {
-      this.disableSubmittingAndResetErrorMessage();
+    if (isFalsy(this.isSendingVerificationCode) && this.mfaType?.valid) {
+      this.resetErrorMessage();
       this.notifyUserVerificationCodeNotSentYet();
+      this.enableIsSendingVerificationCode();
 
       this.mfaService.resendMfaCode(this.fleenForm.value)
         .subscribe({
           next: (): void => { this.notifyUserVerificationCodeSent(); },
           error: (error: ErrorResponse): void => { this.handleError(error); },
-          complete: (): void => { this.enableSubmitting(); }
+          complete: (): void => {
+            this.disableIsSendingVerificationCode();
+          }
       });
     }
   }
@@ -319,12 +334,55 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
   private initAuthenticatorDetailsAndDisplayQrCode(mfaDetail: MfaDetailResponse): void {
     const { qrCode, secret } = mfaDetail;
     const img = this.renderer.createElement('img');
+    const p = this.renderer.createElement('p');
     const container = this.qrCodeImage.nativeElement;
 
     this.qrCodeSecret = secret;
+    this.renderer.setStyle(p, 'text-align', 'center');
     this.renderer.setAttribute(img, 'src', qrCode);
-    this.renderer.appendChild(container, img);
+    this.renderer.setAttribute(img, 'width', '300');
+    this.renderer.setAttribute(img, 'height', '300');
+    this.renderer.appendChild(p, img);
+    this.renderer.appendChild(container, p);
   }
+
+  public goBack(): void {
+    this.isQrVerificationStage = false;
+    this.isCodeVerificationStage = false;
+    this.canResendCode = false;
+    this.enableSubmitting();
+    this.removeVerificationCodeControl();
+    this.clearQrCodeAndSecretContainerElements();
+  }
+
+  private clearQrCodeAndSecretContainerElements(): void {
+    const img: HTMLImageElement = this.qrCodeImage.nativeElement.querySelector('img');
+    const p: HTMLParagraphElement = this.qrCodeImage.nativeElement.querySelector('p');
+
+    if (img) {
+      img.remove();
+    }
+
+    if (p) {
+      p.remove();
+    }
+  }
+
+  public copyAuthenticatorSecretToClipboard(): void {
+    this.clipBoard.copy(this.qrCodeSecret);
+    this.setAndRestoreAfterDelay('qrCodeSecret');
+  }
+
+  protected removeVerificationCodeControl(): void {
+    this.fleenForm.removeControl('code');
+  }
+
+  get isAuthenticatorSecretAvailable(): string {
+    return isTruthy(this.qrCodeSecret)
+      ? this.qrCodeSecret
+      : '';
+  }
+
 
   /**
    * Gets a boolean value indicating whether the user can confirm MFA setup.
@@ -353,4 +411,9 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
   get code(): AbstractControl | null | undefined {
     return this.mfaSetupForm?.get('code');
   }
+
+  protected readonly faShield: IconDefinition = faShield;
+  protected readonly faArrowLeft: IconDefinition = faArrowLeft;
+  protected readonly faLock: IconDefinition = faLock;
+  protected readonly faCopy: IconDefinition = faCopy;
 }

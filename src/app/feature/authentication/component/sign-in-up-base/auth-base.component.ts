@@ -44,10 +44,10 @@ export abstract class AuthBaseComponent extends BaseFormComponent {
 
       this.completeSignUpOrValidateMfaOrOnboarding(verification)
         .subscribe({
-          next: (result: SignInUpResponse): void => this.handleVerificationSuccess(result),
-          error: (error: ErrorResponse): void => this.handleVerificationError(type, error?.message),
-          complete: (): void => this.enableSubmitting()
-        });
+          next: (result: SignInUpResponse): void => { this.handleVerificationSuccess(result); },
+          error: (error: ErrorResponse): void => { this.handleVerificationError(type, error?.message); },
+          complete: (): void => { this.enableSubmitting(); }
+      });
     }
   }
 

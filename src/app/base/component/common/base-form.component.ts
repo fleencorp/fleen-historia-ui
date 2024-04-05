@@ -35,6 +35,8 @@ export abstract class BaseFormComponent extends BaseComponent {
   /** Abstract property for the FormBuilder, to be implemented by child classes. */
   protected abstract formBuilder: FormBuilder;
 
+  public isSendingVerificationCode: boolean = false;
+
   protected hideOldPassword: boolean = true;
   protected hideNewPassword: boolean = true;
   protected hideConfirmPassword: boolean = true;
@@ -371,6 +373,20 @@ export abstract class BaseFormComponent extends BaseComponent {
    */
   public noOpFunction$(...data: any[]): Observable<any> {
     return of(ANY_EMPTY);
+  }
+
+  /**
+   * Enables the flag indicating that the system is sending a verification code.
+   */
+  protected enableIsSendingVerificationCode(): void {
+    this.isSendingVerificationCode = true;
+  }
+
+  /**
+   * Disables the flag indicating that the system has finished sending the verification code.
+   */
+  protected disableIsSendingVerificationCode(): void {
+    this.isSendingVerificationCode = false;
   }
 
   public togglePasswordVisibility(fieldName: string): void {

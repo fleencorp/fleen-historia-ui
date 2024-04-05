@@ -1,0 +1,27 @@
+<div>
+  <h2>Dashboard</h2>
+
+  <div class="menu-container">
+    <ul class="menu">
+      <p id="profile-photo-wrapper">
+        <img [src]="profilePhoto" width="150" height="150"/>
+      </p>
+      <li>
+        <a [routerLink]="['..', 'profile']" routerLinkActive="active">Profile
+          <fa-icon [icon]="faUser"></fa-icon></a>
+      </li>
+      <li>
+        <a [routerLink]="['..', 'mfa']" routerLinkActive="active">MultiFactor Authentication
+          <fa-icon [icon]="faShield"></fa-icon></a>
+      </li>
+      <li>
+        <a [routerLink]="['..', 'user-video']" routerLinkActive="active">User Video
+          <fa-icon [icon]="faVideo"></fa-icon></a>
+      </li>
+      <li>
+        <a [routerLink]="['..', 'contributor']" routerLinkActive="active">Contributor
+          <fa-icon [icon]="faBars"></fa-icon></a>
+      </li>
+    </ul>
+  </div>
+</div>

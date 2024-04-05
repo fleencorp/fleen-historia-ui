@@ -149,4 +149,12 @@ export class AuthTokenService {
     return false;
   }
 
+  /**
+   * Retrieves the profile photo URL from the access token claims.
+   * @returns The URL of the profile photo.
+   */
+  public getProfilePhoto(): string {
+    return this.getAccessTokenClaims()['profilePhoto'];
+  }
+
 }

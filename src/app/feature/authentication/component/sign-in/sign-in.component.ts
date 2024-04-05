@@ -5,7 +5,7 @@ import {FormBuilder} from "@angular/forms";
 import {AuthenticationService} from "../../service";
 import {isFalsy, isTruthy} from "@app/shared/helper";
 import {AuthenticationStage, AuthenticationStatus, ChangePasswordType, MfaType} from "@app/model/enum";
-import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
+import {ChangePasswordComponent} from "@app/shared/component";
 import {ErrorResponse} from "@app/model/response";
 import {SignInResponse} from "@app/model/response/authentication";
 import {Router} from "@angular/router";

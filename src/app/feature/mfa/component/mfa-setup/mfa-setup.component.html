@@ -1,30 +1,43 @@
 <form *ngIf="isFormReady" [formGroup]="mfaSetupForm" (ngSubmit)="setupMfa()" method="post" enctype="application/x-www-form-urlencoded" class="sign-up-form">
   <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+  <p class="verification-code-message" *ngIf="isVerificationCodeSent">Code has been sent</p>
 
-  <div class="form-group" *ngIf="!isCodeVerificationStage">
-    <input type ="radio" formControlName="mfaType" value="PHONE" id="mfa_type_phone"/>
-    <label for="mfa_type_phone">Phone</label>
+  <ng-container *ngIf="isCodeVerificationStage">
+    <button (click)="goBack()" class="back-button"><fa-icon [icon]="faArrowLeft"></fa-icon></button>
+  </ng-container>
 
-    <input type ="radio" formControlName="mfaType" value="EMAIL" id="mfa_type_email"/>
-    <label for="mfa_type_email">Email</label>
+  <div class="form-group custom-radio-container" *ngIf="!isCodeVerificationStage">
+    <input type="radio" formControlName="mfaType" value="PHONE" id="mfa_type_phone" class="custom-radio"/>
+    <label for="mfa_type_phone" class="radio-label">Phone</label>
 
-    <input type ="radio" formControlName="mfaType" value="AUTHENTICATOR" id="mfa_type_authenticator"/>
-    <label for="mfa_type_authenticator">Authenticator</label><br/>
+    <input type="radio" formControlName="mfaType" value="EMAIL" id="mfa_type_email" class="custom-radio"/>
+    <label for="mfa_type_email" class="radio-label">Email</label>
 
-    <input type ="radio" formControlName="mfaType" value="NONE" id="mfa_type_none"/>
-    <label for="mfa_type_none">None</label><br/>
+    <input type="radio" formControlName="mfaType" value="AUTHENTICATOR" id="mfa_type_authenticator" class="custom-radio"/>
+    <label for="mfa_type_authenticator" class="radio-label">Authenticator</label>
+
+    <input type="radio" formControlName="mfaType" value="NONE" id="mfa_type_none" class="custom-radio"/>
+    <label for="mfa_type_none" class="radio-label">None</label><br/>
     <app-validation-error [control]="mfaType" [control-label]="'Mfa Type'"></app-validation-error>
   </div>
 
+<!--  <button *ngIf="!isCodeVerificationStage" type="submit" [disabled]="isSubmitting">Submit</button>-->
+  <div class="form-group">
+    <button type="submit" class="fright" *ngIf="!isCodeVerificationStage" [disabled]="isSubmitting">Submit
+      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
+    </button>
+
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+  </div>
 
     <div class="qr-box" #qrCodeImage>
       <ng-container *ngIf="isQrVerificationStage">
-        <p *ngIf="qrCodeSecret">{{ qrCodeSecret }}</p>
+        <p class="qr-code-secret" *ngIf="qrCodeSecret" (click)="copyAuthenticatorSecretToClipboard()">{{ isAuthenticatorSecretAvailable }}
+          <span id="clipboard-icon"><fa-icon [icon]="faCopy"></fa-icon></span>
+        </p>
 
       </ng-container>
     </div>
-
-  <p *ngIf="isVerificationCodeSent">Code has been sent</p>
 
   <ng-container *ngIf="isCodeVerificationStage">
       <label for="verification_code">Verification Code:</label>
@@ -32,8 +45,28 @@
     <app-validation-error [control]="code" [control-label]="'Verification code'"></app-validation-error>
   </ng-container>
 
-  <button *ngIf="canResendCode" type="button" [disabled]="isSubmitting" (click)="resendVerificationCode()"> Resend Verification Code </button>
-  <button *ngIf="!isCodeVerificationStage" type="submit" [disabled]="isSubmitting">Submit</button>
-  <button *ngIf="canConfirmMfaSetup" type="button" [disabled]="isSubmitting" (click)="confirmMfaSetup()">Confirm Setup</button>
+  <div class="form-group">
+    <button type="button" class="fright"
+            *ngIf="canResendCode"
+            [disabled]="isSendingVerificationCode"
+            (click)="resendVerificationCode()">Resend Verification Code
+      <app-submit-loading-icon [is-submitting]="isSendingVerificationCode" [display-icon]="faShield"></app-submit-loading-icon>
+    </button>
+
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+  </div>
+
+  <div class="form-group">
+    <button type="button" class="fright"
+            *ngIf="canConfirmMfaSetup"
+            [disabled]="isSubmitting"
+            (click)="confirmMfaSetup()">Confirm Setup
+      <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faLock"></app-submit-loading-icon>
+    </button>
+
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+  </div>
 
 </form>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>
