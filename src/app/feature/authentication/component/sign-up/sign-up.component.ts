@@ -1,14 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
-import {AuthenticationService} from "@app/feature/authentication/service/authentication.service";
+import {AuthenticationService} from "@app/feature/authentication/service";
 import {SignUpBaseComponent} from "./sign-up-base-component";
 import {isFalsy, isTruthy} from "@app/shared/helper";
 import {MfaVerificationComponent, OtpVerificationComponent} from "../../component";
 import {Router} from "@angular/router";
 import {SignUpResponse} from "@app/model/response/authentication";
 import {ErrorResponse} from "@app/model/response";
-import {SessionStorageService} from "@app/base/service/storage/session-storage.service";
-import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
+import {SessionStorageService} from "@app/base/service";
+import {ChangePasswordComponent} from "@app/shared/component";
 
 @Component({
   selector: 'app-sign-up',
@@ -20,15 +20,17 @@ export class SignUpComponent extends SignUpBaseComponent implements OnInit {
   @ViewChild(OtpVerificationComponent) otpVerificationComponent!: OtpVerificationComponent;
   protected isPreVerificationStage: boolean = false;
 
-  constructor(private authenticationService: AuthenticationService,
-              protected formBuilder: FormBuilder,
-              protected router: Router,
-              protected sessionStorageService: SessionStorageService) {
+  constructor(
+      private authenticationService: AuthenticationService,
+      protected formBuilder: FormBuilder,
+      protected router: Router,
+      protected sessionStorageService: SessionStorageService) {
     super();
   }
 
   public ngOnInit(): void {
     this.initForm();
+    this.isPreVerificationStage = true;
   }
 
   protected override getSessionStorageService(): SessionStorageService {
@@ -103,5 +105,4 @@ export class SignUpComponent extends SignUpBaseComponent implements OnInit {
   get $phoneNumber(): string {
     return this.signUpForm?.get('phoneNumber')?.value;
   }
-
 }

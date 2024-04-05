@@ -34,12 +34,10 @@ export class OtpVerificationComponent extends MfaOtpBaseComponent {
 
   /**
    * Handles the submission of the OTP form. Emits the OTP code if valid.
-   * @param event - The event triggering the submission.
    */
-  public submit(event: Event): void {
-    this.stopEvent(event);
+  public submit(): void {
 
-    if (isTruthy(this.otp.valid) && this.otp.valid) {
+    if (isTruthy(this.otp) && this.otp.valid) {
       const code: string = this.otp.value.toString();
       this.otpSubmitted.emit({
         code,
@@ -51,10 +49,8 @@ export class OtpVerificationComponent extends MfaOtpBaseComponent {
 
   /**
    * Switches to another verification method and resends OTP.
-   * @param event - The event triggering the method switch.
    */
-  public tryAnotherMethod(event: Event): void {
-    this.stopEvent(event);
+  public tryAnotherMethod(): void {
 
     this.verificationType = this.toggleVerificationType(this.verificationType);
     this.resendOtp();

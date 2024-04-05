@@ -44,6 +44,12 @@
     <app-validation-error [control]="verificationType" [control-label]="'Verification Type'"></app-validation-error>
   </div>
 
-  <button type="submit" [disabled]="isSubmitting">Submit</button>
+  <div class="form-group">
+    <button type="submit" class="fright" [disabled]="isSubmitting">Sign Up
+      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
+    </button>
+
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+  </div>
 
 </form>
