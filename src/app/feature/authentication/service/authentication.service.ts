@@ -176,6 +176,7 @@ export class AuthenticationService {
    * @returns {Observable<FleenResponse>} - An observable emitting a FleenResponse.
    */
   public resendOtp(body: ResendVerificationCodePayload): Observable<FleenResponse> {
+    console.log('Resending OTP Verification');
     const req: BaseRequest = this.httpService.toRequest([this.VERIFICATION_BASE_PATH, 'resend-pre-verification-code'], null, { ...body });
     return this.httpService.post(req, FleenResponse);
   }

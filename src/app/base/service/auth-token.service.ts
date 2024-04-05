@@ -123,10 +123,12 @@ export class AuthTokenService {
    */
   public getClaims(token: string): AnyObject {
     let claims: AnyObject = ANY_EMPTY;
-    try {
-      claims = jwtDecode.default(token);
-    } catch (error: any) {
-      this.logger.error(error);
+    if (isTruthy(token) && isTruthy(token.trim())) {
+      try {
+        claims = jwtDecode.default(token);
+      } catch (error: any) {
+        this.logger.error(error);
+      }
     }
     return claims;
   }
@@ -140,11 +142,13 @@ export class AuthTokenService {
    * @returns {boolean} - A boolean indicating whether the token is valid or not.
    */
   public isTokenValid(token: string): boolean {
-    try {
-      jwtDecode.default(token);
-      return true;
-    } catch (error: any) {
-      this.logger.error(error);
+    if (isTruthy(token) && isTruthy(token.trim())) {
+      try {
+        jwtDecode.default(token);
+        return true;
+      } catch (error: any) {
+        this.logger.error(error);
+      }
     }
     return false;
   }

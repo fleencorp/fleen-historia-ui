@@ -21,10 +21,9 @@
 
     <div class="form-group">
       <button type="button" class="fright"
-              *ngIf="!isFormCompleted"
-              [disabled]="isSendingVerificationCode"
+              [disabled]="isSubmitting"
               (click)="submit()">Submit
-        <app-submit-loading-icon [is-submitting]="isSendingVerificationCode"></app-submit-loading-icon>
+        <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faSignIn"></app-submit-loading-icon>
       </button>
 
       <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
@@ -32,10 +31,8 @@
 
     <div class="form-group">
       <button type="button" class="fright"
-              *ngIf="!isFormCompleted"
-              [disabled]="isSendingVerificationCode"
               (click)="tryAnotherMethod()">Try another method
-        <app-submit-loading-icon [is-submitting]="isSendingVerificationCode"></app-submit-loading-icon>
+<!--        <app-submit-loading-icon [is-submitting]="isSendingVerificationCode"></app-submit-loading-icon>-->
       </button>
 
       <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
