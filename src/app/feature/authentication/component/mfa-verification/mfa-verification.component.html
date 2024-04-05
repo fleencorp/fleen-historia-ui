@@ -10,8 +10,8 @@
 
     <div class="form-group">
       <button type="submit" class="fright"
-              *ngIf="canResendCode"
-              [disabled]="isSubmitting"
+              *ngIf="canResendCode && !isFormCompleted"
+              [disabled]="isSendingVerificationCode"
               (click)="resendOtp()">Resend Code
         <app-submit-loading-icon [is-submitting]="isSendingVerificationCode" [display-icon]="faShield"></app-submit-loading-icon>
       </button>
