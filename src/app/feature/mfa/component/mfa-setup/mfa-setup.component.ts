@@ -139,11 +139,7 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
    * Validates form, disables submission during the process, and handles the setup response.
    */
   public setupMfa(): void {
-    console.log('Is submitting status ', this.isSubmitting);
-    console.log('is form Valid ', this.fleenForm.valid);
-    console.log('Form Value ', this.fleenForm.value);
     if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
-      console.log('Getting pass here');
       this.disableSubmittingAndResetErrorMessage();
       this.clearMessages();
 

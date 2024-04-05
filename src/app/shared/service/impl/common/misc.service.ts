@@ -21,7 +21,7 @@ export class MiscService {
    * @returns {Observable<EntityExistsResponse>} - An observable emitting an EntityExistsResponse.
    */
   public isEmailExists(emailAddress: string): Observable<EntityExistsResponse> {
-    const req: BaseRequest = this.httpService.toRequestV2([this.BASE_PATH, 'email-address', 'exists'], { emailAddress });
+    const req: BaseRequest = this.httpService.toRequestV2([this.BASE_PATH, 'email-address', 'exists', emailAddress]);
     return this.httpService.get(req, EntityExistsResponse);
   }
 
@@ -34,7 +34,7 @@ export class MiscService {
    * @returns {Observable<EntityExistsResponse>} - An observable emitting an EntityExistsResponse.
    */
   public isPhoneNumberExists(phoneNumber: string): Observable<EntityExistsResponse> {
-    const req: BaseRequest = this.httpService.toRequestV2([this.BASE_PATH, 'phone-number', 'exists'], { phoneNumber });
+    const req: BaseRequest = this.httpService.toRequestV2([this.BASE_PATH, 'phone-number', 'exists', phoneNumber]);
     return this.httpService.get(req, EntityExistsResponse);
   }
 

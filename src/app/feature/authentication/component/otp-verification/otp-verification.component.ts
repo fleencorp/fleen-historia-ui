@@ -4,9 +4,8 @@ import {Observable} from "rxjs";
 import {ResendVerificationCodePayload} from "@app/model/type";
 import {AuthenticationService} from "../../service";
 import {AuthVerificationType, VerificationType} from "@app/model/enum";
-import {FleenResponse} from "@app/model/response";
 import {isTruthy} from "@app/shared/helper";
-import {faShield, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faShield, faSignIn, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Component for OTP verification, extending the base component for MFA OTP functionality.
@@ -28,7 +27,7 @@ export class OtpVerificationComponent extends MfaOtpBaseComponent {
     super();
   }
 
-  public override ngOnInit() {
+  public override ngOnInit(): void {
     super.ngOnInit();
   }
 
@@ -88,9 +87,10 @@ export class OtpVerificationComponent extends MfaOtpBaseComponent {
    * @param resendVerificationPayload - The payload for resending the OTP.
    * @returns An Observable of FleenResponse.
    */
-  override serviceResendOtp(resendVerificationPayload: ResendVerificationCodePayload): Observable<FleenResponse> {
+  public override serviceResendOtp(resendVerificationPayload: ResendVerificationCodePayload): Observable<any> {
     return this.authenticationService.resendOtp(resendVerificationPayload);
   }
 
   protected readonly faShield: IconDefinition = faShield;
+  protected readonly faSignIn: IconDefinition = faSignIn;
 }

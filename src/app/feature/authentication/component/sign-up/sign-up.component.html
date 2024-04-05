@@ -1,6 +1,8 @@
-<app-otp-verification *ngIf="isPreVerificationStage" (otpSubmitted)="handleVerificationCode($event)" [email-address]="$emailAddress" [phone-number]="$phoneNumber"></app-otp-verification>
+<!--<app-otp-verification *ngIf="isPreVerificationStage" (otpSubmitted)="handleVerificationCode($event)" [email-address]="$emailAddress" [phone-number]="$phoneNumber"></app-otp-verification>-->
 
-<form *ngIf="!isPreVerificationStage" [formGroup]="signUpForm" (ngSubmit)="signUp()" method="post" enctype="application/x-www-form-urlencoded" class="sign-up-form">
+<app-otp-verification [email-address]="$emailAddress" [phone-number]="$phoneNumber"></app-otp-verification>
+
+<!--<form *ngIf="!isPreVerificationStage" [formGroup]="signUpForm" (ngSubmit)="signUp()" method="post" enctype="application/x-www-form-urlencoded" class="sign-up-form">
   <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <div class="form-group">
@@ -52,4 +54,4 @@
     <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
   </div>
 
-</form>
+</form>-->

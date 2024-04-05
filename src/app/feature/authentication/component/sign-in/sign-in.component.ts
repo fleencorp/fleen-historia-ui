@@ -29,11 +29,13 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
   public isPreVerificationStage: boolean = false;
   public isMfaVerificationStage: boolean = false;
   public isOnboardingStage: boolean = false;
+  public counter: number = 0;
 
-  constructor(protected authenticationService: AuthenticationService,
-              protected sessionStorageService: SessionStorageService,
-              protected formBuilder: FormBuilder,
-              protected router: Router) {
+  constructor(
+      protected authenticationService: AuthenticationService,
+      protected sessionStorageService: SessionStorageService,
+      protected formBuilder: FormBuilder,
+      protected router: Router) {
     super();
   }
 
@@ -100,7 +102,7 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
         next: (result: SignInResponse): void => { this.formCompleted(() => this.handleSignInSuccess(result)); },
         error: (result: ErrorResponse): void => { this.handleError(result); },
         complete: (): void => { this.enableSubmitting(); }
-      });
+    });
   }
 
   /**
@@ -150,7 +152,6 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
         break;
     }
   }
-
 
   protected override getRouter(): Router {
     return this.router;
