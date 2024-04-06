@@ -56,11 +56,14 @@ export class MfaStatusComponent extends BaseFormComponent implements OnInit {
    * Lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
    */
   public ngOnInit(): void {
+    this.enableLoading();
+
     this.mfaService.getStatus()
       .subscribe({
         next: (result: MfaStatusResponse): void => { this.mfaStatus = result; },
-        error: (error: ErrorResponse): void => { this.handleError(error); }
-      });
+        error: (error: ErrorResponse): void => { this.handleError(error); },
+        complete: (): void => { this.disableLoading(); }
+    });
   }
 
   /**

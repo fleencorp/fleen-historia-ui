@@ -1,6 +1,4 @@
-<div>
-  {{ errorMessage }}
-</div>
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <ng-container *ngIf="mfaStatus">
   <p>Multi Factor Authentication Status : <b>{{ mfaStatus.enabled ? 'Enabled' : 'Disabled' }}</b></p>
@@ -19,3 +17,5 @@
           (click)="reEnableOrDisableMfa(false)">Disable
     <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faLock"></app-submit-loading-icon></button>
 </ng-container>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>
