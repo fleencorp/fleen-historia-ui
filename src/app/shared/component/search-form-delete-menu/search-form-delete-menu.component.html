@@ -21,6 +21,7 @@
 <button
   id="search-menu-del-btn"
   class="btn-red"
+  *ngIf="canDelete"
 
   [disabled]="isSubmitting"
   (click)="confirmDeleteEntries()"> Delete

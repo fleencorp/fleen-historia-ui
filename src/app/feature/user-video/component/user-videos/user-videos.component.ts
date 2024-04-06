@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+  import {Component, OnInit} from '@angular/core';
 import {FleenVideoView} from "@app/model/view/video";
 import {AnyObject, DeleteIdsPayload, SearchFilter} from "@app/model/type";
 import {SEARCH_FILTER_VIEW_FLEEN_VIDEOS} from "@app/constant/search-filter.const";

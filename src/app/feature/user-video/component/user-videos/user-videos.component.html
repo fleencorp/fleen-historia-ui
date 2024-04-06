@@ -1,7 +1,19 @@
-<app-search-form-delete-menu [is-submitting]="isSubmitting" [search-filter]="searchFilter" (searchSubmitted)="search($event)" (deleteConfirmed)="confirmDeleteEntries()"></app-search-form-delete-menu>
+<app-search-form-delete-menu
+  [is-submitting]="isSubmitting"
+  [search-filter]="searchFilter"
+  [can-delete]="false"
+  (searchSubmitted)="search($event)"
+  (deleteConfirmed)="confirmDeleteEntries()"></app-search-form-delete-menu>
+
 <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
-<p>The current page is {{currentPage}}</p>
+<app-pagination [entries-available]="entries.length > 0"
+                [is-first]="isFirst"
+                [is-last]="isLast"
+                [current-page-number]="currentPage"
+                [navigation-in-progress]="navigationInProgress"
+                (toNextPage)="nextPage()"
+                (toPreviousPage)="previousPage()"></app-pagination>
 
 <div *ngIf="entries.length > 0">
   <table>
@@ -33,7 +45,12 @@
     </tbody>
   </table>
 
-  <app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"
-                  (toNextPage)="nextPage()" (toPreviousPage)="previousPage()"></app-pagination>
+  <app-pagination [entries-available]="entries.length > 0"
+                  [is-first]="isFirst"
+                  [is-last]="isLast"
+                  [current-page-number]="currentPage"
+                  [navigation-in-progress]="navigationInProgress"
+                  (toNextPage)="nextPage()"
+                  (toPreviousPage)="previousPage()"></app-pagination>
 
 </div>

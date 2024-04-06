@@ -55,6 +55,9 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
   @Input('is-resetting-search')
   public isResettingSearch: boolean | undefined;
 
+  @Input('can-delete')
+  public canDelete: boolean | undefined = true
+
   /**
    * Constructor of the component.
    *
