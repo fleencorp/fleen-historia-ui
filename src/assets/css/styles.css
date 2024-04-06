@@ -498,6 +498,10 @@ label, b {
   font-family: 'Roboto Bold';
 }
 
+p {
+  padding-left: 12px;
+}
+
 label, input, select {
   display: block;
 }

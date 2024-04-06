@@ -8,6 +8,8 @@ import {BaseFormComponent} from "@app/base/component";
 import {ANY_EMPTY} from "@app/constant";
 import {ErrorResponse, FleenResponse} from "@app/model/response";
 import {MfaType} from "@app/model/enum";
+import {faLock, faUnlock} from "@fortawesome/free-solid-svg-icons";
+import {isFalsy} from "@app/shared/helper";
 
 @Component({
   selector: 'app-mfa-status',
@@ -67,14 +69,19 @@ export class MfaStatusComponent extends BaseFormComponent implements OnInit {
    * @param status - A boolean indicating whether to enable or disable MFA.
    */
   public reEnableOrDisableMfa(status: boolean): void {
-    this.getServiceMethod(status)
-      .subscribe({
-        next: (result: FleenResponse): void => {
-          this.statusMessage = result.message;
-          this.updateMfaStatus(status);
-        },
-        error: (error: ErrorResponse): void => { this.handleError(error); }
+    if (isFalsy(this.isSubmitting)) {
+      this.disableSubmitting();
+
+      this.getServiceMethod(status)
+        .subscribe({
+          next: (result: FleenResponse): void => {
+            this.statusMessage = result.message;
+            this.updateMfaStatus(status);
+          },
+          error: (error: ErrorResponse): void => { this.handleError(error); },
+          complete: (): void => { this.enableSubmitting(); }
       });
+    }
   }
 
   /**
@@ -100,4 +107,6 @@ export class MfaStatusComponent extends BaseFormComponent implements OnInit {
    * Represents the Multi-Factor Authentication (MFA) types available.
    */
   protected readonly MfaType = MfaType;
+  protected readonly faLock = faLock;
+  protected readonly faUnlock = faUnlock;
 }
