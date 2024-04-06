@@ -7,6 +7,7 @@ import {ChangePasswordPayload} from "@app/model/type";
 import {ChangePasswordType} from "@app/model/enum";
 import {ANY_EMPTY} from "@app/constant";
 import {PASSWORD_PATTERNS} from "@app/model/pattern";
+import {faKey} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-change-password',
@@ -29,6 +30,11 @@ export class ChangePasswordComponent extends BaseFormComponent implements OnInit
    * Indicates whether a password change request is currently being submitted.
    */
   @Input('is-submitting') public override isSubmitting: boolean = false;
+
+  /**
+   * Indicates whether the form submission and processing is completed.
+   */
+  @Input('is-form-completed') public override isFormCompleted: boolean = false;
 
   /**
    * Specifies the type of password change operation (e.g., ChangePasswordType.NONE).
@@ -112,4 +118,5 @@ export class ChangePasswordComponent extends BaseFormComponent implements OnInit
     return this.fleenForm?.get('confirmPassword');
   }
 
+  protected readonly faKey = faKey;
 }

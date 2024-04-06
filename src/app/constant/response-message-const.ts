@@ -9,3 +9,5 @@ export const FORM_SUCCESS: string = 'Successful';
 export const PROFILE_VERIFICATION_IN_PROGRESS_STATUS: string = 'In Progress';
 
 export const ERR_CONNECTION_REFUSED_MESSAGE: string = 'Unknown Error';
+
+export const VERIFICATION_CODE_SENT: string = 'Verification Code sent';

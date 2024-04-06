@@ -8,9 +8,11 @@ import {AuthenticationService} from "../../service";
 import {isFalsy} from "@app/shared/helper";
 import {ChangePasswordPayload, ForgotPasswordPayload, ResetPasswordPayload} from "@app/model/type";
 import {ForgotPasswordResponse, InitiatePasswordChangeResponse} from "@app/model/response/authentication";
-import {ErrorResponse} from "@app/model/response";
+import {ErrorResponse, FleenResponse} from "@app/model/response";
 import {codeOrOtpValidator, email, maxLength, minLength, required} from "@app/shared/validator";
 import {VERIFICATION_CODE} from "@app/model/pattern";
+import {faKey, faShield, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {VERIFICATION_CODE_SENT} from "@app/constant";
 
 @Component({
   selector: 'app-forgot-password',
@@ -52,26 +54,38 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
   /**
    * Handles the submission of a forgot password request.
    *
-   * @param {Event} event - The event triggering the submission.
    * @returns {void}
    */
-  public submit(event: Event): void {
-    this.stopEvent(event);
-    this.enableLoading();
-
+  public submit(): void {
     if (this.emailAddress.valid && isFalsy(this.isSubmitting)) {
       const emailAddress: string = this.emailAddress.value.toString();
       const payload: ForgotPasswordPayload = { emailAddress, verificationType: VerificationType.EMAIL };
 
+      this.disableSubmittingAndResetErrorMessage();
       this.clearAuthTokensAndResetForm();
 
       this.authenticationService.forgotPassword(payload).subscribe({
-        next: (result: ForgotPasswordResponse): void => { this.handleForgotPasswordSuccess(result); },
+        next: (result: ForgotPasswordResponse): void => { this.formCompleted((): void => this.handleForgotPasswordSuccess(result)); },
         error: (result: ErrorResponse): void => { this.handleError(result); },
-        complete: (): void => {
-          this.enableSubmitting();
-          this.disableLoading();
-        },
+        complete: (): void => { this.enableSubmitting(); },
+      });
+    }
+  }
+
+  public resendCode(): void {
+    if (this.emailAddress.valid && isFalsy(this.isSubmitting)) {
+      const emailAddress: string = this.emailAddress.value.toString();
+      const payload: ForgotPasswordPayload = { emailAddress, verificationType: VerificationType.EMAIL };
+
+      this.enableIsSendingVerificationCode();
+      this.resetErrorMessage();
+      this.clearMessages();
+
+      this.authenticationService.forgotPassword(payload)
+        .subscribe({
+          next: (): void => { this.setStatusMessage(VERIFICATION_CODE_SENT); },
+          error: (result: ErrorResponse): void => { this.handleError(result); },
+          complete: (): void => { this.disableIsSendingVerificationCode(); },
       });
     }
   }
@@ -98,29 +112,31 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
     this.phoneNumber = result.phoneNumber;
     this.isVerificationCodeStage = true;
     this.isForgotEmailAddressStage = false;
+    this.setStatusMessage(VERIFICATION_CODE_SENT);
   }
 
 
   /**
    * Handles the submission of an OTP (One-Time Password) for password verification.
    *
-   * @param {Event} event - The event triggering the submission.
    * @returns {void}
    */
-  public submitOtp(event: Event): void {
-    this.stopEvent(event);
-
+  public submitOtp(): void {
     if (this.emailAddress.valid && this.verificationCode.valid && isFalsy(this.isSubmitting)) {
-      const emailAddress: string = this.emailAddress.value.toString();
+      const emailAddress: string = this.getEmailAddress();
       const verificationCode: string = this.verificationCode.value;
 
       const payload: ResetPasswordPayload = { emailAddress, code: verificationCode };
       this.disableSubmittingAndResetErrorMessage();
 
-      this.authenticationService.verifyResetPasswordCode(payload).subscribe({
-        next: (result: InitiatePasswordChangeResponse): void => { this.handleVerificationSuccess(result); },
-        error: (result: ErrorResponse): void => { this.handleError(result); },
-        complete: (): void => { this.enableSubmitting(); },
+      this.authenticationService.verifyResetPasswordCode(payload)
+        .subscribe({
+          next: (result: InitiatePasswordChangeResponse): void => { this.formCompleted((): void => this.handleVerificationSuccess(result)); },
+          error: (result: ErrorResponse): void => { this.handleError(result); },
+          complete: (): void => {
+            this.enableSubmitting();
+            this.clearMessages();
+          },
       });
     }
   }
@@ -159,10 +175,15 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
   public changePassword(payload: ChangePasswordPayload): void {
     if (isFalsy(this.isSubmitting)) {
       this.disableSubmittingAndResetErrorMessage();
+      this.disableSubmitting();
 
-      this.authenticationService.resetAndChangePassword(payload).subscribe({
-        error: (errorResponse: ErrorResponse): void => { this.handleError(errorResponse); },
-        complete: (): void => { this.handlePasswordChangeCompletion(); },
+      this.authenticationService.resetAndChangePassword(payload)
+        .subscribe({
+          next: (result: FleenResponse): void => {
+            this.setStatusMessageAndClear(result.message);
+            this.formCompleted((): void => { this.handlePasswordChangeCompletion(); });
+          },
+          error: (errorResponse: ErrorResponse): void => { this.handleError(errorResponse); },
       });
     }
   }
@@ -200,5 +221,10 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
     this.verificationCode.addValidators([required, minLength(1), maxLength(6), codeOrOtpValidator(VERIFICATION_CODE)]);
   }
 
+  public getEmailAddress(): string {
+    return this.emailAddress.value.toString();
+  }
 
+  protected readonly faKey: IconDefinition = faKey;
+  protected readonly faShield = faShield;
 }

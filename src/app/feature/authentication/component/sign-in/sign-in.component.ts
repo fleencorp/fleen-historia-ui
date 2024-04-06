@@ -10,7 +10,7 @@ import {ErrorResponse} from "@app/model/response";
 import {SignInResponse} from "@app/model/response/authentication";
 import {Router} from "@angular/router";
 import {SessionStorageService} from "@app/base/service";
-import {faSignIn, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight, faKey, faSignIn, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-sign-in',
@@ -158,4 +158,6 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
   }
 
   protected readonly faSignIn: IconDefinition = faSignIn;
+  protected readonly faArrowRight = faArrowRight;
+  protected readonly faKey = faKey;
 }
