@@ -8,7 +8,7 @@ import {BaseFormComponent} from "@app/base/component";
 import {ANY_EMPTY} from "@app/constant";
 import {ErrorResponse, FleenResponse} from "@app/model/response";
 import {MfaType} from "@app/model/enum";
-import {faLock, faUnlock} from "@fortawesome/free-solid-svg-icons";
+import {faLock, faUnlock, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {isFalsy} from "@app/shared/helper";
 
 @Component({
@@ -110,6 +110,6 @@ export class MfaStatusComponent extends BaseFormComponent implements OnInit {
    * Represents the Multi-Factor Authentication (MFA) types available.
    */
   protected readonly MfaType = MfaType;
-  protected readonly faLock = faLock;
-  protected readonly faUnlock = faUnlock;
+  protected readonly faLock: IconDefinition = faLock;
+  protected readonly faUnlock: IconDefinition = faUnlock;
 }

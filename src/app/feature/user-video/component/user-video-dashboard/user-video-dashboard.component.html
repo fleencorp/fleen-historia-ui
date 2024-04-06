@@ -1,9 +1,16 @@
 <div>
-  <h2>User Dashboard</h2>
+  <h2>User Video Dashboard</h2>
 
-  <ul>
-    <li><a [routerLink]="['..', 'entries']" routerLinkActive="active">User Videos</a></li>
-    <li><a [routerLink]="['..', 'create-video']" routerLinkActive="active">Create Video </a></li>
-
-  </ul>
+  <div class="menu-container">
+    <ul class="menu">
+      <li>
+        <a [routerLink]="['..', 'entries']" routerLinkActive="active">User Videos
+          <fa-icon [icon]="faList"></fa-icon></a>
+      </li>
+      <li>
+        <a [routerLink]="['..', 'create-video']" routerLinkActive="active">Create Video
+          <fa-icon [icon]="faPlus"></fa-icon></a>
+      </li>
+    </ul>
+  </div>
 </div>

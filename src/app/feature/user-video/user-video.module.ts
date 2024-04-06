@@ -14,6 +14,7 @@ import {
 } from '@app/feature/user-video/component';
 import {SharedModule} from "@app/shared/shared.module";
 import {UserVideoService} from "@app/feature/user-video/service";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {UserVideoService} from "@app/feature/user-video/service";
   imports: [
     CommonModule,
     SharedModule,
-    UserVideoRoutingModule
+    UserVideoRoutingModule,
+    FontAwesomeModule
   ],
   exports: [
     UpdateVideoInfoComponent,
