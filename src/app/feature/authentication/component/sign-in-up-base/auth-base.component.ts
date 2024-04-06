@@ -7,7 +7,7 @@ import {AuthVerificationPayload, ChangePasswordPayload} from "@app/model/type";
 import {ErrorResponse} from "@app/model/response";
 import {SignInUpResponse} from "@app/model/response/authentication";
 import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
-import {USER_DESTINATION_PAGE_KEY} from "@app/constant";
+import {PASSWORD_UPDATED_SUCCESSFULLY, USER_DESTINATION_PAGE_KEY} from "@app/constant";
 import {AuthenticationStatus, AuthVerificationType, ChangePasswordType} from "@app/model/enum";
 import {SessionStorageService} from "@app/base/service/storage/session-storage.service";
 import {BASE_PATH} from "@app/constant/config.const";
@@ -98,18 +98,19 @@ export abstract class AuthBaseComponent extends BaseFormComponent {
    * @memberof YourComponent
    */
   public changePassword(payload: ChangePasswordPayload): void {
-    if (isTruthy(this.isSubmitting)) {
-      return;
-    }
+    if (isFalsy(this.isSubmitting)) {
+      this.disableSubmittingAndResetErrorMessage();
 
-    this.disableSubmittingAndResetErrorMessage();
-
-    this.completeChangePassword(payload)
-      .subscribe({
-        next: (result: SignInUpResponse): void => this.handlePasswordChangeSuccess(result),
-        error: (error: ErrorResponse): void => this.handlePasswordChangeError(error),
-        complete: (): void => this.enableSubmitting()
+      this.completeChangePassword(payload)
+        .subscribe({
+          next: (result: SignInUpResponse): void => {
+            this.setStatusMessageAndClear(PASSWORD_UPDATED_SUCCESSFULLY);
+            this.formCompleted((): void => { this.handlePasswordChangeSuccess(result); });
+          },
+          error: (error: ErrorResponse): void => { this.handlePasswordChangeError(error); },
+          complete: (): void => { this.enableSubmitting(); }
       });
+    }
   }
 
   /**

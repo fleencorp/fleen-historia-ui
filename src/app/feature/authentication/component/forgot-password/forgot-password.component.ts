@@ -175,7 +175,6 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnInit
   public changePassword(payload: ChangePasswordPayload): void {
     if (isFalsy(this.isSubmitting)) {
       this.disableSubmittingAndResetErrorMessage();
-      this.disableSubmitting();
 
       this.authenticationService.resetAndChangePassword(payload)
         .subscribe({
