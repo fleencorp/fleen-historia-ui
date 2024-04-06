@@ -7,7 +7,6 @@ import {
   MfaOtpBaseComponent,
   MfaVerificationComponent,
   OtpVerificationComponent,
-  ResetPasswordComponent,
   SignInComponent,
   SignUpComponent
 } from './component';
@@ -24,7 +23,6 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     MfaOtpBaseComponent,
     MfaVerificationComponent,
     OtpVerificationComponent,
-    ResetPasswordComponent,
     SignInComponent,
     SignUpComponent,
   ],
