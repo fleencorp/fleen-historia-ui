@@ -117,7 +117,8 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
           error: (result: ErrorResponse): void => { this.handleError(result); },
           complete: async (): Promise<void> => {
             this.enableSubmitting();
-            this.formCompleted(this.goToEntries.bind(this));
+            // this.formCompleted(this.goToEntries.bind(this));
+            this.formCompleted();
           }
       });
     }

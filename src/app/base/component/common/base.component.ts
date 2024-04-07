@@ -169,6 +169,15 @@ export abstract class BaseComponent {
   }
 
   /**
+   * Clears the error, status and verification message.
+   */
+  protected clearAllMessages(): void {
+    this.clearStatusMessage();
+    this.clearVerificationMessage();
+    this.resetErrorMessage();
+  }
+
+  /**
    * Sets a property to a new value temporarily and restores it after a specified delay.
    * @param propName The name of the property to set.
    * @param newValue The new value to set the property to temporarily. Defaults to 'Copied'.

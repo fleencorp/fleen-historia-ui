@@ -10,11 +10,16 @@
                    [file-url]="videoContentUrl" [signed-url-method]="signedUrlForVideoMethod" [save-file-method]="saveVideoMethod"
                    [delete-file-method]="deleteVideoMethod" #videoContentComponent></app-upload-file>
 
-  <button type="submit"
-          [disabled]="canSubmitAndUpdateData"
-          (click)="submit($event)">
-    Submit <fa-icon [icon]="faArrowRight"></fa-icon>
-  </button>
+  <div class="form-group">
+    <button type="button" class="fright"
+            *ngIf="!isFormCompleted"
+            [disabled]="canSubmitAndUpdateData"
+            (click)="submit($event)">Submit
+      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
+    </button>
+
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+  </div>
 </ng-container>
 
 <app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

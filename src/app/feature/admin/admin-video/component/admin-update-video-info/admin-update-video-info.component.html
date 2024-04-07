@@ -65,9 +65,12 @@
   </div>
 
   <div class="form-group">
-    <button type="submit" class="fright" *ngIf="!isFormCompleted" [disabled]="isSubmitting">Submit
+    <button type="submit" class="fright"
+            *ngIf="!isFormCompleted"
+            [disabled]="isSubmitting">Submit
       <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
     </button>
+
     <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
   </div>
 

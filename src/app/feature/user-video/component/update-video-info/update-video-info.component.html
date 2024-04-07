@@ -62,7 +62,15 @@
     <app-validation-error [control]="channelId" [control-label]="'Channel'"></app-validation-error>
   </div>
 
-  <button type="submit" [disabled]="isSubmitting">Submit</button>
+  <div class="form-group">
+    <button type="submit" class="fright"
+            *ngIf="!isFormCompleted"
+            [disabled]="isSubmitting">Submit
+      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
+    </button>
+
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+  </div>
 
 </form>
 

@@ -64,20 +64,20 @@ export abstract class BaseUpdateVideoObjectComponent extends BaseFormComponent {
    */
   public submit(event: Event): void {
     this.stopEvent(event);
-    this.enableLoading();
-
     const payload: UpdateVideoObjectPayload = this.payloadForUpdate;
 
     if (isTruthy(payload.objectOrVideoUrl) && isFalsy(this.isSubmitting)) {
+      this.clearAllMessages();
+      this.disableSubmitting();
+
       this.videoService.updateVideoObject(this.videoId, payload)
         .subscribe({
           next: (): void => { this.setStatusMessage('Update successful') },
           error: (result: ErrorResponse): void => { this.handleError(result); },
           complete: (): void => {
             this.enableSubmitting();
-            this.disableLoading();
           },
-        });
+      });
     }
   }
 
