@@ -1,13 +1,11 @@
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
-<!--
 <app-search-form-delete-menu
   [is-submitting]="isSubmitting"
   [search-filter]="searchFilter"
   [can-delete]="false"
   (searchSubmitted)="search($event)"
   (deleteConfirmed)="confirmDeleteEntries()"></app-search-form-delete-menu>
-
-<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <app-pagination [entries-available]="entries.length > 0"
                 [is-first]="isFirst"
@@ -16,48 +14,6 @@
                 [navigation-in-progress]="navigationInProgress"
                 (toNextPage)="nextPage()"
                 (toPreviousPage)="previousPage()"></app-pagination>
-
-<div *ngIf="entries.length > 0">
-  <table>
-
-    <thead>
-    <tr>
-      <th>S/N</th>
-      <th>Title</th>
-      <th>Channel</th>
-      <th>Status</th>
-      <th>Created On</th>
-      <th>Updated On</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let video of entries; let i = index; trackBy: trackByFn">
-      <td>{{ addOneToIndex(i) }}</td>
-      <td>{{ video.videoTitle }}</td>
-      <td>{{ video.channel.title }}</td>
-      <td>{{ video.videoStatus }}</td>
-      <td>{{ video.createdOn | date:'mediumDate' }}</td>
-      <td>{{ video.updatedOn | date:'mediumDate' }}</td>
-      <app-row-entry-option [entry-id]="video.videoId" [can-check]="false" (detailClicked)="viewDetail(video.videoId)"
-                            (updateClicked)="updateEntry(video.videoId)" (checkedChanged)="handleChecked(video.videoId, $event)"></app-row-entry-option>
-      <button type="button" [disabled]="isSubmitting"  *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Request for Review</button>
-      <button type="button" [disabled]="isSubmitting" *ngIf="canPublish(video)" (click)="publishVideo(video.videoId)">Publish</button>
-    </tr>
-    </tbody>
-  </table>
-
-  <app-pagination [entries-available]="entries.length > 0"
-                  [is-first]="isFirst"
-                  [is-last]="isLast"
-                  [current-page-number]="currentPage"
-                  [navigation-in-progress]="navigationInProgress"
-                  (toNextPage)="nextPage()"
-                  (toPreviousPage)="previousPage()"></app-pagination>
-
-</div>
--->
-
 
 <ng-container *ngIf="entries.length > 0">
     <div class="video-boxes">
@@ -81,5 +37,13 @@
     </div>
 
 </ng-container>
+
+<app-pagination [entries-available]="entries.length > 0"
+                [is-first]="isFirst"
+                [is-last]="isLast"
+                [current-page-number]="currentPage"
+                [navigation-in-progress]="navigationInProgress"
+                (toNextPage)="nextPage()"
+                (toPreviousPage)="previousPage()"></app-pagination>
 
 <app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

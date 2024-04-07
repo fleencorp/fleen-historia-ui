@@ -1,5 +1,5 @@
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
-import {convertToDesiredFormat, equalsIgnoreCase, isObject, isTruthy, toCamelCase} from "@app/shared/helper";
+import {convertToDesiredFormat, equalsIgnoreCase, isObject, isTruthy, nonNull, toCamelCase} from "@app/shared/helper";
 import {Observable, of} from "rxjs";
 import {BaseComponent} from "@app/base/component";
 import {AnyObject} from "@app/model/type";
@@ -249,20 +249,23 @@ export abstract class BaseFormComponent extends BaseComponent {
    * @param {ErrorResponse} error - The error object to be handled.
    * @protected
    */
-  protected override handleError(error: ErrorResponse): void {
-    const { type } = error;
+  protected override handleError(error?: ErrorResponse): void {
+    if (error != null && isObject(error) ) {
+      const { type } = error;
 
-    // Check for data validation error type
-    if (isTruthy(type) && equalsIgnoreCase(type, ErrorType.DATA_VALIDATION)) {
-      this.setErrorsFromApiResponse(error.fields);
-    } else if (error?.message) {
-      this.setErrorMessage(error?.message);
+      // Check for data validation error type
+      if (isTruthy(type) && equalsIgnoreCase(type, ErrorType.DATA_VALIDATION)) {
+        this.setErrorsFromApiResponse(error.fields);
+      } else if (error?.message) {
+        this.setErrorMessage(error?.message);
+      }
     } else {
       this.setErrorMessage(ERR_CONNECTION_REFUSED_MESSAGE);
     }
 
-    // Enable submitting after handling the error
+    // Enable submitting and disable loading after handling the error
     this.enableSubmitting();
+    this.disableLoading();
   }
 
   /**

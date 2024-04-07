@@ -497,8 +497,8 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
         },
         error: (): void => {
           // Handle error by clearing entries and enabling form submission
+          this.handleError();
           this.entries = [];
-          this.enableSubmitting();
           this.disableInProgressTasks();
         },
         complete: (): void => {
