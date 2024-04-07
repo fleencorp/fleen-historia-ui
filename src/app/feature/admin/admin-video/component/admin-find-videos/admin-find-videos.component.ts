@@ -14,7 +14,6 @@ import {VIDEO_STATUS_SEARCH_KEY} from "@app/constant";
   selector: 'app-admin-find-videos',
   templateUrl: './admin-find-videos.component.html',
   styleUrls: ['./admin-find-videos.component.css']
-  // styleUrls: ['assets/css/internal-one.css']
 })
 export class AdminFindVideosComponent extends BaseVideosComponent implements OnInit {
 
@@ -39,31 +38,6 @@ export class AdminFindVideosComponent extends BaseVideosComponent implements OnI
 
   public override deleteEntries(dto: DeleteIdsPayload): Observable<DeleteResponse> {
     return this.adminVideoService.deleteManyVideos(dto);
-  }
-
-  protected setDefaultVideoSearchStatus(): void {
-    this.searchParams = { ...(this.searchParams) };
-    if (!this.searchParams.hasOwnProperty(VIDEO_STATUS_SEARCH_KEY)) {
-      this.searchParams[VIDEO_STATUS_SEARCH_KEY] = VideoStatus.IN_REVIEW;
-    }
-  }
-
-  public setVideoStatusSearchParam(status: VideoStatus): void {
-    const currentStatus: VideoStatus = this.searchParams[VIDEO_STATUS_SEARCH_KEY];
-    if (currentStatus === status) {
-      removeProperty(this.searchParams, VIDEO_STATUS_SEARCH_KEY);
-    } else {
-      this.searchParams = { ...(this.searchParams), status };
-    }
-  }
-
-  public override async search(payload: SearchPayload): Promise<void> {
-    payload[VIDEO_STATUS_SEARCH_KEY] = this.currentVideoSearchStatus;
-    await super.search(payload);
-  }
-
-  get currentVideoSearchStatus(): VideoStatus {
-    return this.searchParams[VIDEO_STATUS_SEARCH_KEY];
   }
 
 }

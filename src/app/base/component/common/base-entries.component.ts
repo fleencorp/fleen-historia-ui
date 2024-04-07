@@ -386,7 +386,6 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   }
 
 
-
   /**
    * Retrieves pagination details for the current page.
    *
@@ -538,7 +537,6 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
     await this.updateUrlWithPage(this.searchParams);
   }
 
-
   /**
    * Confirms the deletion of selected entries.
    *
@@ -588,9 +586,6 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
       relativeTo: this.route,
       queryParams: { }
     });
-
-    // Triggering the getEntries method to update the entries based on the new search parameters
-    this.getEntries();
   }
 
 

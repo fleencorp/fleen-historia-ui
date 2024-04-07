@@ -1,11 +1,18 @@
-<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+<div id="status-btn-wrapper">
+  <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.IN_REVIEW}" (click)="setVideoStatusSearchParam(VideoStatus.IN_REVIEW)">Pending</button>
+  <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.DISAPPROVED}" (click)="setVideoStatusSearchParam(VideoStatus.DISAPPROVED)">Declined</button>
+  <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.APPROVED}" (click)="setVideoStatusSearchParam(VideoStatus.APPROVED)">Approved</button>
+</div>
 
 <app-search-form-delete-menu
+  [is-searching]="isSearching"
   [is-submitting]="isSubmitting"
+  [is-resetting-search]="isResettingSearch"
   [search-filter]="searchFilter"
+  [search-params]="searchParams"
   [can-delete]="false"
   (searchSubmitted)="search($event)"
-  (deleteConfirmed)="confirmDeleteEntries()"></app-search-form-delete-menu>
+  (resetSearchSubmitted)="resetSearch()"></app-search-form-delete-menu>
 
 <app-pagination [entries-available]="entries.length > 0"
                 [is-first]="isFirst"
@@ -14,6 +21,9 @@
                 [navigation-in-progress]="navigationInProgress"
                 (toNextPage)="nextPage()"
                 (toPreviousPage)="previousPage()"></app-pagination>
+
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
 
 <ng-container *ngIf="entries.length > 0">
     <div class="video-boxes">

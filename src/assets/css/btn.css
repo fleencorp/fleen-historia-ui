@@ -119,3 +119,24 @@
   margin: 10px auto;
   height: 50px;
 }
+
+#status-btn-wrapper {
+  margin-bottom: 10px;
+}
+
+#status-btn-wrapper button {
+  width: 100px; /* Set a fixed width for the buttons */
+  padding: 8px 12px; /* Adjust button padding */
+  cursor: pointer; /* Show pointer cursor on hover */
+  color: #fff; /* Text color for the buttons */
+  border-radius: 4px; /* Add some border radius for rounded corners */
+  font-weight: bold;
+  margin-right: 10px;
+  border: 3px solid #07a4dc; /* Remove button border */
+  background-color: #0986e1; /* Background color for the buttons */
+}
+
+#status-btn-wrapper button.active {
+  background-color: #1d61ad; /* Example active background color */
+  color: #ffffff; /* Example active text color */
+}

@@ -1,13 +1,13 @@
 import {BaseEntriesComponent} from "@app/base/component";
 import {FleenVideoView} from "@app/model/view/video";
-import {AnyObject, DeleteIdsPayload, SearchFilter} from "@app/model/type";
+import {AnyObject, DeleteIdsPayload, SearchFilter, SearchPayload} from "@app/model/type";
 import {SEARCH_FILTER_VIEW_FLEEN_VIDEOS} from "@app/constant/search-filter.const";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
-import {ANY_EMPTY} from "@app/constant";
-import {isFalsy, isTruthy} from "@app/shared/helper";
+import {ANY_EMPTY, VIDEO_STATUS_SEARCH_KEY} from "@app/constant";
+import {isFalsy, isTruthy, removeProperty} from "@app/shared/helper";
 import {VideoStatus} from "@app/model/enum";
 import {PublishVideoResponse, RequestForReviewResponse} from "@app/model/response/video";
 import {ErrorResponse} from "@app/model/response";
@@ -95,6 +95,31 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
       this.entries[videoPositionOrIndex] = newVideo;
     }
     this.entries = [ ...this.entries ];
+  }
+
+  public override async search(payload: SearchPayload): Promise<void> {
+    payload[VIDEO_STATUS_SEARCH_KEY] = this.currentVideoSearchStatus;
+    await super.search(payload);
+  }
+
+  protected setDefaultVideoSearchStatus(): void {
+    this.searchParams = { ...(this.searchParams) };
+    if (!this.searchParams.hasOwnProperty(VIDEO_STATUS_SEARCH_KEY)) {
+      this.searchParams[VIDEO_STATUS_SEARCH_KEY] = VideoStatus.IN_REVIEW;
+    }
+  }
+
+  public setVideoStatusSearchParam(status: VideoStatus): void {
+    const currentStatus: VideoStatus = this.searchParams[VIDEO_STATUS_SEARCH_KEY];
+    if (currentStatus === status) {
+      removeProperty(this.searchParams, VIDEO_STATUS_SEARCH_KEY);
+    } else {
+      this.searchParams = { ...(this.searchParams), status };
+    }
+  }
+
+  get currentVideoSearchStatus(): VideoStatus {
+    return this.searchParams[VIDEO_STATUS_SEARCH_KEY];
   }
 
 }

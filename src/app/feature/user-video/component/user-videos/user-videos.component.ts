@@ -1,4 +1,4 @@
-  import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FleenVideoView} from "@app/model/view/video";
 import {AnyObject, DeleteIdsPayload, SearchFilter} from "@app/model/type";
 import {SEARCH_FILTER_VIEW_FLEEN_VIDEOS} from "@app/constant/search-filter.const";
@@ -9,7 +9,8 @@ import {SearchResultView} from "@app/model/view";
 import {ANY_EMPTY} from "@app/constant";
 import {BaseVideosComponent} from "@app/base/component/video";
 import {UserVideoService} from "@app/feature/user-video/service";
-  import {faBarsProgress, faEye, faPencil, faRocket} from "@fortawesome/free-solid-svg-icons";
+import {faBarsProgress, faEye, faPencil, faRocket, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {VideoStatus} from "@app/model/enum";
 
 @Component({
   selector: 'app-user-videos',
@@ -31,7 +32,7 @@ export class UserVideosComponent extends BaseVideosComponent implements OnInit {
 
   public ngOnInit(): void {
     this.enableLoading();
-    this.startComponent();
+    this.startComponent(this.setDefaultVideoSearchStatus.bind(this));
   }
 
   override findEntries(params: AnyObject): Observable<SearchResultView<FleenVideoView>> {
@@ -42,8 +43,9 @@ export class UserVideosComponent extends BaseVideosComponent implements OnInit {
     return ANY_EMPTY;
   }
 
-  protected readonly faPencil = faPencil;
-  protected readonly faEye = faEye;
-  protected readonly faBarsProgress = faBarsProgress;
-  protected readonly faRocket = faRocket;
+  protected readonly faPencil: IconDefinition = faPencil;
+  protected readonly faEye: IconDefinition = faEye;
+  protected readonly faBarsProgress: IconDefinition = faBarsProgress;
+  protected readonly faRocket: IconDefinition = faRocket;
+  protected readonly VideoStatus = VideoStatus;
 }

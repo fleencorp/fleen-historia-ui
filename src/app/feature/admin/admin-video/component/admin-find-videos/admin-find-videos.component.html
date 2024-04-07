@@ -5,11 +5,11 @@
   <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.APPROVED}" (click)="setVideoStatusSearchParam(VideoStatus.APPROVED)">Approved</button>
 </div>
 
-<app-search-form-delete-menu [search-params]="searchParams"
-                             [is-submitting]="isSubmitting"
-                             [search-filter]="searchFilter"
+<app-search-form-delete-menu [search-filter]="searchFilter"
+                             [search-params]="searchParams"
                              [is-deleting]="isDeleting"
                              [is-searching]="isSearching"
+                             [is-submitting]="isSubmitting"
                              [is-resetting-search]="isResettingSearch"
                              (searchSubmitted)="search($event)"
                              (deleteConfirmed)="confirmDeleteEntries()"
