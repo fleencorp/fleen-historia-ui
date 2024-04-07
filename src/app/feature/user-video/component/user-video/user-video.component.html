@@ -1,32 +1,39 @@
-<ng-container *ngIf="fleenVideoView">
-  <p>{{fleenVideoView | json }}</p>
-  <table>
-    <thead>
-    <tr>
-      <td colspan="2">Video Detail</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th>ID</th>
 
-    </tr>
-    <tr>
-      <th>Title</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>Code</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>Created On</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>Updated On</th>
-      <td></td>
-    </tr>
-    </tbody>
-  </table>
-</ng-container>
+<div id="video-options">
+
+  <button type="button" (click)="0">View Detail</button>
+  <button type="button" (click)="0">Comments</button>
+
+</div>
+
+  <!-- Video details on the left -->
+  <div class="video-details" *ngIf="entryView">
+    <h2>{{ fleenVideo.videoTitle }}</h2>
+    <p>{{ fleenVideo.videoDescription }}</p><hr/>
+    <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
+    <p><b>Reference/Source:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>
+    <div *ngIf="fleenVideo.videoUrl" class="video-object">
+      <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
+    </div>
+    <img *ngIf="fleenVideo.objectThumbnail" ngSrc="fleenVideo.objectThumbnail" alt="Thumbnail">
+
+    <!-- Assuming videoSource, videoVisibility, videoStatus, isPublished, isForKids, isObjectApproved are enums -->
+    <p><b>Source:</b> {{ fleenVideo.videoSource }}</p><hr/>
+    <p><b>Visibility:</b> {{ fleenVideo.videoVisibility }}</p><hr/>
+    <p><b>Status:</b> {{ fleenVideo.videoStatus }}</p><hr/>
+    <p><b>Published:</b> {{ fleenVideo.isPublished ? 'Yes' : 'No' }}</p><hr/>
+    <p><b>For Kids:</b> {{ fleenVideo.isForKids ? 'Yes' : 'No' }}</p><hr/>
+    <p><b>Approved:</b> {{ fleenVideo.isObjectApproved ? 'Yes' : 'No' }}</p><hr/>
+
+    <!-- Assuming category and channel are objects -->
+    <p><b>Category:</b> {{ fleenVideo.category.title }}</p><hr/>
+    <p><b>Channel:</b> {{ fleenVideo.channel.title }}</p><hr/>
+
+    <!-- Assuming latestReview is an object with properties like reviewer, rating, comment -->
+    <div *ngIf="fleenVideo.latestReview.comment">
+      <h3>Latest Review</h3>
+      <p>Comment: {{ fleenVideo.latestReview.comment }}</p>
+      <p>Author: {{ fleenVideo.latestReview.member.firstName }} {{ fleenVideo.latestReview.member.lastName }}</p>
+      <p>Submitted On: {{ fleenVideo.latestReview.createdOn }}</p>
+    </div>
+  </div>

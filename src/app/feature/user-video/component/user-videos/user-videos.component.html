@@ -39,7 +39,7 @@
         <div class="video-actions">
           <button type="button" class="btn-navy" (click)="viewDetail(video.videoId)">View <fa-icon [icon]="faEye"></fa-icon></button>
           <button type="button" class="btn-aqua" (click)="updateEntry(video.videoId)">Update <fa-icon [icon]="faPencil"></fa-icon></button>
-          <button type="button" [disabled]="isSubmitting" *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Request Review <fa-icon [icon]="faBarsProgress"></fa-icon></button>
+          <button type="button" class="btn-blue" [disabled]="isSubmitting" *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Request Review <fa-icon [icon]="faBarsProgress"></fa-icon></button>
           <button type="button" [disabled]="isSubmitting" *ngIf="canPublish(video)" (click)="publishVideo(video.videoId)">Publish <fa-icon [icon]="faRocket"></fa-icon></button>
           <button type="button" class="btn-orange" [disabled]="isSubmitting" *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Publish <fa-icon [icon]="faRocket"></fa-icon></button>
         </div>

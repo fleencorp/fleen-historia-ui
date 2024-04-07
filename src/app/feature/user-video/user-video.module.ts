@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 
 import {UserVideoRoutingModule} from './user-video-routing.module';
 import {
@@ -15,6 +15,8 @@ import {
 import {SharedModule} from "@app/shared/shared.module";
 import {UserVideoService} from "@app/feature/user-video/service";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {BaseModule} from "@app/base/base.module";
+import {ContributorService} from "@app/feature/contributor/service";
 
 
 @NgModule({
@@ -32,14 +34,17 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     CommonModule,
     SharedModule,
     UserVideoRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BaseModule,
+    NgOptimizedImage
   ],
   exports: [
     UpdateVideoInfoComponent,
     UpdateVideoObjectComponent
   ],
   providers: [
-    UserVideoService
+    UserVideoService,
+    ContributorService
   ]
 })
 export class UserVideoModule { }

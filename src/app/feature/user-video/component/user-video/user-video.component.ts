@@ -30,7 +30,7 @@ export class UserVideoComponent extends BaseDetailComponent<FleenVideoView> impl
     return this.userVideoService.findVideo(id);
   }
 
-  get fleenVideoView(): FleenVideoView {
+  get fleenVideo(): FleenVideoView {
     return this.entryView;
   }
 }
