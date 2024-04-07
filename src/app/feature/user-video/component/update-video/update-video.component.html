@@ -2,10 +2,18 @@
 
   <p *ngIf="isVideoInReview">Video is In Review at the moment and cannot be updated</p>
 
-  <ng-container *ngIf="canUpdateVideoInfoOrObject">
-    <button type="button" (click)="updateVideoInfo()">Update Video Info</button>
-    <button *ngIf="canUpdateObjectOrVideoContent" type="button" (click)="updateVideoObject()">Update Video Object</button>
+  <ng-container *ngIf="startUpdateVideoObject || startUpdateVideoInfo">
+    <button (click)="goBack()" class="back-button"><fa-icon [icon]="faArrowLeft"></fa-icon></button>
   </ng-container>
+
+  <div class="can-update-btn-wrapper" *ngIf="canUpdateVideoInfoOrObject">
+    <button type="button"
+            (click)="updateVideoInfo()">Update Video Info <fa-icon [icon]="faInfo"></fa-icon>
+    </button>
+    <button type="button"
+            *ngIf="canUpdateObjectOrVideoContent"
+            (click)="updateVideoObject()">Update Video Object <fa-icon [icon]="faVideo"></fa-icon></button>
+  </div>
 
   <ng-container *ngIf="startUpdateVideoInfo">
     <app-update-video-info [video-id]="entryView.videoId"></app-update-video-info>
@@ -14,6 +22,7 @@
   <ng-container *ngIf="startUpdateVideoObject">
     <app-update-video-object [video-id]="entryView.videoId" ></app-update-video-object>
   </ng-container>
-
-
+  
 </ng-container>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

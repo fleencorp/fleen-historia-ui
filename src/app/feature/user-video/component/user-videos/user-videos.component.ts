@@ -9,6 +9,7 @@ import {SearchResultView} from "@app/model/view";
 import {ANY_EMPTY} from "@app/constant";
 import {BaseVideosComponent} from "@app/base/component/video";
 import {UserVideoService} from "@app/feature/user-video/service";
+  import {faBarsProgress, faEye, faPencil, faRocket} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-user-videos',
@@ -29,6 +30,7 @@ export class UserVideosComponent extends BaseVideosComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.enableLoading();
     this.startComponent();
   }
 
@@ -40,4 +42,8 @@ export class UserVideosComponent extends BaseVideosComponent implements OnInit {
     return ANY_EMPTY;
   }
 
+  protected readonly faPencil = faPencil;
+  protected readonly faEye = faEye;
+  protected readonly faBarsProgress = faBarsProgress;
+  protected readonly faRocket = faRocket;
 }

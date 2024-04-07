@@ -1,3 +1,5 @@
+
+<!--
 <app-search-form-delete-menu
   [is-submitting]="isSubmitting"
   [search-filter]="searchFilter"
@@ -54,3 +56,30 @@
                   (toPreviousPage)="previousPage()"></app-pagination>
 
 </div>
+-->
+
+
+<ng-container *ngIf="entries.length > 0">
+    <div class="video-boxes">
+      <div class="video-box" *ngFor="let video of entries; let i = index; trackBy: trackByFn">
+        <div class="video-details">
+          <p class="center thumbnail-wrapper"><img [src]="video.objectThumbnail" width="450" height="300"/></p>
+          <h4 *ngIf="video.videoTitle">Title: {{ video.videoTitle }}</h4>
+          <p *ngIf="video.channel.title">Channel: {{ video.channel.title }}</p>
+          <p *ngIf="video.category.title">Category: {{ video.category.title }}</p>
+          <p *ngIf="video.videoStatus">Status: {{ video.videoStatus }}</p>
+          <p>Updated at {{ video.updatedOn | date:'mediumDate' }}</p>
+        </div>
+        <div class="video-actions">
+          <button type="button" class="btn-navy" (click)="viewDetail(video.videoId)">View <fa-icon [icon]="faEye"></fa-icon></button>
+          <button type="button" class="btn-aqua" (click)="updateEntry(video.videoId)">Update <fa-icon [icon]="faPencil"></fa-icon></button>
+          <button type="button" [disabled]="isSubmitting" *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Request Review <fa-icon [icon]="faBarsProgress"></fa-icon></button>
+          <button type="button" [disabled]="isSubmitting" *ngIf="canPublish(video)" (click)="publishVideo(video.videoId)">Publish <fa-icon [icon]="faRocket"></fa-icon></button>
+          <button type="button" class="btn-orange" [disabled]="isSubmitting" *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Publish <fa-icon [icon]="faRocket"></fa-icon></button>
+        </div>
+      </div>
+    </div>
+
+</ng-container>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>
