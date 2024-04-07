@@ -6,6 +6,7 @@ import {UserVideoService} from "@app/feature/user-video/service";
 import {BaseUpdateVideoObjectComponent} from "@app/base/component/video";
 import {UploadFileComponent} from "@app/shared/component";
 import {isTruthy} from "@app/shared/helper";
+import {faArrowRight, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-update-video-object',
@@ -38,4 +39,5 @@ export class UpdateVideoObjectComponent extends BaseUpdateVideoObjectComponent i
     }
   }
 
+  protected readonly faArrowRight: IconDefinition = faArrowRight;
 }

@@ -10,7 +10,11 @@
                    [file-url]="videoContentUrl" [signed-url-method]="signedUrlForVideoMethod" [save-file-method]="saveVideoMethod"
                    [delete-file-method]="deleteVideoMethod" #videoContentComponent></app-upload-file>
 
-  <button type="submit" [disabled]="canSubmitAndUpdateData" (click)="submit($event)">Submit</button>
+  <button type="submit"
+          [disabled]="canSubmitAndUpdateData"
+          (click)="submit($event)">
+    Submit <fa-icon [icon]="faArrowRight"></fa-icon>
+  </button>
 </ng-container>
 
-
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

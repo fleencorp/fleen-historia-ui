@@ -6,6 +6,7 @@ import {ANY_EMPTY} from "@app/constant";
 import {AdminVideoService} from "@app/feature/admin/admin-video/service";
 import {UploadFileComponent} from "@app/shared/component";
 import {isTruthy} from "@app/shared/helper";
+import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-admin-update-video-object',
@@ -38,4 +39,5 @@ export class AdminUpdateVideoObjectComponent extends BaseUpdateVideoObjectCompon
     }
   }
 
+  protected readonly faArrowRight = faArrowRight;
 }

@@ -13,6 +13,7 @@ import {ErrorResponse} from "@app/model/response";
 import {AwsSignedUrlResponse} from "@app/model/response/common";
 import {DEFAULT_IMAGE_CONSTRAINT} from "@app/constant/file.const";
 import {FileConstraints} from "@app/model/type/file.type";
+import {faCancel, faDownload, faTrash, faUpload, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * @module UploadFileComponent
@@ -493,5 +494,8 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
   }
 
 
-
+  protected readonly faTrash: IconDefinition = faTrash;
+  protected readonly faCancel: IconDefinition = faCancel;
+  protected readonly faDownload: IconDefinition = faDownload;
+  protected readonly faUpload: IconDefinition = faUpload;
 }

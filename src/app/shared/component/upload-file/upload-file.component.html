@@ -12,7 +12,11 @@
       <button type="button"
               class="file-chooser"
               (click)="openFileDialog()">
-        {{ isFilesAvailable(elem) ? isFilesAvailable(elem) : 'Choose File' }}</button>
+              {{ isFilesAvailable(elem) ? isFilesAvailable(elem) : 'Choose File' }}
+              <ng-container *ngIf="!isFilesAvailable(elem)">
+                <fa-icon [icon]="faUpload"></fa-icon>
+              </ng-container>
+      </button>
     </label>
 
     <div class="upload-message" *ngIf="uploadMessage">
@@ -28,20 +32,23 @@
     <div>
       <ng-container *ngIf="!uploadStarted">
         <button type="button"
+                class="btn-red"
                 *ngIf="fileNameOrUrl"
-                (click)="deleteFile(elem)">Delete</button>
+                (click)="deleteFile(elem)">Delete <fa-icon [icon]="faTrash"></fa-icon></button>
       </ng-container>
       <button type="button"
+              class="btn-gray"
               *ngIf="cancelRequest$"
-              (click)="cancelUpload(elem)">Cancel</button>
+              (click)="cancelUpload(elem)">Cancel <fa-icon [icon]="faCancel"></fa-icon></button>
     </div>
   </form>
 
   <button type="button"
+          class="btn-green"
           *ngIf="canDownloadOrView
                   && fileNameOrUrl
                   && readyForDownload"
-          (click)="downloadOrView(fileNameOrUrl, fileKey)">Download
+          (click)="downloadOrView(fileNameOrUrl, fileKey)">Download <fa-icon [icon]="faDownload"></fa-icon>
   </button>
 </div>
 
