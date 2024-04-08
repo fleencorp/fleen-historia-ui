@@ -9,6 +9,7 @@ import {isFalsy} from "@app/shared/helper";
 import {MoveToDraftResponse} from "@app/model/response/video";
 import {ErrorResponse} from "@app/model/response";
 import {VIDEO_UNMOVED_TO_DRAFT} from "@app/constant";
+import {FleenVideoView} from "@app/model/view/video";
 
 @Component({
   selector: 'app-update-video',
@@ -18,7 +19,7 @@ import {VIDEO_UNMOVED_TO_DRAFT} from "@app/constant";
 })
 export class UpdateVideoComponent extends BaseUpdateVideoComponent implements OnInit {
 
-  public isEnabled: FormControl = new FormControl('enabled');
+  public videoStatusCtrl: FormControl = new FormControl({value: 'enabled', disabled: true});
 
   public constructor(
       protected userVideoService: UserVideoService,
@@ -33,19 +34,34 @@ export class UpdateVideoComponent extends BaseUpdateVideoComponent implements On
     await this.initEntry(this.start.bind(this));
   }
 
+  protected override start(): void {
+    super.start();
+    this.enableTransitionToDraft();
+  }
+
+  public disableTransitionToDraft(): void {
+    this.videoStatusCtrl.disable();
+  }
+
+  public enableTransitionToDraft(): void {
+    if (this.isVideoStatusInReview) {
+      this.videoStatusCtrl.enable();
+    }
+  }
+
   override get canUpdateVideoInfoOrObject(): boolean {
     return !(this.startUpdateVideoInfo)
       && !(this.startUpdateVideoObject);
   }
 
-  get isStatusDisabled(): boolean {
-    return this.fleenVideo.videoStatus !== VideoStatus.IN_REVIEW;
+  get isVideoStatusInReview(): boolean {
+    return this.fleenVideo.videoStatus === VideoStatus.IN_REVIEW;
   }
 
   public moveBackToDraft(): void {
+    this.clearAllMessages();
     if (isFalsy(this.isSubmitting) && this.fleenVideo.videoStatus === VideoStatus.IN_REVIEW) {
       this.disableSubmittingAndResetErrorMessage();
-      this.clearAllMessages();
 
       this.userVideoService.moveVideoBackToDraft(this.entryId)
         .subscribe({
@@ -53,7 +69,7 @@ export class UpdateVideoComponent extends BaseUpdateVideoComponent implements On
           error: (error: ErrorResponse): void => { this.handleError(error); },
           complete: (): void => { this.enableSubmitting(); }
       });
-    } else {
+    } else if (this.fleenVideo.videoStatus !== VideoStatus.IN_REVIEW) {
       this.setErrorMessage(VIDEO_UNMOVED_TO_DRAFT);
     }
   }
@@ -62,7 +78,8 @@ export class UpdateVideoComponent extends BaseUpdateVideoComponent implements On
     const { movedToDraft } = result;
     this.setStatusMessage(result.message);
     if (movedToDraft) {
-      this.entryView = { ...(this.fleenVideo), videoStatus: VideoStatus.DRAFT };
+      this.entryView = new FleenVideoView({ ...(this.fleenVideo), videoStatus: VideoStatus.DRAFT });
+      this.disableTransitionToDraft();
     }
   }
 
@@ -70,5 +87,5 @@ export class UpdateVideoComponent extends BaseUpdateVideoComponent implements On
   protected readonly faArrowLeft: IconDefinition = faArrowLeft;
   protected readonly faInfo: IconDefinition = faInfo;
   protected readonly VideoStatus = VideoStatus;
-  protected readonly faSpinner = faSpinner;
+  protected readonly faSpinner: IconDefinition = faSpinner;
 }

@@ -1,4 +1,5 @@
 <div id="status-btn-wrapper">
+  <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.DRAFT}" (click)="setVideoStatusSearchParam(VideoStatus.DRAFT)">Draft</button>
   <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.IN_REVIEW}" (click)="setVideoStatusSearchParam(VideoStatus.IN_REVIEW)">Pending</button>
   <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.DISAPPROVED}" (click)="setVideoStatusSearchParam(VideoStatus.DISAPPROVED)">Declined</button>
   <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.APPROVED}" (click)="setVideoStatusSearchParam(VideoStatus.APPROVED)">Approved</button>

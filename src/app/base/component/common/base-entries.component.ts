@@ -535,6 +535,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
     this.currentPage = 1;
     this.enableSearchInProgress();
 
+    removePropertiesWithBlankKeysAndValues(this.searchParams);
     // Update the URL with the current page and search parameters
     await this.updateUrlWithPage(this.searchParams);
   }

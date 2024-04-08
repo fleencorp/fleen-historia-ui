@@ -25,10 +25,12 @@
 
   <div *ngIf="fleenVideo.videoStatus === VideoStatus.IN_REVIEW" class="toggle-switch-container">
     <p class="toggle-text">
-      Move status from <b>In-Review</b> to <b>Draft</b>
-      <fa-icon *ngIf="isSubmitting" [icon]="faSpinner" [animation]="'spin'"></fa-icon></p>
+      Move status from <b>In-Review</b> to <b>Draft</b></p>
+    <p class="toggle-text">
+      <fa-icon *ngIf="isSubmitting" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+    </p>
     <label class="toggle-switch">
-      <input type="checkbox" [formControl]="isEnabled" [disabled]="isStatusDisabled" (change)="moveBackToDraft()">
+      <input type="checkbox" [formControl]="videoStatusCtrl" (change)="moveBackToDraft()">
       <span class="slider"></span>
     </label>
   </div>
