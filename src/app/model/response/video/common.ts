@@ -1,3 +1,5 @@
+import {FleenResponse} from "@app/model/response";
+
 export class UserCanSubmitReviewResponse {
   public readonly hasSubmittedReview: boolean;
 
@@ -6,11 +8,12 @@ export class UserCanSubmitReviewResponse {
   }
 }
 
-export class MoveToDraftResponse {
+export class MoveToDraftResponse extends FleenResponse {
 
   public readonly movedToDraft: boolean;
 
   public constructor(data: MoveToDraftResponse) {
+    super(data);
     this.movedToDraft = data?.movedToDraft;
   }
 }

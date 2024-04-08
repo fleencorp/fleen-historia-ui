@@ -3,8 +3,12 @@ import {FormBuilder, FormControl} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserVideoService} from "@app/feature/user-video/service";
 import {BaseUpdateVideoComponent} from "@app/base/component/video";
-import {faArrowLeft, faInfo, faVideo, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faArrowLeft, faInfo, faSpinner, faVideo, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {VideoStatus} from "@app/model/enum";
+import {isFalsy} from "@app/shared/helper";
+import {MoveToDraftResponse} from "@app/model/response/video";
+import {ErrorResponse} from "@app/model/response";
+import {VIDEO_UNMOVED_TO_DRAFT} from "@app/constant";
 
 @Component({
   selector: 'app-update-video',
@@ -14,8 +18,10 @@ import {VideoStatus} from "@app/model/enum";
 })
 export class UpdateVideoComponent extends BaseUpdateVideoComponent implements OnInit {
 
+  public isEnabled: FormControl = new FormControl('enabled');
+
   public constructor(
-      userVideoService: UserVideoService,
+      protected userVideoService: UserVideoService,
       formBuilder: FormBuilder,
       router: Router,
       route: ActivatedRoute) {
@@ -27,15 +33,42 @@ export class UpdateVideoComponent extends BaseUpdateVideoComponent implements On
     await this.initEntry(this.start.bind(this));
   }
 
-  public isEnabled: FormControl = new FormControl('disabled');
+  override get canUpdateVideoInfoOrObject(): boolean {
+    return !(this.startUpdateVideoInfo)
+      && !(this.startUpdateVideoObject);
+  }
+
+  get isStatusDisabled(): boolean {
+    return this.fleenVideo.videoStatus !== VideoStatus.IN_REVIEW;
+  }
 
   public moveBackToDraft(): void {
-    // You can perform any action here when the switch is toggled
-    console.log('Switch is now:', this.isEnabled ? 'enabled' : 'disabled');
+    if (isFalsy(this.isSubmitting) && this.fleenVideo.videoStatus === VideoStatus.IN_REVIEW) {
+      this.disableSubmittingAndResetErrorMessage();
+      this.clearAllMessages();
+
+      this.userVideoService.moveVideoBackToDraft(this.entryId)
+        .subscribe({
+          next: (result: MoveToDraftResponse): void => { this.updateStatus(result); },
+          error: (error: ErrorResponse): void => { this.handleError(error); },
+          complete: (): void => { this.enableSubmitting(); }
+      });
+    } else {
+      this.setErrorMessage(VIDEO_UNMOVED_TO_DRAFT);
+    }
+  }
+
+  public updateStatus(result: MoveToDraftResponse): void {
+    const { movedToDraft } = result;
+    this.setStatusMessage(result.message);
+    if (movedToDraft) {
+      this.entryView = { ...(this.fleenVideo), videoStatus: VideoStatus.DRAFT };
+    }
   }
 
   protected readonly faVideo: IconDefinition = faVideo;
   protected readonly faArrowLeft: IconDefinition = faArrowLeft;
   protected readonly faInfo: IconDefinition = faInfo;
   protected readonly VideoStatus = VideoStatus;
+  protected readonly faSpinner = faSpinner;
 }

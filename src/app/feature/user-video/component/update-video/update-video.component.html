@@ -1,6 +1,6 @@
 <ng-container *ngIf="entryView">
 
-  <p *ngIf="isVideoInReview">Video is In Review at the moment and cannot be updated</p>
+  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <ng-container *ngIf="startUpdateVideoObject || startUpdateVideoInfo">
     <button (click)="goBack()" class="back-button"><fa-icon [icon]="faArrowLeft"></fa-icon></button>
@@ -25,9 +25,10 @@
 
   <div *ngIf="fleenVideo.videoStatus === VideoStatus.IN_REVIEW" class="toggle-switch-container">
     <p class="toggle-text">
-      Move status from <b>In-Review</b> to <b>Draft</b></p>
+      Move status from <b>In-Review</b> to <b>Draft</b>
+      <fa-icon *ngIf="isSubmitting" [icon]="faSpinner" [animation]="'spin'"></fa-icon></p>
     <label class="toggle-switch">
-      <input type="checkbox" [formControl]="isEnabled" (change)="toggleProperty()">
+      <input type="checkbox" [formControl]="isEnabled" [disabled]="isStatusDisabled" (change)="moveBackToDraft()">
       <span class="slider"></span>
     </label>
   </div>

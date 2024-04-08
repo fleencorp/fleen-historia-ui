@@ -16,7 +16,7 @@ export class FleenVideoView extends FleenBaseView {
   public readonly objectThumbnail: string;
   public readonly videoSource: VideoSource;
   public readonly videoVisibility: VideoVisibility;
-  public readonly videoStatus: VideoStatus;
+  public videoStatus: VideoStatus;
   public readonly isPublished: boolean;
   public readonly isForKids: boolean;
   public readonly isObjectApproved: boolean;
