@@ -2,9 +2,9 @@ import {Injectable} from "@angular/core";
 import {HttpClientService} from "@app/shared/service/impl";
 import {BaseVideoService} from "@app/base/service";
 import {Observable} from "rxjs";
-import {VideoReviewHistoryResponse} from "@app/model/response/video";
+import {MoveToDraftResponse, VideoCommentResponse, VideoReviewHistoryResponse} from "@app/model/response/video";
 import {ContributorService} from "@app/feature/contributor/service";
-import {VideoCommentResponse} from "@app/model/response/video/video-discussion.response";
+import {BaseRequest} from "@app/model/type";
 
 @Injectable()
 export class UserVideoService extends BaseVideoService {
@@ -24,7 +24,10 @@ export class UserVideoService extends BaseVideoService {
   public findVideoDiscussion(id: number | string): Observable<VideoCommentResponse> {
     return this.contributorService.findVideoDiscussion(id);
   }
-  
-  public moveVideoBackToDraft(id: number | string): Observable<>
+
+  public moveVideoBackToDraft(id: number | string): Observable<MoveToDraftResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'update', 'move-to-draft', +id]);
+    return this.httpService.update(req, MoveToDraftResponse);
+  }
 
 }

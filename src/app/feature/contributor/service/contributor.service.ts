@@ -4,10 +4,13 @@ import {AnyObject, BaseRequest, SubmitVideoReviewPayload} from "@app/model/type"
 import {Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
 import {FleenVideoView, VideoReviewView} from "@app/model/view/video";
-import {UserCanSubmitReviewResponse, VideoReviewHistoryResponse} from "@app/model/response/video";
-import {SubmitVideoReviewResponse} from "@app/model/response/video/submit-video-review.response";
+import {
+  SubmitVideoReviewResponse,
+  UserCanSubmitReviewResponse,
+  VideoCommentResponse,
+  VideoReviewHistoryResponse
+} from "@app/model/response/video";
 import {toSearchResult} from "@app/shared/rxjs";
-import {VideoCommentResponse} from "@app/model/response/video/video-discussion.response";
 
 @Injectable()
 export class ContributorService {
