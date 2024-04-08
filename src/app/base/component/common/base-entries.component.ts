@@ -17,7 +17,7 @@ import {
   DEFAULT_PREV_PAGE_TOKEN_KEY
 } from "@app/constant";
 import {SearchResultView} from "@app/model/view";
-import {isFalsy, isTruthy} from "@app/shared/helper";
+import {isFalsy, isTruthy, removePropertiesWithBlankKeysAndValues} from "@app/shared/helper";
 import {DeleteStatusEnum} from "@app/model/enum/base.enum";
 import {DeleteResponse} from "@app/model/response/common";
 import {ErrorResponse} from "@app/model/response";
@@ -482,6 +482,8 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
       id
     };
 
+    removePropertiesWithBlankKeysAndValues(params);
+
     // Disable form submission and reset error message
     this.disableSubmittingAndResetErrorMessage();
     this.enableNavigationInProgress();
@@ -635,7 +637,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   protected startComponent(cb?: Function): void {
     this.route.queryParams.subscribe((params: Params): void => {
       const page = params[DEFAULT_PAGE_NO_KEY];
-      this.searchParams = { ...params };
+      this.searchParams = { ...params, ...(this.searchParams) };
       this.deleteKeyIfExists(this.searchParams, DEFAULT_PAGE_NO_KEY);
       if (page !== undefined && !isNaN(page)) {
         this.currentPage = +page;

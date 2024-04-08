@@ -29,7 +29,8 @@ export class AdminFindVideosComponent extends BaseVideosComponent implements OnI
 
   public ngOnInit(): void {
     this.enableLoading();
-    this.startComponent(this.setDefaultVideoSearchStatus.bind(this));
+    this.setDefaultVideoSearchStatus();
+    this.startComponent();
   }
 
   public override deleteEntryMethod(id: number | string): Observable<DeleteResponse> {

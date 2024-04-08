@@ -744,3 +744,31 @@ export function removeProperty(obj: any, prop: string): void {
     delete obj[prop];
   }
 }
+
+
+/**
+ * Removes properties with blank keys or values from the given object.
+ * @param obj - The object to remove properties from.
+ * @returns void
+ * @example
+ * const exampleObj = {
+ *     name: 'John',
+ *     age: 30,
+ *     city: '',
+ *     country: ' ',
+ *     '': 'blankKey',
+ *     description: ' ',
+ *     '   ': 'blankKey2'
+ * };
+ * console.log('Before removal:', exampleObj);
+ * removePropertiesWithBlankKeysAndValues(exampleObj);
+ * console.log('After removal:', exampleObj);
+ */
+export function removePropertiesWithBlankKeysAndValues(obj: { [key: string]: any }): void {
+  Object.keys(obj).forEach((key: string): void => {
+    const value = obj[key];
+    if (typeof value === 'string' && (key.trim() === '' || value.trim() === '')) {
+      delete obj[key];
+    }
+  });
+}

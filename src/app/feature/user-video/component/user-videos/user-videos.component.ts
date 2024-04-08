@@ -32,7 +32,8 @@ export class UserVideosComponent extends BaseVideosComponent implements OnInit {
 
   public ngOnInit(): void {
     this.enableLoading();
-    this.startComponent(this.setDefaultVideoSearchStatus.bind(this));
+    this.setDefaultVideoSearchStatus();
+    this.startComponent();
   }
 
   override findEntries(params: AnyObject): Observable<SearchResultView<FleenVideoView>> {
