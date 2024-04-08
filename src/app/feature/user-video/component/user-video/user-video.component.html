@@ -1,13 +1,14 @@
 
 <div id="video-options">
 
-  <button type="button" (click)="0">View Detail</button>
-  <button type="button" (click)="0">Comments</button>
+  <button type="button" (click)="detailsView()">View Detail</button>
+  <button type="button" (click)="reviewHistoryView()">Review History</button>
+  <button type="button" (click)="commentsView()">Comments</button>
 
 </div>
 
   <!-- Video details on the left -->
-  <div class="video-details" *ngIf="entryView">
+  <div class="video-details" *ngIf="isDetailsView && entryView">
     <div *ngIf="fleenVideo.videoUrl" class="video-object">
       <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
     </div>
@@ -36,3 +37,11 @@
       <p>Submitted On: {{ fleenVideo.latestReview.createdOn }}</p>
     </div>
   </div>
+
+<div *ngIf="isCommentsView">
+
+</div>
+
+<div *ngIf="isReviewHistoryView">
+
+</div>

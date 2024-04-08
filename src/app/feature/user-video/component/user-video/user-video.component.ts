@@ -14,6 +14,9 @@ export class UserVideoComponent extends BaseDetailComponent<FleenVideoView> impl
 
   public override entryView!: FleenVideoView;
   protected override formBuilder;
+  protected isDetailsView: boolean = true;
+  protected isCommentsView: boolean = false;
+  protected isReviewHistoryView: boolean = false;
 
   public constructor(
       protected userVideoService: UserVideoService,
@@ -28,6 +31,24 @@ export class UserVideoComponent extends BaseDetailComponent<FleenVideoView> impl
 
   protected override getServiceEntry(id: number | string): Observable<FleenVideoView> {
     return this.userVideoService.findVideo(id);
+  }
+
+  public detailsView(): void {
+    this.isCommentsView = false;
+    this.isReviewHistoryView = false;
+    this.isDetailsView = true;
+  }
+
+  public commentsView(): void {
+    this.isDetailsView = false;
+    this.isReviewHistoryView = false;
+    this.isCommentsView = true;
+  }
+
+  public reviewHistoryView(): void {
+    this.isDetailsView = false;
+    this.isCommentsView = false;
+    this.isReviewHistoryView = true;
   }
 
   get fleenVideo(): FleenVideoView {
