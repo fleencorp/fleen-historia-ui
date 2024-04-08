@@ -8,15 +8,14 @@
 
   <!-- Video details on the left -->
   <div class="video-details" *ngIf="entryView">
+    <div *ngIf="fleenVideo.videoUrl" class="video-object">
+      <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
+    </div>
     <h2>{{ fleenVideo.videoTitle }}</h2>
     <p>{{ fleenVideo.videoDescription }}</p><hr/>
     <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
     <p><b>Reference/Source:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>
-    <div *ngIf="fleenVideo.videoUrl" class="video-object">
-      <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
-    </div>
-    <img *ngIf="fleenVideo.objectThumbnail" ngSrc="fleenVideo.objectThumbnail" alt="Thumbnail">
-
+    <p class="image-container"> <img *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail" alt="Thumbnail" width="370" height="300"></p>
     <!-- Assuming videoSource, videoVisibility, videoStatus, isPublished, isForKids, isObjectApproved are enums -->
     <p><b>Source:</b> {{ fleenVideo.videoSource }}</p><hr/>
     <p><b>Visibility:</b> {{ fleenVideo.videoVisibility }}</p><hr/>
