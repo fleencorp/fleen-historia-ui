@@ -15,6 +15,17 @@
   background-color: #faf9f9;
 }
 
+.video-details {
+  height: 480px;
+  overflow: hidden; /* Hide overflowing content */
+}
+
+.video-details h4,
+.video-details p {
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Display ellipsis when text overflows */
+}
 .video-details, .video-actions {
   padding: 5px;
 }
@@ -22,11 +33,6 @@
 .video-details p, .video-details h4 {
   line-height: 2.0em;
 }
-
-/*.video-actions button {
-  width: 100%;
-  margin: 10px 0 0;
-}*/
 
 .video-actions {
   display: flex;
