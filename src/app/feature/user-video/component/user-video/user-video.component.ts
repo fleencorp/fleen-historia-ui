@@ -27,6 +27,7 @@ export class UserVideoComponent extends BaseDetailComponent<FleenVideoView> impl
 
   public async ngOnInit(): Promise<void> {
     await this.initEntry();
+    this.userVideoService.findVideoReviewHistory(this.entryId);
   }
 
   protected override getServiceEntry(id: number | string): Observable<FleenVideoView> {

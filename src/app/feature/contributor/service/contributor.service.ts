@@ -47,6 +47,11 @@ export class ContributorService {
       );
   }
 
+  public findVideoDiscussion(id: number | string): Observable<any> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'comment', +id]);
+    return this.httpService.get(req, VideoReviewHistoryResponse);
+  }
+
   public userCanSubmitVideoReview(id: number | string): Observable<UserCanSubmitReviewResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'review', 'is-eligible', +id]);
     return this.httpService.get(req, UserCanSubmitReviewResponse);

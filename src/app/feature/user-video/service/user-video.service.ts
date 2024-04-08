@@ -20,4 +20,8 @@ export class UserVideoService extends BaseVideoService {
     return this.contributorService.findVideoReviewHistory(id);
   }
 
+  public findVideoDiscussion(id: number | string): Observable<any> {
+    return this.contributorService.findVideoDiscussion(id);
+  }
+
 }

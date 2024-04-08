@@ -6,3 +6,9 @@
 .image-container {
   text-align: center;
 }
+
+#video-options button {
+  background-color : #afdfff;
+  color: #171717;
+  font-weight: bold;
+}
