@@ -79,4 +79,8 @@ export abstract class BaseUpdateVideoComponent extends BaseUpdateComponent<Fleen
     this.startUpdateVideoInfo = false;
     this.startUpdateVideoObject = false;
   }
+
+  get fleenVideo(): FleenVideoView {
+    return this.entryView;
+  }
 }

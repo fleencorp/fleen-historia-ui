@@ -22,7 +22,16 @@
   <ng-container *ngIf="startUpdateVideoObject">
     <app-update-video-object [video-id]="entryView.videoId" ></app-update-video-object>
   </ng-container>
-  
+
+  <div *ngIf="fleenVideo.videoStatus === VideoStatus.IN_REVIEW" class="toggle-switch-container">
+    <p class="toggle-text">
+      Move status from <b>In-Review</b> to <b>Draft</b></p>
+    <label class="toggle-switch">
+      <input type="checkbox" [formControl]="isEnabled" (change)="toggleProperty()">
+      <span class="slider"></span>
+    </label>
+  </div>
+
 </ng-container>
 
 <app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

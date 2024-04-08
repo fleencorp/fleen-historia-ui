@@ -24,5 +24,7 @@ export class UserVideoService extends BaseVideoService {
   public findVideoDiscussion(id: number | string): Observable<VideoCommentResponse> {
     return this.contributorService.findVideoDiscussion(id);
   }
+  
+  public moveVideoBackToDraft(id: number | string): Observable<>
 
 }
