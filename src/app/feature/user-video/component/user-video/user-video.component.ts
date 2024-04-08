@@ -4,6 +4,9 @@ import {FleenVideoView} from "@app/model/view/video";
 import {UserVideoService} from "@app/feature/user-video/service/user-video.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {VideoCommentResponse} from "@app/model/response/video/video-discussion.response";
+import {VideoReviewHistoryResponse} from "@app/model/response/video";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-user-video',
@@ -13,7 +16,9 @@ import {Observable} from "rxjs";
 export class UserVideoComponent extends BaseDetailComponent<FleenVideoView> implements OnInit {
 
   public override entryView!: FleenVideoView;
-  protected override formBuilder;
+  public discussion: VideoCommentResponse = new VideoCommentResponse({} as VideoCommentResponse);
+  public reviewHistory: VideoReviewHistoryResponse = new VideoReviewHistoryResponse({} as VideoReviewHistoryResponse);
+  protected override formBuilder!: FormBuilder;
   protected isDetailsView: boolean = true;
   protected isCommentsView: boolean = false;
   protected isReviewHistoryView: boolean = false;
@@ -26,12 +31,28 @@ export class UserVideoComponent extends BaseDetailComponent<FleenVideoView> impl
   }
 
   public async ngOnInit(): Promise<void> {
+    this.enableLoading();
     await this.initEntry();
-    this.userVideoService.findVideoReviewHistory(this.entryId);
+    this.getVideoReviewHistory();
+    this.getVideoDiscussion();
   }
 
   protected override getServiceEntry(id: number | string): Observable<FleenVideoView> {
     return this.userVideoService.findVideo(id);
+  }
+
+  private getVideoReviewHistory(): void {
+    this.userVideoService.findVideoReviewHistory(this.entryId)
+      .subscribe({
+        next: (result: VideoReviewHistoryResponse): void => { this.reviewHistory = result; }
+    });
+  }
+
+  private getVideoDiscussion(): void {
+    this.userVideoService.findVideoDiscussion(this.entryId)
+      .subscribe({
+        next: (result: VideoCommentResponse): void => { this.discussion = result; }
+    });
   }
 
   public detailsView(): void {

@@ -4,6 +4,7 @@ import {BaseVideoService} from "@app/base/service";
 import {Observable} from "rxjs";
 import {VideoReviewHistoryResponse} from "@app/model/response/video";
 import {ContributorService} from "@app/feature/contributor/service";
+import {VideoCommentResponse} from "@app/model/response/video/video-discussion.response";
 
 @Injectable()
 export class UserVideoService extends BaseVideoService {
@@ -20,7 +21,7 @@ export class UserVideoService extends BaseVideoService {
     return this.contributorService.findVideoReviewHistory(id);
   }
 
-  public findVideoDiscussion(id: number | string): Observable<any> {
+  public findVideoDiscussion(id: number | string): Observable<VideoCommentResponse> {
     return this.contributorService.findVideoDiscussion(id);
   }
 

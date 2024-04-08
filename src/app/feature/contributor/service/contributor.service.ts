@@ -7,6 +7,7 @@ import {FleenVideoView, VideoReviewView} from "@app/model/view/video";
 import {UserCanSubmitReviewResponse, VideoReviewHistoryResponse} from "@app/model/response/video";
 import {SubmitVideoReviewResponse} from "@app/model/response/video/submit-video-review.response";
 import {toSearchResult} from "@app/shared/rxjs";
+import {VideoCommentResponse} from "@app/model/response/video/video-discussion.response";
 
 @Injectable()
 export class ContributorService {
@@ -47,9 +48,9 @@ export class ContributorService {
       );
   }
 
-  public findVideoDiscussion(id: number | string): Observable<any> {
+  public findVideoDiscussion(id: number | string): Observable<VideoCommentResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'comment', +id]);
-    return this.httpService.get(req, VideoReviewHistoryResponse);
+    return this.httpService.get(req, VideoCommentResponse);
   }
 
   public userCanSubmitVideoReview(id: number | string): Observable<UserCanSubmitReviewResponse> {
