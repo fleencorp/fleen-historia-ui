@@ -28,7 +28,7 @@
 <ng-container *ngIf="entries.length > 0">
     <div class="video-boxes">
       <div class="video-box" *ngFor="let video of entries; let i = index; trackBy: trackByFn">
-        <div class="video-details">
+        <div class="video-info">
           <p class="center thumbnail-wrapper"><img [src]="video.objectThumbnail" width="450" height="300"/></p>
           <h4 *ngIf="video.videoTitle">Title: {{ video.videoTitle }}</h4>
           <p *ngIf="video.channel.title">Channel: {{ video.channel.title }}</p>
