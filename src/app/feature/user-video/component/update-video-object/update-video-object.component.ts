@@ -5,8 +5,8 @@ import {ObjectService, SignedUrlService} from "@app/shared/service/impl";
 import {UserVideoService} from "@app/feature/user-video/service";
 import {BaseUpdateVideoObjectComponent} from "@app/base/component/video";
 import {UploadFileComponent} from "@app/shared/component";
-import {isTruthy} from "@app/shared/helper";
-import {faArrowRight, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {isTruthy, nonNull, propExists} from "@app/shared/helper";
+import {AnyObject} from "@app/model/type";
 
 @Component({
   selector: 'app-update-video-object',
@@ -39,5 +39,16 @@ export class UpdateVideoObjectComponent extends BaseUpdateVideoObjectComponent i
     }
   }
 
-  protected readonly faArrowRight: IconDefinition = faArrowRight;
+  public handleUploadedThumbnail(details: AnyObject): void {
+    if (nonNull(details) && propExists(details, 'objectOrThumbnailUrl')) {
+      this.videoThumbnailUrl = details['objectOrThumbnailUrl'];
+    }
+  }
+
+  public handleUploadedVideoContent(details: AnyObject): void {
+    if (nonNull(details) && propExists(details, 'objectOrVideoUrl')) {
+      this.videoContentUrl = details['objectOrVideoUrl'];
+    }
+  }
+
 }

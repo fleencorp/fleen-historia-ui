@@ -263,11 +263,14 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
   private handleCompletedUploadOperation(): void {
     // Save the uploaded file and emit upload details
     this.saveFile(this.fileNameOrUrl);
-    this.uploadDetails.emit({
-      [(this.fileKey)]: this.fileNameOrUrl
-    });
     this.resetCancelRequest();
     this.uploadStarted = false;
+
+    if (this.fileNameOrUrl != null) {
+      this.uploadDetails.emit({
+        [(this.fileKey)]: this.fileNameOrUrl
+      });
+    }
   }
 
   /**
