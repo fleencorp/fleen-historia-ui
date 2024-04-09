@@ -1,0 +1,48 @@
+.network-icon {
+  padding-left: 50px;
+  display: inline-block;
+  color: #0d98e3;
+}
+
+.slider-container {
+  position: relative;
+  display: inline-block;
+  width: 40px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 20px; /* Half of the height to make it round */
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px; /* Adjust the size of the slider button */
+  width: 16px; /* Adjust the size of the slider button */
+  left: 2px; /* Adjust the position of the slider button */
+  bottom: 2px; /* Adjust the position of the slider button */
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"]:checked + .slider {
+  background-color: #2196F3;
+}
+
+input[type="checkbox"]:checked + .slider:before {
+  transform: translateX(20px); /* Adjust the distance to move the slider button */
+}

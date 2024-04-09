@@ -22,6 +22,7 @@ export class CreateVideoComponent extends BaseCreateVideoComponent implements On
   }
 
   public ngOnInit(): void {
+    this.enableLoading();
     this.initForm();
     this.getDataForCreateVideo();
   }

@@ -10,13 +10,14 @@ import {AuthenticationService} from "@app/feature/authentication/service";
 import {SharedServiceModule} from "@app/shared/service/shared-service.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {FooterComponent, HeaderComponent} from "@app/base/component";
+import {FooterComponent, HeaderComponent, NetworkStatusComponent} from "@app/base/component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    NetworkStatusComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +35,8 @@ import {FooterComponent, HeaderComponent} from "@app/base/component";
   bootstrap: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    NetworkStatusComponent
   ]
 })
 export class AppModule { }

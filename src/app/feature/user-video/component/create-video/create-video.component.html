@@ -1,5 +1,5 @@
 
-<form *ngIf="isFormReady" [formGroup]="createVideoForm" (ngSubmit)="createVideo()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
+<form *ngIf="isFormReady && !isVideoCreated" [formGroup]="createVideoForm" (ngSubmit)="createVideo()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
   <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <div class="form-group">
@@ -47,7 +47,7 @@
   </div>
 
   <div class="form-group">
-    <label for="categoryId">Channel</label>
+    <label for="categoryId">Category</label>
     <select formControlName="categoryId" id="categoryId">
       <option *ngFor="let category of categories" [value]="category.categoryId">{{ category.title }}</option>
     </select>
@@ -63,8 +63,12 @@
   </div>
 
   <div class="create-video-note">
-    <p>If you successfully submit a video entry, you can go to view the <a [routerLink]="['..', 'entries']">entries</a> page and update the video to upload its thumbnail and video content</p>
+    <h5>Note:</h5>
+    <p>If you successfully submit a video entry, you can go to the <a [routerLink]="['..', 'entries']">entries</a> page and update the video to upload its thumbnail and video content.
+      Then request for a review by other contributors before publishing.</p>
   </div>
+
+  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <div class="form-group">
     <button type="submit" class="fright"
@@ -78,3 +82,6 @@
 
 </form>
 
+<app-update-video *ngIf="isVideoCreated" [entry-id]="createdVideoId"></app-update-video>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

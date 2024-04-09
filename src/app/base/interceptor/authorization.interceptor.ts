@@ -7,7 +7,7 @@ import {
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
-import {catchError, EMPTY, Observable, of, switchMap, tap} from 'rxjs';
+import {catchError, EMPTY, Observable, ObservableInput, of, switchMap, tap} from 'rxjs';
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {AuthTokenService, LocalStorageService} from "@app/base/service";
@@ -152,7 +152,10 @@ export class AuthorizationInterceptor implements HttpInterceptor {
       .pipe(
         tap((value: HttpEvent<any>): void => { this.handleRefreshTokenResponse(value); }),
         catchError(() => this.clearTokensAndStartAuthentication()),
-        switchMap(() => of(EMPTY))
+        switchMap((): ObservableInput<any> => {
+          location.reload();
+          return of(EMPTY)
+        })
     );
   }
 
@@ -281,5 +284,13 @@ export class AuthorizationInterceptor implements HttpInterceptor {
   private getRequestPath(url: string): string {
     return url.replace(API_HOST_URL + "/", "")
       .replace(API_BASE_PATH, "");
+  }
+
+  public reloadCurrentPage(): void {
+    const currentUrl: string = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true})
+      .then(async (): Promise<void> => {
+        await this.router.navigate([currentUrl]);
+    });
   }
 }

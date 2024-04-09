@@ -120,10 +120,14 @@ export class FileUploadDownloadService {
   public uploadFile(req: ExchangeRequest, contentType: string): Observable<any> {
     let { headers } = req;
     if (isFalsy(headers)) {
+      console.log('Got here');
       // Set the content type header if not provided in the request
       headers = new HttpHeaders().set(CONTENT_TYPE_HEADER_KEY, contentType);
       req.headers = headers;
     }
+
+    console.log(req);
+    console.log(contentType);
     // Perform the file upload by exchanging the request
     return this.httpService.multipart(req);
   }

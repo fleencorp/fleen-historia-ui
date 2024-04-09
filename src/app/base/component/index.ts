@@ -1,5 +1,6 @@
 export * from './common/base.component';
 export * from './common/base-form.component';
+export * from './dashboard/dashboard.component';
 export * from './impl/base-form-impl.component';
 export * from './common/base-add.component';
 export * from './common/base-entries.component';
@@ -10,3 +11,4 @@ export * from './fleen-comgroup/fleen-comgroup.component';
 export * from './header/header.component';
 export * from './footer/footer.component';
 export * from './nav-bar/nav-bar.component';
+export * from './network-status/network-status.component';

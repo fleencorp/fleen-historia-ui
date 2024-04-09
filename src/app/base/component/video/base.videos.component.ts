@@ -103,8 +103,18 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
   }
 
   protected setDefaultVideoSearchStatus(): void {
-    this.searchParams = { ...(this.searchParams) };
-    if (!this.searchParams.hasOwnProperty(VIDEO_STATUS_SEARCH_KEY)) {
+    // Clone the searchParams object to avoid modifying the original object
+    this.searchParams = { ...(this.searchParams), ...(this.route.snapshot.queryParams) };
+
+    // Retrieve the status query parameter from the route snapshot
+    let statusQueryParam: string | null = this.searchParams[VIDEO_STATUS_SEARCH_KEY];
+
+    // Check if the status query parameter is truthy and not empty
+    if (isTruthy(statusQueryParam) && statusQueryParam?.trim()) {
+      // Set the status query parameter in searchParams if it exists
+      this.searchParams[VIDEO_STATUS_SEARCH_KEY] = statusQueryParam;
+    } else {
+      // Set the default status query parameter if it doesn't exist or is empty
       this.searchParams[VIDEO_STATUS_SEARCH_KEY] = VideoStatus.IN_REVIEW;
     }
   }

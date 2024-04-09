@@ -3,3 +3,4 @@ export * from './storage/local-storage.service';
 export * from './logger.service';
 export * from './storage/session-storage.service';
 export * from './base-video.service';
+export * from './network.service';

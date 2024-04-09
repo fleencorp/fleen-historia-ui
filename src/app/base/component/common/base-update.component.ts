@@ -15,7 +15,7 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
   public abstract entryView: T;
 
   /** The ID of the entry being updated. */
-  protected entryId: number | string = 0;
+  public entryId: number | string = 0;
 
   /**
    * Constructor of the BaseUpdateComponent.
@@ -59,7 +59,8 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
    */
   protected async initEntry(cb?: Function): Promise<void> {
     this.route.paramMap.subscribe(async (params: ParamMap): Promise<void> => {
-      const id: number | string | null | any = params?.get('id');
+      const id: number | string | null | any = params?.get('id') || this.entryId;
+      console.log(id, " is the ID of the video created");
       await this.initAndGetEntry(id, cb);
     });
   }

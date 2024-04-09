@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormControl} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserVideoService} from "@app/feature/user-video/service";
@@ -20,6 +20,9 @@ import {FleenVideoView} from "@app/model/view/video";
 export class UpdateVideoComponent extends BaseUpdateVideoComponent implements OnInit {
 
   public videoStatusCtrl: FormControl = new FormControl({value: 'enabled', disabled: true});
+
+  @Input('entry-id')
+  public override entryId: number | string = 0;
 
   public constructor(
       protected userVideoService: UserVideoService,

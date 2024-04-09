@@ -12,11 +12,14 @@ import {GetCreateVideoResponse} from "@app/model/response/video";
 import {ErrorResponse} from "@app/model/response";
 import {Observable} from "rxjs";
 import {BaseVideoService} from "@app/base/service";
+import {isFalsy, isTruthy} from "@app/shared/helper";
 
 export abstract class BaseCreateVideoComponent extends BaseAddComponent<CreateVideoPayload, FleenVideoView> {
 
   public channels: ChannelView[] = [];
   public categories: CategoryView[] = [];
+  protected isVideoCreated: boolean = false;
+  protected createdVideoId: number | string = 0;
 
   protected constructor(
       protected videosService: BaseVideoService,
@@ -52,8 +55,9 @@ export abstract class BaseCreateVideoComponent extends BaseAddComponent<CreateVi
           this.initDataForCreateVideo(result);
           this.formReady();
         },
-        error: (error: ErrorResponse): void => { this.handleError(error); }
-      });
+        error: (error: ErrorResponse): void => { this.handleError(error); },
+        complete: (): void => { this.disableLoading(); }
+    });
   }
 
   private initDataForCreateVideo(result: GetCreateVideoResponse): void {
@@ -62,7 +66,23 @@ export abstract class BaseCreateVideoComponent extends BaseAddComponent<CreateVi
   }
 
   public createVideo(): void {
-    this.saveEntry();
+    if (isTruthy(this.fleenForm) && this.fleenForm.valid && isFalsy(this.isSubmitting)) {
+      // Disable form submission and reset error message
+      this.disableSubmitting();
+      this.clearAllMessages();
+
+      this.videosService.createVideo(this.fleenForm.value)
+        .subscribe({
+          next: (result: FleenVideoView): void => { this.formCompleted(() => this.handleSuccessfulVideoSubmission(result)); },
+          error: (result: ErrorResponse): void => { this.handleError(result); },
+          complete: (): void => { this.enableSubmitting(); }
+      });
+    }
+  }
+
+  protected handleSuccessfulVideoSubmission(result: FleenVideoView): void {
+    this.createdVideoId = result.videoId;
+    this.isVideoCreated = true;
   }
 
   protected override $saveEntry(payload: CreateVideoPayload): Observable<FleenVideoView> {

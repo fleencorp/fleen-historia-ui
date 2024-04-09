@@ -283,6 +283,7 @@ export class UploadFileComponent extends BaseFormComponent implements OnInit {
     if (isTruthy(this.cancelRequest$) && this.cancelRequest$ !== null) {
       this.cancelRequest$.unsubscribe();
     }
+    this.resetCancelRequest();
     // Clear the input files
     this.fileService.clearInputFiles(element);
     // Update the upload message to indicate that the upload has been aborted
