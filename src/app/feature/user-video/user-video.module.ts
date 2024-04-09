@@ -36,7 +36,7 @@ import {ContributorService} from "@app/feature/contributor/service";
     UserVideoRoutingModule,
     FontAwesomeModule,
     BaseModule,
-    NgOptimizedImage
+    NgOptimizedImage,
   ],
   exports: [
     UpdateVideoInfoComponent,

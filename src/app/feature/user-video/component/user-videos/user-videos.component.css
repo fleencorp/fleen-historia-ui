@@ -47,7 +47,7 @@
   width: 160px;
 }
 
-.video-actions button:last-child {
+.video-actions button:last-child.publish-video-btn {
   width: 100%;
 }
 

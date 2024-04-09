@@ -1,3 +1,4 @@
+
 <div id="status-btn-wrapper">
   <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.DRAFT}" (click)="setVideoStatusSearchParam(VideoStatus.DRAFT)">Draft</button>
   <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.IN_REVIEW}" (click)="setVideoStatusSearchParam(VideoStatus.IN_REVIEW)">Pending</button>
@@ -40,10 +41,18 @@
         <div class="video-actions">
           <button type="button" class="btn-navy" (click)="viewDetail(video.videoId)">View <fa-icon [icon]="faEye"></fa-icon></button>
           <button type="button" class="btn-aqua" (click)="updateEntry(video.videoId)">Update <fa-icon [icon]="faPencil"></fa-icon></button>
-          <button type="button" class="btn-blue" [disabled]="isSubmitting" *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Request Review <fa-icon [icon]="faBarsProgress"></fa-icon></button>
-          <button type="button" [disabled]="isSubmitting" *ngIf="canPublish(video)" (click)="publishVideo(video.videoId)">Publish <fa-icon [icon]="faRocket"></fa-icon></button>
-          <button type="button" class="btn-orange" [disabled]="isSubmitting" *ngIf="canRequestForReview(video)" (click)="requestForReview(video.videoId)">Publish <fa-icon [icon]="faRocket"></fa-icon></button>
+          <ng-container>
+            <button type="button" class="btn-blue"
+                    *ngIf="canRequestForReview(video) && successfulSubmissionForReviewVideoId !== video.videoId"
+                    (click)="requestForReview(video.videoId)">Request Review
+              <app-submit-loading-icon [is-submitting]="isSubmittingForReview && (submittingForReviewVideoId === video.videoId)" [display-icon]="faBarsProgress"></app-submit-loading-icon>
+            </button>
+            <button class="btn-blue" *ngIf="isSubmittingForReviewSuccessful && (submittingForReviewVideoId === video.videoId)" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
+          </ng-container>
+
+          <button type="button" class="publish-video-btn" [disabled]="isSubmitting" *ngIf="canPublish(video)" (click)="publishVideo(video.videoId)">Publish <fa-icon [icon]="faRocket"></fa-icon></button>
         </div>
+        <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
       </div>
     </div>
 

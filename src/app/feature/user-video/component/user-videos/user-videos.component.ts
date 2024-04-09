@@ -9,7 +9,7 @@ import {SearchResultView} from "@app/model/view";
 import {ANY_EMPTY} from "@app/constant";
 import {BaseVideosComponent} from "@app/base/component/video";
 import {UserVideoService} from "@app/feature/user-video/service";
-import {faBarsProgress, faEye, faPencil, faRocket, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faBarsProgress, faCheck, faEye, faPencil, faRocket, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {VideoStatus} from "@app/model/enum";
 
 @Component({
@@ -49,4 +49,5 @@ export class UserVideosComponent extends BaseVideosComponent implements OnInit {
   protected readonly faBarsProgress: IconDefinition = faBarsProgress;
   protected readonly faRocket: IconDefinition = faRocket;
   protected readonly VideoStatus = VideoStatus;
+  protected readonly faCheck = faCheck;
 }

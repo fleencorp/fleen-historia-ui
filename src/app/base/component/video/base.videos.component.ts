@@ -18,6 +18,10 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
   public override entries: FleenVideoView[] = [];
   public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_FLEEN_VIDEOS;
   protected override defaultEntryIdKey: string = 'videoId';
+  protected isSubmittingForReview: boolean = false;
+  public isSubmittingForReviewSuccessful: boolean = false;
+  public submittingForReviewVideoId: number | string = 0;
+  public successfulSubmissionForReviewVideoId: number | string = 0;
 
   protected constructor(
       protected videosService: BaseVideoService,
@@ -55,20 +59,48 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
     return false;
   }
 
+  protected enableIsSubmittingForReview(): void {
+    this.isSubmittingForReview = true;
+  }
+
+  protected disableIsSubmittingForReview(): void {
+    this.isSubmittingForReview = false;
+  }
+
+  protected enableSubmittingForReviewSuccessful(): void {
+    this.isSubmittingForReviewSuccessful = true;
+  }
+
   public requestForReview(videoId: number | string): void {
-    if (isFalsy(this.isSubmitting)) {
-      this.disableSubmittingAndResetErrorMessage();
+    if (isFalsy(this.isSubmitting) && isFalsy(this.isSubmittingForReview)) {
+      this.clearAllMessages();
+      this.disableSubmitting();
+      this.enableIsSubmittingForReview();
+      this.submittingForReviewVideoId = videoId;
 
       this.videosService.requestForReview(videoId)
         .subscribe({
           next: (result: RequestForReviewResponse): void => {
             this.setStatusMessage(result.message);
-            this.replaceOldWithUpdateVideo(result.fleenVideoView.videoId, result.fleenVideoView);
+            this.disableIsSubmittingForReview();
+            this.enableSubmittingForReviewSuccessful();
+            this.successfulSubmissionForReviewVideoId = videoId;
+            this.invokeCallbackWithDelay((): void => this.handleSuccessfulSubmissionForReview(result));
           },
-          error: (error: ErrorResponse): void => { this.handleError(error); },
-          complete: async (): Promise<void> => { this.enableSubmitting(); }
+          error: (error: ErrorResponse): void => {
+            this.handleError(error);
+            this.disableIsSubmittingForReview();
+          },
+          complete: async (): Promise<void> => {
+            this.enableSubmitting();
+          }
       });
     }
+  }
+
+  protected handleSuccessfulSubmissionForReview(result: RequestForReviewResponse): void {
+    this.replaceOldWithUpdateVideo(result.fleenVideo.videoId, result.fleenVideo);
+    this.submittingForReviewVideoId = 0;
   }
 
   public publishVideo(id: number | string): void {

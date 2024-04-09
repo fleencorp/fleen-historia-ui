@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {faCheck, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
@@ -12,7 +12,8 @@ import {faCheck, IconDefinition} from "@fortawesome/free-solid-svg-icons";
       display: contents;
     }
   `
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class SuccessButtonComponent {
   @Input('is-form-completed')
