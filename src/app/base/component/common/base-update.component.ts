@@ -60,7 +60,6 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
   protected async initEntry(cb?: Function): Promise<void> {
     this.route.paramMap.subscribe(async (params: ParamMap): Promise<void> => {
       const id: number | string | null | any = params?.get('id') || this.entryId;
-      console.log(id, " is the ID of the video created");
       await this.initAndGetEntry(id, cb);
     });
   }

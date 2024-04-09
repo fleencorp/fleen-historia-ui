@@ -16,6 +16,8 @@ export const CONTENT_TYPE_PNG: string = 'image/png';
 
 export const CONTENT_TYPE_BMP: string = 'image/bmp';
 
+export const CONTENT_TYPE_VIDEO: string = 'video/';
+
 export const SUPPORTED_CONTENT_TYPES: string[] = [
   CONTENT_TYPE_APPLICATION_JSON,
   CONTENT_TYPE_APPLICATION_OCTET,
@@ -25,5 +27,6 @@ export const SUPPORTED_CONTENT_TYPES: string[] = [
   CONTENT_TYPE_JPEG,
   CONTENT_TYPE_BMP,
   CONTENT_TYPE_PNG,
-  CONTENT_TYPE_JPG
+  CONTENT_TYPE_JPG,
+  CONTENT_TYPE_VIDEO
 ];

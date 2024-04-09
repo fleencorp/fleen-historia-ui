@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {isFalsy} from "@app/shared/helper";
+import {equalsIgnoreCase, isFalsy, nonNull} from "@app/shared/helper";
 import {CONTENT_TYPE_APPLICATION_JSON, CONTENT_TYPE_HEADER_KEY, SUPPORTED_CONTENT_TYPES} from "@app/constant";
 import {AnyObject} from "@app/model/type";
 
@@ -49,7 +49,11 @@ export class ContentTypeInterceptor implements HttpInterceptor {
    * @private
    */
   private isContentTypeSupported(req: HttpRequest<any>): boolean {
-    return SUPPORTED_CONTENT_TYPES.includes(this.getContentTypeHeaders(req));
+    const contentTypeHeader: string = this.getContentTypeHeaders(req);
+    return SUPPORTED_CONTENT_TYPES.some((type: string) => {
+      // Check if the content type starts with the supported type or matches exactly
+      return nonNull(contentTypeHeader) && (contentTypeHeader.startsWith(type) || equalsIgnoreCase(contentTypeHeader, type));
+    });
   }
 
   /**
