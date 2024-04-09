@@ -82,12 +82,10 @@ export abstract class BaseAddComponent<D, R> extends BaseFormComponent {
 
       this.$saveEntry(this.fleenForm.value)
         .subscribe({
+          next: (result: R): void => { this.formCompleted(async (): Promise<void> => { await this.goToEntries(); }) },
           error: (result: ErrorResponse): void => { this.handleError(result); },
           // Upon successful saving, enable form submission and navigate to entries page
-          complete: async (): Promise<void> => {
-            this.enableSubmitting();
-            await this.goToEntries();
-          }
+          complete: async (): Promise<void> => { this.enableSubmitting(); }
       });
     }
   }

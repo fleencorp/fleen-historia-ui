@@ -62,7 +62,19 @@
     <app-validation-error [control]="channelId" [control-label]="'Channel'"></app-validation-error>
   </div>
 
-  <button type="submit" [disabled]="isSubmitting">Submit</button>
+  <div class="create-video-note">
+    <p>If you successfully submit a video entry, you can go to view the <a [routerLink]="['..', 'entries']">entries</a> page and update the video to upload its thumbnail and video content</p>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="fright"
+            *ngIf="!isFormCompleted"
+            [disabled]="isSubmitting">Submit
+      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
+    </button>
+
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+  </div>
 
 </form>
 

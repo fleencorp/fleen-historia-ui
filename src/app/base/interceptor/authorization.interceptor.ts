@@ -148,10 +148,11 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     }
 
     const refreshRequest: HttpRequest<any> = this.buildRefreshTokenRequest(request, refreshToken);
-    return next.handle(refreshRequest).pipe(
-      tap((value: HttpEvent<any>): void => { this.handleRefreshTokenResponse(value); }),
-      catchError(() => this.clearTokensAndStartAuthentication()),
-      switchMap(() => of(EMPTY))
+    return next.handle(refreshRequest)
+      .pipe(
+        tap((value: HttpEvent<any>): void => { this.handleRefreshTokenResponse(value); }),
+        catchError(() => this.clearTokensAndStartAuthentication()),
+        switchMap(() => of(EMPTY))
     );
   }
 
