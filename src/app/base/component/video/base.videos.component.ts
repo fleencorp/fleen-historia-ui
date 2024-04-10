@@ -77,6 +77,7 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
       this.disableSubmitting();
       this.enableIsSubmittingForReview();
       this.submittingForReviewVideoId = videoId;
+      this.clearVideoEntryMessages(videoId);
 
       this.videosService.requestForReview(videoId)
         .subscribe({
@@ -85,10 +86,12 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
             this.disableIsSubmittingForReview();
             this.enableSubmittingForReviewSuccessful();
             this.successfulSubmissionForReviewVideoId = videoId;
+            this.setVideoEntryStatusMessage(videoId, result.message);
             this.invokeCallbackWithDelay((): void => this.handleSuccessfulSubmissionForReview(result));
           },
           error: (error: ErrorResponse): void => {
             this.handleError(error);
+            this.setVideoEntryErrorMessage(videoId, error);
             this.disableIsSubmittingForReview();
           },
           complete: async (): Promise<void> => {
@@ -101,6 +104,28 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
   protected handleSuccessfulSubmissionForReview(result: RequestForReviewResponse): void {
     this.replaceOldWithUpdateVideo(result.fleenVideo.videoId, result.fleenVideo);
     this.submittingForReviewVideoId = 0;
+  }
+
+  protected setVideoEntryErrorMessage(videoId: number | string, error: ErrorResponse): void {
+    const fleenVideo: FleenVideoView | null = this.getFleenVideoViewById(videoId);
+    if (fleenVideo != null) {
+      fleenVideo.errorMessage = error.message;
+    }
+  }
+
+  protected setVideoEntryStatusMessage(videoId: number | string, message: string): void {
+    const fleenVideo: FleenVideoView | null = this.getFleenVideoViewById(videoId);
+    if (fleenVideo != null) {
+      fleenVideo.statusMessage = message;
+    }
+  }
+
+  protected clearVideoEntryMessages(videoId: number | string): void {
+    const fleenVideo: FleenVideoView | null = this.getFleenVideoViewById(videoId);
+    if (fleenVideo != null) {
+      fleenVideo.statusMessage = '';
+      fleenVideo.errorMessage = '';
+    }
   }
 
   public publishVideo(id: number | string): void {
@@ -158,6 +183,14 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
     } else {
       this.searchParams = { ...(this.searchParams), status };
     }
+  }
+
+  protected getFleenVideoViewById(videoId: number | string): FleenVideoView | null {
+    const entry: FleenVideoView | undefined = this.entries.find((entry: FleenVideoView): boolean => entry.videoId === videoId);
+    if (isTruthy(entry)) {
+      return entry as FleenVideoView;
+    }
+    return null;
   }
 
   get currentVideoSearchStatus(): VideoStatus {

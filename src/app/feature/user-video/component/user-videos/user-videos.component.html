@@ -16,6 +16,8 @@
   (searchSubmitted)="search($event)"
   (resetSearchSubmitted)="resetSearch()"></app-search-form-delete-menu>
 
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
 <app-pagination [entries-available]="entries.length > 0"
                 [is-first]="isFirst"
                 [is-last]="isLast"
@@ -23,9 +25,6 @@
                 [navigation-in-progress]="navigationInProgress"
                 (toNextPage)="nextPage()"
                 (toPreviousPage)="previousPage()"></app-pagination>
-
-<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
-
 
 <ng-container *ngIf="entries.length > 0">
     <div class="video-boxes">
@@ -52,11 +51,13 @@
 
           <button type="button" class="publish-video-btn" [disabled]="isSubmitting" *ngIf="canPublish(video)" (click)="publishVideo(video.videoId)">Publish <fa-icon [icon]="faRocket"></fa-icon></button>
         </div>
-        <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+        <app-form-message [status-message]="video.statusMessage" [error-message]="video.errorMessage"></app-form-message>
       </div>
     </div>
 
 </ng-container>
+
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <app-pagination [entries-available]="entries.length > 0"
                 [is-first]="isFirst"

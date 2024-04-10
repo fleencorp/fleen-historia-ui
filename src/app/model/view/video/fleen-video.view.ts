@@ -23,6 +23,8 @@ export class FleenVideoView extends FleenBaseView {
   public readonly category: CategoryView;
   public readonly channel: ChannelView;
   public readonly latestReview: VideoReviewView;
+  public errorMessage: string;
+  public statusMessage: string;
 
 
   public constructor(data: FleenVideoView) {
@@ -44,5 +46,7 @@ export class FleenVideoView extends FleenBaseView {
     this.channel = new ChannelView(data?.channel);
     this.latestReview = new VideoReviewView(data?.latestReview);
     this.isObjectApproved = data?.isObjectApproved;
+    this.errorMessage = '';
+    this.statusMessage = '';
   }
 }
