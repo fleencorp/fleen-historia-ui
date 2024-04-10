@@ -22,6 +22,10 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
   public isSubmittingForReviewSuccessful: boolean = false;
   public submittingForReviewVideoId: number | string = 0;
   public successfulSubmissionForReviewVideoId: number | string = 0;
+  public isPublishing: boolean = false;
+  public isPublishingSuccessful: boolean = false;
+  public submittingForPublishingVideoId: number | string = 0;
+  public successfulPublishingVideoId: number | string  = 0;
 
   protected constructor(
       protected videosService: BaseVideoService,
@@ -71,6 +75,18 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
     this.isSubmittingForReviewSuccessful = true;
   }
 
+  protected enableIsPublishing(): void {
+    this.isPublishing = true;
+  }
+
+  protected disableIsPublishing(): void {
+    this.isPublishing = false;
+  }
+
+  protected enableIsPublishingSuccessful(): void {
+    this.isPublishingSuccessful = true;
+  }
+
   public requestForReview(videoId: number | string): void {
     if (isFalsy(this.isSubmitting) && isFalsy(this.isSubmittingForReview)) {
       this.clearAllMessages();
@@ -106,6 +122,11 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
     this.submittingForReviewVideoId = 0;
   }
 
+  protected handleSuccessfulSubmissionForPublishing(result: PublishVideoResponse): void {
+    this.replaceOldWithUpdateVideo(result.fleenVideo.videoId, result.fleenVideo);
+    this.submittingForReviewVideoId = 0;
+  }
+
   protected setVideoEntryErrorMessage(videoId: number | string, error: ErrorResponse): void {
     const fleenVideo: FleenVideoView | null = this.getFleenVideoViewById(videoId);
     if (fleenVideo != null) {
@@ -128,18 +149,32 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
     }
   }
 
-  public publishVideo(id: number | string): void {
-    if (isFalsy(this.isSubmitting)) {
-      this.disableSubmittingAndResetErrorMessage();
+  public publishVideo(videoId: number | string): void {
+    if (isFalsy(this.isSubmitting) && isFalsy(this.isPublishing)) {
+      this.clearAllMessages();
+      this.disableSubmitting();
+      this.enableIsPublishing();
+      this.submittingForPublishingVideoId = videoId;
+      this.clearVideoEntryMessages(videoId);
 
-      this.videosService.publishVideo(id)
+      this.videosService.publishVideo(videoId)
         .subscribe({
           next: (result: PublishVideoResponse): void => {
             this.setStatusMessage(result.message);
-            this.replaceOldWithUpdateVideo(result.fleenVideoView.videoId, result.fleenVideoView);
+            this.disableIsPublishing();
+            this.enableIsPublishingSuccessful();
+            this.successfulPublishingVideoId = videoId;
+            this.setVideoEntryStatusMessage(videoId, result.message);
+            this.invokeCallbackWithDelay((): void => this.handleSuccessfulSubmissionForPublishing(result));
           },
-          error: (error: ErrorResponse): void => { this.handleError(error); },
-          complete: async (): Promise<void> => { this.enableSubmitting(); }
+          error: (error: ErrorResponse): void => {
+            this.handleError(error);
+            this.setVideoEntryErrorMessage(videoId, error);
+            this.disableIsPublishing();
+          },
+          complete: async (): Promise<void> => {
+            this.enableSubmitting();
+          }
       });
     }
   }

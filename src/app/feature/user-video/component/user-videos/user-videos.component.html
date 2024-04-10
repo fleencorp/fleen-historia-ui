@@ -49,7 +49,15 @@
             <button class="btn-blue" *ngIf="isSubmittingForReviewSuccessful && (submittingForReviewVideoId === video.videoId)" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
           </ng-container>
 
-          <button type="button" class="publish-video-btn" [disabled]="isSubmitting" *ngIf="canPublish(video)" (click)="publishVideo(video.videoId)">Publish <fa-icon [icon]="faRocket"></fa-icon></button>
+          <ng-container>
+            <button type="button" class="publish-video-btn btn-orange"
+                    *ngIf="canPublish(video) && successfulPublishingVideoId !== video.videoId"
+                    (click)="publishVideo(video.videoId)">Publish
+              <app-submit-loading-icon [is-submitting]="isPublishing && (submittingForPublishingVideoId === video.videoId)" [display-icon]="faRocket"></app-submit-loading-icon>
+            </button>
+            <button class="btn-blue" *ngIf="isPublishingSuccessful && (submittingForPublishingVideoId === video.videoId)" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
+          </ng-container>
+
         </div>
         <app-form-message [status-message]="video.statusMessage" [error-message]="video.errorMessage"></app-form-message>
       </div>
