@@ -12,4 +12,8 @@ export class ReplyComponent {
   @Input('replies')
   public replies: ReplyView[] = [];
 
+  public trackByFn(index: number, item: ReplyView): any {
+    return item.replyId;
+  }
+
 }

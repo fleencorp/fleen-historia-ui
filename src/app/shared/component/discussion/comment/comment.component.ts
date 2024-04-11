@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {CommentView, ReplyView} from "@app/model/view/discussion";
 import {FormControl} from "@angular/forms";
 import {ContributorService} from "@app/feature/contributor/service";
@@ -15,7 +15,7 @@ import {BaseFormImplComponent} from "@app/base/component";
   styleUrls: ['./comment.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class CommentComponent extends BaseFormImplComponent {
+export class CommentComponent extends BaseFormImplComponent implements OnInit {
 
   @Input('comments')
   public comments: CommentView[] = [];
@@ -27,8 +27,12 @@ export class CommentComponent extends BaseFormImplComponent {
     super();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.comments.forEach((comment: CommentView): void => { this.replyState[comment.commentId] = { ...defaultReplyState }; });
+  }
+
+  public trackByFn(index: number, item: CommentView): any {
+    return item.commentId;
   }
 
   toggleReplyForm(comment: CommentView): void {

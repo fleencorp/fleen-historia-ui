@@ -1,6 +1,6 @@
 <!-- Reply Component -->
 <ng-container *ngIf="replies && replies.length > 0">
-  <div class="reply" *ngFor="let reply of replies">
+  <div class="reply" *ngFor="let reply of replies; trackBy: trackByFn">
     <div class="reply-header">
       <div class="profile-info">
         <img class="profile-photo" src="{{ reply?.member?.profilePhoto }}" alt="Profile Picture">
