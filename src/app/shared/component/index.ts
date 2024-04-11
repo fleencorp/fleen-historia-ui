@@ -9,4 +9,6 @@ export * from './upload-file/upload-file.component';
 export * from './validation-error/validation-error.component';
 export * from './submit-loading-icon/submit-loading-icon.component';
 export * from './success-button/success-button.component';
-export * from './loading-camera/loading-camera.component'
+export * from './video/show-review-history/show-review-history.component';
+export * from './video/show-video-detail/show-video-detail.component';
+export * from './video/video-detail-option/video-detail-option.component';

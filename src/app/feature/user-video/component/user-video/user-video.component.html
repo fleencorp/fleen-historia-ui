@@ -1,49 +1,15 @@
+<app-video-detail-option (detail-view)="detailsView()" (review-history-view)="reviewHistoryView()" (comment-view)="commentsView()"></app-video-detail-option>
 
-<div id="video-options">
-
-  <button type="button" (click)="detailsView()">View Detail</button>
-  <button type="button" (click)="reviewHistoryView()">Review History</button>
-  <button type="button" (click)="commentsView()">Comments</button>
-
-</div>
-
-  <!-- Video details on the left -->
-  <div class="video-details" *ngIf="isDetailsView && entryView">
-    <div *ngIf="fleenVideo.videoUrl" class="video-object">
-      <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
-    </div>
-    <h2>{{ fleenVideo.videoTitle }}</h2>
-    <p>{{ fleenVideo.videoDescription }}</p><hr/>
-    <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
-    <p><b>Reference/Source:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>
-    <p class="image-container"> <img *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail" alt="Thumbnail" width="370" height="300"></p>
-    <!-- Assuming videoSource, videoVisibility, videoStatus, isPublished, isForKids, isObjectApproved are enums -->
-    <p><b>Source:</b> {{ fleenVideo.videoSource }}</p><hr/>
-    <p><b>Visibility:</b> {{ fleenVideo.videoVisibility }}</p><hr/>
-    <p><b>Status:</b> {{ fleenVideo.videoStatus }}</p><hr/>
-    <p><b>Published:</b> {{ fleenVideo.isPublished ? 'Yes' : 'No' }}</p><hr/>
-    <p><b>For Kids:</b> {{ fleenVideo.isForKids ? 'Yes' : 'No' }}</p><hr/>
-    <p><b>Approved:</b> {{ fleenVideo.isObjectApproved ? 'Yes' : 'No' }}</p><hr/>
-
-    <!-- Assuming category and channel are objects -->
-    <p><b>Category:</b> {{ fleenVideo.category.title }}</p><hr/>
-    <p><b>Channel:</b> {{ fleenVideo.channel.title }}</p><hr/>
-
-    <!-- Assuming latestReview is an object with properties like reviewer, rating, comment -->
-    <div *ngIf="fleenVideo.latestReview.comment">
-      <h3>Latest Review</h3>
-      <p>Comment: {{ fleenVideo.latestReview.comment }}</p>
-      <p>Author: {{ fleenVideo.latestReview.member.firstName }} {{ fleenVideo.latestReview.member.lastName }}</p>
-      <p>Submitted On: {{ fleenVideo.latestReview.createdOn }}</p>
-    </div>
-  </div>
+<ng-container *ngIf="isDetailsView && entryView">
+  <app-show-video-detail [fleen-video]="fleenVideo"></app-show-video-detail>
+</ng-container>
 
 <div *ngIf="isCommentsView">
 
 </div>
 
 <div *ngIf="isReviewHistoryView">
-
+  <app-show-review-history [review-history]="reviewHistory.reviews"></app-show-review-history>
 </div>
 
 <app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

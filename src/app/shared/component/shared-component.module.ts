@@ -5,18 +5,21 @@ import {
   ChangePasswordComponent,
   EntriesDeleteAllComponent,
   FormMessageComponent,
-  LoadingCameraComponent,
   LoadingSpinnerComponent,
   PaginationComponent,
   RowEntryOptionComponent,
   SearchFormDeleteMenuComponent,
+  ShowReviewHistoryComponent,
+  ShowVideoDetailComponent,
   SubmitLoadingIconComponent,
   SuccessButtonComponent,
   UploadFileComponent,
   ValidationErrorComponent,
+  VideoDetailOptionComponent,
 } from "./index";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {BaseModule} from "@app/base/base.module";
 
 
 const components: AnyArray = [
@@ -31,21 +34,25 @@ const components: AnyArray = [
   ValidationErrorComponent,
   SubmitLoadingIconComponent,
   SuccessButtonComponent,
-  LoadingCameraComponent,
+  ShowReviewHistoryComponent,
+  ShowVideoDetailComponent,
+  VideoDetailOptionComponent,
 ]
 
 @NgModule({
   declarations: [
     ...components,
+
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FontAwesomeModule,
     NgOptimizedImage,
+    BaseModule,
   ],
   exports: [
-    ...components
+    ...components,
   ]
 })
 export class SharedComponentModule { }

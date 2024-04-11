@@ -4,6 +4,7 @@
 @import "./footer.css";
 @import "./image.css";
 @import "./video-entry.css";
+@import "./user-videos.css";
 
 /*
 @import "./font.css";
@@ -431,8 +432,20 @@ h2 {
   font-family: "Open Sans Bold"
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 10px;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  padding-left: 15px;
+}
+
 p {
   line-height: 2.0em;
+}
+
+hr {
+  border-bottom: 2px solid #d5d3d3;
 }
 
 form p, form h5, form h6 {
@@ -557,12 +570,6 @@ input, textarea, select {
 .entry-detail p {
   line-height: 3.5em;
 }
-
-.entry-detail hr {
-  border-bottom: 2px solid #d5d3d3;
-}
-
-
 
 @media screen and (max-width: 600px) {
 

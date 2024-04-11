@@ -1,33 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {BaseDetailComponent} from "@app/base/component/common/base-detail.component";
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FleenVideoView} from "@app/model/view/video";
-import {UserVideoService} from "@app/feature/user-video/service/user-video.service";
+import {UserVideoService} from "@app/feature/user-video/service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {VideoCommentResponse} from "@app/model/response/video/video-discussion.response";
-import {VideoReviewHistoryResponse} from "@app/model/response/video";
-import {FormBuilder} from "@angular/forms";
+import {BaseVideoComponent} from "@app/base/component/video";
 
 @Component({
   selector: 'app-user-video',
   templateUrl: './user-video.component.html',
-  styleUrls: ['./user-video.component.css']
+  styleUrls: ['./user-video.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
-export class UserVideoComponent extends BaseDetailComponent<FleenVideoView> implements OnInit {
-
-  public override entryView!: FleenVideoView;
-  public discussion: VideoCommentResponse = new VideoCommentResponse({} as VideoCommentResponse);
-  public reviewHistory: VideoReviewHistoryResponse = new VideoReviewHistoryResponse({} as VideoReviewHistoryResponse);
-  protected override formBuilder!: FormBuilder;
-  protected isDetailsView: boolean = true;
-  protected isCommentsView: boolean = false;
-  protected isReviewHistoryView: boolean = false;
+export class UserVideoComponent extends BaseVideoComponent implements OnInit {
 
   public constructor(
       protected userVideoService: UserVideoService,
       router: Router,
       route: ActivatedRoute) {
-    super(router, route);
+    super(userVideoService, router, route);
   }
 
   public async ngOnInit(): Promise<void> {
@@ -41,39 +31,4 @@ export class UserVideoComponent extends BaseDetailComponent<FleenVideoView> impl
     return this.userVideoService.findVideo(id);
   }
 
-  private getVideoReviewHistory(): void {
-    this.userVideoService.findVideoReviewHistory(this.entryId)
-      .subscribe({
-        next: (result: VideoReviewHistoryResponse): void => { this.reviewHistory = result; }
-    });
-  }
-
-  private getVideoDiscussion(): void {
-    this.userVideoService.findVideoDiscussion(this.entryId)
-      .subscribe({
-        next: (result: VideoCommentResponse): void => { this.discussion = result; }
-    });
-  }
-
-  public detailsView(): void {
-    this.isCommentsView = false;
-    this.isReviewHistoryView = false;
-    this.isDetailsView = true;
-  }
-
-  public commentsView(): void {
-    this.isDetailsView = false;
-    this.isReviewHistoryView = false;
-    this.isCommentsView = true;
-  }
-
-  public reviewHistoryView(): void {
-    this.isDetailsView = false;
-    this.isCommentsView = false;
-    this.isReviewHistoryView = true;
-  }
-
-  get fleenVideo(): FleenVideoView {
-    return this.entryView;
-  }
 }

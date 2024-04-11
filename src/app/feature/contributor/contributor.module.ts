@@ -13,6 +13,8 @@ import {
 } from './component';
 import {SharedModule} from "@app/shared/shared.module";
 import {ContributorService} from "@app/feature/contributor/service";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {BaseModule} from "@app/base/base.module";
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import {ContributorService} from "@app/feature/contributor/service";
   imports: [
     CommonModule,
     SharedModule,
-    ContributorRoutingModule
+    ContributorRoutingModule,
+    FontAwesomeModule,
+    BaseModule
   ],
   providers: [
     ContributorService

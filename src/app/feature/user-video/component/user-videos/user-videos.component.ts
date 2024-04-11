@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FleenVideoView} from "@app/model/view/video";
 import {AnyObject, DeleteIdsPayload, SearchFilter} from "@app/model/type";
 import {SEARCH_FILTER_VIEW_FLEEN_VIDEOS} from "@app/constant/search-filter.const";
@@ -13,9 +13,10 @@ import {faBarsProgress, faCheck, faEye, faPencil, faRocket, IconDefinition} from
 import {VideoStatus} from "@app/model/enum";
 
 @Component({
-  selector: 'app-user-videos',
+  selector: 'app-user-videos.css',
   templateUrl: './user-videos.component.html',
-  styleUrls: ['./user-videos.component.css']
+  styleUrls: ['./user-videos.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class UserVideosComponent extends BaseVideosComponent implements OnInit {
 

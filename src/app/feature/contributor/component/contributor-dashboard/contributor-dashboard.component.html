@@ -1,9 +1,16 @@
 <div>
-  <h2>User Dashboard</h2>
+  <h2>Contributor Dashboard</h2>
 
-  <ul>
-    <li><a [routerLink]="['..', 'entries']" routerLinkActive="active">Pending Videos</a></li>
-    <li><a [routerLink]="['..', 'review-history']" routerLinkActive="active">My Review History </a></li>
-
-  </ul>
+  <div class="menu-container">
+    <ul class="menu">
+      <li>
+        <a [routerLink]="['..', 'entries']" routerLinkActive="active">Pending & User Videos
+          <fa-icon [icon]="faList"></fa-icon></a>
+      </li>
+      <li>
+        <a [routerLink]="['..', 'review-history']" routerLinkActive="active">Review History
+          <fa-icon [icon]="faTimeline"></fa-icon></a>
+      </li>
+    </ul>
+  </div>
 </div>

@@ -1,37 +1,53 @@
-<app-search-form-delete-menu [is-submitting]="isSubmitting" [search-filter]="searchFilter" (searchSubmitted)="search($event)" (deleteConfirmed)="confirmDeleteEntries()"></app-search-form-delete-menu>
+<app-search-form-delete-menu
+  [is-searching]="isSearching"
+  [is-submitting]="isSubmitting"
+  [is-resetting-search]="isResettingSearch"
+  [search-filter]="searchFilter"
+  [search-params]="searchParams"
+  [can-delete]="false"
+  (searchSubmitted)="search($event)"
+  (resetSearchSubmitted)="resetSearch()"></app-search-form-delete-menu>
+
 <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
-<p>The current page is {{currentPage}}</p>
+<app-pagination [entries-available]="entries.length > 0"
+                [is-first]="isFirst"
+                [is-last]="isLast"
+                [current-page-number]="currentPage"
+                [navigation-in-progress]="navigationInProgress"
+                (toNextPage)="nextPage()"
+                (toPreviousPage)="previousPage()"></app-pagination>
 
-<div *ngIf="entries.length > 0">
-  <table>
+<ng-container *ngIf="entries.length > 0">
+  <div class="video-boxes">
+    <div class="video-box" *ngFor="let video of entries; let i = index; trackBy: trackByFn">
+      <div class="video-info">
+        <p class="center thumbnail-wrapper"><img [src]="video.objectThumbnail" width="450" height="300" [alt]="video.videoTitle"/></p>
+        <h4 *ngIf="video.videoTitle">Title: {{ video.videoTitle }}</h4>
+        <p *ngIf="video.channel.title">Channel: {{ video.channel.title }}</p>
+        <p *ngIf="video.category.title">Category: {{ video.category.title }}</p>
+        <p *ngIf="video.videoStatus">Status: {{ video.videoStatus }}</p>
+        <p>Updated at {{ video.updatedOn | date:'mediumDate' }}</p>
+      </div>
+      <div class="video-actions">
+        <button type="button" class="btn-navy" (click)="viewDetail(video.videoId)">View <fa-icon [icon]="faEye"></fa-icon></button>
+        <button type="button" class="btn-aqua" (click)="updateEntry(video.videoId)">Update <fa-icon [icon]="faCheckDouble"></fa-icon></button>
 
-    <thead>
-    <tr>
-      <th>S/N</th>
-      <th>Title</th>
-      <th>Channel</th>
-      <th>Status</th>
-      <th>Created On</th>
-      <th>Updated On</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let video of entries; let i = index; trackBy: trackByFn">
-      <td>{{ addOneToIndex(i) }}</td>
-      <td>{{ video.videoTitle }}</td>
-      <td>{{ video.channel.title }}</td>
-      <td>{{ video.videoStatus }}</td>
-      <td>{{ video.createdOn | date:'mediumDate' }}</td>
-      <td>{{ video.updatedOn | date:'mediumDate' }}</td>
-      <app-row-entry-option [entry-id]="video.videoId" [can-check]="false" (detailClicked)="viewDetail(video.videoId)"
-                            (updateClicked)="updateEntry(video.videoId)" (checkedChanged)="handleChecked(video.videoId, $event)"></app-row-entry-option>
-    </tr>
-    </tbody>
-  </table>
+      </div>
+      <app-form-message [status-message]="video.statusMessage" [error-message]="video.errorMessage"></app-form-message>
+    </div>
+  </div>
 
-  <app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"
-                  (toNextPage)="nextPage()" (toPreviousPage)="previousPage()"></app-pagination>
+</ng-container>
 
-</div>
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+<app-pagination [entries-available]="entries.length > 0"
+                [is-first]="isFirst"
+                [is-last]="isLast"
+                [current-page-number]="currentPage"
+                [navigation-in-progress]="navigationInProgress"
+                (toNextPage)="nextPage()"
+                (toPreviousPage)="previousPage()"></app-pagination>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

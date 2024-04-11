@@ -1,4 +1,5 @@
 import {FleenResponse} from "@app/model/response";
+import {CommentView} from "@app/model/view/discussion/comment.view";
 
 export class UserCanSubmitReviewResponse {
   public readonly hasSubmittedReview: boolean;
@@ -15,5 +16,15 @@ export class MoveToDraftResponse extends FleenResponse {
   public constructor(data: MoveToDraftResponse) {
     super(data);
     this.movedToDraft = data?.movedToDraft;
+  }
+}
+
+export class SubmitCommentResponse extends FleenResponse {
+
+  public readonly comment: CommentView;
+
+  public constructor(data: SubmitCommentResponse) {
+    super(data);
+    this.comment = data?.comment;
   }
 }

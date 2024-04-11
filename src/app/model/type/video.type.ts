@@ -26,3 +26,8 @@ export type SubmitVideoReviewPayload = {
 export type UpdateVideoVisibilityPayload = {
   visibility: VideoVisibility;
 }
+
+
+export type SubmitCommentPayload = {
+  content: string;
+}

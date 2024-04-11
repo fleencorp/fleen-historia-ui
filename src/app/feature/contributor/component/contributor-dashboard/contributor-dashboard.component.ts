@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {faList, faTimeline, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-contributor-dashboard',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ContributorDashboardComponent {
 
+  protected readonly faList: IconDefinition = faList;
+  protected readonly faTimeline: IconDefinition = faTimeline;
 }

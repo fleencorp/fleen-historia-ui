@@ -1,18 +1,7 @@
-<p>pending-video works!</p>
-
-<ng-container *ngIf="fleenVideoView">
-  <button type="button" (click)="showVideoReviewHistory()">Review History</button>
-
-  <ng-container *ngIf="videoReviews.length > 0">
-    <div *ngFor="let review of videoReviews">
-      <h4>Video Review Status: {{ review?.videoReviewStatus }}</h4>
-      <p>Comment : {{ review?.comment }}</p>
-    </div>
-  </ng-container>
-</ng-container>
+<app-video-detail-option (detail-view)="detailsView()" (review-history-view)="reviewHistoryView()" (comment-view)="commentsView()"></app-video-detail-option>
 
 <ng-container *ngIf="isFormReady && canSubmitReview">
-  <form [formGroup]="submitReviewForm" (ngSubmit)="submitReview()" method="post" enctype="application/x-www-form-urlencoded" class="sign-up-form">
+  <form [formGroup]="submitReviewForm" (ngSubmit)="submitReview()" method="post" enctype="application/x-www-form-urlencoded" class="submit-review-form">
     <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
     <div class="form-group">
@@ -32,49 +21,41 @@
     </div>
 
     <button type="submit" [disabled]="isSubmitting">Submit</button>
-
   </form>
 </ng-container>
 
-<ng-container *ngIf="fleenVideoView && fleenVideoView.latestReview">
-    <h4>Video Review Status: {{ fleenVideoView.latestReview.videoReviewStatus }}</h4>
-    <p>Comment : {{ fleenVideoView.latestReview.comment }}</p>
+<ng-container *ngIf="isDetailsView && entryView">
+  <app-show-video-detail [fleen-video]="fleenVideo"></app-show-video-detail>
 </ng-container>
 
-<ng-container *ngIf="fleenVideoView">
-  <p>{{fleenVideoView | json }}</p>
-  <table>
-    <thead>
-    <tr>
-      <td colspan="2">Video Detail</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th>ID</th>
+<ng-container *ngIf="isFormReady && !canSubmitReview">
+  <div class="add-comment-box">
+    <div class="form-group">
+      <label for="comment_content">Comment</label>
+      <textarea formControlName="commentContent" id="comment_content"></textarea>
+      <app-validation-error [control]="commentContent" [control-label]="'Comment'" ></app-validation-error>
+    </div>
 
-    </tr>
-    <tr>
-      <th>Title</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>Code</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>Created On</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>Updated On</th>
-      <td></td>
-    </tr>
-    </tbody>
-  </table>
+    <div class="form-group">
+      <button type="submit" class="fright"
+              *ngIf="!isSubmittingCommentSuccessful"
+              [disabled]="isSubmittingComment"
+              (click)="addComment()">Submit
+        <app-submit-loading-icon [is-submitting]="isSubmittingComment"></app-submit-loading-icon>
+      </button>
 
-
+      <app-success-button [is-form-completed]="isSubmittingCommentSuccessful"></app-success-button>
+    </div>
+    <app-form-message [status-message]="commentFormStatusMessage" [error-message]="commentFormErrorMessage"></app-form-message>
+  </div>
 </ng-container>
 
+<div *ngIf="isCommentsView">
 
+</div>
 
+<div *ngIf="isReviewHistoryView">
+  <app-show-review-history [review-history]="reviewHistory.reviews"></app-show-review-history>
+</div>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

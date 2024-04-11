@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseDetailComponent} from "@app/base/component";
-import {FleenVideoView, VideoReviewView} from "@app/model/view/video";
+import {FleenVideoView} from "@app/model/view/video";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {ContributorService} from "@app/feature/contributor/service";
@@ -9,50 +8,51 @@ import {VideoReviewStatus} from "@app/model/enum";
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {isFalsy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
-import {
-  SubmitVideoReviewResponse,
-  UserCanSubmitReviewResponse,
-  VideoReviewHistoryResponse
-} from "@app/model/response/video";
+import {SubmitCommentResponse, SubmitVideoReviewResponse, UserCanSubmitReviewResponse} from "@app/model/response/video";
+import {BaseVideoComponent} from "@app/base/component/video";
 
 @Component({
   selector: 'app-pending-video',
   templateUrl: './pending-video.component.html',
   styleUrls: ['./pending-video.component.css']
 })
-export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> implements OnInit {
+export class PendingVideoComponent extends BaseVideoComponent implements OnInit {
 
-  public override entryView!: FleenVideoView;
-  public videoReviews: VideoReviewView[] = [];
-  public hasSubmittedReview: boolean = true;
-  protected override formBuilder;
+  public commentForm!: FormGroup;
+  public commentFormErrorMessage: string = '';
+  public commentFormStatusMessage: string = '';
+  public isSubmittingComment: boolean = false;
+  public isSubmittingCommentSuccessful: boolean = false;
 
   public constructor(protected contributorService: ContributorService,
                      formBuilder: FormBuilder,
                      router: Router,
                      route: ActivatedRoute) {
-    super(router, route);
+    super(contributorService, router, route);
     this.formBuilder = formBuilder;
   }
 
   public async ngOnInit(): Promise<void> {
+    this.enableLoading();
     await this.initEntry(this.checkCanUserSubmitAVideoReview.bind(this));
+    this.getVideoReviewHistory();
+    this.getVideoDiscussion();
   }
 
   protected override initForm(): void {
     this.fleenForm = this.formBuilder.group({
       videoReviewStatus: ['', [required, enumValid(VideoReviewStatus)]],
-      comment: ['', [maxLength(2000)]]
+      comment: ['', [maxLength(3000)]]
+    });
+
+    this.commentForm = this.formBuilder.group({
+      content: ['', [maxLength(3000)]]
     });
     this.formReady();
   }
 
   protected override getServiceEntry(id: number | string): Observable<FleenVideoView> {
     return this.contributorService.findPendingVideo(id);
-  }
-
-  get fleenVideoView(): FleenVideoView {
-    return this.entryView;
   }
 
   public submitReview(): void {
@@ -72,13 +72,27 @@ export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> i
     }
   }
 
-  public showVideoReviewHistory(): void {
-    this.contributorService
-      .findVideoReviewHistory(this.entryId)
-      .subscribe({
-       next: (result: VideoReviewHistoryResponse): void => { this.videoReviews = result.reviews; },
-       error: (error: ErrorResponse): void => { this.handleError(error); }
-    });
+  public addComment(): void {
+    if (isFalsy(this.isSubmittingComment) && this.commentForm.valid) {
+      this.clearCommentFormMessages();
+      this.disableIsSubmittingComment();
+
+      this.contributorService.submitAndAddComment(this.fleenVideo.videoId, this.commentForm.value)
+        .subscribe({
+          next: (result: SubmitCommentResponse): void => {
+            this.commentFormStatusMessage = result.message;
+            this.enableIsSubmittingCommentSuccessful();
+            this.invokeCallbackWithDelay(this.disableIsSubmittingCommentSuccessful.bind(this));
+          },
+          error: (error: ErrorResponse): void => { this.commentFormErrorMessage = error.message; },
+          complete: (): void => { this.enableIsSubmittingComment(); }
+      });
+    }
+  }
+
+  protected clearCommentFormMessages(): void {
+    this.commentFormErrorMessage = '';
+    this.commentFormStatusMessage = '';
   }
 
   private checkCanUserSubmitAVideoReview(): void {
@@ -87,6 +101,22 @@ export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> i
         next: (result: UserCanSubmitReviewResponse): void => { this.confirmUserHasSubmittedReview(result.hasSubmittedReview); },
         error: (error: ErrorResponse): void => { this.handleError(error); }
     });
+  }
+
+  protected enableIsSubmittingComment(): void {
+    this.isSubmittingComment = false;
+  }
+
+  protected disableIsSubmittingComment(): void {
+    this.isSubmittingComment = true;
+  }
+
+  protected enableIsSubmittingCommentSuccessful(): void {
+    this.isSubmittingCommentSuccessful = true;
+  }
+
+  protected disableIsSubmittingCommentSuccessful(): void {
+    this.isSubmittingCommentSuccessful = false;
   }
 
   private confirmUserHasSubmittedReview(canSubmit: boolean): void {
@@ -107,6 +137,10 @@ export class PendingVideoComponent extends BaseDetailComponent<FleenVideoView> i
 
   get comment(): AbstractControl | null | undefined {
     return this.submitReviewForm?.get('comment');
+  }
+
+  get commentContent(): AbstractControl | null | undefined {
+    return this.commentForm?.get('content');
   }
 
 }

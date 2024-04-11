@@ -1,0 +1,10 @@
+<h4>Reviews</h4>
+
+<ng-container *ngIf="reviews.length > 0">
+  <div *ngFor="let review of reviews">
+    <p><b>Video Review Status:</b> {{ review?.videoReviewStatus }}</p>
+    <p><b>Reviewer:</b> {{ review?.member?.firstName }} {{ review?.member?.lastName }}</p>
+    <p><b>Date of Review:</b> {{ review?.updatedOn | date: 'mediumDate' }}</p>
+    <hr/>
+  </div>
+</ng-container>
