@@ -6,7 +6,7 @@ import {AuthenticationService} from "../../service";
 import {AuthVerificationPayload, ChangePasswordPayload} from "@app/model/type";
 import {ErrorResponse} from "@app/model/response";
 import {SignInUpResponse} from "@app/model/response/authentication";
-import {ChangePasswordComponent} from "@app/shared/component/change-password/change-password.component";
+import {ChangePasswordComponent} from "@app/shared/component/form/change-password/change-password.component";
 import {PASSWORD_UPDATED_SUCCESSFULLY, USER_DESTINATION_PAGE_KEY} from "@app/constant";
 import {AuthenticationStatus, AuthVerificationType, ChangePasswordType} from "@app/model/enum";
 import {SessionStorageService} from "@app/base/service/storage/session-storage.service";

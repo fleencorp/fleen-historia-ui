@@ -31,3 +31,5 @@ export type UpdateVideoVisibilityPayload = {
 export type SubmitCommentPayload = {
   content: string;
 }
+
+export type SubmitReplyPayload = SubmitCommentPayload;

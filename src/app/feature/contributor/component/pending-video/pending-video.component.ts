@@ -10,6 +10,8 @@ import {isFalsy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
 import {SubmitCommentResponse, SubmitVideoReviewResponse, UserCanSubmitReviewResponse} from "@app/model/response/video";
 import {BaseVideoComponent} from "@app/base/component/video";
+import {faComment, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {CommentView} from "@app/model/view/discussion";
 
 @Component({
   selector: 'app-pending-video',
@@ -73,10 +75,11 @@ export class PendingVideoComponent extends BaseVideoComponent implements OnInit 
       this.clearCommentFormMessages();
       this.disableIsSubmittingComment();
 
-      this.contributorService.submitAndAddComment(this.fleenVideo.videoId, this.content.value)
+      this.contributorService.submitAndAddComment(this.fleenVideo.videoId, {content: this.content.value})
         .subscribe({
           next: (result: SubmitCommentResponse): void => {
             this.commentFormStatusMessage = result.message;
+            this.updateCommentList(result.comment);
             this.enableIsSubmittingCommentSuccessful();
             this.invokeCallbackWithDelay(this.disableIsSubmittingCommentSuccessful.bind(this));
           },
@@ -91,6 +94,11 @@ export class PendingVideoComponent extends BaseVideoComponent implements OnInit 
           }
       });
     }
+  }
+
+  public updateCommentList(comment: CommentView): void {
+    this.discussion.comments.values.unshift(comment);
+    this.discussion.comments.values = [...this.discussion.comments.values];
   }
 
   protected clearCommentFormMessages(): void {
@@ -143,4 +151,5 @@ export class PendingVideoComponent extends BaseVideoComponent implements OnInit 
   }
 
 
+  protected readonly faComment: IconDefinition = faComment;
 }

@@ -17,9 +17,11 @@ import {
   ValidationErrorComponent,
   VideoDetailOptionComponent,
 } from "./index";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {BaseModule} from "@app/base/base.module";
+import { CommentComponent } from './discussion/comment/comment.component';
+import { ReplyComponent } from './discussion/reply/reply.component';
 
 
 const components: AnyArray = [
@@ -42,6 +44,8 @@ const components: AnyArray = [
 @NgModule({
   declarations: [
     ...components,
+    CommentComponent,
+    ReplyComponent,
 
   ],
   imports: [
@@ -50,9 +54,11 @@ const components: AnyArray = [
     FontAwesomeModule,
     NgOptimizedImage,
     BaseModule,
+    FormsModule,
   ],
   exports: [
     ...components,
+    CommentComponent,
   ]
 })
 export class SharedComponentModule { }

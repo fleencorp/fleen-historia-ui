@@ -1,0 +1,95 @@
+.comment, .reply {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-header, .reply-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+}
+
+.profile-photo {
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.comment-info, .reply-info {
+  flex-grow: 1;
+}
+
+.comment-info p, .reply-info p {
+  margin: 0;
+  padding-left: 0;
+}
+
+.comment-info p span, .reply-info p span {
+  margin-right: 10px;
+}
+
+.comment-reply-date {
+  font-size: 10px;
+}
+
+.comment-body {
+  margin-top: 5px;
+  display: flex; /* Add this */
+  flex-direction: column; /* Change to column */
+}
+
+.reply-buttons {
+  margin-top: 10px;
+  display: flex; /* Add this */
+  flex-direction: column; /* Change to column */
+}
+
+.reply-btn {
+  font-size: 12px;
+  display: block;
+  margin-bottom: 10px;
+  margin-left: 15px;
+  color: #5050d2;
+}
+
+.reply-form {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.reply-form textarea {
+  width: 100%;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.button-container a {
+  font-size: 12px;
+  margin-right: 10px;
+  color: #5050d2;
+}
+
+.comment-body, .reply-buttons {
+  margin-left: 15px;
+}
+
+.reply-form-message p {
+  font-size: 11px;
+}

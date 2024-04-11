@@ -77,5 +77,7 @@ export const validationErrorMessages: { [key: string]: Function } = {
 
   completeHourDifference: (): string => `The time difference must be in complete hours.`,
 
-  overlappingPeriods: (): string => `Two session period cannot overlap each other.`
+  overlappingPeriods: (): string => `Two session period cannot overlap each other.`,
+
+  custom: (): string => `An error has occurred`
 };

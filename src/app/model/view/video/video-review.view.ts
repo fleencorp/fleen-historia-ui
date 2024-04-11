@@ -1,5 +1,5 @@
 import {VideoReviewStatus} from "@app/model/enum";
-import {FleenBaseView} from "@app/model/view/fleen-base.view";
+import {FleenBaseView} from "@app/model/view";
 import {FleenVideoView} from "@app/model/view/video";
 import {MemberView} from "@app/model/view/member";
 

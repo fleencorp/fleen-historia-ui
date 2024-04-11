@@ -11,7 +11,6 @@ export abstract class BaseVideoComponent extends BaseDetailComponent<FleenVideoV
   public override entryView!: FleenVideoView;
   public discussion: VideoCommentResponse = new VideoCommentResponse({} as VideoCommentResponse);
   public reviewHistory: VideoReviewHistoryResponse = new VideoReviewHistoryResponse({} as VideoReviewHistoryResponse);
-  public videoReviews: VideoReviewView[] = [];
   public hasSubmittedReview: boolean = true;
   protected override formBuilder;
   protected isDetailsView: boolean = true;

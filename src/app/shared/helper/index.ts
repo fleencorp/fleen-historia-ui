@@ -772,3 +772,22 @@ export function removePropertiesWithBlankKeysAndValues(obj: { [key: string]: any
     }
   });
 }
+
+
+/**
+ * Converts an array of plain objects to an array of typed objects using a constructor function.
+ * @param values An array of plain objects to be converted.
+ * @param Constructor The constructor function used to create instances of the typed objects.
+ * @returns An array of typed objects created from the provided plain objects.
+ * @template T The type of the resulting objects.
+ */
+export function toValues<T extends Object>(values: AnyObject[], Constructor: Constructor<T>): T[] {
+  const entries: T[] = [];
+  // Check if the input values array is truthy, is an array, and the constructor function is valid.
+  if (isTruthy(values) && Array.isArray(values)
+    && Constructor != null && isFunction(Constructor)) {
+    // Iterate over each value in the input array and create a new instance of the typed object using the constructor function.
+    values.forEach((value: AnyObject): void => { entries.push(new Constructor(value)); });
+  }
+  return entries;
+}

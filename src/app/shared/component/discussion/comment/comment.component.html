@@ -1,0 +1,34 @@
+<ng-container *ngIf="comments && comments.length > 0">
+  <div class="comment" *ngFor="let comment of comments">
+    <div class="comment-header">
+      <div class="profile-info">
+        <img class="profile-photo" src="{{ comment?.member?.profilePhoto }}" alt="Profile Picture">
+        <div class="comment-info">
+          <p>
+            <span>{{ comment?.member?.firstName }} {{ comment?.member?.lastName }}</span>
+            <span class="comment-reply-date"><i>{{ comment.createdOn | date }}</i></span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="comment-body">
+      <p>{{ comment.content }}</p>
+      <div class="replies">
+        <app-reply [replies]="comment.replies"></app-reply>
+      </div>
+    </div>
+    <div class="reply-buttons">
+      <a class="reply-btn" (click)="toggleReplyForm(comment)">Reply </a>
+      <div *ngIf="showReplyForm(comment)" class="reply-form">
+        <textarea [formControl]="replyCtrl(comment)" placeholder="Type your reply"></textarea>
+        <app-validation-error [control]="replyCtrl(comment)" [control-label]="'Reply'" ></app-validation-error>
+        <div class="button-container">
+          <a class="submit-btn" (click)="submitReply(comment)">
+            {{ getReplyState(comment).isSubmittingSuccessful ? 'Success'
+                : getReplyState(comment).isSubmitting ? 'Submitting....' : 'Submit' }} </a>
+          <a class="cancel-btn" (click)="cancelReply(comment)">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

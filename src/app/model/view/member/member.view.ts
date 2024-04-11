@@ -1,6 +1,6 @@
 import {MemberStatusView} from "./member-status.view";
 import {Gender, MfaType, UserType} from "@app/model/enum";
-import {FleenBaseView} from "@app/model/view/fleen-base.view";
+import {FleenBaseView} from "@app/model/view";
 
 export class MemberView extends FleenBaseView {
 

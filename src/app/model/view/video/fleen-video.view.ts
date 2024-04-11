@@ -1,8 +1,8 @@
-import {FleenBaseView} from "../fleen-base.view";
+import {FleenBaseView} from "@app/model/view";
 import {VideoSource, VideoStatus, VideoVisibility} from "@app/model/enum";
 import {CategoryView} from "@app/model/view/category";
 import {ChannelView} from "@app/model/view/channel";
-import {VideoReviewView} from "@app/model/view/video/video-review.view";
+import {VideoReviewView} from "@app/model/view/video";
 
 export class FleenVideoView extends FleenBaseView {
 

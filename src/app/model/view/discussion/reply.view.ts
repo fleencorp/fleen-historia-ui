@@ -1,9 +1,9 @@
-import {CommentView} from "@app/model/view/discussion/comment.view";
 import {FleenVideoView} from "@app/model/view/video";
 import {MemberView} from "@app/model/view/member";
-import {FleenResponse} from "@app/model/response";
+import {FleenBaseView} from "@app/model/view";
+import {CommentView} from "@app/model/view/discussion";
 
-export class ReplyView extends FleenResponse {
+export class ReplyView extends FleenBaseView {
 
   public readonly replyId: number;
   public readonly comment: CommentView;

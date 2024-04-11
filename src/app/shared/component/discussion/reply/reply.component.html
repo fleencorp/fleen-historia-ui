@@ -1,0 +1,20 @@
+<!-- Reply Component -->
+<ng-container *ngIf="replies && replies.length > 0">
+  <div class="reply" *ngFor="let reply of replies">
+    <div class="reply-header">
+      <div class="profile-info">
+        <img class="profile-photo" src="{{ reply?.member?.profilePhoto }}" alt="Profile Picture">
+        <div class="comment-info">
+          <p>
+            <span>{{ reply?.member?.firstName }} {{ reply?.member?.lastName }}</span>
+            <span class="comment-reply-date"><i>{{ reply.createdOn | date }}</i></span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="reply-body">
+      <p>{{ reply.content }}</p>
+    </div>
+  </div>
+
+</ng-container>

@@ -1,4 +1,4 @@
-import {FleenBaseView} from "@app/model/view/fleen-base.view";
+import {FleenBaseView} from "@app/model/view";
 
 export class ChannelView extends FleenBaseView {
 

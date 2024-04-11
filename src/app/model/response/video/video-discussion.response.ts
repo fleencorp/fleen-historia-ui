@@ -1,5 +1,5 @@
 import {FleenVideoView} from "@app/model/view/video";
-import {CommentView} from "@app/model/view/discussion/comment.view";
+import {CommentView} from "@app/model/view/discussion";
 import {SearchResultView} from "@app/model/view";
 
 export class VideoCommentResponse {

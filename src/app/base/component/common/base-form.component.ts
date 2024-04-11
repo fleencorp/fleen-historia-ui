@@ -267,22 +267,41 @@ export abstract class BaseFormComponent extends BaseComponent {
     this.disableLoading();
   }
 
+  /**
+   * Handles error responses received from the backend and updates the form field accordingly.
+   * @param field The form control or abstract control to which the error should be applied.
+   * @param error The error response received from the backend.
+   */
   protected handleFieldError(field: AbstractControl, error?: ErrorResponse): void {
-    if (error != null && isObject(error) ) {
+    // Check if the error response is not null and is an object
+    if (error != null && isObject(error)) {
       const { type } = error;
 
-      // Check for data validation error type
+      // Check if the error type is a data validation error and if there are any fields associated with it
       if (isTruthy(type) && equalsIgnoreCase(type, ErrorType.DATA_VALIDATION) && Array.isArray(error.fields)) {
-        console.log(error.fields);
         const fieldError: AnyObject = error?.fields[0];
+
+        // Set the field error message on the form control
         this.setControlError(field, fieldError[this.API_ERROR_FIELD_NAME], this.getMessagesInSentence(fieldError[this.API_ERROR_MESSAGES_NAME]));
+      } else if (error?.message) {
+        // Set the error message on the form
+        this.setErrorMessage(error?.message);
+
+        // Set custom error on the field, if available
+        if (field != null) {
+          field.setErrors({ custom: true });
+        }
       }
+    } else {
+      // Set a default error message indicating a connection issue
+      this.setErrorMessage(ERR_CONNECTION_REFUSED_MESSAGE);
     }
 
-    // Enable submitting and disable loading after handling the error
+    // Enable submitting and disable loading, assuming these are related UI states
     this.enableSubmitting();
     this.disableLoading();
   }
+
 
   /**
    * Sets the error message with the provided string, handling specific cases.

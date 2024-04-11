@@ -1,11 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpClientService} from "@app/shared/service/impl";
-import {AnyObject, BaseRequest, SubmitCommentPayload, SubmitVideoReviewPayload} from "@app/model/type";
+import {
+  AnyObject,
+  BaseRequest,
+  SubmitCommentPayload,
+  SubmitReplyPayload,
+  SubmitVideoReviewPayload
+} from "@app/model/type";
 import {Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
 import {FleenVideoView, VideoReviewView} from "@app/model/view/video";
 import {
   SubmitCommentResponse,
+  SubmitReplyResponse,
   SubmitVideoReviewResponse,
   UserCanSubmitReviewResponse,
   VideoCommentResponse,
@@ -42,6 +49,11 @@ export class ContributorService {
   public submitAndAddComment(id: number | string, body: SubmitCommentPayload): Observable<SubmitCommentResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'comment', +id], null, { ...body });
     return this.httpService.post(req, SubmitCommentResponse);
+  }
+
+  public replyToComment(videoId: number | string, commentId: number | string, body: SubmitReplyPayload): Observable<SubmitReplyResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'reply', +videoId, 'comment', commentId], null, { ...body });
+    return this.httpService.post(req, SubmitReplyResponse);
   }
 
   public findVideoReviewHistory(id: number | string): Observable<VideoReviewHistoryResponse> {

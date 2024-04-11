@@ -28,7 +28,7 @@
   </form>
 </ng-container>
 
-<ng-container *ngIf="isFormReady && !canSubmitReview">
+<ng-container *ngIf="isFormReady && isDetailsView && !canSubmitReview">
   <div class="add-comment-box">
     <div class="form-group">
       <label for="comment_content">Comment</label>
@@ -41,7 +41,7 @@
               *ngIf="!isSubmittingCommentSuccessful"
               [disabled]="isSubmittingComment"
               (click)="addComment()">Submit
-        <app-submit-loading-icon [is-submitting]="isSubmittingComment"></app-submit-loading-icon>
+        <app-submit-loading-icon [is-submitting]="isSubmittingComment" [display-icon]="faComment"></app-submit-loading-icon>
       </button>
 
       <app-success-button [is-form-completed]="isSubmittingCommentSuccessful"></app-success-button>
@@ -51,7 +51,7 @@
 </ng-container>
 
 <div *ngIf="isCommentsView">
-
+  <app-comment [comments]="discussion.comments.values"></app-comment>
 </div>
 
 <div *ngIf="isReviewHistoryView">
