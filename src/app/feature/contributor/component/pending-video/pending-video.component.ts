@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {ContributorService} from "@app/feature/contributor/service";
 import {enumValid, maxLength, required} from "@app/shared/validator";
 import {VideoReviewStatus} from "@app/model/enum";
-import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {isFalsy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
 import {SubmitCommentResponse, SubmitVideoReviewResponse, UserCanSubmitReviewResponse} from "@app/model/response/video";
@@ -18,7 +18,7 @@ import {BaseVideoComponent} from "@app/base/component/video";
 })
 export class PendingVideoComponent extends BaseVideoComponent implements OnInit {
 
-  public commentForm!: FormGroup;
+  public content: FormControl = new FormControl<any>('', [required, maxLength(3000)]);
   public commentFormErrorMessage: string = '';
   public commentFormStatusMessage: string = '';
   public isSubmittingComment: boolean = false;
@@ -43,10 +43,6 @@ export class PendingVideoComponent extends BaseVideoComponent implements OnInit 
     this.fleenForm = this.formBuilder.group({
       videoReviewStatus: ['', [required, enumValid(VideoReviewStatus)]],
       comment: ['', [maxLength(3000)]]
-    });
-
-    this.commentForm = this.formBuilder.group({
-      content: ['', [maxLength(3000)]]
     });
     this.formReady();
   }
@@ -73,19 +69,26 @@ export class PendingVideoComponent extends BaseVideoComponent implements OnInit 
   }
 
   public addComment(): void {
-    if (isFalsy(this.isSubmittingComment) && this.commentForm.valid) {
+    if (isFalsy(this.isSubmittingComment) && this.content.valid) {
       this.clearCommentFormMessages();
       this.disableIsSubmittingComment();
 
-      this.contributorService.submitAndAddComment(this.fleenVideo.videoId, this.commentForm.value)
+      this.contributorService.submitAndAddComment(this.fleenVideo.videoId, this.content.value)
         .subscribe({
           next: (result: SubmitCommentResponse): void => {
             this.commentFormStatusMessage = result.message;
             this.enableIsSubmittingCommentSuccessful();
             this.invokeCallbackWithDelay(this.disableIsSubmittingCommentSuccessful.bind(this));
           },
-          error: (error: ErrorResponse): void => { this.commentFormErrorMessage = error.message; },
-          complete: (): void => { this.enableIsSubmittingComment(); }
+          error: (error: ErrorResponse): void => {
+            this.commentFormErrorMessage = error.message;
+            this.handleFieldError(this.content, error);
+            this.enableIsSubmittingComment();
+          },
+          complete: (): void => {
+            this.enableIsSubmittingComment();
+            this.enableSubmitting();
+          }
       });
     }
   }
@@ -139,8 +142,5 @@ export class PendingVideoComponent extends BaseVideoComponent implements OnInit 
     return this.submitReviewForm?.get('comment');
   }
 
-  get commentContent(): AbstractControl | null | undefined {
-    return this.commentForm?.get('content');
-  }
 
 }

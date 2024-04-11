@@ -1,5 +1,9 @@
 <app-video-detail-option (detail-view)="detailsView()" (review-history-view)="reviewHistoryView()" (comment-view)="commentsView()"></app-video-detail-option>
 
+<ng-container *ngIf="isDetailsView && entryView">
+  <app-show-video-detail [fleen-video]="fleenVideo"></app-show-video-detail>
+</ng-container>
+
 <ng-container *ngIf="isFormReady && canSubmitReview">
   <form [formGroup]="submitReviewForm" (ngSubmit)="submitReview()" method="post" enctype="application/x-www-form-urlencoded" class="submit-review-form">
     <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
@@ -24,16 +28,12 @@
   </form>
 </ng-container>
 
-<ng-container *ngIf="isDetailsView && entryView">
-  <app-show-video-detail [fleen-video]="fleenVideo"></app-show-video-detail>
-</ng-container>
-
 <ng-container *ngIf="isFormReady && !canSubmitReview">
   <div class="add-comment-box">
     <div class="form-group">
       <label for="comment_content">Comment</label>
-      <textarea formControlName="commentContent" id="comment_content"></textarea>
-      <app-validation-error [control]="commentContent" [control-label]="'Comment'" ></app-validation-error>
+      <textarea [formControl]="content" id="comment_content"></textarea>
+      <app-validation-error [control]="content" [control-label]="'Comment'" ></app-validation-error>
     </div>
 
     <div class="form-group">

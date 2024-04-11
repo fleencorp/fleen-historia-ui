@@ -1,12 +1,11 @@
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
-import {convertToDesiredFormat, equalsIgnoreCase, isObject, isTruthy, nonNull, toCamelCase} from "@app/shared/helper";
+import {convertToDesiredFormat, equalsIgnoreCase, isObject, isTruthy, toCamelCase} from "@app/shared/helper";
 import {Observable, of} from "rxjs";
 import {BaseComponent} from "@app/base/component";
 import {AnyObject} from "@app/model/type";
 import {ErrorResponse} from "@app/model/response";
 import {ErrorType} from "@app/model/enum";
 import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
-import {IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Abstract base component for form-related functionality.
@@ -131,7 +130,7 @@ export abstract class BaseFormComponent extends BaseComponent {
    */
   protected setControlError(value: FormGroup | AbstractControl | any[] | any, fieldName: string, errorMessage: string): void {
     // Attempt to get the form control using the field name and its camelCase variant
-    const control: AbstractControl | any = value.get(fieldName) || value.get(toCamelCase(fieldName));
+    const control: AbstractControl | any = value.get(fieldName) || value.get(toCamelCase(fieldName)) || value;
 
     // If the value is a FormGroup, set error for the specified field
     if (value instanceof FormGroup) {
@@ -261,6 +260,23 @@ export abstract class BaseFormComponent extends BaseComponent {
       }
     } else {
       this.setErrorMessage(ERR_CONNECTION_REFUSED_MESSAGE);
+    }
+
+    // Enable submitting and disable loading after handling the error
+    this.enableSubmitting();
+    this.disableLoading();
+  }
+
+  protected handleFieldError(field: AbstractControl, error?: ErrorResponse): void {
+    if (error != null && isObject(error) ) {
+      const { type } = error;
+
+      // Check for data validation error type
+      if (isTruthy(type) && equalsIgnoreCase(type, ErrorType.DATA_VALIDATION) && Array.isArray(error.fields)) {
+        console.log(error.fields);
+        const fieldError: AnyObject = error?.fields[0];
+        this.setControlError(field, fieldError[this.API_ERROR_FIELD_NAME], this.getMessagesInSentence(fieldError[this.API_ERROR_MESSAGES_NAME]));
+      }
     }
 
     // Enable submitting and disable loading after handling the error
