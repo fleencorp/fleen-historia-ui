@@ -15,6 +15,7 @@ import {SharedModule} from "@app/shared/shared.module";
 import {ContributorService} from "@app/feature/contributor/service";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {BaseModule} from "@app/base/base.module";
+import { AddCommentComponent } from './component/add-comment/add-comment.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {BaseModule} from "@app/base/base.module";
     ReviewHistoryComponent,
     MyReviewHistoryComponent,
     ContributorBaseComponent,
-    ContributorDashboardComponent
+    ContributorDashboardComponent,
+    AddCommentComponent
   ],
   imports: [
     CommonModule,

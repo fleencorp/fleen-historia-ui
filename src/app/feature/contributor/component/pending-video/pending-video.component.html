@@ -29,25 +29,15 @@
 </ng-container>
 
 <ng-container *ngIf="isFormReady && isDetailsView && !canSubmitReview">
-  <div class="add-comment-box">
-    <div class="form-group">
-      <label for="comment_content">Comment</label>
-      <textarea [formControl]="content" id="comment_content"></textarea>
-      <app-validation-error [control]="content" [control-label]="'Comment'" ></app-validation-error>
-    </div>
 
-    <div class="form-group">
-      <button type="submit" class="fright"
-              *ngIf="!isSubmittingCommentSuccessful"
-              [disabled]="isSubmittingComment"
-              (click)="addComment()">Submit
-        <app-submit-loading-icon [is-submitting]="isSubmittingComment" [display-icon]="faComment"></app-submit-loading-icon>
-      </button>
-
-      <app-success-button [is-form-completed]="isSubmittingCommentSuccessful"></app-success-button>
-    </div>
-    <app-form-message [status-message]="commentFormStatusMessage" [error-message]="commentFormErrorMessage"></app-form-message>
-  </div>
+  <app-add-comment
+    [content]="content"
+    [is-submitting-comment]="isSubmittingComment"
+    [is-submitting-comment-successful]="isSubmittingCommentSuccessful"
+    [comment-form-status-message]="commentFormStatusMessage"
+    [comment-form-error-message]="commentFormErrorMessage"
+    (submitting-comment)="addComment()">
+  </app-add-comment>
 </ng-container>
 
 <div *ngIf="isCommentsView">
