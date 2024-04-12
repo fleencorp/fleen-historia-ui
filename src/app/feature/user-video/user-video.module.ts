@@ -5,7 +5,7 @@ import {UserVideoRoutingModule} from './user-video-routing.module';
 import {
   CreateVideoComponent,
   UpdateVideoComponent,
-  UpdateVideoInfoComponent,
+  UserUpdateVideoInfoComponent,
   UpdateVideoObjectComponent,
   UserVideoBaseComponent,
   UserVideoComponent,
@@ -25,7 +25,7 @@ import {ContributorService} from "@app/feature/contributor/service";
     UserVideoComponent,
     CreateVideoComponent,
     UpdateVideoComponent,
-    UpdateVideoInfoComponent,
+    UserUpdateVideoInfoComponent,
     UpdateVideoObjectComponent,
     UserVideoBaseComponent,
     UserVideoDashboardComponent
@@ -39,7 +39,7 @@ import {ContributorService} from "@app/feature/contributor/service";
     NgOptimizedImage,
   ],
   exports: [
-    UpdateVideoInfoComponent,
+    UserUpdateVideoInfoComponent,
     UpdateVideoObjectComponent
   ],
   providers: [

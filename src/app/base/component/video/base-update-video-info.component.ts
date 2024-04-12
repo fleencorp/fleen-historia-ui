@@ -36,7 +36,7 @@ export abstract class BaseUpdateVideoInfoComponent extends BaseUpdateComponent<F
           this.formReady();
         },
         error: (error: ErrorResponse): void => { this.handleError(error); }
-      });
+    });
   }
 
   protected initDataForCreateVideo(result: GetCreateVideoResponse): void {

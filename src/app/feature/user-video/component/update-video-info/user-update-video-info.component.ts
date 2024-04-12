@@ -5,11 +5,11 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {BaseUpdateVideoInfoComponent} from "@app/base/component/video";
 
 @Component({
-  selector: 'app-update-video-info',
-  templateUrl: './update-video-info.component.html',
-  styleUrls: ['./update-video-info.component.css']
+  selector: 'app-user-update-video-info',
+  templateUrl: './user-update-video-info.component.html',
+  styleUrls: ['./user-update-video-info.component.css']
 })
-export class UpdateVideoInfoComponent extends BaseUpdateVideoInfoComponent implements OnInit {
+export class UserUpdateVideoInfoComponent extends BaseUpdateVideoInfoComponent implements OnInit {
 
   @Input('video-id')
   public override videoId!: number | string;

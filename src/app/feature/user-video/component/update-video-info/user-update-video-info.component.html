@@ -1,0 +1,16 @@
+
+<app-update-video-info
+    [update-video-form]="updateVideoForm"
+    [is-form-completed]="isFormCompleted"
+    [is-form-ready]="isFormReady"
+    [is-loading]="isLoading"
+    [is-submitting]="isSubmitting"
+    [status-message]="statusMessage"
+    [error-message]="errorMessage"
+
+    [channels]="channels"
+    [categories]="categories"
+    [entry]="fleenVideo"
+    (update-video)="updateVideo()">
+</app-update-video-info>
+

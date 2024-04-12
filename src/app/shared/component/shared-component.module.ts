@@ -3,25 +3,26 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {AnyArray} from "@app/model/type";
 import {
   ChangePasswordComponent,
+  CommentComponent,
   EntriesDeleteAllComponent,
   FormMessageComponent,
   LoadingSpinnerComponent,
   PaginationComponent,
+  ReplyComponent,
   RowEntryOptionComponent,
   SearchFormDeleteMenuComponent,
   ShowReviewHistoryComponent,
   ShowVideoDetailComponent,
   SubmitLoadingIconComponent,
   SuccessButtonComponent,
+  UpdateVideoInfoComponent,
   UploadFileComponent,
   ValidationErrorComponent,
-  VideoDetailOptionComponent,
+  VideoDetailOptionComponent
 } from "./index";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {BaseModule} from "@app/base/base.module";
-import { CommentComponent } from './discussion/comment/comment.component';
-import { ReplyComponent } from './discussion/reply/reply.component';
 
 
 const components: AnyArray = [
@@ -39,14 +40,14 @@ const components: AnyArray = [
   ShowReviewHistoryComponent,
   ShowVideoDetailComponent,
   VideoDetailOptionComponent,
+  CommentComponent,
+  ReplyComponent,
+  UpdateVideoInfoComponent,
 ]
 
 @NgModule({
   declarations: [
     ...components,
-    CommentComponent,
-    ReplyComponent,
-
   ],
   imports: [
     CommonModule,
@@ -57,8 +58,6 @@ const components: AnyArray = [
     FormsModule,
   ],
   exports: [
-    ...components,
-    CommentComponent,
-  ]
+    ...components,  ]
 })
 export class SharedComponentModule { }
