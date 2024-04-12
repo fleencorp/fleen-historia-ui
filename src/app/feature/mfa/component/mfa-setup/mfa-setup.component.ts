@@ -394,7 +394,8 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
    * Gets a boolean value indicating whether the user can confirm MFA setup.
    */
   get canConfirmMfaSetup(): boolean {
-    return this.isCodeVerificationStage && !(this.isAllVerificationStepsComplete);
+    // return this.isCodeVerificationStage && !(this.isAllVerificationStepsComplete);
+    return this.isCodeVerificationStage;
   }
 
   /**

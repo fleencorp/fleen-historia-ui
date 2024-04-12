@@ -1,4 +1,9 @@
 <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+<p>Code Verification Stage {{isCodeVerificationStage}}</p>
+
+<p>Code Verification Complete {{isAllVerificationStepsComplete}}</p>
+
 <form *ngIf="isFormReady" [formGroup]="mfaSetupForm" (ngSubmit)="setupMfa()" method="post" enctype="application/x-www-form-urlencoded" class="sign-up-form">
   <p class="verification-code-message" *ngIf="isVerificationCodeSent">Code has been sent</p>
 
