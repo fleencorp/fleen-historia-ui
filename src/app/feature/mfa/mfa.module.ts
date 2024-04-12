@@ -6,7 +6,6 @@ import {MfaBaseComponent, MfaDashboardComponent, MfaSetupComponent, MfaStatusCom
 import {MfaService} from "./service/mfa.service";
 import {AuthenticationModule} from "@app/feature";
 import {SharedModule} from "@app/shared/shared.module";
-import {ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
@@ -19,10 +18,9 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     SharedModule,
-    AuthenticationModule,
     MfaRoutingModule,
+    AuthenticationModule,
     FontAwesomeModule,
   ],
   providers: [

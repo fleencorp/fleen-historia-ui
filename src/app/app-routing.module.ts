@@ -3,8 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {AppComponent} from "./app.component";
 import {AuthGuard} from "@app/base/guard";
-import {FleenComgroupComponent} from "@app/base/component";
-import {DashboardComponent} from "@app/base/component/dashboard/dashboard.component";
+import {DashboardComponent, FleenComgroupComponent} from "@app/base/component";
 
 const routes: Routes = [
   { path: "", component: AppComponent },

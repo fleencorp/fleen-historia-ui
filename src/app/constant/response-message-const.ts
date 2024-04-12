@@ -15,3 +15,5 @@ export const VERIFICATION_CODE_SENT: string = 'Verification Code sent';
 export const PASSWORD_UPDATED_SUCCESSFULLY: string = 'Password updated successfully';
 
 export const VIDEO_UNMOVED_TO_DRAFT: string = "Video status is not In-Review and cannot be moved or transitioned to Draft"
+
+export const MFA_TYPE_UNCHANGED: string = "The Multi Factor Authentication type you selected is unchanged and the same";

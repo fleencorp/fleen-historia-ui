@@ -4,7 +4,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/form
 import {MfaStatusResponse} from "@app/model/response/mfa/mfa-status.response";
 import {MfaService} from "../../service";
 import {MfaDetailResponse} from "@app/model/response/mfa/mfa-detail.response";
-import {ANY_EMPTY, DEFAULT_FORM_CONTROL_VALUE, MFA_SETUP_TYPE} from "@app/constant";
+import {ANY_EMPTY, DEFAULT_FORM_CONTROL_VALUE, MFA_SETUP_TYPE, MFA_TYPE_UNCHANGED} from "@app/constant";
 import {BaseFormComponent} from "@app/base/component";
 import {ErrorResponse, FleenResponse} from "@app/model/response";
 import {codeOrOtpValidator, enumTypeValidator, maxLength, minLength, required} from "@app/shared/validator";
@@ -140,9 +140,14 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
    */
   public setupMfa(): void {
     if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
-      this.disableSubmittingAndResetErrorMessage();
-      this.clearMessages();
 
+      if (this.isMfaTypeUnchanged) {
+        this.setStatusMessage(MFA_TYPE_UNCHANGED);
+        return;
+      }
+
+      this.disableSubmittingAndResetErrorMessage();
+      this.clearAllMessages();
       this.mfaService.setup(this.fleenForm.value)
         .subscribe({
           next: (result: MfaDetailResponse): void => {
@@ -362,6 +367,11 @@ export class MfaSetupComponent extends BaseFormComponent implements OnInit {
     if (p) {
       p.remove();
     }
+  }
+
+  get isMfaTypeUnchanged(): boolean {
+    return this.mfaStatus?.mfaType === this.mfaType?.value;
+
   }
 
   public copyAuthenticatorSecretToClipboard(): void {
