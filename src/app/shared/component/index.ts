@@ -13,5 +13,6 @@ export * from './video/show-review-history/show-review-history.component';
 export * from './video/show-video-detail/show-video-detail.component';
 export * from './video/video-detail-option/video-detail-option.component';
 export * from './video/update-video-info/update-video-info.component';
-export * from './discussion/index';
+export * from './discussion/comment/comment.component';
+export * from './discussion/reply/reply.component';
 export * from './video/create-video/create-video.component';
