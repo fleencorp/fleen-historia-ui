@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from "@app/base/guard";
 import {
-  CreateVideoComponent,
+  UserCreateVideoComponent,
   UpdateVideoComponent,
   UserVideoBaseComponent,
   UserVideoComponent,
@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: 'entries', component: UserVideosComponent, title: 'User Videos' },
       { path: 'detail/:id', component: UserVideoComponent, title: 'User Video' },
       { path: 'update/:id', component: UpdateVideoComponent, title: 'Update Video' },
-      { path: 'create-video', component: CreateVideoComponent, title: 'Submit a Video' },
+      { path: 'create-video', component: UserCreateVideoComponent, title: 'Submit a Video' },
     ]
   }
 ];

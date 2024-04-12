@@ -3,7 +3,7 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 
 import {UserVideoRoutingModule} from './user-video-routing.module';
 import {
-  CreateVideoComponent,
+  UserCreateVideoComponent,
   UpdateVideoComponent,
   UserUpdateVideoInfoComponent,
   UpdateVideoObjectComponent,
@@ -23,7 +23,7 @@ import {ContributorService} from "@app/feature/contributor/service";
   declarations: [
     UserVideosComponent,
     UserVideoComponent,
-    CreateVideoComponent,
+    UserCreateVideoComponent,
     UpdateVideoComponent,
     UserUpdateVideoInfoComponent,
     UpdateVideoObjectComponent,

@@ -23,6 +23,8 @@ import {
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {BaseModule} from "@app/base/base.module";
+import {CreateVideoComponent} from './video/create-video/create-video.component';
+import {RouterModule} from "@angular/router";
 
 
 const components: AnyArray = [
@@ -48,16 +50,20 @@ const components: AnyArray = [
 @NgModule({
   declarations: [
     ...components,
+    CreateVideoComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     FontAwesomeModule,
     NgOptimizedImage,
     BaseModule,
     FormsModule,
   ],
   exports: [
-    ...components,  ]
+    ...components,
+    CreateVideoComponent,
+  ]
 })
 export class SharedComponentModule { }

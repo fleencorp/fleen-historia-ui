@@ -1,5 +1,5 @@
 
-<form *ngIf="isFormReady && !isVideoCreated" [formGroup]="createVideoForm" (ngSubmit)="createVideo()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
+<form *ngIf="isFormReady" [formGroup]="videoForm" (ngSubmit)="createVideo()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
   <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <div class="form-group">
@@ -49,6 +49,7 @@
   <div class="form-group">
     <label for="categoryId">Category</label>
     <select formControlName="categoryId" id="categoryId">
+      <option value=""></option>
       <option *ngFor="let category of categories" [value]="category.categoryId">{{ category.title }}</option>
     </select>
     <app-validation-error [control]="categoryId" [control-label]="'Category'"></app-validation-error>
@@ -56,6 +57,7 @@
 
   <div class="form-group">
     <label for="channelId">Channel</label>
+    <option value=""></option>
     <select formControlName="channelId" id="channelId">
       <option *ngFor="let channel of channels" [value]="channel.channelId">{{ channel.title }}</option>
     </select>
@@ -81,7 +83,5 @@
   </div>
 
 </form>
-
-<app-update-video *ngIf="isVideoCreated" [entry-id]="createdVideoId"></app-update-video>
 
 <app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

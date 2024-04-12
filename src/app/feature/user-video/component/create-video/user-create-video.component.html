@@ -1,0 +1,16 @@
+
+<app-create-video
+  *ngIf="isVideoCreated"
+  [create-video-form]="createVideoForm"
+  [is-form-completed]="isFormCompleted"
+  [is-form-ready]="isFormReady"
+  [is-loading]="isLoading"
+  [is-submitting]="isSubmitting"
+  [status-message]="statusMessage"
+  [error-message]="errorMessage"
+
+  [channels]="channels"
+  [categories]="categories">
+</app-create-video>
+
+<app-update-video *ngIf="isVideoCreated" [entry-id]="createdVideoId"></app-update-video>

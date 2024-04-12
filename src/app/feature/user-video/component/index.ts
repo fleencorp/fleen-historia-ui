@@ -1,4 +1,4 @@
-export * from './create-video/create-video.component';
+export * from './create-video/user-create-video.component';
 export * from './update-video/update-video.component';
 export * from './update-video-info/user-update-video-info.component';
 export * from './update-video-object/update-video-object.component';

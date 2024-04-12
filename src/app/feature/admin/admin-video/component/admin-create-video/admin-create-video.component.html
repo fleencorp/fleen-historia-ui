@@ -40,6 +40,7 @@
     <label for="visibility">Visibility</label>
     <select formControlName="visibility" id="visibility">
       <option value=""></option>
+      <option value=""></option>
       <option value="PUBLIC">Public</option>
       <option value="PRIVATE">Private</option>
     </select>
@@ -48,6 +49,7 @@
 
   <div class="form-group">
     <label for="categoryId">Channel</label>
+    <option value=""></option>
     <select formControlName="categoryId" id="categoryId">
       <option *ngFor="let category of categories" [value]="category.categoryId">{{ category.title }}</option>
     </select>

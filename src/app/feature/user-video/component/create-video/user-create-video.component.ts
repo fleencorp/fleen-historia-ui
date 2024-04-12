@@ -8,11 +8,11 @@ import {Observable} from "rxjs";
 import {BaseCreateVideoComponent} from "@app/base/component/video";
 
 @Component({
-  selector: 'app-create-video',
-  templateUrl: './create-video.component.html',
-  styleUrls: ['./create-video.component.css']
+  selector: 'user-app-create-video',
+  templateUrl: './user-create-video.component.html',
+  styleUrls: ['./user-create-video.component.css']
 })
-export class CreateVideoComponent extends BaseCreateVideoComponent implements OnInit {
+export class UserCreateVideoComponent extends BaseCreateVideoComponent implements OnInit {
 
   public constructor(
       protected userVideoService: UserVideoService,
