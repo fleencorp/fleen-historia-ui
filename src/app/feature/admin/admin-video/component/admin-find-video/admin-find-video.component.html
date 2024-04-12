@@ -1,28 +1,3 @@
-<!--
-<div class="video-details">
-  <h2>{{ fleenVideo.videoTitle }}</h2>
-  <p>{{ fleenVideo.videoDescription }}</p>
-
-  &lt;!&ndash; Display other details &ndash;&gt;
-  <ul>
-    <li><strong>Video ID:</strong> {{ fleenVideo.videoId }}</li>
-    <li><strong>Tags:</strong> {{ fleenVideo.videoTags }}</li>
-    <li><strong>Reference/Source:</strong> {{ fleenVideo.videoReferenceOrSource }}</li>
-    <li><strong>Object URL:</strong> {{ fleenVideo.objectUrl }}</li>
-    <li><strong>Thumbnail:</strong> <img [src]="fleenVideo.objectThumbnail" alt="Thumbnail"></li>
-    <li><strong>Source:</strong> {{ fleenVideo.videoSource }}</li>
-    <li><strong>Visibility:</strong> {{ fleenVideo.videoVisibility }}</li>
-    <li><strong>Status:</strong> {{ fleenVideo.videoStatus }}</li>
-    <li><strong>Published:</strong> {{ fleenVideo.isPublished }}</li>
-    <li><strong>For Kids:</strong> {{ fleenVideo.isForKids }}</li>
-    <li><strong>Object Approved:</strong> {{ fleenVideo.isObjectApproved }}</li>
-    <li><strong>Category:</strong> {{ fleenVideo.category }}</li>
-    <li><strong>Channel:</strong> {{ fleenVideo.channel }}</li>
-    <li><strong>Latest Review:</strong> {{ fleenVideo.latestReview }}</li>
-  </ul>
-</div>
--->
-
 
   <!-- Video details on the left -->
   <div class="video-details" *ngIf="entryView">
@@ -33,7 +8,7 @@
     <div *ngIf="fleenVideo.videoUrl" class="video-object">
       <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
     </div>
-    <img *ngIf="fleenVideo.objectThumbnail" ngSrc="fleenVideo.objectThumbnail" alt="Thumbnail">
+    <p class="thumbnail-wrapper"><img *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail | defaultImage:'thumbnail'" alt="Thumbnail"></p>
 
     <!-- Assuming videoSource, videoVisibility, videoStatus, isPublished, isForKids, isObjectApproved are enums -->
     <p><b>Source:</b> {{ fleenVideo.videoSource }}</p><hr/>
@@ -63,7 +38,7 @@
 <!--      <div *ngIf="fleenVideo.videoUrl" class="video-object">
         <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
       </div>-->
-      <a [routerLink]="['..', fleenVideo.videoId]"><img class="related-video-thumbnail" *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail" alt="Thumbnail" width="300" height="300"></a>
+      <a [routerLink]="['..', fleenVideo.videoId]"><img class="related-video-thumbnail" *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail | defaultImage:'thumbnail'" alt="Thumbnail" width="300" height="300"></a>
       <h4 class="video-title"><a [routerLink]="['..', fleenVideo.videoId]">{{ fleenVideo.videoTitle }}</a></h4>
       <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
       <p><b>Credit:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>
@@ -78,7 +53,7 @@
 <!--      <div *ngIf="fleenVideo.videoUrl" class="video-object">
         <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
       </div>-->
-      <a [routerLink]="['..', fleenVideo.videoId]"><img class="additional-video-thumbnail" *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail" alt="Thumbnail" width="300" height="300"></a>
+      <a [routerLink]="['..', fleenVideo.videoId]"><img class="additional-video-thumbnail" *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail | defaultImage:'thumbnail'" alt="Thumbnail" width="300" height="300"></a>
       <h4 class="video-title"><a [routerLink]="['..', fleenVideo.videoId]">{{ fleenVideo.videoTitle }}</a></h4>
       <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
       <p><b>Credit:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>

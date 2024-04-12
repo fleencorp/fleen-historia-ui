@@ -7,7 +7,7 @@
   <p>{{ fleenVideo.videoDescription }}</p><hr/>
   <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
   <p><b>Reference/Source:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>
-  <p class="image-container"> <img *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail" alt="Thumbnail" width="370" height="300"></p>
+  <p class="image-container"> <img *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail | defaultImage:'thumbnail'" alt="Thumbnail" width="350" height="300"></p>
   <!-- Assuming videoSource, videoVisibility, videoStatus, isPublished, isForKids, isObjectApproved are enums -->
   <p><b>Source:</b> {{ fleenVideo.videoSource }}</p><hr/>
   <p><b>Visibility:</b> {{ fleenVideo.videoVisibility }}</p><hr/>

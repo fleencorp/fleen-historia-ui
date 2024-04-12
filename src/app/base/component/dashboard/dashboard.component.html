@@ -4,7 +4,7 @@
   <div class="menu-container">
     <ul class="menu">
       <p id="profile-photo-wrapper">
-        <img [src]="profilePhoto" width="150" height="150"/>
+        <img [src]="profilePhoto | defaultImage:'profilePhoto'" width="150" height="150"/>
       </p>
       <li>
         <a [routerLink]="['..', 'profile']" routerLinkActive="active">Profile

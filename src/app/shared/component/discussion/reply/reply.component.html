@@ -3,7 +3,7 @@
   <div class="reply" *ngFor="let reply of replies; trackBy: trackByFn">
     <div class="reply-header">
       <div class="profile-info">
-        <img class="profile-photo" src="{{ reply?.member?.profilePhoto }}" alt="Profile Picture">
+        <img class="profile-photo" [src]="reply?.member?.profilePhoto | defaultImage:'anonymous'" alt="Profile Picture">
         <div class="comment-info">
           <p>
             <span>{{ reply?.member?.firstName }} {{ reply?.member?.lastName }}</span>

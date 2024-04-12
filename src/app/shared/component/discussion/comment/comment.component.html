@@ -4,7 +4,7 @@
   <div class="comment" *ngFor="let comment of comments; trackBy: trackByFn">
     <div class="comment-header">
       <div class="profile-info">
-        <img class="profile-photo" src="{{ comment?.member?.profilePhoto }}" alt="Profile Picture">
+        <img class="profile-photo" [src]="comment?.member?.profilePhoto | defaultImage:'anonymous'" alt="Profile Picture">
         <div class="comment-info">
           <p>
             <span>{{ comment?.member?.firstName }} {{ comment?.member?.lastName }}</span>

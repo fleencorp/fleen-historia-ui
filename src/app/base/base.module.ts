@@ -5,7 +5,7 @@ import {AuthTokenService, LocalStorageService, LoggerService, NetworkService, Se
 import {AuthGuardService} from "./guard";
 import {ValidIfTruthyPipe} from "./pipe";
 import {UnlessDirective} from '@app/base/directive';
-import {SafeUrlPipe} from '@app/base/pipe';
+import {DefaultImagePipe, SafeUrlPipe} from '@app/base/pipe';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {DashboardComponent} from '@app/base/component';
@@ -19,6 +19,7 @@ import {DashboardComponent} from '@app/base/component';
     SafeUrlPipe,
     NavBarComponent,
     DashboardComponent,
+    DefaultImagePipe,
   ],
   providers: [
     AuthGuardService,
@@ -32,7 +33,8 @@ import {DashboardComponent} from '@app/base/component';
     ValidIfTruthyPipe,
     SafeUrlPipe,
     UnlessDirective,
-    NavBarComponent
+    NavBarComponent,
+    DefaultImagePipe
   ],
   imports: [
     CommonModule,

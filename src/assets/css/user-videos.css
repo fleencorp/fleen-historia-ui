@@ -1,6 +1,7 @@
 /** User Video Begins **/
 
 .image-container {
+  margin-top: 10px;
   text-align: center;
 }
 
@@ -67,7 +68,7 @@
   width: 100%;
 }
 
-.video-details .thumbnail-wrapper img {
+.thumbnail-wrapper img {
   width: 350px;
   height: 300px;
 }

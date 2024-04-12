@@ -22,7 +22,7 @@
   <div class="video-boxes">
     <div class="video-box" *ngFor="let video of entries; let i = index; trackBy: trackByFn">
       <div class="video-info">
-        <p class="center thumbnail-wrapper"><img [src]="video.objectThumbnail" width="450" height="300" [alt]="video.videoTitle"/></p>
+        <p class="center thumbnail-wrapper"><img [src]="video.objectThumbnail | defaultImage:'thumbnail'" width="450" height="300" [alt]="video.videoTitle"/></p>
         <h4 *ngIf="video.videoTitle">Title: {{ video.videoTitle }}</h4>
         <p *ngIf="video.channel.title">Channel: {{ video.channel.title }}</p>
         <p *ngIf="video.category.title">Category: {{ video.category.title }}</p>

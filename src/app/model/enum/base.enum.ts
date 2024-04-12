@@ -3,3 +3,9 @@ export enum DeleteStatusEnum {
   IN_PROGRESS = "IN_PROGRESS",
   COMPLETED = "COMPLETED"
 }
+
+export enum DefaultImageType {
+  Thumbnail = 'thumbnail',
+  ProfilePhoto = 'profilePhoto',
+  Anonymous = 'anonymous'
+}
