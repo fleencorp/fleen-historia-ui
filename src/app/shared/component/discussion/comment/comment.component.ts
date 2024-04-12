@@ -6,7 +6,7 @@ import {SubmitReplyResponse} from "@app/model/response/video";
 import {ErrorResponse} from "@app/model/response";
 import {ReplyState, ReplyStateMap} from "@app/model/type";
 import {defaultReplyState} from "@app/model/default";
-import {isFalsy} from "@app/shared/helper";
+import {isFalsy, isObject} from "@app/shared/helper";
 import {BaseFormImplComponent} from "@app/base/component";
 
 @Component({
@@ -17,10 +17,17 @@ import {BaseFormImplComponent} from "@app/base/component";
 })
 export class CommentComponent extends BaseFormImplComponent implements OnInit {
 
+  public replyState: ReplyStateMap = {};
+
   @Input('comments')
   public comments: CommentView[] = [];
 
-  public replyState: ReplyStateMap = {};
+  @Input('new-comment')
+  set comment(comment: CommentView | null) {
+    if (comment !== null && isObject(comment)) {
+      this.replyState[comment.commentId] = { ...defaultReplyState };
+    }
+  }
 
   public constructor(
       protected readonly contributorService: ContributorService) {

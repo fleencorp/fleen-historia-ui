@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FleenVideoView} from "@app/model/view/video";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
@@ -10,17 +10,18 @@ import {isFalsy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
 import {SubmitCommentResponse, SubmitVideoReviewResponse, UserCanSubmitReviewResponse} from "@app/model/response/video";
 import {BaseVideoComponent} from "@app/base/component/video";
-import {faComment, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {CommentView} from "@app/model/view/discussion";
 
 @Component({
   selector: 'app-pending-video',
   templateUrl: './pending-video.component.html',
-  styleUrls: ['./pending-video.component.css']
+  styleUrls: ['./pending-video.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PendingVideoComponent extends BaseVideoComponent implements OnInit {
 
   public content: FormControl = new FormControl<any>('', [required, maxLength(3000)]);
+  public addedComment: CommentView | null = null;
   public commentFormErrorMessage: string = '';
   public commentFormStatusMessage: string = '';
   public isSubmittingComment: boolean = false;
@@ -97,8 +98,13 @@ export class PendingVideoComponent extends BaseVideoComponent implements OnInit 
   }
 
   public updateCommentList(comment: CommentView): void {
+    this.setNewComment(comment);
     this.discussion.comments.values.unshift(comment);
     this.discussion.comments.values = [...this.discussion.comments.values];
+  }
+
+  public setNewComment(comment: CommentView): void {
+    this.addedComment = comment;
   }
 
   protected clearCommentFormMessages(): void {
@@ -142,14 +148,7 @@ export class PendingVideoComponent extends BaseVideoComponent implements OnInit 
     return this.fleenForm;
   }
 
-  get videoReviewStatus(): AbstractControl | null | undefined {
-    return this.submitReviewForm?.get('videoReviewStatus');
-  }
-
   get comment(): AbstractControl | null | undefined {
     return this.submitReviewForm?.get('comment');
   }
-
-
-  protected readonly faComment: IconDefinition = faComment;
 }

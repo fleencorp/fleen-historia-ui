@@ -1,11 +1,12 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {faComment, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-add-comment',
   templateUrl: './add-comment.component.html',
-  styleUrls: ['./add-comment.component.css']
+  styleUrls: ['./add-comment.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AddCommentComponent {
 

@@ -5,43 +5,42 @@
 </ng-container>
 
 <ng-container *ngIf="isFormReady && canSubmitReview">
-  <form [formGroup]="submitReviewForm" (ngSubmit)="submitReview()" method="post" enctype="application/x-www-form-urlencoded" class="submit-review-form">
-    <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
-
-    <div class="form-group">
-      <label for="video_review_status">Video Review Status</label>
-      <select formControlName="videoReviewStatus" id="video_review_status">
-        <option value=""></option>
-        <option value="APPROVED">Approve</option>
-        <option value="DECLINED">Decline</option>
-      </select>
-      <app-validation-error [control]="videoReviewStatus" [control-label]="'Review Status'"></app-validation-error>
-    </div>
-
-    <div class="form-group">
-      <label for="comment">Comment</label>
-      <textarea formControlName="comment" id="comment"></textarea>
-      <app-validation-error [control]="comment" [control-label]="'Comment'" ></app-validation-error>
-    </div>
-
-    <button type="submit" [disabled]="isSubmitting">Submit</button>
-  </form>
+  <app-submit-video-review
+    [submit-review-form]="submitReviewForm"
+    [is-submitting]="isSubmitting"
+    [status-message]="statusMessage"
+    [error-message]="errorMessage"
+    (submit-review)="submitReview()">
+  </app-submit-video-review>
 </ng-container>
 
 <ng-container *ngIf="isFormReady && isDetailsView && !canSubmitReview">
 
-  <app-add-comment
-    [content]="content"
-    [is-submitting-comment]="isSubmittingComment"
-    [is-submitting-comment-successful]="isSubmittingCommentSuccessful"
-    [comment-form-status-message]="commentFormStatusMessage"
-    [comment-form-error-message]="commentFormErrorMessage"
-    (submitting-comment)="addComment()">
-  </app-add-comment>
+  <div class="add-comment-box">
+    <app-add-comment
+      [content]="content"
+      [is-submitting-comment]="isSubmittingComment"
+      [is-submitting-comment-successful]="isSubmittingCommentSuccessful"
+      [comment-form-status-message]="commentFormStatusMessage"
+      [comment-form-error-message]="commentFormErrorMessage"
+      (submitting-comment)="addComment()">
+    </app-add-comment>
+  </div>
 </ng-container>
 
 <div *ngIf="isCommentsView">
-  <app-comment [comments]="discussion.comments.values"></app-comment>
+  <div class="add-comment-box-2">
+    <app-add-comment
+      [content]="content"
+      [is-submitting-comment]="isSubmittingComment"
+      [is-submitting-comment-successful]="isSubmittingCommentSuccessful"
+      [comment-form-status-message]="commentFormStatusMessage"
+      [comment-form-error-message]="commentFormErrorMessage"
+      (submitting-comment)="addComment()">
+    </app-add-comment>
+  </div>
+
+  <app-comment [comments]="discussion.comments.values" [new-comment]="addedComment"></app-comment>
 </div>
 
 <div *ngIf="isReviewHistoryView">
