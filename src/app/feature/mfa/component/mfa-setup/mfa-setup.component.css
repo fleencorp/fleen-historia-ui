@@ -54,7 +54,7 @@
   content: '';
   position: absolute;
   top: 50%;
-  left: 340px; /* Position to the right */
+  left: 250px; /* Position to the right */
   transform: translateY(-50%);
   width: 20px; /* Size of the radio button */
   height: 20px; /* Size of the radio button */
@@ -83,4 +83,12 @@
   font-weight: bold;
   margin-bottom: 20px;
   padding-left: 10px;
+}
+
+@media screen and (max-width: 340px) {
+
+  .radio-label:before {
+    left: 150px; /* Position to the right */
+  }
+
 }

@@ -7,4 +7,6 @@
   font-size : 16px;
   font-weight : normal;
   font-family: 'Open Sans';
+  max-width: 100%;
+  height: auto;
 }

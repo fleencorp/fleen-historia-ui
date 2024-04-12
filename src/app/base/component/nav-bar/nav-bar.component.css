@@ -101,8 +101,7 @@
   .navbar li:nth-child(3),
   .navbar li:nth-child(4),
   .navbar li:nth-child(5),
-  .navbar li:nth-child(6),
-  .navbar li:nth-child(7){
+  .navbar li:nth-child(6):not(.more-icon) {
     width : 100%;
     margin : 0;
     border : 0;
