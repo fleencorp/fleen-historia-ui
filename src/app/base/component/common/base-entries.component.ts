@@ -474,6 +474,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    */
   protected getEntries(cb?: Function): void {
     const id: string | null = this.route.snapshot.paramMap.get('id');
+    this.clearAllMessages();
 
     // Prepare search parameters
     let params: AnyObject = this.prepareSearchParams();

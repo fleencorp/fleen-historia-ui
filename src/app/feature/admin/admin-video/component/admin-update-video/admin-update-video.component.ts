@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {BaseUpdateVideoComponent} from "@app/base/component/video";
 import {AbstractControl, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -20,6 +20,9 @@ export class AdminUpdateVideoComponent extends BaseUpdateVideoComponent implemen
   protected readonly faInfo: IconDefinition = faCircleInfo;
   protected readonly faVideo: IconDefinition = faVideo;
   protected readonly faArrowLeft: IconDefinition = faArrowLeft;
+
+  @Input('entry-id')
+  public override entryId: number | string = 0;
 
   public constructor(
       protected adminVideoService: AdminVideoService,

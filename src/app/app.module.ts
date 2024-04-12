@@ -36,6 +36,7 @@ import {FooterComponent, HeaderComponent, NetworkStatusComponent} from "@app/bas
     AppComponent,
     HeaderComponent,
     FooterComponent,
+    NetworkStatusComponent
   ]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {AbstractControl, FormGroup} from "@angular/forms";
 import {ChannelView} from "@app/model/view/channel";
 import {CategoryView} from "@app/model/view/category";
@@ -7,7 +7,8 @@ import {FleenVideoView} from "@app/model/view/video";
 @Component({
   selector: 'app-create-video',
   templateUrl: './create-video.component.html',
-  styleUrls: ['./create-video.component.css']
+  styleUrls: ['./create-video.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateVideoComponent {
 

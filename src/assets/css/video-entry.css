@@ -1,3 +1,13 @@
+.create-video-note h5 {
+  color: red;
+}
+
+.create-video-note p {
+  font-size: 13px;
+  font-weight: bold;
+  font-family: "Roboto Bold";
+}
+
 div.video-object {
   width: 400px;
   height: 400px;

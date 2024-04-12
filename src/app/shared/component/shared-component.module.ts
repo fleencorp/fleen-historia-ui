@@ -4,6 +4,7 @@ import {AnyArray} from "@app/model/type";
 import {
   ChangePasswordComponent,
   CommentComponent,
+  CreateVideoComponent,
   EntriesDeleteAllComponent,
   FormMessageComponent,
   LoadingSpinnerComponent,
@@ -23,7 +24,6 @@ import {
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {BaseModule} from "@app/base/base.module";
-import {CreateVideoComponent} from './video/create-video/create-video.component';
 import {RouterModule} from "@angular/router";
 
 
@@ -45,12 +45,12 @@ const components: AnyArray = [
   CommentComponent,
   ReplyComponent,
   UpdateVideoInfoComponent,
+  CreateVideoComponent
 ]
 
 @NgModule({
   declarations: [
     ...components,
-    CreateVideoComponent,
   ],
   imports: [
     CommonModule,
@@ -63,7 +63,6 @@ const components: AnyArray = [
   ],
   exports: [
     ...components,
-    CreateVideoComponent,
   ]
 })
 export class SharedComponentModule { }
