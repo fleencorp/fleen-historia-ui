@@ -1,5 +1,5 @@
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
-import {convertToDesiredFormat, equalsIgnoreCase, isObject, isTruthy, toCamelCase} from "@app/shared/helper";
+import {convertToDesiredFormat, equalsIgnoreCase, isFalsy, isObject, isTruthy, toCamelCase} from "@app/shared/helper";
 import {Observable, of} from "rxjs";
 import {BaseComponent} from "@app/base/component";
 import {AnyObject} from "@app/model/type";
@@ -257,6 +257,8 @@ export abstract class BaseFormComponent extends BaseComponent {
         this.setErrorsFromApiResponse(error.fields);
       } else if (error?.message) {
         this.setErrorMessage(error?.message);
+      } else if (isFalsy(error?.message)) {
+        this.setErrorMessage(ERR_CONNECTION_REFUSED_MESSAGE);
       }
     } else {
       this.setErrorMessage(ERR_CONNECTION_REFUSED_MESSAGE);
