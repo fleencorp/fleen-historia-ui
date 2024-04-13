@@ -27,10 +27,10 @@
         <p *ngIf="video.channel.title">Channel: {{ video.channel.title }}</p>
         <p *ngIf="video.category.title">Category: {{ video.category.title }}</p>
         <p *ngIf="video.videoStatus">Status: {{ video.videoStatus }}</p>
-        <p>Updated at {{ video.updatedOn | date:'mediumDate' }}</p>
+        <p>Updated on {{ video.updatedOn | date:'mediumDate' }}</p>
       </div>
       <div class="video-actions">
-        <button type="button" class="btn-navy" (click)="viewDetail(video.videoId)">View <fa-icon [icon]="faEye"></fa-icon></button>
+        <button type="button" class="btn-navy" (click)="viewDetail(video.videoId)">View <fa-icon [icon]="faVideoCamera"></fa-icon></button>
 
       </div>
       <app-form-message [status-message]="video.statusMessage" [error-message]="video.errorMessage"></app-form-message>

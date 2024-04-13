@@ -1,0 +1,16 @@
+<app-video-detail-option (detail-view)="detailsView()" (review-history-view)="reviewHistoryView()" (comment-view)="commentsView()"></app-video-detail-option>
+
+<ng-container *ngIf="isDetailsView && entryView">
+  <app-show-video-detail [fleen-video]="fleenVideo"></app-show-video-detail>
+</ng-container>
+
+<div *ngIf="isCommentsView">
+  <app-comment [comments]="discussion.comments.values"></app-comment>
+</div>
+
+<div *ngIf="isReviewHistoryView">
+  <app-show-review-history [review-history]="reviewHistory.reviews"></app-show-review-history>
+</div>
+
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

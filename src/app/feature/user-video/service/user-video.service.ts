@@ -28,6 +28,11 @@ export class UserVideoService extends BaseVideoService {
       );
   }
 
+  public findHomepageVideo(id: number | string): Observable<FleenVideoView> {
+    const req: BaseRequest = this.httpService.toRequest(['homepage', 'video', 'detail', +id]);
+    return this.httpService.get(req, FleenVideoView);
+  }
+
   public findVideoReviewHistory(id: number | string): Observable<VideoReviewHistoryResponse> {
     return this.contributorService.findVideoReviewHistory(id);
   }

@@ -26,6 +26,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {RouterModule} from "@angular/router";
 import {BaseModule} from "@app/base/base.module";
+import { HomepageVideoComponent } from './video/homepage-video/homepage-video.component';
 
 
 const components: AnyArray = [
@@ -53,6 +54,7 @@ const components: AnyArray = [
 @NgModule({
   declarations: [
     ...components,
+    HomepageVideoComponent,
   ],
   imports: [
     CommonModule,

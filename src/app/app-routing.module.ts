@@ -1,13 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-
-import {AppComponent} from "./app.component";
 import {AuthGuard} from "@app/base/guard";
-import {DashboardComponent, FleenComgroupComponent} from "@app/base/component";
-import {HomepageVideosComponent} from "@app/shared/component/video/homepage-videos/homepage-videos.component";
+import {DashboardComponent, FleenComgroupComponent, HomepageVideosComponent} from "@app/base/component";
+import {HomepageVideoComponent} from "@app/shared/component";
 
 const routes: Routes = [
-  { path: "", component: AppComponent },
+  { path: '', component: HomepageVideosComponent },
+  { path: 'video/:id', component: HomepageVideoComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'videos', component: HomepageVideosComponent },
   { path: 'auth', loadChildren: () => import('./feature/authentication/authentication.module').then(m => m.AuthenticationModule) },

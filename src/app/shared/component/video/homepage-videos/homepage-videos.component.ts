@@ -7,9 +7,9 @@ import {AnyObject, SearchFilter, SearchPayload} from "@app/model/type";
 import {Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
 import {FleenVideoView} from "@app/model/view/video";
-import {faEye, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faVideoCamera, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {VIDEO_QUERY_SEARCH_KEY, VIDEO_TITLE_SEARCH_KEY} from "@app/constant";
-import {removeProperty} from "@app/shared/helper";
+import {isTruthy, removeProperty} from "@app/shared/helper";
 
 @Component({
   selector: 'app-homepage-videos',
@@ -37,6 +37,12 @@ export class HomepageVideosComponent extends BaseVideosComponent implements OnIn
     return this.userVideoService.findHomepageVideos(params);
   }
 
+  public override async viewDetail(id: number | string | undefined): Promise<void> {
+    if (isTruthy(id)) {
+      await this.router.navigateByUrl(`video/${id}`);
+    }
+  }
+
   public override async search(payload: SearchPayload): Promise<void> {
     this.createTitleSearch(payload);
     removeProperty(payload, VIDEO_QUERY_SEARCH_KEY);
@@ -47,5 +53,5 @@ export class HomepageVideosComponent extends BaseVideosComponent implements OnIn
     payload[VIDEO_TITLE_SEARCH_KEY] = payload[VIDEO_QUERY_SEARCH_KEY];
   }
 
-  protected readonly faEye: IconDefinition = faEye;
+  protected readonly faVideoCamera: IconDefinition = faVideoCamera;
 }

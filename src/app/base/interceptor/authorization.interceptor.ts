@@ -47,7 +47,9 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     '/misc/email-address',
     '/misc/phone-number',
     '/homepage/videos/entries',
-    '/homepage/video'
+    '/homepage/video',
+    '/contributor/video/comment',
+    '/contributor/video/review-history',
   ];
 
   /**
