@@ -14,6 +14,7 @@ import {FooterComponent, HeaderComponent, NetworkStatusComponent} from "@app/bas
 import {UserVideoService} from "@app/feature/user-video/service";
 import {ContributorService} from "@app/feature/contributor/service";
 import {CommonModule} from "@angular/common";
+import {SharedComponentModule} from "@app/shared/component/shared-component.module";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {CommonModule} from "@angular/common";
     FontAwesomeModule,
     BaseModule,
     SharedServiceModule,
+    SharedComponentModule,
     AppRoutingModule
   ],
   providers: [

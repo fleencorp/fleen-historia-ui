@@ -3,12 +3,13 @@ import {BaseVideosComponent} from "@app/base/component/video";
 import {UserVideoService} from "@app/feature/user-video/service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
-import {AnyObject, SearchFilter} from "@app/model/type";
+import {AnyObject, SearchFilter, SearchPayload} from "@app/model/type";
 import {Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
 import {FleenVideoView} from "@app/model/view/video";
 import {faEye, IconDefinition} from "@fortawesome/free-solid-svg-icons";
-import {SEARCH_FILTER_VIEW_USER_FLEEN_VIDEOS} from "@app/constant/search-filter.const";
+import {VIDEO_QUERY_SEARCH_KEY, VIDEO_TITLE_SEARCH_KEY} from "@app/constant";
+import {removeProperty} from "@app/shared/helper";
 
 @Component({
   selector: 'app-homepage-videos',
@@ -17,7 +18,7 @@ import {SEARCH_FILTER_VIEW_USER_FLEEN_VIDEOS} from "@app/constant/search-filter.
 })
 export class HomepageVideosComponent extends BaseVideosComponent implements OnInit {
 
-  public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_USER_FLEEN_VIDEOS;
+  public override searchFilter: SearchFilter[] = [];
 
   public constructor(
       protected userVideoService: UserVideoService,
@@ -34,6 +35,16 @@ export class HomepageVideosComponent extends BaseVideosComponent implements OnIn
 
   public override findEntries(params: AnyObject): Observable<SearchResultView<FleenVideoView>> {
     return this.userVideoService.findHomepageVideos(params);
+  }
+
+  public override async search(payload: SearchPayload): Promise<void> {
+    this.createTitleSearch(payload);
+    removeProperty(payload, VIDEO_QUERY_SEARCH_KEY);
+    await super.search(payload, false);
+  }
+
+  public createTitleSearch(payload: SearchPayload): void {
+    payload[VIDEO_TITLE_SEARCH_KEY] = payload[VIDEO_QUERY_SEARCH_KEY];
   }
 
   protected readonly faEye: IconDefinition = faEye;

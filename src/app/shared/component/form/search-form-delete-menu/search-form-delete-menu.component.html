@@ -1,6 +1,6 @@
 <form class="search-menu" [formGroup]="searchForm" (ngSubmit)="search()">
 
-  <select formControlName="searchType" name="search-type">
+  <select *ngIf="searchFilter && searchFilter.length > 0" formControlName="searchType" name="search-type">
     <option *ngFor="let filter of searchFilter" [value]="filter['key']">
       {{ filter['label'] }}
     </option>

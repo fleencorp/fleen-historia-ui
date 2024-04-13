@@ -126,7 +126,7 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
       this.checkBetweenDateParam();
 
       // Emit the search parameters
-      this.searchSubmitted.emit({ ...(this.searchParams) });
+      this.searchSubmitted.emit({ ...(this.searchParams), q: value });
     }
   }
 

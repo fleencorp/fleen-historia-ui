@@ -767,7 +767,7 @@ export function removeProperty(obj: any, prop: string): void {
 export function removePropertiesWithBlankKeysAndValues(obj: { [key: string]: any }): void {
   Object.keys(obj).forEach((key: string): void => {
     const value = obj[key];
-    if (typeof value === 'string' && (key.trim() === '' || value.trim() === '')) {
+    if (typeof value === 'string' && (key.trim() === '' || key.trim() === 'null' || key.trim() === 'undefined' || value.trim() === '')) {
       delete obj[key];
     }
   });

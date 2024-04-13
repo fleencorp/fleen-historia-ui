@@ -20,5 +20,19 @@ export const DEFAULT_NEXT_PAGE_TOKEN_KEY: string = 'next_page_token';
  */
 export const DEFAULT_PREV_PAGE_TOKEN_KEY: string = 'prev_page_token';
 
+/**
+ * Constant representing the search key for video status.
+ */
 export const VIDEO_STATUS_SEARCH_KEY: string = 'status';
+
+/**
+ * Constant representing the search key for video title.
+ */
+export const VIDEO_TITLE_SEARCH_KEY: string = 'title';
+
+/**
+ * Constant representing the search key for video query.
+ */
+export const VIDEO_QUERY_SEARCH_KEY: string = 'q';
+
 

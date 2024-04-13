@@ -189,8 +189,10 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
     this.entries = [ ...this.entries ];
   }
 
-  public override async search(payload: SearchPayload): Promise<void> {
-    payload[VIDEO_STATUS_SEARCH_KEY] = this.currentVideoSearchStatus;
+  public override async search(payload: SearchPayload, withStatus: boolean = true): Promise<void> {
+    if (withStatus) {
+      payload[VIDEO_STATUS_SEARCH_KEY] = this.currentVideoSearchStatus;
+    }
     await super.search(payload);
   }
 
