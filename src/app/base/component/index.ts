@@ -12,3 +12,4 @@ export * from './basic/header/header.component';
 export * from './basic/footer/footer.component';
 export * from './basic/nav-bar/nav-bar.component';
 export * from './network-status/network-status.component';
+export * from '@app/shared/component/video/homepage-videos/homepage-videos.component';

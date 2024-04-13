@@ -7,6 +7,7 @@ import {
   CreateVideoComponent,
   EntriesDeleteAllComponent,
   FormMessageComponent,
+  HomepageVideosComponent,
   LoadingSpinnerComponent,
   PaginationComponent,
   ReplyComponent,
@@ -23,8 +24,8 @@ import {
 } from "./index";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {BaseModule} from "@app/base/base.module";
 import {RouterModule} from "@angular/router";
+import {BaseModule} from "@app/base/base.module";
 
 
 const components: AnyArray = [
@@ -45,7 +46,8 @@ const components: AnyArray = [
   CommentComponent,
   ReplyComponent,
   UpdateVideoInfoComponent,
-  CreateVideoComponent
+  CreateVideoComponent,
+  HomepageVideosComponent
 ]
 
 @NgModule({
@@ -54,11 +56,11 @@ const components: AnyArray = [
   ],
   imports: [
     CommonModule,
+    BaseModule,
     ReactiveFormsModule,
     RouterModule,
     FontAwesomeModule,
     NgOptimizedImage,
-    BaseModule,
     FormsModule,
   ],
   exports: [

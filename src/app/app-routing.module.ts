@@ -4,7 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from "./app.component";
 import {AuthGuard} from "@app/base/guard";
 import {DashboardComponent, FleenComgroupComponent} from "@app/base/component";
-import {HomepageVideosComponent} from "@app/base/component/video/homepage-videos/homepage-videos.component";
+import {HomepageVideosComponent} from "@app/shared/component/video/homepage-videos/homepage-videos.component";
 
 const routes: Routes = [
   { path: "", component: AppComponent },

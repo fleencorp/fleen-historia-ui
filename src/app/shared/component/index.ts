@@ -16,3 +16,4 @@ export * from './video/update-video-info/update-video-info.component';
 export * from './discussion/comment/comment.component';
 export * from './discussion/reply/reply.component';
 export * from './video/create-video/create-video.component';
+export * from './video/homepage-videos/homepage-videos.component';

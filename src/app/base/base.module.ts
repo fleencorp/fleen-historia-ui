@@ -9,9 +9,6 @@ import {DefaultImagePipe, SafeUrlPipe} from '@app/base/pipe';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {DashboardComponent} from '@app/base/component';
-import { GameOPipe } from './game-o.pipe';
-import { HomepageVideosComponent } from './component/video/homepage-videos/homepage-videos.component';
-import {SharedComponentModule} from "@app/shared/component/shared-component.module";
 
 
 @NgModule({
@@ -23,8 +20,6 @@ import {SharedComponentModule} from "@app/shared/component/shared-component.modu
     NavBarComponent,
     DashboardComponent,
     DefaultImagePipe,
-    GameOPipe,
-    HomepageVideosComponent,
   ],
   providers: [
     AuthGuardService,
@@ -46,7 +41,6 @@ import {SharedComponentModule} from "@app/shared/component/shared-component.modu
     FontAwesomeModule,
     RouterLink,
     RouterLinkActive,
-    SharedComponentModule
   ]
 })
 export class BaseModule { }

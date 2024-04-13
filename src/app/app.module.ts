@@ -13,6 +13,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {FooterComponent, HeaderComponent, NetworkStatusComponent} from "@app/base/component";
 import {UserVideoService} from "@app/feature/user-video/service";
 import {ContributorService} from "@app/feature/contributor/service";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {ContributorService} from "@app/feature/contributor/service";
     NetworkStatusComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
