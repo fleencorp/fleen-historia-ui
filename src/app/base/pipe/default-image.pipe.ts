@@ -14,7 +14,9 @@ export class DefaultImagePipe implements PipeTransform {
       switch (imageType) {
         case DefaultImageType.Thumbnail:
           return 'assets/images/no-thumbnail.jpg'; // Provide the path to your default thumbnail image
-        case DefaultImageType.ProfilePhoto || DefaultImageType.Anonymous:
+        case DefaultImageType.ProfilePhoto:
+          return 'assets/images/anonymous.jpg'; // Provide the path to your default profile photo image
+        case DefaultImageType.Anonymous:
           return 'assets/images/anonymous.jpg'; // Provide the path to your default profile photo image
         default:
           return '';

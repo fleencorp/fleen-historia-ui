@@ -9,6 +9,7 @@ import {DefaultImagePipe, SafeUrlPipe} from '@app/base/pipe';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {DashboardComponent} from '@app/base/component';
+import { GameOPipe } from './game-o.pipe';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {DashboardComponent} from '@app/base/component';
     NavBarComponent,
     DashboardComponent,
     DefaultImagePipe,
+    GameOPipe,
   ],
   providers: [
     AuthGuardService,
