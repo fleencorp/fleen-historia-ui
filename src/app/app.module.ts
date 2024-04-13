@@ -11,6 +11,8 @@ import {SharedServiceModule} from "@app/shared/service/shared-service.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {FooterComponent, HeaderComponent, NetworkStatusComponent} from "@app/base/component";
+import {UserVideoService} from "@app/feature/user-video/service";
+import {ContributorService} from "@app/feature/contributor/service";
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import {FooterComponent, HeaderComponent, NetworkStatusComponent} from "@app/bas
   ],
   providers: [
     AuthenticationService,
+    ContributorService,
+    UserVideoService,
     { provide: HTTP_INTERCEPTORS, useClass: ContentTypeInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
   ],

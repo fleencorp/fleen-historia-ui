@@ -4,7 +4,10 @@ import {BaseVideoService} from "@app/base/service";
 import {Observable} from "rxjs";
 import {MoveToDraftResponse, VideoCommentResponse, VideoReviewHistoryResponse} from "@app/model/response/video";
 import {ContributorService} from "@app/feature/contributor/service";
-import {BaseRequest} from "@app/model/type";
+import {AnyObject, BaseRequest} from "@app/model/type";
+import {SearchResultView} from "@app/model/view";
+import {FleenVideoView} from "@app/model/view/video";
+import {toSearchResult} from "@app/shared/rxjs";
 
 @Injectable()
 export class UserVideoService extends BaseVideoService {
@@ -15,6 +18,14 @@ export class UserVideoService extends BaseVideoService {
       protected contributorService: ContributorService,
       httpService: HttpClientService) {
     super(httpService);
+  }
+
+  public findHomepageVideos(params: AnyObject): Observable<SearchResultView<FleenVideoView>> {
+    const req: BaseRequest = this.httpService.toRequest(['homepage', 'video', 'entries'], params);
+    return this.httpService.get(req)
+      .pipe(
+        toSearchResult(FleenVideoView),
+      );
   }
 
   public findVideoReviewHistory(id: number | string): Observable<VideoReviewHistoryResponse> {

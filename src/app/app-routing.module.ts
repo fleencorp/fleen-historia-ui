@@ -4,10 +4,12 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from "./app.component";
 import {AuthGuard} from "@app/base/guard";
 import {DashboardComponent, FleenComgroupComponent} from "@app/base/component";
+import {HomepageVideosComponent} from "@app/base/component/video/homepage-videos/homepage-videos.component";
 
 const routes: Routes = [
   { path: "", component: AppComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'videos', component: HomepageVideosComponent },
   { path: 'auth', loadChildren: () => import('./feature/authentication/authentication.module').then(m => m.AuthenticationModule) },
   { path: 'mfa', loadChildren: () => import('./feature/mfa/mfa.module').then(m => m.MfaModule), canActivate: [AuthGuard] },
   { path: 'profile', loadChildren: () => import('./feature/member/member.module').then(m => m.MemberModule), canActivate: [AuthGuard] },

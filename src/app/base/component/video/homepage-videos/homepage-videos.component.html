@@ -1,0 +1,52 @@
+<app-search-form-delete-menu
+  [is-searching]="isSearching"
+  [is-submitting]="isSubmitting"
+  [is-resetting-search]="isResettingSearch"
+  [search-filter]="searchFilter"
+  [search-params]="searchParams"
+  [can-delete]="false"
+  (searchSubmitted)="search($event)"
+  (resetSearchSubmitted)="resetSearch()"></app-search-form-delete-menu>
+
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+<app-pagination [entries-available]="entries.length > 0"
+                [is-first]="isFirst"
+                [is-last]="isLast"
+                [current-page-number]="currentPage"
+                [navigation-in-progress]="navigationInProgress"
+                (toNextPage)="nextPage()"
+                (toPreviousPage)="previousPage()"></app-pagination>
+
+<ng-container *ngIf="entries.length > 0">
+  <div class="video-boxes">
+    <div class="video-box" *ngFor="let video of entries; let i = index; trackBy: trackByFn">
+      <div class="video-info">
+        <p class="center thumbnail-wrapper"><img [src]="video.objectThumbnail | defaultImage:'thumbnail'" width="450" height="300" [alt]="video.videoTitle"/></p>
+        <h4 *ngIf="video.videoTitle">Title: {{ video.videoTitle }}</h4>
+        <p *ngIf="video.channel.title">Channel: {{ video.channel.title }}</p>
+        <p *ngIf="video.category.title">Category: {{ video.category.title }}</p>
+        <p *ngIf="video.videoStatus">Status: {{ video.videoStatus }}</p>
+        <p>Updated at {{ video.updatedOn | date:'mediumDate' }}</p>
+      </div>
+      <div class="video-actions">
+        <button type="button" class="btn-navy" (click)="viewDetail(video.videoId)">View <fa-icon [icon]="faEye"></fa-icon></button>
+
+      </div>
+      <app-form-message [status-message]="video.statusMessage" [error-message]="video.errorMessage"></app-form-message>
+    </div>
+  </div>
+
+</ng-container>
+
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+<app-pagination [entries-available]="entries.length > 0"
+                [is-first]="isFirst"
+                [is-last]="isLast"
+                [current-page-number]="currentPage"
+                [navigation-in-progress]="navigationInProgress"
+                (toNextPage)="nextPage()"
+                (toPreviousPage)="previousPage()"></app-pagination>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

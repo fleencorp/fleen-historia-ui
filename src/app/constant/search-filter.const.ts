@@ -37,3 +37,7 @@ export const SEARCH_FILTER_VIEW_FLEEN_VIDEOS: SearchFilter[] = [
   { key: 'title', label: 'Title' },
   { key: 'visibility', label: 'Visibility' }
 ];
+
+export const SEARCH_FILTER_VIEW_USER_FLEEN_VIDEOS: SearchFilter[] = [
+  { key: 'title', label: 'Title' },
+];

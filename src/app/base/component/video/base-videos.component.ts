@@ -28,7 +28,7 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
   public successfulPublishingVideoId: number | string  = 0;
 
   protected constructor(
-      protected videosService: BaseVideoService,
+      protected videosService: BaseVideoService ,
       router: Router,
       route: ActivatedRoute,
       location: Location) {

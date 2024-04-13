@@ -50,5 +50,5 @@ export class UserVideosComponent extends BaseVideosComponent implements OnInit {
   protected readonly faBarsProgress: IconDefinition = faBarsProgress;
   protected readonly faRocket: IconDefinition = faRocket;
   protected readonly VideoStatus = VideoStatus;
-  protected readonly faCheck = faCheck;
+  protected readonly faCheck: IconDefinition = faCheck;
 }
