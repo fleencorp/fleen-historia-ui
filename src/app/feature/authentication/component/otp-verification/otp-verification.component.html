@@ -21,6 +21,7 @@
 
     <div class="form-group">
       <button type="button" class="fright"
+              *ngIf="!isFormCompleted"
               [disabled]="isSubmitting"
               (click)="submit()">Submit
         <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faSignIn"></app-submit-loading-icon>

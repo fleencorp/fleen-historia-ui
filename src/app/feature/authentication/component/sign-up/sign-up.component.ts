@@ -30,7 +30,6 @@ export class SignUpComponent extends SignUpBaseComponent implements OnInit {
 
   public ngOnInit(): void {
     this.initForm();
-    this.isPreVerificationStage = true;
   }
 
   protected override getSessionStorageService(): SessionStorageService {
