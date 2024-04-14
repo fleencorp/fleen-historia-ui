@@ -1,3 +1,5 @@
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
 <app-video-detail-option (detail-view)="detailsView()" (review-history-view)="reviewHistoryView()" (comment-view)="commentsView()"></app-video-detail-option>
 
 <ng-container *ngIf="isDetailsView && entryView">
@@ -5,7 +7,6 @@
 </ng-container>
 
 <div *ngIf="isCommentsView">
-
   <div class="add-comment-box-2">
     <app-add-comment
       [content]="content"
@@ -17,12 +18,18 @@
     </app-add-comment>
   </div>
 
-  <app-comment [comments]="discussion.comments.values" [new-comment]="addedComment"></app-comment>
-
+  <app-comment
+    [comments]="discussion.comments.values"
+    [new-comment]="addedComment"
+    [search-result]="discussion.comments"
+    [navigation-in-progress]="isCommentNavigationInProgress"
+    (show-new-comments)="showNewComments($event)"></app-comment>
 </div>
 
 <div *ngIf="isReviewHistoryView">
   <app-show-review-history [review-history]="reviewHistory.reviews"></app-show-review-history>
 </div>
+
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

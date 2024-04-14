@@ -56,11 +56,6 @@ export class ContributorService extends BaseVideoService {
       );
   }
 
-  public findVideoDiscussion(id: number | string): Observable<VideoCommentResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'comment', +id]);
-    return this.httpService.get(req, VideoCommentResponse);
-  }
-
   public userCanSubmitVideoReview(id: number | string): Observable<UserCanSubmitReviewResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'review', 'is-eligible', +id]);
     return this.httpService.get(req, UserCanSubmitReviewResponse);

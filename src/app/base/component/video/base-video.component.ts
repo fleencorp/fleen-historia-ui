@@ -9,6 +9,7 @@ import {FormControl} from "@angular/forms";
 import {maxLength, required} from "@app/shared/validator";
 import {CommentView} from "@app/model/view/discussion";
 import {isFalsy} from "@app/shared/helper";
+import {AnyObject} from "@app/model/type";
 
 export abstract class BaseVideoComponent extends BaseDetailComponent<FleenVideoView> {
 
@@ -20,6 +21,7 @@ export abstract class BaseVideoComponent extends BaseDetailComponent<FleenVideoV
   protected isDetailsView: boolean = true;
   protected isCommentsView: boolean = false;
   protected isReviewHistoryView: boolean = false;
+  public isCommentNavigationInProgress: boolean = false;
 
   public content: FormControl = new FormControl<any>('', [required, maxLength(3000)]);
   public addedComment: CommentView | null = null;
@@ -54,6 +56,14 @@ export abstract class BaseVideoComponent extends BaseDetailComponent<FleenVideoV
 
   protected confirmUserHasSubmittedReview(canSubmit: boolean): void {
     this.hasSubmittedReview = canSubmit;
+  }
+
+  protected enableIsCommentNavigationInProgress(): void {
+    this.isCommentNavigationInProgress = true;
+  }
+
+  protected disableIsCommentNavigationInProgress(): void {
+    this.isCommentNavigationInProgress = false;
   }
 
   protected getVideoReviewHistory(): void {
@@ -94,7 +104,20 @@ export abstract class BaseVideoComponent extends BaseDetailComponent<FleenVideoV
             this.enableIsSubmittingComment();
             this.enableSubmitting();
           }
-        });
+      });
+    }
+  }
+
+  public showNewComments(pagination: AnyObject): void {
+    if (isFalsy(this.isCommentNavigationInProgress)) {
+      this.enableIsCommentNavigationInProgress();
+
+      this.videoService.findVideoDiscussion(this.entryId, pagination)
+        .subscribe({
+          next: (result: VideoCommentResponse): void => { this.discussion = result; },
+          error: (error: ErrorResponse): void => { this.handleError(error); },
+          complete: (): void => { this.disableIsCommentNavigationInProgress(); }
+      });
     }
   }
 

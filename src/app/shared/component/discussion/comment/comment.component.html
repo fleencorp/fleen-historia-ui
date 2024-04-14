@@ -1,5 +1,13 @@
 <h4>Comments</h4>
 
+<app-pagination [entries-available]="entries.length > 0"
+                [is-first]="isFirst"
+                [is-last]="isLast"
+                [current-page-number]="currentPage"
+                [navigation-in-progress]="navigationInProgress"
+                (toNextPage)="nextPage()"
+                (toPreviousPage)="previousPage()"></app-pagination>
+
 <ng-container *ngIf="comments && comments.length > 0">
   <div class="comment" *ngFor="let comment of comments; trackBy: trackByFn">
     <div class="comment-header">

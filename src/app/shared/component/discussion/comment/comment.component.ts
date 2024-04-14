@@ -1,14 +1,18 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {CommentView, ReplyView} from "@app/model/view/discussion";
 import {FormControl} from "@angular/forms";
 import {ContributorService} from "@app/feature/contributor/service";
 import {SubmitReplyResponse} from "@app/model/response/video";
 import {ErrorResponse} from "@app/model/response";
-import {ReplyState, ReplyStateMap} from "@app/model/type";
+import {AnyObject, DeleteIdsPayload, ReplyState, ReplyStateMap} from "@app/model/type";
 import {defaultReplyState} from "@app/model/default";
 import {isFalsy, isObject} from "@app/shared/helper";
-import {BaseFormImplComponent} from "@app/base/component";
+import {BaseEntriesComponent} from "@app/base/component";
 import {SearchResultView} from "@app/model/view";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Location} from "@angular/common";
+import {Observable, of} from "rxjs";
+import {ANY_EMPTY} from "@app/constant";
 
 @Component({
   selector: 'app-comment',
@@ -16,7 +20,7 @@ import {SearchResultView} from "@app/model/view";
   styleUrls: ['./comment.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class CommentComponent extends BaseFormImplComponent implements OnInit {
+export class CommentComponent extends BaseEntriesComponent<any> implements OnInit {
 
   public replyState: ReplyStateMap = {};
 
@@ -26,6 +30,9 @@ export class CommentComponent extends BaseFormImplComponent implements OnInit {
   @Input('search-result')
   public searchResult: SearchResultView<any> = new SearchResultView<any>({} as SearchResultView<any>);
 
+  @Input('navigation-in-progress')
+  public override navigationInProgress: boolean = false;
+
   @Input('new-comment')
   set comment(comment: CommentView | null) {
     if (comment !== null && isObject(comment)) {
@@ -33,16 +40,35 @@ export class CommentComponent extends BaseFormImplComponent implements OnInit {
     }
   }
 
+  @Output('show-new-comments')
+  public showNewComments: EventEmitter<AnyObject> = new EventEmitter<AnyObject>();
+
+
   public constructor(
-      protected readonly contributorService: ContributorService) {
-    super();
+      protected readonly contributorService: ContributorService,
+      router: Router,
+      route: ActivatedRoute,
+      location: Location) {
+    super(router, route, location);
   }
 
   public ngOnInit(): void {
     this.comments.forEach((comment: CommentView): void => { this.replyState[comment.commentId] = { ...defaultReplyState }; });
   }
 
-  public trackByFn(index: number, item: CommentView): any {
+  public override findEntries(params: AnyObject): Observable<SearchResultView<any>> {
+    return of(ANY_EMPTY);
+  }
+
+  override deleteEntries(payload: DeleteIdsPayload): Observable<any> {
+    return of(ANY_EMPTY);
+  }
+
+  protected override async handlePagination(): Promise<void> {
+    this.showNewComments.emit(this.getPaginationDetails());
+  }
+
+  public override trackByFn(index: number, item: CommentView): any {
     return item.commentId;
   }
 

@@ -1,3 +1,5 @@
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
 <app-video-detail-option (detail-view)="detailsView()" (review-history-view)="reviewHistoryView()" (comment-view)="commentsView()"></app-video-detail-option>
 
 <ng-container *ngIf="isDetailsView && entryView">
@@ -46,5 +48,7 @@
 <div *ngIf="isReviewHistoryView">
   <app-show-review-history [review-history]="reviewHistory.reviews"></app-show-review-history>
 </div>
+
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

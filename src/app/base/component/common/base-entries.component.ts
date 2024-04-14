@@ -385,13 +385,12 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
     this.isResettingSearch = false;
   }
 
-
   /**
    * Retrieves pagination details for the current page.
    *
    * @returns An object containing the page number and page size.
    */
-  private getPaginationDetails(): AnyObject {
+  protected getPaginationDetails(): AnyObject {
     return {
       pageNo: this.currentPage - 1,
       pageSize: this.pageSize
@@ -461,7 +460,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    *
    * @returns A Promise that resolves when the pagination is complete.
    */
-  public async handlePagination(): Promise<void> {
+  protected async handlePagination(): Promise<void> {
     // Update the URL with the current page
     await this.updateUrlWithPage();
 

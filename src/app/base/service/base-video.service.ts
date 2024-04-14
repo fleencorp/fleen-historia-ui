@@ -2,7 +2,9 @@ import {HttpClientService} from "@app/shared/service/impl";
 import {
   AnyObject,
   BaseRequest,
-  CreateVideoPayload, SubmitCommentPayload, SubmitReplyPayload,
+  CreateVideoPayload,
+  SubmitCommentPayload,
+  SubmitReplyPayload,
   UpdateVideoObjectPayload,
   UpdateVideoPayload
 } from "@app/model/type";
@@ -13,7 +15,10 @@ import {
   GetCreateVideoResponse,
   PublishVideoResponse,
   RequestForReviewResponse,
-  SubmitCommentResponse, SubmitReplyResponse, VideoReviewHistoryResponse
+  SubmitCommentResponse,
+  SubmitReplyResponse,
+  VideoCommentResponse,
+  VideoReviewHistoryResponse
 } from "@app/model/response/video";
 import {toSearchResult} from "@app/shared/rxjs";
 import {FleenVideoResponse} from "@app/model/response/video/fleen-video.response";
@@ -21,6 +26,7 @@ import {FleenVideoResponse} from "@app/model/response/video/fleen-video.response
 export abstract class BaseVideoService {
 
   protected abstract readonly BASE_PATH: string;
+  protected readonly CONTRIBUTOR_BASE_PATH: string = 'contributor';
 
   protected constructor(
     protected httpService: HttpClientService) { }
@@ -74,18 +80,23 @@ export abstract class BaseVideoService {
   }
 
   public submitAndAddComment(id: number | string, body: SubmitCommentPayload): Observable<SubmitCommentResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'comment', +id], null, { ...body });
+    const req: BaseRequest = this.httpService.toRequest([this.CONTRIBUTOR_BASE_PATH, 'video', 'comment', +id], null, { ...body });
     return this.httpService.post(req, SubmitCommentResponse);
   }
 
   public replyToComment(videoId: number | string, commentId: number | string, body: SubmitReplyPayload): Observable<SubmitReplyResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'reply', +videoId, 'comment', commentId], null, { ...body });
+    const req: BaseRequest = this.httpService.toRequest([this.CONTRIBUTOR_BASE_PATH, 'video', 'reply', +videoId, 'comment', commentId], null, { ...body });
     return this.httpService.post(req, SubmitReplyResponse);
   }
 
   public findVideoReviewHistory(id: number | string): Observable<VideoReviewHistoryResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'review-history', +id]);
+    const req: BaseRequest = this.httpService.toRequest([this.CONTRIBUTOR_BASE_PATH, 'video', 'review-history', +id]);
     return this.httpService.get(req, VideoReviewHistoryResponse);
+  }
+
+  public findVideoDiscussion(id: number | string, params: AnyObject = {}): Observable<VideoCommentResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.CONTRIBUTOR_BASE_PATH, 'video', 'comment', +id], params);
+    return this.httpService.get(req, VideoCommentResponse);
   }
 
 }
