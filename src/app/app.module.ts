@@ -8,7 +8,6 @@ import {AuthorizationInterceptor, ContentTypeInterceptor} from "@app/base/interc
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthenticationService} from "@app/feature/authentication/service";
 import {SharedServiceModule} from "@app/shared/service/shared-service.module";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {FooterComponent, HeaderComponent, NetworkStatusComponent} from "@app/base/component";
 import {UserVideoService} from "@app/feature/user-video/service";
@@ -26,7 +25,6 @@ import {SharedComponentModule} from "@app/shared/component/shared-component.modu
   imports: [
     CommonModule,
     BrowserModule,
-    BrowserAnimationsModule,
     FontAwesomeModule,
     BaseModule,
     SharedServiceModule,

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-app": {
+    "fleen-historia-ui": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/my-app",
+            "outputPath": "dist/fleen-historia-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -81,7 +81,7 @@
                   "with": "src/environments/environment.staging.ts"
                 }
               ]
-            },
+            }
           },
           "defaultConfiguration": "production"
         },
@@ -89,10 +89,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "my-app:build:production"
+              "buildTarget": "fleen-historia-ui:build:production"
             },
             "development": {
-              "buildTarget": "my-app:build:development"
+              "buildTarget": "fleen-historia-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -100,7 +100,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "my-app:build"
+            "buildTarget": "fleen-historia-ui:build"
           }
         },
         "test": {

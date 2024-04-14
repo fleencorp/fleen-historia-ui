@@ -13,7 +13,7 @@ export class AppComponent {
   public constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log(environment['baseUrl']);
+    console.log(environment);
   }
 
   get isHomepageRouteActive(): boolean {
