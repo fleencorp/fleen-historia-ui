@@ -38,26 +38,18 @@ export class HomepageVideosComponent extends BaseVideosComponent implements OnIn
   }
 
   public override async viewDetail(id: number | string | undefined): Promise<void> {
-    let destinationRoute: any[] = ['video', id];
-
-    if (this.getRouter().url === '/videos') {
-      destinationRoute = ['..', 'video', id];
-    }
     if (isTruthy(id)) {
-      await this.router.navigate(destinationRoute, {relativeTo: this.route});
+      await this.router.navigate(this.getDestinationRoute(id), {relativeTo: this.route});
     }
   }
 
-  public async viewDetailII(id: number | string | undefined): Promise<void> {
-    // if (this.getRouter().url === '' || this.getRouter().url !== '/')
-    console.log('The url is ', this.getRouter().url);
-    console.log(this.getRouter().lastSuccessfulNavigation);
-    this.route.url.subscribe({
-      next: (result: any): void => {
-        console.log(result);
+  private getDestinationRoute(id: number | string | undefined): any[] {
+    let destinationRoute: any[] = ['video', id];
+
+    if (this.getRouter().url === '/videos') {
+      destinationRoute = ['..', ...destinationRoute];
     }
-    })
-    await this.router.navigate(['video', id], {relativeTo: this.route});
+    return destinationRoute;
   }
 
   public override async search(payload: SearchPayload): Promise<void> {
