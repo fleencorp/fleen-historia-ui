@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
+import {environment} from "../environments/environment";
 
 
 @Component({
@@ -10,6 +11,10 @@ import {Router} from "@angular/router";
 export class AppComponent {
 
   public constructor(private router: Router) {}
+
+  ngOnInit() {
+    console.log(environment['baseUrl']);
+  }
 
   get isHomepageRouteActive(): boolean {
     // Check if the current route matches the homepage or base route

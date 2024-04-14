@@ -1,4 +1,5 @@
 import {HttpServiceConfig} from "../model/interface";
+import {environment} from "../../environments/environment";
 
 
 /**
@@ -61,7 +62,7 @@ const HTTP_REQUEST_DELAY_TIME_IN_MILLISECONDS: number = 3000;
  * @property {number} retryTimes - The number of times to retry an HTTP request before considering it as failed.
  */
 export const httpServiceConfig: HttpServiceConfig = {
-  hostUrl: API_HOST_URL,
+  hostUrl: environment['baseUrl'],
   basePath: API_BASE_PATH,
   retryTimes: HTTP_REQUEST_RETRY_TIMES,
   delayRequestTime: HTTP_REQUEST_DELAY_TIME_IN_MILLISECONDS
