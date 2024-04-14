@@ -7,6 +7,7 @@ import {
   CreateVideoComponent,
   EntriesDeleteAllComponent,
   FormMessageComponent,
+  HomepageVideoComponent,
   HomepageVideosComponent,
   LoadingSpinnerComponent,
   PaginationComponent,
@@ -26,7 +27,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {RouterModule} from "@angular/router";
 import {BaseModule} from "@app/base/base.module";
-import { HomepageVideoComponent } from './video/homepage-video/homepage-video.component';
+import {AddCommentComponent} from "@app/shared/component/discussion";
 
 
 const components: AnyArray = [
@@ -44,17 +45,18 @@ const components: AnyArray = [
   ShowReviewHistoryComponent,
   ShowVideoDetailComponent,
   VideoDetailOptionComponent,
+  AddCommentComponent,
   CommentComponent,
   ReplyComponent,
   UpdateVideoInfoComponent,
   CreateVideoComponent,
-  HomepageVideosComponent
+  HomepageVideosComponent,
+  HomepageVideoComponent,
 ]
 
 @NgModule({
   declarations: [
     ...components,
-    HomepageVideoComponent,
   ],
   imports: [
     CommonModule,

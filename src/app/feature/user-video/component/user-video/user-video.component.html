@@ -6,6 +6,19 @@
 
 <div *ngIf="isCommentsView">
 
+  <div class="add-comment-box-2">
+    <app-add-comment
+      [content]="content"
+      [is-submitting-comment]="isSubmittingComment"
+      [is-submitting-comment-successful]="isSubmittingCommentSuccessful"
+      [comment-form-status-message]="commentFormStatusMessage"
+      [comment-form-error-message]="commentFormErrorMessage"
+      (submitting-comment)="addComment()">
+    </app-add-comment>
+  </div>
+
+  <app-comment [comments]="discussion.comments.values" [new-comment]="addedComment"></app-comment>
+
 </div>
 
 <div *ngIf="isReviewHistoryView">

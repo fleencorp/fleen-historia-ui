@@ -19,14 +19,16 @@ import {
   VideoReviewHistoryResponse
 } from "@app/model/response/video";
 import {toSearchResult} from "@app/shared/rxjs";
+import {BaseVideoService} from "@app/base/service";
 
 @Injectable()
-export class ContributorService {
+export class ContributorService extends BaseVideoService {
 
-  private readonly BASE_PATH: string = "contributor";
+  protected override readonly BASE_PATH: string = "contributor";
 
-  constructor(
-    private httpService: HttpClientService) { }
+  public constructor(httpService: HttpClientService) {
+    super(httpService);
+  }
 
   public findPendingVideos(params: AnyObject): Observable<SearchResultView<FleenVideoView>> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'entries', 'videos'], params);
@@ -44,21 +46,6 @@ export class ContributorService {
   public submitVideoReview(id: number | string, body: SubmitVideoReviewPayload): Observable<SubmitVideoReviewResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'review', +id], null, { ...body });
     return this.httpService.post(req, SubmitVideoReviewResponse);
-  }
-
-  public submitAndAddComment(id: number | string, body: SubmitCommentPayload): Observable<SubmitCommentResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'comment', +id], null, { ...body });
-    return this.httpService.post(req, SubmitCommentResponse);
-  }
-
-  public replyToComment(videoId: number | string, commentId: number | string, body: SubmitReplyPayload): Observable<SubmitReplyResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'reply', +videoId, 'comment', commentId], null, { ...body });
-    return this.httpService.post(req, SubmitReplyResponse);
-  }
-
-  public findVideoReviewHistory(id: number | string): Observable<VideoReviewHistoryResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'video', 'review-history', +id]);
-    return this.httpService.get(req, VideoReviewHistoryResponse);
   }
 
   public findMyVideoReviewHistory(params: AnyObject): Observable<SearchResultView<VideoReviewView>> {

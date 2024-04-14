@@ -8,6 +8,7 @@ import {ReplyState, ReplyStateMap} from "@app/model/type";
 import {defaultReplyState} from "@app/model/default";
 import {isFalsy, isObject} from "@app/shared/helper";
 import {BaseFormImplComponent} from "@app/base/component";
+import {SearchResultView} from "@app/model/view";
 
 @Component({
   selector: 'app-comment',
@@ -21,6 +22,9 @@ export class CommentComponent extends BaseFormImplComponent implements OnInit {
 
   @Input('comments')
   public comments: CommentView[] = [];
+
+  @Input('search-result')
+  public searchResult: SearchResultView<any> = new SearchResultView<any>({} as SearchResultView<any>);
 
   @Input('new-comment')
   set comment(comment: CommentView | null) {
