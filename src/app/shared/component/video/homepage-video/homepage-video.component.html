@@ -1,3 +1,5 @@
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
 <app-video-detail-option (detail-view)="detailsView()" (review-history-view)="reviewHistoryView()" (comment-view)="commentsView()"></app-video-detail-option>
 
 <ng-container *ngIf="isDetailsView && entryView">
