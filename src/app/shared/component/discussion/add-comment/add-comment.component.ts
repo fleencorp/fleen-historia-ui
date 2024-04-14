@@ -10,13 +10,13 @@ import {faComment, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 })
 export class AddCommentComponent {
 
-  @Input() public content!: FormControl;
+  @Input() public content!: FormControl
   @Input('is-submitting-comment') public isSubmittingComment: boolean = false;
   @Input('is-submitting-comment-successful') public isSubmittingCommentSuccessful: boolean = false;
   @Input('comment-form-status-message') public commentFormStatusMessage: string = '';
   @Input('comment-form-error-message') public commentFormErrorMessage: string = '';
 
-  @Output('submitting-comment') public submitComment: EventEmitter<any> = new EventEmitter<void>();
+  @Output('submitting-comment') public submitComment: EventEmitter<any> = new EventEmitter<any>();
 
   public constructor() { }
 
@@ -24,5 +24,5 @@ export class AddCommentComponent {
     this.submitComment.emit();
   }
 
-  protected readonly faComment: IconDefinition = faComment;
+  public readonly faComment: IconDefinition = faComment;
 }

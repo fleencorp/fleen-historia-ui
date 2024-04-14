@@ -16,6 +16,7 @@ import {faCheck, IconDefinition} from "@fortawesome/free-solid-svg-icons";
   encapsulation: ViewEncapsulation.None
 })
 export class SuccessButtonComponent {
+
   @Input('is-form-completed')
   isFormCompleted: boolean = false;
 
