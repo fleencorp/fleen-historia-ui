@@ -34,6 +34,8 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
   /** The type of verification (EMAIL or PHONE). */
   public verificationType: VerificationType = VerificationType.EMAIL;
 
+  public isSendingVerificationCodeComplete: boolean = false;
+
   /** Input property for the email address. */
   @Input('email-address') public emailAddress: string | undefined;
 
@@ -55,6 +57,14 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
    * */
   protected override getRouter(): Router {
     return ANY_EMPTY;
+  }
+
+  protected enableIsSendingVerificationCodeComplete(): void {
+    this.isSendingVerificationCodeComplete = true;
+  }
+
+  protected disableIsSendingVerificationCodeComplete(): void {
+    this.isSendingVerificationCodeComplete = false;
   }
 
   /**
@@ -85,10 +95,14 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
         .subscribe({
           next: (): void => {
             this.setVerificationMessage();
-            this.formCompleted();
+            this.enableIsSendingVerificationCodeComplete();
+            this.formCompleted((): void => { this.disableIsSendingVerificationCodeComplete(); });
           },
           error: (result: ErrorResponse): void => { this.handleError(result); },
-          complete: (): void => { this.disableIsSendingVerificationCode(); }
+          complete: (): void => {
+            this.disableIsSendingVerificationCode();
+            this.disableIsSendingVerificationCodeComplete();
+          }
       });
     }
   }
