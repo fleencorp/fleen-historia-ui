@@ -1,8 +1,9 @@
-<app-otp-verification
-  *ngIf="isPreVerificationStage"
-  [email-address]="$emailAddress"
-  [phone-number]="$phoneNumber"
-  (otpSubmitted)="handleVerificationCode($event)"></app-otp-verification>
+<app-otp-verification *ngIf="isPreVerificationStage"
+                      [email-address]="$emailAddress"
+                      [phone-number]="$phoneNumber"
+                      [is-code-verification-in-progress]="isCodeVerificationInProgress"
+                      [is-code-verification-complete]="isCodeVerificationComplete"
+                      (otpSubmitted)="handleVerificationCode($event)"></app-otp-verification>
 
 <app-mfa-verification
   *ngIf="isMfaVerificationStage"
@@ -15,6 +16,8 @@
 <app-change-password
   *ngIf="isOnboardingStage"
   [change-password-type]="changePasswordType"
+  [is-submitting]="isSubmitting"
+  [is-form-completed]="isFormCompleted"
   (changePassword)="changePassword($event)"></app-change-password>
 
 <ng-container *ngIf="isFormReady">

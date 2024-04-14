@@ -85,7 +85,7 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
    * Handles the response by setting a new verification message, handling errors, and enabling submission.
    */
   public resendOtp(): void {
-    if (isFalsy(this.isSubmitting)) {
+    if (isFalsy(this.isSendingVerificationCode)) {
       this.resetErrorMessage();
       this.clearVerificationMessage();
       this.enableIsSendingVerificationCode();
@@ -101,7 +101,6 @@ export class MfaOtpBaseComponent extends BaseFormComponent implements OnInit {
           error: (result: ErrorResponse): void => { this.handleError(result); },
           complete: (): void => {
             this.disableIsSendingVerificationCode();
-            this.disableIsSendingVerificationCodeComplete();
           }
       });
     }

@@ -24,6 +24,25 @@ export abstract class AuthBaseComponent extends BaseFormComponent {
 
   protected abstract getChangePasswordComponent(): ChangePasswordComponent | null;
 
+  public isCodeVerificationInProgress: boolean = false;
+  public isCodeVerificationComplete: boolean = false;
+
+  public enableIsCodeVerificationInProgress(): void {
+    this.isCodeVerificationInProgress = true;
+  }
+
+  public disableIsCodeVerificationInProgress(): void {
+    this.isCodeVerificationInProgress = false;
+  }
+
+  public enableIsCodeVerificationComplete(): void {
+    this.isCodeVerificationComplete = true;
+  }
+
+  public disableIsCodeVerificationComplete(): void {
+    this.isCodeVerificationComplete = false;
+  }
+
   /**
    * Handles the verification code for authentication.
    *
@@ -38,15 +57,25 @@ export abstract class AuthBaseComponent extends BaseFormComponent {
   public handleVerificationCode(verification: AuthVerificationPayload): void {
     const { code, type } = verification;
 
-    if (isTruthy(code) && isFalsy(this.isSubmitting)) {
+    if (isTruthy(code) && isFalsy(this.isCodeVerificationInProgress)) {
       this.disableSubmittingAndResetErrorMessage();
       this.resetHandleVerificationCodeErrorMessage(type);
+      this.enableIsCodeVerificationInProgress();
 
       this.completeSignUpOrValidateMfaOrOnboarding(verification)
         .subscribe({
-          next: (result: SignInUpResponse): void => { this.handleVerificationSuccess(result); },
+          next: (result: SignInUpResponse): void => {
+            this.enableIsCodeVerificationComplete();
+            this.formCompleted((): void => {
+              this.disableIsCodeVerificationComplete();
+              this.handleVerificationSuccess(result);
+            });
+          },
           error: (error: ErrorResponse): void => { this.handleVerificationError(type, error?.message); },
-          complete: (): void => { this.enableSubmitting(); }
+          complete: (): void => {
+            this.enableSubmitting();
+            this.disableIsCodeVerificationInProgress();
+          }
       });
     }
   }

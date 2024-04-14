@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MfaOtpBaseComponent} from "../../component";
 import {Observable} from "rxjs";
 import {ResendVerificationCodePayload} from "@app/model/type";
@@ -18,6 +18,12 @@ import {faShield, faSignIn, IconDefinition} from "@fortawesome/free-solid-svg-ic
   styleUrls: ['./otp-verification.component.css']
 })
 export class OtpVerificationComponent extends MfaOtpBaseComponent {
+
+  @Input('is-code-verification-in-progress')
+  public isCodeVerificationInProgress: boolean = false;
+
+  @Input('is-code-verification-complete')
+  public isCodeVerificationComplete: boolean = false;
 
   /**
    * Constructs an instance of OtpVerificationComponent.

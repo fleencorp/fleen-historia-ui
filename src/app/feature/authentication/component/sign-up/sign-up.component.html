@@ -1,4 +1,9 @@
-<app-otp-verification *ngIf="isPreVerificationStage" (otpSubmitted)="handleVerificationCode($event)" [email-address]="$emailAddress" [phone-number]="$phoneNumber"></app-otp-verification>
+<app-otp-verification *ngIf="isPreVerificationStage"
+                      [email-address]="$emailAddress"
+                      [phone-number]="$phoneNumber"
+                      [is-code-verification-in-progress]="isCodeVerificationInProgress"
+                      [is-code-verification-complete]="isCodeVerificationComplete"
+                      (otpSubmitted)="handleVerificationCode($event)"></app-otp-verification>
 
 <!--<app-otp-verification [email-address]="$emailAddress" [phone-number]="$phoneNumber"></app-otp-verification>-->
 
