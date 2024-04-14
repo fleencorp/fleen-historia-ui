@@ -14,9 +14,10 @@ import {AuthTokenService, LocalStorageService} from "@app/base/service";
 import {AuthenticationService} from "@app/feature/authentication/service";
 import {AUTHORIZATION_BEARER, AUTHORIZATION_HEADER, UNAUTHORIZED_REQUEST_STATUS_CODE} from "@app/constant";
 import {isFalsy, isTruthy} from "@app/shared/helper";
-import {API_BASE_PATH, API_HOST_URL} from "@app/config";
+import {API_BASE_PATH} from "@app/config";
 import {RefreshTokenResponse} from "@app/model/response/authentication";
 import {BaseHttpService} from "@app/shared/service/impl";
+import {environment} from "../../../environments/environment";
 
 /**
  * Interceptor for handling authorization, refreshing tokens, and redirecting unauthorized requests.
@@ -93,10 +94,6 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     }
 
     const authToken: string = this.getAccessToken();
-    if (isFalsy(authToken)) {
-      return this.clearTokensAndStartAuthentication();
-    }
-
     return this.handleRequestWithAuthorization(request, next, authToken);
   }
 
@@ -286,7 +283,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
    * @private
    */
   private getRequestPath(url: string): string {
-    return url.replace(API_HOST_URL + "/", "")
+    return url.replace(environment['baseUrl'] + "/", "")
       .replace(API_BASE_PATH, "");
   }
 
