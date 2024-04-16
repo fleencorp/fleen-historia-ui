@@ -116,7 +116,11 @@ export abstract class BaseVideoComponent extends BaseDetailComponent<FleenVideoV
         .subscribe({
           next: (result: VideoCommentResponse): void => { this.discussion = result; },
           error: (error: ErrorResponse): void => { this.handleError(error); },
-          complete: (): void => { this.disableIsCommentNavigationInProgress(); }
+          complete: (): void => {
+            console.log('Was I invoked?');
+            this.disableIsCommentNavigationInProgress();
+            console.log(this.isCommentNavigationInProgress);
+          }
       });
     }
   }

@@ -42,7 +42,12 @@
     </app-add-comment>
   </div>
 
-  <app-comment [comments]="discussion.comments.values" [new-comment]="addedComment"></app-comment>
+  <app-comment
+    [comments]="discussion.comments.values"
+    [new-comment]="addedComment"
+    [search-result]="discussion.comments"
+    [navigation-in-progress]="isCommentNavigationInProgress"
+    (show-new-comments)="showNewComments($event)"></app-comment>
 </div>
 
 <div *ngIf="isReviewHistoryView">

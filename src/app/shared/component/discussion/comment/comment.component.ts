@@ -25,13 +25,15 @@ export class CommentComponent extends BaseEntriesComponent<any> implements OnIni
   public replyState: ReplyStateMap = {};
 
   @Input('comments')
-  public comments: CommentView[] = [];
+  set initEntries(entries: CommentView[]) {
+    this.entries = entries;
+    this.buildCommentDetails();
+  }
 
   @Input('search-result')
-  public searchResult: SearchResultView<any> = new SearchResultView<any>({} as SearchResultView<any>);
-
-  @Input('navigation-in-progress')
-  public override navigationInProgress: boolean = false;
+  set searchResult(searchResult: SearchResultView<any>) {
+    this.initResult(searchResult);
+  }
 
   @Input('new-comment')
   set comment(comment: CommentView | null) {
@@ -40,9 +42,15 @@ export class CommentComponent extends BaseEntriesComponent<any> implements OnIni
     }
   }
 
+  get comments(): CommentView[] {
+    return this.entries;
+  }
+
+  @Input('navigation-in-progress')
+  public override navigationInProgress: boolean = false;
+
   @Output('show-new-comments')
   public showNewComments: EventEmitter<AnyObject> = new EventEmitter<AnyObject>();
-
 
   public constructor(
       protected readonly contributorService: ContributorService,
@@ -53,7 +61,7 @@ export class CommentComponent extends BaseEntriesComponent<any> implements OnIni
   }
 
   public ngOnInit(): void {
-    this.comments.forEach((comment: CommentView): void => { this.replyState[comment.commentId] = { ...defaultReplyState }; });
+    this.buildCommentDetails();
   }
 
   public override findEntries(params: AnyObject): Observable<SearchResultView<any>> {
@@ -65,6 +73,8 @@ export class CommentComponent extends BaseEntriesComponent<any> implements OnIni
   }
 
   protected override async handlePagination(): Promise<void> {
+    console.log('Was I invoked');
+    console.log(this.getPaginationDetails());
     this.showNewComments.emit(this.getPaginationDetails());
   }
 
@@ -108,7 +118,7 @@ export class CommentComponent extends BaseEntriesComponent<any> implements OnIni
     if (comment != null && reply != null) {
       comment.replies.unshift(reply);
       comment.replies = [ ...comment.replies ];
-      this.comments = [ ...this.comments ];
+      this.entries = [ ...this.comments ];
     }
   }
 
@@ -134,6 +144,10 @@ export class CommentComponent extends BaseEntriesComponent<any> implements OnIni
 
   public showReplyForm(comment: CommentView): boolean {
     return this.getReplyState(comment).showForm;
+  }
+
+  public buildCommentDetails(): void {
+    this.entries.forEach((comment: CommentView): void => { this.replyState[comment.commentId] = { ...defaultReplyState }; });
   }
 
 }

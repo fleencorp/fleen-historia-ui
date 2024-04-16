@@ -327,13 +327,14 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    *
    * @param result The search result view containing entries and pagination details.
    */
-  private initResult(result: SearchResultView<any>): void {
+  protected initResult(result: SearchResultView<any>): void {
     this.isFirst = result.isFirst;
     this.isLast = result.isLast;
     this.nextPageToken = result.nextPageToken;
     this.prevPageToken = result.prevPageToken;
     this.entries = result.values;
     this.totalEntries = result.totalEntries;
+    this.pageSize = result.pageSize;
   }
 
   private enableNavigationInProgress(): void {
@@ -435,6 +436,11 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    * @returns A Promise that resolves when the operation is complete.
    */
   public async nextPage(): Promise<void> {
+    console.log(this.entries.length);
+    console.log(this.isLast);
+    console.log(this.isNextPageAvailable());
+    console.log(this.totalEntries);
+    console.log(this.pageSize);
     if (this.entries && !this.isLast && this.isNextPageAvailable()) {
       this.currentPage++;
       this.paginationAction = 'next';
