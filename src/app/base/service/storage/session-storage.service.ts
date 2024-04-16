@@ -13,4 +13,8 @@ export class SessionStorageService {
     sessionStorage.setItem(key, value);
   }
 
+  public removeObject(key: string): void {
+    sessionStorage.removeItem(key);
+  }
+
 }

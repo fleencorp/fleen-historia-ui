@@ -7,7 +7,7 @@ import {
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
-import {catchError, EMPTY, Observable, ObservableInput, of, switchMap, tap} from 'rxjs';
+import {catchError, EMPTY, Observable, Subject, tap} from 'rxjs';
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {AuthTokenService, LocalStorageService, SessionStorageService} from "@app/base/service";
@@ -18,7 +18,7 @@ import {
   UNAUTHORIZED_REQUEST_STATUS_CODE,
   USER_DESTINATION_PAGE_KEY
 } from "@app/constant";
-import {isFalsy, isTruthy} from "@app/shared/helper";
+import {isFalsy, isTruthy, toCamelCaseKeys} from "@app/shared/helper";
 import {API_BASE_PATH} from "@app/config";
 import {RefreshTokenResponse} from "@app/model/response/authentication";
 import {BaseHttpService} from "@app/shared/service/impl";
@@ -66,6 +66,8 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     /^(https?:\/\/)?[^\/]*\.s3\.amazonaws\.com/
   ];
 
+  public tokenRefreshedSubject: Subject<boolean> = new Subject<boolean>();
+
   /**
    * Creates an instance of AuthorizationInterceptor.
    *
@@ -74,6 +76,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
    * @param {BaseHttpService} baseHttpService - Service for making HTTP requests.
    * @param {AuthenticationService} authenticationService - Service for handling authentication.
    * @param {AuthTokenService} tokenService - Service for managing authentication tokens.
+   * @param sessionStorageService - Service for session and other related storage services
    * @param {Router} router - Angular router service.
    * @param {Location} location - Angular location service.
    */
@@ -155,13 +158,14 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     }
 
     const refreshRequest: HttpRequest<any> = this.buildRefreshTokenRequest(request, refreshToken);
-    console.log(refreshRequest);
     return next.handle(refreshRequest)
       .pipe(
         tap((value: HttpEvent<any>): void => {
           this.handleRefreshTokenResponse(value);
+          this.tokenRefreshedSubject.next(true);
         }),
-        catchError(() => this.clearTokensAndStartAuthentication()),
+        catchError(() => this.clearTokensAndStartAuthentication())
+/*        */
 /*        switchMap((): ObservableInput<any> => {
           console.log('Problems');
 /!*          setTimeout((): any => {
@@ -213,6 +217,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
    * @param {RefreshTokenResponse} body - The response body containing new authentication tokens.
    */
   private handleRefreshTokenSuccess(body: RefreshTokenResponse): void {
+    body = toCamelCaseKeys(body);
     this.authenticationService.setAuthToken(body);
 
     // this.gotoDestination();
@@ -249,8 +254,9 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     const destinationRoute: string | null = this.getUserDestinationPage();
     console.log('Taking you to the destination path');
     console.log(destinationRoute, ' is the destination route');
-    this.router.navigateByUrl('/profile', )
-      .then((r: boolean) => r);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/dashboard']);
+    });
   }
 
   /**
@@ -320,5 +326,13 @@ export class AuthorizationInterceptor implements HttpInterceptor {
 
   protected getUserDestinationPage(): string | null {
     return this.sessionStorageService.getObject(USER_DESTINATION_PAGE_KEY);
+  }
+
+  protected removeUserDestinationPage(): void {
+    this.sessionStorageService.removeObject(USER_DESTINATION_PAGE_KEY);
+  }
+
+  public emitTokenRefreshed(refreshed: boolean): void {
+    this.tokenRefreshedSubject.next(refreshed);
   }
 }
