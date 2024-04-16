@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
 import {ANY_EMPTY, VIDEO_STATUS_SEARCH_KEY} from "@app/constant";
 import {isFalsy, isTruthy, removeProperty} from "@app/shared/helper";
-import {VideoStatus} from "@app/model/enum";
+import {VideoReviewStatus, VideoStatus} from "@app/model/enum";
 import {PublishVideoResponse, RequestForReviewResponse} from "@app/model/response/video";
 import {ErrorResponse} from "@app/model/response";
 import {BaseVideoService} from "@app/base/service";
@@ -209,7 +209,7 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
       this.searchParams[VIDEO_STATUS_SEARCH_KEY] = statusQueryParam;
     } else {
       // Set the default status query parameter if it doesn't exist or is empty
-      this.searchParams[VIDEO_STATUS_SEARCH_KEY] = VideoStatus.IN_REVIEW;
+      this.searchParams[VIDEO_STATUS_SEARCH_KEY] = this.defaultVideoStatusSearch;
     }
   }
 
@@ -228,6 +228,10 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
       return entry as FleenVideoView;
     }
     return null;
+  }
+
+  get defaultVideoStatusSearch(): VideoStatus {
+    return VideoStatus.IN_REVIEW;
   }
 
   get currentVideoSearchStatus(): VideoStatus {

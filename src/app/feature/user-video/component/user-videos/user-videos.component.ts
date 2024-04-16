@@ -37,12 +37,16 @@ export class UserVideosComponent extends BaseVideosComponent implements OnInit {
     this.startComponent();
   }
 
-  override findEntries(params: AnyObject): Observable<SearchResultView<FleenVideoView>> {
+  public override findEntries(params: AnyObject): Observable<SearchResultView<FleenVideoView>> {
     return this.userVideoService.findVideos(params);
   }
 
-  override deleteEntries(payload: DeleteIdsPayload): Observable<any> {
+  public override deleteEntries(payload: DeleteIdsPayload): Observable<any> {
     return ANY_EMPTY;
+  }
+
+  override get defaultVideoStatusSearch(): VideoStatus {
+    return VideoStatus.DRAFT;
   }
 
   protected readonly faPencil: IconDefinition = faPencil;
