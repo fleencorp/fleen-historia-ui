@@ -10,9 +10,14 @@ import {
 import {catchError, EMPTY, Observable, ObservableInput, of, switchMap, tap} from 'rxjs';
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
-import {AuthTokenService, LocalStorageService} from "@app/base/service";
+import {AuthTokenService, LocalStorageService, SessionStorageService} from "@app/base/service";
 import {AuthenticationService} from "@app/feature/authentication/service";
-import {AUTHORIZATION_BEARER, AUTHORIZATION_HEADER, UNAUTHORIZED_REQUEST_STATUS_CODE} from "@app/constant";
+import {
+  AUTHORIZATION_BEARER,
+  AUTHORIZATION_HEADER,
+  UNAUTHORIZED_REQUEST_STATUS_CODE,
+  USER_DESTINATION_PAGE_KEY
+} from "@app/constant";
 import {isFalsy, isTruthy} from "@app/shared/helper";
 import {API_BASE_PATH} from "@app/config";
 import {RefreshTokenResponse} from "@app/model/response/authentication";
@@ -77,6 +82,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     private readonly baseHttpService: BaseHttpService,
     private readonly authenticationService: AuthenticationService,
     private readonly tokenService: AuthTokenService,
+    private readonly sessionStorageService: SessionStorageService,
     private readonly router: Router,
     private readonly location: Location
   ) { }
@@ -149,14 +155,26 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     }
 
     const refreshRequest: HttpRequest<any> = this.buildRefreshTokenRequest(request, refreshToken);
+    console.log(refreshRequest);
     return next.handle(refreshRequest)
       .pipe(
-        tap((value: HttpEvent<any>): void => { this.handleRefreshTokenResponse(value); }),
+        tap((value: HttpEvent<any>): void => {
+          this.handleRefreshTokenResponse(value);
+        }),
         catchError(() => this.clearTokensAndStartAuthentication()),
-        switchMap((): ObservableInput<any> => {
-          location.reload();
-          return of(EMPTY)
-        })
+/*        switchMap((): ObservableInput<any> => {
+          console.log('Problems');
+/!*          setTimeout((): any => {
+            location.reload();
+          })
+          return of(EMPTY);
+          *!/
+          const authToken: string = this.getAccessToken();
+          const authRequest: HttpRequest<any> = this.createAuthRequest(request, authToken);
+          return next.handle(authRequest);
+          // this.reloadCurrentPage();
+          // return of(EMPTY);
+        })*/
     );
   }
 
@@ -169,6 +187,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
   private handleRefreshTokenResponse(value: HttpEvent<any>): void {
     if (value instanceof HttpResponse) {
       const { body } = value as HttpResponse<any>;
+      console.log(body);
       this.handleRefreshTokenSuccess(body);
     }
   }
@@ -196,7 +215,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
   private handleRefreshTokenSuccess(body: RefreshTokenResponse): void {
     this.authenticationService.setAuthToken(body);
 
-    this.gotoDestination();
+    // this.gotoDestination();
   }
 
   /**
@@ -226,7 +245,11 @@ export class AuthorizationInterceptor implements HttpInterceptor {
    * @private
    */
   private gotoDestination(): void {
-    this.router.navigate([this.location.path()])
+    console.log(this.location.path());
+    const destinationRoute: string | null = this.getUserDestinationPage();
+    console.log('Taking you to the destination path');
+    console.log(destinationRoute, ' is the destination route');
+    this.router.navigateByUrl('/profile', )
       .then((r: boolean) => r);
   }
 
@@ -293,5 +316,9 @@ export class AuthorizationInterceptor implements HttpInterceptor {
       .then(async (): Promise<void> => {
         await this.router.navigate([currentUrl]);
     });
+  }
+
+  protected getUserDestinationPage(): string | null {
+    return this.sessionStorageService.getObject(USER_DESTINATION_PAGE_KEY);
   }
 }

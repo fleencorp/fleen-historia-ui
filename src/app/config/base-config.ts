@@ -17,15 +17,6 @@ const BASE_PATH: string = '/';
  */
 export const AUTHENTICATION_ENTRY_POINT: string = '/auth/sign-in';
 
-
-/**
- * @constant API_HOST_URL
- * @description
- *   The base URL for the API in the application.
- */
-export const API_HOST_URL: string = "http://localhost:7987";
-
-
 /**
  * @constant API_BASE_PATH
  * @description
@@ -33,13 +24,14 @@ export const API_HOST_URL: string = "http://localhost:7987";
  */
 export const API_BASE_PATH: string = "api";
 
+export const FORBIDDEN_ROUTE: string = '/forbidden';
 
 /**
  * @constant HTTP_REQUEST_RETRY_TIMES
  * @description
  *   The number of times to retry an HTTP request before considering it as failed.
  */
-const HTTP_REQUEST_RETRY_TIMES: number = 3;
+const HTTP_REQUEST_RETRY_TIMES: number = 1;
 
 
 /**

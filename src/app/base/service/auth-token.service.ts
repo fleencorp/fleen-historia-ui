@@ -161,4 +161,16 @@ export class AuthTokenService {
     return this.getAccessTokenClaims()['profilePhoto'];
   }
 
+  public isAdmin(): boolean {
+    if (this.isTokenValid(this.getAccessToken())) {
+      const claims: AnyObject = this.getAccessTokenClaims();
+      if (claims && claims['authorities']) {
+        const authorities: string[] = claims['authorities'];
+        return authorities.includes('ROLE_ADMINISTRATOR') ||
+          authorities.includes('ROLE_SUPER_ADMINISTRATOR');
+      }
+    }
+    return false;
+  }
+
 }

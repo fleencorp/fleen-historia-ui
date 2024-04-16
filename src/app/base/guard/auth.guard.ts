@@ -6,9 +6,7 @@ import {SessionStorageService} from "../service";
 import {AUTHENTICATION_ENTRY_POINT} from "@app/config";
 import {USER_DESTINATION_PAGE_KEY} from "@app/constant";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 /**
  * AuthGuardService is a service that implements the CanActivate interface to protect routes
  * based on the authentication status.
