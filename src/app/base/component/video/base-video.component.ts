@@ -87,7 +87,7 @@ export abstract class BaseVideoComponent extends BaseDetailComponent<FleenVideoV
       this.clearCommentFormMessages();
       this.disableIsSubmittingComment();
 
-      this.videoService.submitAndAddComment(this.fleenVideo.videoId, {content: this.content.value})
+      this.videoService.submitAndAddComment(this.fleenVideo.fleenVideoId, {content: this.content.value})
         .subscribe({
           next: (result: SubmitCommentResponse): void => {
             this.commentFormStatusMessage = result.message;
@@ -116,11 +116,7 @@ export abstract class BaseVideoComponent extends BaseDetailComponent<FleenVideoV
         .subscribe({
           next: (result: VideoCommentResponse): void => { this.discussion = result; },
           error: (error: ErrorResponse): void => { this.handleError(error); },
-          complete: (): void => {
-            console.log('Was I invoked?');
-            this.disableIsCommentNavigationInProgress();
-            console.log(this.isCommentNavigationInProgress);
-          }
+          complete: (): void => { this.disableIsCommentNavigationInProgress(); }
       });
     }
   }

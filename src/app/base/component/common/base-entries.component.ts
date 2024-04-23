@@ -436,11 +436,6 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    * @returns A Promise that resolves when the operation is complete.
    */
   public async nextPage(): Promise<void> {
-    console.log(this.entries.length);
-    console.log(this.isLast);
-    console.log(this.isNextPageAvailable());
-    console.log(this.totalEntries);
-    console.log(this.pageSize);
     if (this.entries && !this.isLast && this.isNextPageAvailable()) {
       this.currentPage++;
       this.paginationAction = 'next';

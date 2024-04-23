@@ -32,6 +32,7 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
   public isMfaVerificationStage: boolean = false;
   public isOnboardingStage: boolean = false;
   public counter: number = 0;
+  public token: string = ''
 
   constructor(
       protected authenticationService: AuthenticationService,
@@ -100,6 +101,7 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
     this.disableSubmittingAndResetErrorMessage();
 
     const recaptchaToken: string = await this.extractRecaptchaToken('importantAction');
+    this.token = recaptchaToken;
 
     this.authenticationService.signIn(this.signInForm.value, recaptchaToken)
       .subscribe({

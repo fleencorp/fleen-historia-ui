@@ -56,17 +56,17 @@
       <td>{{ video.channel.title }}</td>
       <td class="center">{{ video.videoStatus }}</td>
       <td class="center">{{ video.updatedOn | date:'mediumDate' }}</td>
-      <app-row-entry-option [entry-id]="video.videoId"
+      <app-row-entry-option [entry-id]="video.fleenVideoId"
                             [can-check]="true"
                             [can-delete]="true"
                             [can-update]="true"
                             [is-deleting]="isDeletingEntry"
                             [delete-id]="deletedId"
 
-                            (detailClicked)="viewDetail(video.videoId)"
-                            (updateClicked)="updateEntry(video.videoId)"
-                            (deleteClicked)="deleteEntry(video.videoId)"
-                            (checkedChanged)="handleChecked(video.videoId, $event)"></app-row-entry-option>
+                            (detailClicked)="viewDetail(video.fleenVideoId)"
+                            (updateClicked)="updateEntry(video.fleenVideoId)"
+                            (deleteClicked)="deleteEntry(video.fleenVideoId)"
+                            (checkedChanged)="handleChecked(video.fleenVideoId, $event)"></app-row-entry-option>
     </tr>
     </tbody>
 

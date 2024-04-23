@@ -31,7 +31,7 @@
         <p>Updated at {{ video.updatedOn | date:'mediumDate' }}</p>
       </div>
       <div class="video-actions">
-        <button type="button" class="btn-navy" (click)="viewDetail(video.videoId)">View <fa-icon [icon]="faVideoCamera"></fa-icon></button>
+        <button type="button" class="btn-navy" (click)="viewDetail(video.fleenVideoId)">View <fa-icon [icon]="faVideoCamera"></fa-icon></button>
 
       </div>
       <app-form-message [status-message]="video.statusMessage" [error-message]="video.errorMessage"></app-form-message>

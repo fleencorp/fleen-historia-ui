@@ -38,8 +38,8 @@
 <!--      <div *ngIf="fleenVideo.videoUrl" class="video-object">
         <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
       </div>-->
-      <a [routerLink]="['..', fleenVideo.videoId]"><img class="related-video-thumbnail" *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail | defaultImage:'thumbnail'" alt="Thumbnail" width="300" height="300"></a>
-      <h4 class="video-title"><a [routerLink]="['..', fleenVideo.videoId]">{{ fleenVideo.videoTitle }}</a></h4>
+      <a [routerLink]="['..', fleenVideo.fleenVideoId]"><img class="related-video-thumbnail" *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail | defaultImage:'thumbnail'" alt="Thumbnail" width="300" height="300"></a>
+      <h4 class="video-title"><a [routerLink]="['..', fleenVideo.fleenVideoId]">{{ fleenVideo.videoTitle }}</a></h4>
       <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
       <p><b>Credit:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>
       <p><b>Channel:</b> {{ fleenVideo.channel.title }}</p><hr/>
@@ -53,8 +53,8 @@
 <!--      <div *ngIf="fleenVideo.videoUrl" class="video-object">
         <iframe [src]="fleenVideo.videoUrl | safeUrl" allowfullscreen="allowfullscreen"></iframe>
       </div>-->
-      <a [routerLink]="['..', fleenVideo.videoId]"><img class="additional-video-thumbnail" *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail | defaultImage:'thumbnail'" alt="Thumbnail" width="300" height="300"></a>
-      <h4 class="video-title"><a [routerLink]="['..', fleenVideo.videoId]">{{ fleenVideo.videoTitle }}</a></h4>
+      <a [routerLink]="['..', fleenVideo.fleenVideoId]"><img class="additional-video-thumbnail" *ngIf="fleenVideo.objectThumbnail" [src]="fleenVideo.objectThumbnail | defaultImage:'thumbnail'" alt="Thumbnail" width="300" height="300"></a>
+      <h4 class="video-title"><a [routerLink]="['..', fleenVideo.fleenVideoId]">{{ fleenVideo.videoTitle }}</a></h4>
       <p><b>Tags:</b> {{ fleenVideo.videoTags }}</p><hr/>
       <p><b>Credit:</b> {{ fleenVideo.videoReferenceOrSource }}</p><hr/>
       <p><b>Channel:</b> {{ fleenVideo.channel.title }}</p><hr/>

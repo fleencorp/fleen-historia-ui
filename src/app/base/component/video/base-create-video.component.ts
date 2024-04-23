@@ -81,7 +81,7 @@ export abstract class BaseCreateVideoComponent extends BaseAddComponent<CreateVi
   }
 
   protected handleSuccessfulVideoSubmission(result: FleenVideoView): void {
-    this.createdVideoId = result.videoId;
+    this.createdVideoId = result.fleenVideoId;
     this.isVideoCreated = true;
   }
 

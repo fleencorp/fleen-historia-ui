@@ -94,7 +94,7 @@ export class CommentComponent extends BaseEntriesComponent<any> implements OnIni
       replyState.clearMessage();
 
       this.contributorService
-        .replyToComment(comment.fleenVideo.videoId, comment.commentId, { content: replyState.replyContent.value })
+        .replyToComment(comment.fleenVideo.fleenVideoId, comment.commentId, { content: replyState.replyContent.value })
         .subscribe({
           next: (result: SubmitReplyResponse): void => {
             replyState.message = result.message;

@@ -6,7 +6,7 @@ import {VideoReviewView} from "@app/model/view/video";
 
 export class FleenVideoView extends FleenBaseView {
 
-  public readonly videoId: number;
+  public readonly fleenVideoId: number;
   public readonly videoTitle: string;
   public readonly videoDescription: string;
   public readonly videoUrl: string;
@@ -29,7 +29,7 @@ export class FleenVideoView extends FleenBaseView {
 
   public constructor(data: FleenVideoView) {
     super(data);
-    this.videoId = data?.videoId;
+    this.fleenVideoId = data.fleenVideoId
     this.videoTitle = data?.videoTitle;
     this.videoDescription = data?.videoDescription;
     this.videoUrl = data?.videoUrl;

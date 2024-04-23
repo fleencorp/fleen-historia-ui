@@ -51,7 +51,7 @@ export class PendingVideoComponent extends BaseVideoComponent implements OnInit 
       this.disableSubmittingAndResetErrorMessage();
       this.clearMessages();
 
-      this.contributorService.submitVideoReview(this.entryView.videoId, this.fleenForm.value)
+      this.contributorService.submitVideoReview(this.entryView.fleenVideoId, this.fleenForm.value)
         .subscribe({
           next: (result: SubmitVideoReviewResponse): void => {
             this.setStatusMessage(result.message);

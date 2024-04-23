@@ -16,11 +16,11 @@
   </div>
 
   <ng-container *ngIf="startUpdateVideoInfo">
-    <app-user-update-video-info [video-id]="entryView.videoId"></app-user-update-video-info>
+    <app-user-update-video-info [video-id]="entryView.fleenVideoId"></app-user-update-video-info>
   </ng-container>
 
   <ng-container *ngIf="startUpdateVideoObject">
-    <app-update-video-object [video-id]="entryView.videoId" ></app-update-video-object>
+    <app-update-video-object [video-id]="entryView.fleenVideoId" ></app-update-video-object>
   </ng-container>
 
   <div *ngIf="fleenVideo.videoStatus === VideoStatus.IN_REVIEW" class="toggle-switch-container">

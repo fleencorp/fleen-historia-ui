@@ -38,24 +38,24 @@
           <p>Updated on {{ video.updatedOn | date:'mediumDate' }}</p>
         </div>
         <div class="video-actions">
-          <button type="button" class="btn-navy" (click)="viewDetail(video.videoId)">View <fa-icon [icon]="faEye"></fa-icon></button>
-          <button type="button" class="btn-aqua" (click)="updateEntry(video.videoId)">Update <fa-icon [icon]="faPencil"></fa-icon></button>
+          <button type="button" class="btn-navy" (click)="viewDetail(video.fleenVideoId)">View <fa-icon [icon]="faEye"></fa-icon></button>
+          <button type="button" class="btn-aqua" (click)="updateEntry(video.fleenVideoId)">Update <fa-icon [icon]="faPencil"></fa-icon></button>
           <ng-container>
             <button type="button" class="btn-blue"
-                    *ngIf="canRequestForReview(video) && successfulSubmissionForReviewVideoId !== video.videoId"
-                    (click)="requestForReview(video.videoId)">Request Review
-              <app-submit-loading-icon [is-submitting]="isSubmittingForReview && (submittingForReviewVideoId === video.videoId)" [display-icon]="faBarsProgress"></app-submit-loading-icon>
+                    *ngIf="canRequestForReview(video) && successfulSubmissionForReviewVideoId !== video.fleenVideoId"
+                    (click)="requestForReview(video.fleenVideoId)">Request Review
+              <app-submit-loading-icon [is-submitting]="isSubmittingForReview && (submittingForReviewVideoId === video.fleenVideoId)" [display-icon]="faBarsProgress"></app-submit-loading-icon>
             </button>
-            <button class="btn-blue" *ngIf="isSubmittingForReviewSuccessful && (submittingForReviewVideoId === video.videoId)" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
+            <button class="btn-blue" *ngIf="isSubmittingForReviewSuccessful && (submittingForReviewVideoId === video.fleenVideoId)" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
           </ng-container>
 
           <ng-container>
             <button type="button" class="publish-video-btn btn-orange"
-                    *ngIf="canPublish(video) && successfulPublishingVideoId !== video.videoId"
-                    (click)="publishVideo(video.videoId)">Publish
-              <app-submit-loading-icon [is-submitting]="isPublishing && (submittingForPublishingVideoId === video.videoId)" [display-icon]="faRocket"></app-submit-loading-icon>
+                    *ngIf="canPublish(video) && successfulPublishingVideoId !== video.fleenVideoId"
+                    (click)="publishVideo(video.fleenVideoId)">Publish
+              <app-submit-loading-icon [is-submitting]="isPublishing && (submittingForPublishingVideoId === video.fleenVideoId)" [display-icon]="faRocket"></app-submit-loading-icon>
             </button>
-            <button class="btn-blue" *ngIf="isPublishingSuccessful && (submittingForPublishingVideoId === video.videoId)" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
+            <button class="btn-blue" *ngIf="isPublishingSuccessful && (submittingForPublishingVideoId === video.fleenVideoId)" >Success <fa-icon [icon]="faCheck"></fa-icon></button>
           </ng-container>
 
         </div>

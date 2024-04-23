@@ -17,7 +17,7 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
 
   public override entries: FleenVideoView[] = [];
   public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_FLEEN_VIDEOS;
-  protected override defaultEntryIdKey: string = 'videoId';
+  protected override defaultEntryIdKey: string = 'fleenVideoId';
   protected isSubmittingForReview: boolean = false;
   public isSubmittingForReviewSuccessful: boolean = false;
   public submittingForReviewVideoId: number | string = 0;
@@ -44,7 +44,7 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
   }
 
   public override trackByFn(index: number, item: FleenVideoView): any {
-    return item.videoId;
+    return item.fleenVideoId;
   }
 
   public canRequestForReview(video: FleenVideoView): boolean {
@@ -118,12 +118,12 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
   }
 
   protected handleSuccessfulSubmissionForReview(result: RequestForReviewResponse): void {
-    this.replaceOldWithUpdateVideo(result.fleenVideo.videoId, result.fleenVideo);
+    this.replaceOldWithUpdateVideo(result.fleenVideo.fleenVideoId, result.fleenVideo);
     this.submittingForReviewVideoId = 0;
   }
 
   protected handleSuccessfulSubmissionForPublishing(result: PublishVideoResponse): void {
-    this.replaceOldWithUpdateVideo(result.fleenVideo.videoId, result.fleenVideo);
+    this.replaceOldWithUpdateVideo(result.fleenVideo.fleenVideoId, result.fleenVideo);
     this.submittingForReviewVideoId = 0;
   }
 
@@ -181,7 +181,7 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
 
   private replaceOldWithUpdateVideo(videoId: number | string, newVideo: FleenVideoView): void {
     const videoPositionOrIndex: number = this.entries
-      .findIndex((entry: FleenVideoView): boolean => entry.videoId === videoId);
+      .findIndex((entry: FleenVideoView): boolean => entry.fleenVideoId === videoId);
     if (videoPositionOrIndex !== -1) {
       // Update the property of the found entry
       this.entries[videoPositionOrIndex] = newVideo;
@@ -223,7 +223,7 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
   }
 
   protected getFleenVideoViewById(videoId: number | string): FleenVideoView | null {
-    const entry: FleenVideoView | undefined = this.entries.find((entry: FleenVideoView): boolean => entry.videoId === videoId);
+    const entry: FleenVideoView | undefined = this.entries.find((entry: FleenVideoView): boolean => entry.fleenVideoId === videoId);
     if (isTruthy(entry)) {
       return entry as FleenVideoView;
     }

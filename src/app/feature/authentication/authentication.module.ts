@@ -19,9 +19,6 @@ import {environment} from "@app/environment";
 import {GOOGLE_RECAPTCHA_FIELD_KEY} from "@app/constant";
 import {RECAPTCHA_V3_SITE_KEY, RecaptchaModule, RecaptchaV3Module} from "ng-recaptcha";
 
-console.log(environment[GOOGLE_RECAPTCHA_FIELD_KEY]);
-console.log('The environment details is ...............');
-
 @NgModule({
   declarations: [
     AuthenticationBaseComponent,
