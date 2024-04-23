@@ -104,7 +104,8 @@ export class HttpClientService extends BaseHttpService {
    * @returns {Observable<any>} - An Observable emitting the response of the HTTP request.
    */
   public post<T extends Object>(req: BaseRequest, clazz?: Constructor<T>): Observable<any> {
-    const request: Observable<Object> = this.httpClient.post(this.buildUri(req), req.body);
+    const { headers } = req;
+    const request: Observable<Object> = this.httpClient.post(this.buildUri(req), req.body, { headers });
     return this.pipeline(request, clazz);
   }
 

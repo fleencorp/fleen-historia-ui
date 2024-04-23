@@ -11,6 +11,8 @@ import {SignInResponse} from "@app/model/response/authentication";
 import {Router} from "@angular/router";
 import {SessionStorageService} from "@app/base/service";
 import {faArrowRight, faKey, faSignIn, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {OnExecuteData, ReCaptchaV3Service} from "ng-recaptcha";
+import {map, Observable} from "rxjs";
 
 @Component({
   selector: 'app-sign-in',
@@ -34,6 +36,7 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
   constructor(
       protected authenticationService: AuthenticationService,
       protected sessionStorageService: SessionStorageService,
+      protected recaptchaService: ReCaptchaV3Service,
       protected formBuilder: FormBuilder,
       protected router: Router) {
     super();
@@ -90,14 +93,15 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
    *
    * @public
    */
-  public signIn(): void {
+  public async signIn(): Promise<void> {
     if (isFalsy(this.signInForm) || this.signInForm.invalid || isTruthy(this.isSubmitting)) {
       return;
     }
-
     this.disableSubmittingAndResetErrorMessage();
 
-    this.authenticationService.signIn(this.signInForm.value)
+    const recaptchaToken: string = await this.extractRecaptchaToken('importantAction');
+
+    this.authenticationService.signIn(this.signInForm.value, recaptchaToken)
       .subscribe({
         next: (result: SignInResponse): void => { this.formCompleted(() => this.handleSignInSuccess(result)); },
         error: (result: ErrorResponse): void => { this.handleError(result); },
@@ -151,6 +155,24 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
         this.changePasswordType = ChangePasswordType.ONBOARDING;
         break;
     }
+  }
+
+  private extractRecaptchaToken(action: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      this.recaptchaService.execute(action).subscribe(() => {
+        const resultObservable: Observable<OnExecuteData> = this.recaptchaService.onExecute;
+        resultObservable.pipe(
+          map((result: OnExecuteData) => result.token) // Extract the token from OnExecuteData
+        ).subscribe({
+          next: (token: string): void => {
+            resolve(token); // Resolve the Promise with the token
+          },
+          error: (error): void => {
+            reject(error); // Reject the Promise with the error
+          }
+        }, );
+      });
+    });
   }
 
   protected override getRouter(): Router {

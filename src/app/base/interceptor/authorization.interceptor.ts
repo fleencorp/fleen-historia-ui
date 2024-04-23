@@ -22,7 +22,7 @@ import {isFalsy, isTruthy, toCamelCaseKeys} from "@app/shared/helper";
 import {API_BASE_PATH} from "@app/config";
 import {RefreshTokenResponse} from "@app/model/response/authentication";
 import {BaseHttpService} from "@app/shared/service/impl";
-import {environment} from "../../../environments/environment";
+import {environment} from "@app/environment";
 
 /**
  * Interceptor for handling authorization, refreshing tokens, and redirecting unauthorized requests.
@@ -63,7 +63,8 @@ export class AuthorizationInterceptor implements HttpInterceptor {
    * @public
    */
   public readonly EXTERNAL_WHITELIST: RegExp[] = [
-    /^(https?:\/\/)?[^\/]*\.s3\.amazonaws\.com/
+    /^(https?:\/\/)?[^\/]*\.s3\.amazonaws\.com/,
+    /^(https?:\/\/)?(www\.)?google\.com\/recaptcha\/api2/
   ];
 
   public tokenRefreshedSubject: Subject<boolean> = new Subject<boolean>();

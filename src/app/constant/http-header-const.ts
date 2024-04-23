@@ -27,3 +27,10 @@ export const REFRESH_TOKEN_KEY: string = 'REFRESH_TOKEN';
  * Header key used to indicate a cancel request in HTTP requests.
  */
 export const X_CANCEL_REQUEST_HEADER_KEY: string = 'X-Cancel-Request';
+
+/**
+ * Constant defining the header key for reCAPTCHA token.
+ * This key is typically used to extract the reCAPTCHA token from HTTP request headers.
+ * Example usage: request.headers[RECAPTCHA_TOKEN_HEADER_KEY]
+ */
+export const RECAPTCHA_TOKEN_HEADER_KEY: string = 'recaptcha-token';

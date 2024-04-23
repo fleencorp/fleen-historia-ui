@@ -15,6 +15,12 @@ import {AuthenticationService} from "./service/authentication.service";
 import {SharedModule} from "@app/shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {environment} from "@app/environment";
+import {GOOGLE_RECAPTCHA_FIELD_KEY} from "@app/constant";
+import {RECAPTCHA_V3_SITE_KEY, RecaptchaModule, RecaptchaV3Module} from "ng-recaptcha";
+
+console.log(environment[GOOGLE_RECAPTCHA_FIELD_KEY]);
+console.log('The environment details is ...............');
 
 @NgModule({
   declarations: [
@@ -29,12 +35,18 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
+    RecaptchaModule,
+    RecaptchaV3Module,
     SharedModule,
     AuthenticationRoutingModule,
-    FontAwesomeModule,
   ],
   providers: [
-    AuthenticationService
+    AuthenticationService,
+    {
+      provide: RECAPTCHA_V3_SITE_KEY,
+      useValue: environment[GOOGLE_RECAPTCHA_FIELD_KEY],
+    },
   ]
 })
 export class AuthenticationModule { }

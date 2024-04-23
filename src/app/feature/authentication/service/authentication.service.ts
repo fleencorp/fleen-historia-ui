@@ -22,7 +22,12 @@ import {
   SignUpResponse
 } from "@app/model/response/authentication";
 import {FleenResponse} from "@app/model/response";
-import {ACCESS_TOKEN_KEY, AUTHENTICATION_STATUS_KEY, REFRESH_TOKEN_KEY} from "@app/constant";
+import {
+  ACCESS_TOKEN_KEY,
+  AUTHENTICATION_STATUS_KEY,
+  RECAPTCHA_TOKEN_HEADER_KEY,
+  REFRESH_TOKEN_KEY
+} from "@app/constant";
 import {Router} from "@angular/router";
 import {AUTHENTICATION_ENTRY_POINT} from "@app/config";
 import {AuthenticationStatus} from "@app/model/enum";
@@ -107,15 +112,20 @@ export class AuthenticationService {
   }
 
   /**
-   * @method signIn
-   * @description
-   *   Initiates a user sign-in process.
+   * Initiates a user sign-in process.
    *
    * @param body - The sign-in payload containing user credentials.
-   * @returns {Observable<SignInResponse>} - An observable emitting a SignInResponse.
+   * @param recaptchaToken - The reCAPTCHA token obtained from the client-side.
+   * @returns An observable emitting a SignInResponse upon successful sign-in.
+   *
+   * @description
+   * This method sends a sign-in request to the server with the provided user credentials
+   * and reCAPTCHA token. Upon successful sign-in, it emits a SignInResponse through an observable.
+   * If the sign-in request fails due to network issues or other errors, it throws an HttpErrorResponse.
    */
-  public signIn(body: SignInPayload): Observable<SignInResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'sign-in'], null, { ...body });
+  public signIn(body: SignInPayload, recaptchaToken: string): Observable<SignInResponse> {
+    const headers: AnyObject = { [RECAPTCHA_TOKEN_HEADER_KEY]: recaptchaToken };
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'sign-in'], null, { ...body },  "POST", headers);
     return this.httpService.post(req, SignInResponse);
   }
 

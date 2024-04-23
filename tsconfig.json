@@ -32,8 +32,10 @@
       "@app/base/*": ["./src/app/base/*"],
       "@app/model/*": ["./src/app/model/*"],
       "@app/constant": ["./src/app/constant"],
+      "@app/environment": ["./src/environments"],
       "@app/test": ["./src/tests"],
-      "@app/test/*": ["./src/tests/*"]
+      "@app/test/*": ["./src/tests/*"],
+
     }
   },
   "angularCompilerOptions": {

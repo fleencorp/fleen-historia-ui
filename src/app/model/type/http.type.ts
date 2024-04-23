@@ -1,5 +1,6 @@
 import {HttpHeaders} from "@angular/common/http";
 import {Observable, Subject} from "rxjs";
+import {AnyObject} from "@app/model/type/base.type";
 
 /**
  * @type RequestMethod
@@ -31,6 +32,7 @@ export type BaseRequest = {
   queryParams?: { [key: string]: any } | undefined,
   body?: any,
   method?: RequestMethod,
+  headers?: AnyObject
 };
 
 

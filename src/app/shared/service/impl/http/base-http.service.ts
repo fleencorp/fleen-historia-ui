@@ -135,12 +135,13 @@ export class BaseHttpService {
    * @param method - The HTTP method for the request (used only when bodyOrMethod is not a string).
    * @returns {BaseRequest} - The constructed BaseRequest object.
    */
-  public toRequest(pathParams: AnyArray, queryParams?: AnyObject | null, bodyOrMethod?: AnyObject | RequestMethod, method?: RequestMethod): BaseRequest {
+  public toRequest(pathParams: AnyArray, queryParams?: AnyObject | null, bodyOrMethod?: AnyObject | RequestMethod, method?: RequestMethod, headers?: {}): BaseRequest {
     if (typeof bodyOrMethod === 'string') {
       return {
         pathParams,
         queryParams: toSnakeCasePayload(queryParams),
         method: isTruthy(method) ? method : bodyOrMethod,
+        headers
       };
     } else {
       return {
@@ -148,6 +149,7 @@ export class BaseHttpService {
         queryParams: toSnakeCasePayload(queryParams),
         body: toBody(bodyOrMethod),
         method: isTruthy(method) ? method : 'GET',
+        headers
       };
     }
   }
