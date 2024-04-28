@@ -8,7 +8,7 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import {catchError, EMPTY, Observable, Subject} from 'rxjs';
-import {Router, RouterStateSnapshot} from "@angular/router";
+import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {AuthTokenService, LocalStorageService, SessionStorageService} from "@app/base/service";
 import {AuthenticationService} from "@app/feature/authentication/service";
@@ -56,7 +56,6 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     '/homepage/video',
     '/contributor/video/comment',
     '/contributor/video/review-history',
-    '/verification/refresh-token'
   ];
 
   /**
@@ -101,7 +100,6 @@ export class AuthorizationInterceptor implements HttpInterceptor {
    */
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.isUrlWhitelisted(request.url) || this.isUrlWhitelistedAndExternal(request.url)) {
-      console.log(request);
       return next.handle(request);
     }
 
@@ -128,21 +126,13 @@ export class AuthorizationInterceptor implements HttpInterceptor {
         const { error } = response;
 
         if (error.status === UNAUTHORIZED_REQUEST_STATUS_CODE) {
-          this.saveUserDestinationPage(this.router.url);
-          console.log('The URL is ', this.router.url);
-          this.authenticationService.setSessionExpired(true);
-          console.log('Got here');
-          return this.proceedAndStartAuthentication();
+          return this.clearTokensAndStartAuthentication();
         }
 
         return this.baseHttpService.handleError(error);
       })
     );
   }
-  public saveUserDestinationPage(url: string): void {
-    this.sessionStorageService.setObject(USER_DESTINATION_PAGE_KEY, url);
-  }
-
 
   /**
    * Creates a new HTTP request by cloning the original request and adding Authorization header.
@@ -155,6 +145,45 @@ export class AuthorizationInterceptor implements HttpInterceptor {
   }
 
   /**
+   * Handles unauthorized requests by attempting to refresh the access token.
+   *
+   * @param {HttpRequest<any>} request - The unauthorized HTTP request.
+   * @param {HttpHandler} next - The next HTTP handler in the chain.
+   * @returns {Observable<any>} An observable of the refreshed token response.
+   * @private
+   */
+/*  private handleUnauthorized(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
+    const refreshToken: string = this.getRefreshToken();
+    if (isTruthy(refreshToken))
+      return this.clearTokensAndStartAuthentication();
+    }
+
+    const refreshRequest: HttpRequest<any> = this.buildRefreshTokenRequest(request, refreshToken);
+    return next.handle(refreshRequest)
+      .pipe(
+        tap((value: HttpEvent<any>): void => {
+          this.handleRefreshTokenResponse(value);
+          this.tokenRefreshedSubject.next(true);
+        }),
+        catchError(() => this.clearTokensAndStartAuthentication())
+/!*        *!/
+/!*        switchMap((): ObservableInput<any> => {
+          console.log('Problems');
+/!*          setTimeout((): any => {
+            location.reload();
+          })
+          return of(EMPTY);
+          *!/
+          const authToken: string = this.getAccessToken();
+          const authRequest: HttpRequest<any> = this.createAuthRequest(request, authToken);
+          return next.handle(authRequest);
+          // this.reloadCurrentPage();
+          // return of(EMPTY);
+        })*!/
+    );
+  }*/
+
+  /**
    * Private method that handles the response after sending a refresh token request.
    * If the response is an instance of HttpResponse, it extracts the body and invokes
    * the method to handle the successful refresh token response.
@@ -163,7 +192,6 @@ export class AuthorizationInterceptor implements HttpInterceptor {
   private handleRefreshTokenResponse(value: HttpEvent<any>): void {
     if (value instanceof HttpResponse) {
       const { body } = value as HttpResponse<any>;
-      console.log(body);
       this.handleRefreshTokenSuccess(body);
     }
   }
@@ -207,12 +235,6 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     return EMPTY;
   }
 
-  private proceedAndStartAuthentication(): Observable<any> {
-    this.startAuthentication();
-    console.log('Returning to Sign-In');
-    return EMPTY;
-  }
-
   /**
    * Initiates the authentication process.
    *
@@ -228,10 +250,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
    * @private
    */
   private gotoDestination(): void {
-    console.log(this.location.path());
     const destinationRoute: string | null = this.getUserDestinationPage();
-    console.log('Taking you to the destination path');
-    console.log(destinationRoute, ' is the destination route');
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate(['/dashboard']);
     });

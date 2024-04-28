@@ -281,18 +281,7 @@ export abstract class AuthBaseComponent extends BaseFormComponent {
    * @memberof YourComponent
    */
   protected gotoUserDestinationPage(): void {
-    this.getRouter().navigateByUrl(this.getUserDestinationPage())
-      .then((m: boolean) => m);
-  }
-
-  protected goToUserDestinationRoute(): void {
-    const path: string = this.getUserDestinationPage();
-    let url: string[] = [BASE_PATH];
-    if (path !== BASE_PATH) {
-      url = path.split('/').filter(segment => segment !== '');
-    }
-    console.log(url);
-    this.getRouter().navigate(url).then();
+    this.getRouter().navigateByUrl(this.getUserDestinationPage()).then((m: boolean) => m);
   }
 
   /**
@@ -304,7 +293,7 @@ export abstract class AuthBaseComponent extends BaseFormComponent {
    * @private
    * @memberof YourComponent
    */
-  protected getUserDestinationPage(): string {
+  private getUserDestinationPage(): string {
     return this.getSessionStorageService().getObject(USER_DESTINATION_PAGE_KEY) || BASE_PATH;
   }
 

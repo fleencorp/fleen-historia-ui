@@ -73,8 +73,6 @@ export class CommentComponent extends BaseEntriesComponent<any> implements OnIni
   }
 
   protected override async handlePagination(): Promise<void> {
-    console.log('Was I invoked');
-    console.log(this.getPaginationDetails());
     this.showNewComments.emit(this.getPaginationDetails());
   }
 
