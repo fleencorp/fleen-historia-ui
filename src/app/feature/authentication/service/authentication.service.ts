@@ -17,6 +17,7 @@ import {
 import {
   ForgotPasswordResponse,
   InitiatePasswordChangeResponse,
+  RefreshTokenResponse,
   SignInResponse,
   SignInUpResponse,
   SignUpResponse
@@ -25,13 +26,15 @@ import {FleenResponse} from "@app/model/response";
 import {
   ACCESS_TOKEN_KEY,
   AUTHENTICATION_STATUS_KEY,
+  AUTHORIZATION_HEADER,
   RECAPTCHA_TOKEN_HEADER_KEY,
-  REFRESH_TOKEN_KEY
+  REFRESH_TOKEN_KEY,
+  SESSION_EXPIRED_KEY
 } from "@app/constant";
 import {Router} from "@angular/router";
 import {AUTHENTICATION_ENTRY_POINT} from "@app/config";
 import {AuthenticationStatus} from "@app/model/enum";
-import {hasAtLeastAProperty} from "@app/shared/helper";
+import {hasAtLeastAProperty, isTruthy} from "@app/shared/helper";
 import {MiscService} from "@app/shared/service/impl/common";
 
 
@@ -229,6 +232,12 @@ export class AuthenticationService {
     return this.httpService.post(req, InitiatePasswordChangeResponse);
   }
 
+  public refreshToken(refreshToken: string): Observable<RefreshTokenResponse> {
+    const headers: AnyObject = { [AUTHORIZATION_HEADER]: refreshToken };
+    const req: BaseRequest = this.httpService.toRequest([this.VERIFICATION_BASE_PATH, 'refresh-token'], null,  {}, 'GET',headers);
+    return this.httpService.get(req, RefreshTokenResponse);
+  }
+
   /**
    * @method saveAuthToken
    * @description
@@ -261,6 +270,22 @@ export class AuthenticationService {
   public setAuthToken(result: SignInUpResponse): void {
     this.saveAccessToken(result.accessToken || '');
     this.saveRefreshToken(result.refreshToken || '');
+  }
+
+  public setSessionExpired(status: boolean = false): void {
+    this.localStorageService.setObject(SESSION_EXPIRED_KEY, String(status).toString())
+  }
+
+  public clearSession(): void {
+    this.localStorageService.removeObject(SESSION_EXPIRED_KEY);
+  }
+
+  public isSessionExpired(): boolean {
+    const status: string | null = this.localStorageService.getObject(SESSION_EXPIRED_KEY);
+    if (isTruthy(status)) {
+      return Boolean(status);
+    }
+    return false;
   }
 
   /**

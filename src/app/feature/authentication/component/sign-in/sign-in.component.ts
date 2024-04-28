@@ -7,12 +7,13 @@ import {isFalsy, isTruthy} from "@app/shared/helper";
 import {AuthenticationStage, AuthenticationStatus, ChangePasswordType, MfaType} from "@app/model/enum";
 import {ChangePasswordComponent} from "@app/shared/component";
 import {ErrorResponse} from "@app/model/response";
-import {SignInResponse} from "@app/model/response/authentication";
+import {RefreshTokenResponse, SignInResponse} from "@app/model/response/authentication";
 import {Router} from "@angular/router";
-import {SessionStorageService} from "@app/base/service";
+import {AuthTokenService, SessionStorageService} from "@app/base/service";
 import {faArrowRight, faKey, faSignIn, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {OnExecuteData, ReCaptchaV3Service} from "ng-recaptcha";
 import {map, Observable} from "rxjs";
+import {AUTHORIZATION_BEARER, BASE_PATH, USER_DESTINATION_PAGE_KEY} from "@app/constant";
 
 @Component({
   selector: 'app-sign-in',
@@ -36,6 +37,7 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
 
   constructor(
       protected authenticationService: AuthenticationService,
+      protected tokenService: AuthTokenService,
       protected sessionStorageService: SessionStorageService,
       protected recaptchaService: ReCaptchaV3Service,
       protected formBuilder: FormBuilder,
@@ -44,10 +46,41 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
+    console.log('Hello World');
     this.enableLoading();
+    if (isTruthy(this.getRefreshToken()) && isTruthy(this.authenticationService.isSessionExpired())) {
+      console.log(this.authenticationService.isSessionExpired(), ' is the current authentication status');
+      console.log('The refresh token is ', this.getRefreshToken());
+/*      setTimeout(async(): Promise<void> => {
+        await this.getRouter().navigate(['/']);
+      }, 5000);*/
+      const success: boolean = await this.refreshAuthenticationToken();
+      if (success) {
+        console.log('Succes');
+        setTimeout(async (): Promise<void> => {
+          const path: string = this.getUserDestinationPage();
+          let url: string[] = [BASE_PATH];
+          if (path !== BASE_PATH) {
+            url = path.split('/').filter(segment => segment !== '');
+          }
+          console.log(url);
+          await this.getRouter().navigate(url, { onSameUrlNavigation: "reload", skipLocationChange: false, replaceUrl: true });
+        }, 5000);
+      }
+    } else {
+      console.log('Got here');
+      await this.continueSignIn();
+      console.log('After');
+    }
+  }
+
+  protected async continueSignIn(): Promise<void> {
+    console.log(this.authenticationService.isAuthenticationStatusCompleted(), " is the authentication status");
     if (this.authenticationService.isAuthenticationStatusCompleted()) {
+      console.log('Me Me');
       await this.goHome();
     } else {
+      console.log('Him Him');
       this.authenticationService.clearAuthTokens();
     }
     this.initForm();
@@ -110,6 +143,79 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
         complete: (): void => { this.enableSubmitting(); }
     });
   }
+
+  protected isRefreshTokenExists(): boolean {
+    if (isFalsy(this.getRefreshToken())) {
+      this.tokenService.clearAuthTokens();
+      this.startAuthentication();
+      return true;
+    }
+    return false;
+  }
+
+  private startAuthentication(): void {
+    this.authenticationService.startAuthentication(this.router);
+  }
+
+  public async refreshAuthenticationToken(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.authenticationService.refreshToken(this.getRefreshToken())
+        .subscribe({
+          next: (result: RefreshTokenResponse): void => {
+            console.log('The result is ', result);
+            this.handleRefreshTokenResponse(result);
+            this.authenticationService.clearSession();
+            console.log('The user page is ', this.getSessionStorageService().getObject(USER_DESTINATION_PAGE_KEY));
+            console.log('About to reach destination page');
+            resolve(true); // Resolve with the result or any other value you want to return
+          },
+          error: (error: any): void => {
+            this.tokenService.clearAuthTokens();
+            this.authenticationService.clearSession();
+            this.startAuthentication();
+            reject(false); // Reject with the error or any other value you want to return
+          }
+        });
+    });
+  }
+
+/*  public async refreshAuthenticationToken(): Promise<void> {
+    this.authenticationService.refreshToken(this.getRefreshToken())
+      .subscribe({
+        next: (result: RefreshTokenResponse): void => {
+          console.log('The result is ', result);
+          this.handleRefreshTokenResponse(result);
+          this.authenticationService.clearSession();
+          console.log('The user page is ', this.getSessionStorageService().getObject(USER_DESTINATION_PAGE_KEY));
+          console.log('About to reach destination page');
+          setTimeout(async (): Promise<void> => {
+            const path: string = this.getUserDestinationPage();
+            let url: string[] = [BASE_PATH];
+            if (path !== BASE_PATH) {
+              url = path.split('/').filter(segment => segment !== '');
+            }
+            console.log(url);
+            await this.getRouter().navigate(url);
+          }, 5000);
+          // this.gotoUserDestinationPage();
+        },
+        error: (): void => {
+          this.tokenService.clearAuthTokens();
+          this.authenticationService.clearSession();
+          this.startAuthentication();
+        }
+    });
+  }*/
+
+  private getRefreshToken(): string {
+    const refreshToken: string = this.tokenService.getAuthorizationRefreshToken();
+    return isTruthy(refreshToken) ? AUTHORIZATION_BEARER.replace('{}', refreshToken) : '';
+  }
+
+  private handleRefreshTokenResponse(result: RefreshTokenResponse): void {
+    this.authenticationService.setAuthToken(result);
+  }
+
 
   /**
    * Handles the success of the sign-in process.

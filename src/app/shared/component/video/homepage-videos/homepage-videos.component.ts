@@ -19,6 +19,7 @@ import {isTruthy, removeProperty} from "@app/shared/helper";
 export class HomepageVideosComponent extends BaseVideosComponent implements OnInit {
 
   public override searchFilter: SearchFilter[] = [];
+  public isAuthenticating: boolean = false;
 
   public constructor(
       protected userVideoService: UserVideoService,

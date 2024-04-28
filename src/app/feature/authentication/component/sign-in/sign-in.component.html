@@ -1,56 +1,56 @@
-<p>{{ token }}</p>
+<ng-container *ngIf="!isLoading && isFormReady">
+  <app-otp-verification *ngIf="isPreVerificationStage"
+                        [email-address]="$emailAddress"
+                        [phone-number]="$phoneNumber"
+                        [is-code-verification-in-progress]="isCodeVerificationInProgress"
+                        [is-code-verification-complete]="isCodeVerificationComplete"
+                        (otpSubmitted)="handleVerificationCode($event)"></app-otp-verification>
 
-<app-otp-verification *ngIf="isPreVerificationStage"
-                      [email-address]="$emailAddress"
-                      [phone-number]="$phoneNumber"
-                      [is-code-verification-in-progress]="isCodeVerificationInProgress"
-                      [is-code-verification-complete]="isCodeVerificationComplete"
-                      (otpSubmitted)="handleVerificationCode($event)"></app-otp-verification>
+  <app-mfa-verification
+    *ngIf="isMfaVerificationStage"
+    [mfa-type]="mfaType"
+    [email-address]="$emailAddress"
+    [phone-number]="$phoneNumber"
+    [is-submitting]="isSubmitting"
+    (otpSubmitted)="handleVerificationCode($event)" ></app-mfa-verification>
 
-<app-mfa-verification
-  *ngIf="isMfaVerificationStage"
-  [mfa-type]="mfaType"
-  [email-address]="$emailAddress"
-  [phone-number]="$phoneNumber"
-  [is-submitting]="isSubmitting"
-  (otpSubmitted)="handleVerificationCode($event)" ></app-mfa-verification>
+  <app-change-password
+    *ngIf="isOnboardingStage"
+    [change-password-type]="changePasswordType"
+    [is-submitting]="isSubmitting"
+    [is-form-completed]="isFormCompleted"
+    (changePassword)="changePassword($event)"></app-change-password>
 
-<app-change-password
-  *ngIf="isOnboardingStage"
-  [change-password-type]="changePasswordType"
-  [is-submitting]="isSubmitting"
-  [is-form-completed]="isFormCompleted"
-  (changePassword)="changePassword($event)"></app-change-password>
+  <ng-container *ngIf="isFormReady">
+    <form *ngIf="!isVerificationStage" [formGroup]="signInForm" (ngSubmit)="signIn()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
+      <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
-<ng-container *ngIf="isFormReady">
-  <form *ngIf="!isVerificationStage" [formGroup]="signInForm" (ngSubmit)="signIn()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
-    <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+      <div class="form-group">
+        <label for="email_address">Email Address</label>
+        <input type="email" formControlName="emailAddress" id="email_address"/>
+        <app-validation-error [control]="emailAddress" [control-label]="'Email Address'" ></app-validation-error>
+      </div>
 
-    <div class="form-group">
-      <label for="email_address">Email Address</label>
-      <input type="email" formControlName="emailAddress" id="email_address"/>
-      <app-validation-error [control]="emailAddress" [control-label]="'Email Address'" ></app-validation-error>
-    </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" id="password"/>
+        <app-validation-error [control]="password" [control-label]="'Password'"></app-validation-error>
+      </div>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" formControlName="password" id="password"/>
-      <app-validation-error [control]="password" [control-label]="'Password'"></app-validation-error>
-    </div>
+      <div class="form-group">
+        <button type="submit" class="fright" *ngIf="!isFormCompleted" [disabled]="isSubmitting">Sign In
+          <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faSignIn"></app-submit-loading-icon>
+        </button>
 
-    <div class="form-group">
-      <button type="submit" class="fright" *ngIf="!isFormCompleted" [disabled]="isSubmitting">Sign In
-        <app-submit-loading-icon [is-submitting]="isSubmitting" [display-icon]="faSignIn"></app-submit-loading-icon>
-      </button>
+        <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+      </div>
 
-      <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
-    </div>
+      <div class="forgot-password-link">
+        <a [routerLink]="['..', 'forgot-password']">Forgot Password? <fa-icon [icon]="faKey"></fa-icon></a>
+      </div>
 
-    <div class="forgot-password-link">
-      <a [routerLink]="['..', 'forgot-password']">Forgot Password? <fa-icon [icon]="faKey"></fa-icon></a>
-    </div>
-
-  </form>
+    </form>
+  </ng-container>
 </ng-container>
 
 <app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

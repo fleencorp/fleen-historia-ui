@@ -34,3 +34,5 @@ export const X_CANCEL_REQUEST_HEADER_KEY: string = 'X-Cancel-Request';
  * Example usage: request.headers[RECAPTCHA_TOKEN_HEADER_KEY]
  */
 export const RECAPTCHA_TOKEN_HEADER_KEY: string = 'recaptcha-token';
+
+export const SESSION_EXPIRED_KEY: string = 'SESSION_EXPIRED';
