@@ -7,7 +7,7 @@ import {MfaVerificationComponent, OtpVerificationComponent} from "../../componen
 import {Router} from "@angular/router";
 import {SignUpResponse} from "@app/model/response/authentication";
 import {ErrorResponse} from "@app/model/response";
-import {SessionStorageService} from "@app/base/service";
+import {CustomRecaptchaService, SessionStorageService} from "@app/base/service";
 import {ChangePasswordComponent} from "@app/shared/component";
 
 @Component({
@@ -22,6 +22,7 @@ export class SignUpComponent extends SignUpBaseComponent implements OnInit {
 
   constructor(
       private authenticationService: AuthenticationService,
+      protected customRecaptchaService: CustomRecaptchaService,
       protected formBuilder: FormBuilder,
       protected router: Router,
       protected sessionStorageService: SessionStorageService) {
@@ -68,19 +69,20 @@ export class SignUpComponent extends SignUpBaseComponent implements OnInit {
    *
    * @public
    */
-  public signUp(): void {
+  public async signUp(): Promise<void> {
     if (isFalsy(this.signUpForm) || this.signUpForm.invalid || isTruthy(this.isSubmitting)) {
       return;
     }
 
     this.disableSubmittingAndResetErrorMessage();
 
-    this.authenticationService.signUp(this.signUpForm.value)
+    const recaptchaToken: string = await this.customRecaptchaService.extractRecaptchaToken('importantAction');
+    this.authenticationService.signUp(this.signUpForm.value, recaptchaToken)
       .subscribe({
         next: (result: SignUpResponse): void => { this.handleSignUpSuccess(result); },
         error: (result: ErrorResponse): void => { this.handleError(result); },
         complete: (): void => { this.enableSubmitting(); }
-      });
+    });
   }
 
   /**

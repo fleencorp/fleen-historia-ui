@@ -107,10 +107,12 @@ export class AuthenticationService {
    *   Initiates a user sign-up process.
    *
    * @param body - The sign-up payload containing user information.
+   * @param recaptchaToken - The reCAPTCHA token obtained from the client-side.
    * @returns {Observable<SignUpResponse>} - An observable emitting a SignUpResponse.
    */
-  public signUp(body: SignUpPayload): Observable<SignUpResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'sign-up'], null, { ...body });
+  public signUp(body: SignUpPayload, recaptchaToken: string): Observable<SignUpResponse> {
+    const headers: AnyObject = this.getRecaptchaHeaders(recaptchaToken)
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'sign-up'], null, { ...body }, "POST", headers);
     return this.httpService.post(req, SignUpResponse);
   }
 
@@ -127,7 +129,7 @@ export class AuthenticationService {
    * If the sign-in request fails due to network issues or other errors, it throws an HttpErrorResponse.
    */
   public signIn(body: SignInPayload, recaptchaToken: string): Observable<SignInResponse> {
-    const headers: AnyObject = { [RECAPTCHA_TOKEN_HEADER_KEY]: recaptchaToken };
+    const headers: AnyObject = this.getRecaptchaHeaders(recaptchaToken);
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'sign-in'], null, { ...body },  "POST", headers);
     return this.httpService.post(req, SignInResponse);
   }
@@ -360,5 +362,9 @@ export class AuthenticationService {
    */
   private getJwtClaims(): AnyObject {
     return this.tokenService.getAccessTokenClaims();
+  }
+
+  private getRecaptchaHeaders(recaptchaToken: string): AnyObject {
+    return { [RECAPTCHA_TOKEN_HEADER_KEY]: recaptchaToken };
   }
 }

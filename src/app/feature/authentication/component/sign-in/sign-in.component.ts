@@ -10,10 +10,9 @@ import {ErrorResponse} from "@app/model/response";
 import {RefreshTokenResponse, SignInResponse} from "@app/model/response/authentication";
 import {Router} from "@angular/router";
 import {AuthTokenService, SessionStorageService} from "@app/base/service";
-import {faArrowRight, faKey, faSignIn, IconDefinition} from "@fortawesome/free-solid-svg-icons";
-import {OnExecuteData, ReCaptchaV3Service} from "ng-recaptcha";
-import {map, Observable} from "rxjs";
+import {faKey, faSignIn, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {AUTHORIZATION_BEARER} from "@app/constant";
+import {CustomRecaptchaService} from "@app/base/service/security/custom-recaptcha.service";
 
 @Component({
   selector: 'app-sign-in',
@@ -32,14 +31,12 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
   public isPreVerificationStage: boolean = false;
   public isMfaVerificationStage: boolean = false;
   public isOnboardingStage: boolean = false;
-  public counter: number = 0;
-  public token: string = ''
 
   constructor(
       protected authenticationService: AuthenticationService,
       protected tokenService: AuthTokenService,
       protected sessionStorageService: SessionStorageService,
-      protected recaptchaService: ReCaptchaV3Service,
+      protected customRecaptchaService: CustomRecaptchaService,
       protected formBuilder: FormBuilder,
       protected router: Router) {
     super();
@@ -106,9 +103,7 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
     }
     this.disableSubmittingAndResetErrorMessage();
 
-    const recaptchaToken: string = await this.extractRecaptchaToken('importantAction');
-    this.token = recaptchaToken;
-
+    const recaptchaToken: string = await this.customRecaptchaService.extractRecaptchaToken('importantAction');
     this.authenticationService.signIn(this.signInForm.value, recaptchaToken)
       .subscribe({
         next: (result: SignInResponse): void => { this.formCompleted(() => this.handleSignInSuccess(result)); },
@@ -204,29 +199,10 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
     }
   }
 
-  private extractRecaptchaToken(action: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      this.recaptchaService.execute(action).subscribe(() => {
-        const resultObservable: Observable<OnExecuteData> = this.recaptchaService.onExecute;
-        resultObservable.pipe(
-          map((result: OnExecuteData) => result.token) // Extract the token from OnExecuteData
-        ).subscribe({
-          next: (token: string): void => {
-            resolve(token); // Resolve the Promise with the token
-          },
-          error: (error): void => {
-            reject(error); // Reject the Promise with the error
-          }
-        }, );
-      });
-    });
-  }
-
   protected override getRouter(): Router {
     return this.router;
   }
 
   protected readonly faSignIn: IconDefinition = faSignIn;
-  protected readonly faArrowRight = faArrowRight;
-  protected readonly faKey = faKey;
+  protected readonly faKey: IconDefinition = faKey;
 }
