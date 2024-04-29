@@ -22,6 +22,16 @@
         <a [routerLink]="['..', 'contributor']" routerLinkActive="active">Contributor
           <fa-icon [icon]="faBars"></fa-icon></a>
       </li>
+      <ng-container *ngIf="isAdmin">
+        <li>
+          <a [routerLink]="['..', 'admin-youtube']" routerLinkActive="active">Admin YouTube
+            <fa-icon [icon]="faVideoCamera"></fa-icon></a>
+        </li>
+        <li>
+          <a [routerLink]="['..', 'admin-video']" routerLinkActive="active">Admin Video
+            <fa-icon [icon]="faCamera"></fa-icon></a>
+        </li>
+      </ng-container>
     </ul>
   </div>
 </div>

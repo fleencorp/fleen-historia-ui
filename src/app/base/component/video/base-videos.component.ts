@@ -12,6 +12,7 @@ import {VideoReviewStatus, VideoStatus} from "@app/model/enum";
 import {PublishVideoResponse, RequestForReviewResponse} from "@app/model/response/video";
 import {ErrorResponse} from "@app/model/response";
 import {BaseVideoService} from "@app/base/service";
+import {ContributorService} from "@app/feature/contributor/service";
 
 export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVideoView> {
 
@@ -28,7 +29,7 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
   public successfulPublishingVideoId: number | string  = 0;
 
   protected constructor(
-      protected videosService: BaseVideoService ,
+      protected videosService: BaseVideoService | ContributorService | any,
       router: Router,
       route: ActivatedRoute,
       location: Location) {

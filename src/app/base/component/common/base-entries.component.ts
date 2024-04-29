@@ -105,16 +105,6 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   public isDeleting: boolean = false;
 
   /**
-   * A key indicating the status of search process
-   */
-  public isSearching: boolean = false;
-
-  /**
-   * A key indicating the status of search reset process
-   */
-  public isResettingSearch: boolean = false;
-
-  /**
    * Represents the deletion status of an entry.
    * Possible values are defined in the DeleteStatusEnum.
    * Default value is DeleteStatusEnum.NOT_STARTED.
@@ -348,42 +338,6 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    */
   private disableNavigationInProgress(): void {
     this.navigationInProgress = false;
-  }
-
-  /**
-   * Private method used to enable the search in progress state.
-   * This method sets the 'isSearching' property to true.
-   * It's typically called when a search operation starts.
-   */
-  private enableSearchInProgress(): void {
-    this.isSearching = true;
-  }
-
-  /**
-   * Private method used to disable the search in progress state.
-   * This method sets the 'isSearching' property to false.
-   * It's typically called when a search operation is completed or canceled.
-   */
-  private disableSearchInProgress(): void {
-    this.isSearching = false;
-  }
-
-  /**
-   * Private method used to enable the reset search in progress state.
-   * This method sets the 'isResettingSearch' property to true.
-   * It's typically called when a reset search operation starts.
-   */
-  private enableResetSearchInProgress(): void {
-    this.isResettingSearch = true;
-  }
-
-  /**
-   * Private method used to disable the reset search in progress state.
-   * This method sets the 'isResettingSearch' property to false.
-   * It's typically called when a reset search operation is completed or canceled.
-   */
-  private disableResetSearchInProgress(): void {
-    this.isResettingSearch = false;
   }
 
   /**

@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {MoveToDraftResponse} from "@app/model/response/video";
 import {AnyObject, BaseRequest} from "@app/model/type";
 import {SearchResultView} from "@app/model/view";
-import {FleenVideoView} from "@app/model/view/video";
+import {FleenVideoShortView, FleenVideoView} from "@app/model/view/video";
 import {toSearchResult} from "@app/shared/rxjs";
 
 @Injectable()
@@ -19,10 +19,18 @@ export class UserVideoService extends BaseVideoService {
   }
 
   public findHomepageVideos(params: AnyObject): Observable<SearchResultView<FleenVideoView>> {
-    const req: BaseRequest = this.httpService.toRequest([this.HOMEPAGE_BASE_PATH, 'video', 'entries'], params);
+    const req: BaseRequest = this.httpService.toRequest([this.HOMEPAGE_BASE_PATH, 'entries', 'videos'], params);
     return this.httpService.get(req)
       .pipe(
         toSearchResult(FleenVideoView),
+      );
+  }
+
+  public findVideosAndSnippets(q: String): Observable<SearchResultView<FleenVideoShortView>> {
+    const req: BaseRequest = this.httpService.toRequest([this.CONTRIBUTOR_BASE_PATH, 'entries', 'videos', 'snippet'], { q });
+    return this.httpService.get(req)
+      .pipe(
+        toSearchResult(FleenVideoShortView),
       );
   }
 

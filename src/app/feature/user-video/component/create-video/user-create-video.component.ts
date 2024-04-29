@@ -1,11 +1,22 @@
 import {Component, OnInit} from '@angular/core';
 import {CreateVideoPayload} from "@app/model/type";
-import {FleenVideoView} from "@app/model/view/video";
+import {FleenVideoShortView, FleenVideoView} from "@app/model/view/video";
 import {UserVideoService} from "@app/feature/user-video/service";
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {BaseCreateVideoComponent} from "@app/base/component/video";
+import {isTruthy} from "@app/shared/helper";
+import {SearchResultView} from "@app/model/view";
+import {ErrorResponse} from "@app/model/response";
+import {
+  faArrowLeft,
+  faArrowRight, faFaceSmile, faFire,
+  faPlus,
+  faSearch,
+  faSpinner,
+  IconDefinition
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'user-app-create-video',
@@ -14,10 +25,14 @@ import {BaseCreateVideoComponent} from "@app/base/component/video";
 })
 export class UserCreateVideoComponent extends BaseCreateVideoComponent implements OnInit {
 
+  public entries: FleenVideoShortView[] = [];
+  public queryControl: FormControl<string | null> = new FormControl<string>('');
+  public isCreateVideoStage: boolean = false;
+
   public constructor(
-      protected userVideoService: UserVideoService,
-      formBuilder: FormBuilder,
-      router: Router) {
+    protected userVideoService: UserVideoService,
+    formBuilder: FormBuilder,
+    router: Router) {
     super(userVideoService, formBuilder, router);
   }
 
@@ -31,4 +46,47 @@ export class UserCreateVideoComponent extends BaseCreateVideoComponent implement
     return this.userVideoService.createVideo(payload);
   }
 
+  public searchVideos(): void {
+    if (isTruthy(this.query)) {
+      this.enableSearchInProgress();
+      this.userVideoService.findVideosAndSnippets(this.query)
+        .subscribe({
+          next: (result: SearchResultView<FleenVideoShortView>): void => {
+            this.entries = result.values;
+          },
+          error: (error: ErrorResponse): void => {
+            this.handleError(error);
+            this.disableSearchInProgress();
+          },
+          complete: (): void => { this.disableSearchInProgress(); }
+      });
+    }
+  }
+
+  public proceedToCreateVideo(): void {
+    this.isCreateVideoStage = true;
+  }
+
+  public async resetSearch(): Promise<void> {
+    this.queryControl.patchValue('');
+  }
+
+  public goBack(): void {
+    this.isCreateVideoStage = false;
+  }
+
+  get query(): string {
+    if (isTruthy(this.queryControl.value)) {
+      return this.queryControl.value as string;
+    }
+    return "";
+  }
+
+  protected readonly faSpinner: IconDefinition = faSpinner;
+  protected readonly faSearch: IconDefinition = faSearch;
+  protected readonly faArrowRight: IconDefinition = faArrowRight;
+  protected readonly faPlus: IconDefinition = faPlus;
+  protected readonly faArrowLeft: IconDefinition = faArrowLeft;
+  protected readonly faFaceSmile: IconDefinition = faFaceSmile;
+  protected readonly faFire = faFire;
 }

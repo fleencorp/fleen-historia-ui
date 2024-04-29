@@ -1,0 +1,12 @@
+.video-snippets {
+  padding: 10px;
+}
+
+ul.video-snippets {
+  list-style: none;
+}
+
+.video-snippets li {
+  padding-left: 10px;
+  margin-bottom: 10px;
+}

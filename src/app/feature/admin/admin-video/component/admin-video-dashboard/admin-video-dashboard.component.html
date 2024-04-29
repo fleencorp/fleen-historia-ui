@@ -3,11 +3,16 @@
 
   <div class="menu-container">
     <ul class="menu">
+      <p id="profile-photo-wrapper">
+        <img [src]="profilePhoto" width="150" height="150"/>
+      </p>
       <li>
-        <a [routerLink]="['..', 'entries']" routerLinkActive="active">Videos Entries <fa-icon [icon]="faList"></fa-icon></a>
+        <a [routerLink]="['..', 'entries']" routerLinkActive="active">View Detail
+          <fa-icon [icon]="faList"></fa-icon></a>
       </li>
       <li>
-        <a [routerLink]="['..', 'delete-all']" routerLinkActive="active">Delete All Video <fa-icon [icon]="faTrash"></fa-icon></a>
+        <a [routerLink]="['..', 'delete-all']" routerLinkActive="active">Delete All Video
+          <fa-icon [icon]="faTrash"></fa-icon></a>
       </li>
     </ul>
   </div>

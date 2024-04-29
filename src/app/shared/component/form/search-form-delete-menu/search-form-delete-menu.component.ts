@@ -50,10 +50,10 @@ export class SearchFormDeleteMenuComponent extends BaseFormComponent implements 
   public isDeleting: boolean | undefined;
 
   @Input('is-searching')
-  public isSearching: boolean | undefined;
+  public override isSearching: boolean | undefined;
 
   @Input('is-resetting-search')
-  public isResettingSearch: boolean | undefined;
+  public override isResettingSearch: boolean | undefined;
 
   @Input('can-delete')
   public canDelete: boolean | undefined = true

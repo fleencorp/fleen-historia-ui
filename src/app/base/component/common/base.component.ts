@@ -37,6 +37,16 @@ export abstract class BaseComponent {
   /** Holds the verification message displayed to the user. */
   public verificationMessage: string = '';
 
+  /**
+   * A key indicating the status of search process
+   */
+  public isSearching: boolean | undefined = false;
+
+  /**
+   * A key indicating the status of search reset process
+   */
+  public isResettingSearch: boolean | undefined = false;
+
   /** Abstract method to get the Router instance, to be implemented by child classes. */
   protected abstract getRouter(): Router;
 
@@ -176,6 +186,45 @@ export abstract class BaseComponent {
     this.clearVerificationMessage();
     this.resetErrorMessage();
   }
+
+
+
+  /**
+   * Private method used to enable the search in progress state.
+   * This method sets the 'isSearching' property to true.
+   * It's typically called when a search operation starts.
+   */
+  protected enableSearchInProgress(): void {
+    this.isSearching = true;
+  }
+
+  /**
+   * Private method used to disable the search in progress state.
+   * This method sets the 'isSearching' property to false.
+   * It's typically called when a search operation is completed or canceled.
+   */
+  protected disableSearchInProgress(): void {
+    this.isSearching = false;
+  }
+
+  /**
+   * Private method used to enable the reset search in progress state.
+   * This method sets the 'isResettingSearch' property to true.
+   * It's typically called when a reset search operation starts.
+   */
+  protected enableResetSearchInProgress(): void {
+    this.isResettingSearch = true;
+  }
+
+  /**
+   * Private method used to disable the reset search in progress state.
+   * This method sets the 'isResettingSearch' property to false.
+   * It's typically called when a reset search operation is completed or canceled.
+   */
+  protected disableResetSearchInProgress(): void {
+    this.isResettingSearch = false;
+  }
+
 
   /**
    * Sets a property to a new value temporarily and restores it after a specified delay.

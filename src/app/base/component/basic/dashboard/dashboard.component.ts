@@ -1,6 +1,14 @@
 import {Component} from '@angular/core';
 import {AuthTokenService} from "@app/base/service";
-import {faBars, faShield, faUser, faVideo, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faCamera,
+  faShield,
+  faUser,
+  faVideo,
+  faVideoCamera,
+  IconDefinition
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-dashboard',
@@ -15,8 +23,14 @@ export class DashboardComponent {
     return this.tokenService.getProfilePhoto();
   }
 
+  get isAdmin(): boolean {
+    return this.tokenService.isAdmin();
+  }
+
   protected readonly faUser: IconDefinition = faUser;
   protected readonly faShield: IconDefinition = faShield;
   protected readonly faVideo: IconDefinition = faVideo;
   protected readonly faBars: IconDefinition = faBars;
+  protected readonly faVideoCamera: IconDefinition = faVideoCamera;
+  protected readonly faCamera: IconDefinition = faCamera;
 }

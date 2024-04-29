@@ -1,3 +1,12 @@
+
+<div id="status-btn-wrapper">
+  <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.DRAFT}" (click)="setVideoStatusSearchParam(VideoStatus.DRAFT)">Draft</button>
+  <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.IN_REVIEW}" (click)="setVideoStatusSearchParam(VideoStatus.IN_REVIEW)">Pending</button>
+  <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.DISAPPROVED}" (click)="setVideoStatusSearchParam(VideoStatus.DISAPPROVED)">Declined</button>
+  <button type="button" [ngClass]="{'active': currentVideoSearchStatus === VideoStatus.APPROVED}" (click)="setVideoStatusSearchParam(VideoStatus.APPROVED)">Approved</button>
+</div>
+
+
 <app-search-form-delete-menu
   [is-searching]="isSearching"
   [is-submitting]="isSubmitting"
@@ -31,8 +40,6 @@
       </div>
       <div class="video-actions">
         <button type="button" class="btn-navy" (click)="viewDetail(video.fleenVideoId)">View <fa-icon [icon]="faEye"></fa-icon></button>
-        <button type="button" class="btn-aqua" (click)="updateEntry(video.fleenVideoId)">Update <fa-icon [icon]="faCheckDouble"></fa-icon></button>
-
       </div>
       <app-form-message [status-message]="video.statusMessage" [error-message]="video.errorMessage"></app-form-message>
     </div>

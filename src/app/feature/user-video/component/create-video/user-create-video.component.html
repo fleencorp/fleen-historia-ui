@@ -1,16 +1,47 @@
-<app-create-video
-  *ngIf="!isVideoCreated"
-  [create-video-form]="createVideoForm"
-  [is-form-completed]="isFormCompleted"
-  [is-form-ready]="isFormReady"
-  [is-loading]="isLoading"
-  [is-submitting]="isSubmitting"
-  [status-message]="statusMessage"
-  [error-message]="errorMessage"
 
-  [channels]="channels"
-  [categories]="categories"
-  (create-video)="createVideo()">
-</app-create-video>
+<ng-container *ngIf="!isCreateVideoStage">
+  <input type="text" [formControl]="queryControl" name="search-input">
+  <button type="submit" [disabled]="isSubmitting" (click)="searchVideos()">Search
+    <fa-icon *ngIf="!isSearching" [icon]="faSearch"></fa-icon>
+    <fa-icon *ngIf="isSearching" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
+  </button>
+  <button type="submit" (click)="proceedToCreateVideo()"> Proceed to Create <fa-icon [icon]="faPlus" ></fa-icon>
+  </button>
 
-<app-update-video *ngIf="isVideoCreated" [entry-id]="createdVideoId"></app-update-video>
+</ng-container>
+
+<ng-container *ngIf="!isCreateVideoStage">
+  <ng-container *ngIf="entries && entries.length">
+    <ul class="video-snippets" *ngFor="let video of entries">
+      <li> <a [routerLink]="['/video', video.fleenVideoId]">{{ video.videoTitle }}</a> </li><hr/>
+    </ul>
+  </ng-container>
+
+  <ng-container *ngIf="entries && entries.length <= 0">
+    <p>Search for a <b>video....</b> to see if it exists before creating or contributing to a video. If you can't find a video in the record. <b>Congratulations!!! <fa-icon [icon]="faFire"></fa-icon></b> We want be able to appreciate your contribution and <b>we can't wait <fa-icon [icon]="faFaceSmile"></fa-icon></b>.</p>
+    <p>We do this so that we don't store duplicated entries in our archive. We still appreciate your desire to contribute and you can make a comment if you find a video entry you feel can be improved. <b>Thank you.</b></p>
+  </ng-container>
+</ng-container>
+
+
+<ng-container *ngIf="isCreateVideoStage">
+  <button (click)="goBack()" class="back-button"><fa-icon [icon]="faArrowLeft"></fa-icon></button>
+
+  <app-create-video
+    *ngIf="!isVideoCreated"
+    [create-video-form]="createVideoForm"
+    [is-form-completed]="isFormCompleted"
+    [is-form-ready]="isFormReady"
+    [is-loading]="isLoading"
+    [is-submitting]="isSubmitting"
+    [status-message]="statusMessage"
+    [error-message]="errorMessage"
+
+    [channels]="channels"
+    [categories]="categories"
+    (create-video)="createVideo()">
+  </app-create-video>
+
+  <app-update-video *ngIf="isVideoCreated" [entry-id]="createdVideoId"></app-update-video>
+
+</ng-container>

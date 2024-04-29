@@ -50,3 +50,20 @@ export class FleenVideoView extends FleenBaseView {
     this.statusMessage = '';
   }
 }
+
+
+export class FleenVideoShortView {
+
+  public readonly fleenVideoId: number;
+  public readonly videoTitle: string;
+  public readonly videoDescription: string;
+  public readonly videoStatus: VideoStatus;
+
+  public constructor(data: FleenVideoView) {
+    this.fleenVideoId = data.fleenVideoId
+    this.videoTitle = data?.videoTitle;
+    this.videoDescription = data?.videoDescription;
+    this.videoStatus = data?.videoStatus;
+  }
+
+}
