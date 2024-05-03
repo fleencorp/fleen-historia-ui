@@ -7,8 +7,8 @@ import {Location} from "@angular/common";
 import {Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
 import {ANY_EMPTY, VIDEO_STATUS_SEARCH_KEY} from "@app/constant";
-import {isFalsy, isTruthy, removeProperty} from "@app/shared/helper";
-import {VideoReviewStatus, VideoStatus} from "@app/model/enum";
+import {isFalsy, isTruthy, nonNull, removeProperty} from "@app/shared/helper";
+import {VideoStatus} from "@app/model/enum";
 import {PublishVideoResponse, RequestForReviewResponse} from "@app/model/response/video";
 import {ErrorResponse} from "@app/model/response";
 import {BaseVideoService} from "@app/base/service";
@@ -19,14 +19,6 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
   public override entries: FleenVideoView[] = [];
   public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_FLEEN_VIDEOS;
   protected override defaultEntryIdKey: string = 'fleenVideoId';
-  protected isSubmittingForReview: boolean = false;
-  public isSubmittingForReviewSuccessful: boolean = false;
-  public submittingForReviewVideoId: number | string = 0;
-  public successfulSubmissionForReviewVideoId: number | string = 0;
-  public isPublishing: boolean = false;
-  public isPublishingSuccessful: boolean = false;
-  public submittingForPublishingVideoId: number | string = 0;
-  public successfulPublishingVideoId: number | string  = 0;
 
   protected constructor(
       protected videosService: BaseVideoService | ContributorService | any,
@@ -64,54 +56,64 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
     return false;
   }
 
-  protected enableIsSubmittingForReview(): void {
-    this.isSubmittingForReview = true;
+  protected enableIsSubmittingForReview(video: FleenVideoView): void {
+    if (nonNull(video)) {
+      video.isSubmittingForReview = true;
+    }
   }
 
-  protected disableIsSubmittingForReview(): void {
-    this.isSubmittingForReview = false;
+  protected disableIsSubmittingForReview(video: FleenVideoView): void {
+    if (nonNull(video)) {
+      video.isSubmittingForReview = false;
+    }
   }
 
-  protected enableSubmittingForReviewSuccessful(): void {
-    this.isSubmittingForReviewSuccessful = true;
+  protected enableSubmittingForReviewSuccessful(video: FleenVideoView): void {
+    if (nonNull(video)) {
+      video.isSubmittingForReviewSuccessful = true;
+    }
   }
 
-  protected enableIsPublishing(): void {
-    this.isPublishing = true;
+  protected enableIsPublishing(video: FleenVideoView): void {
+    if (nonNull(video)) {
+      video.isPublishing = true;
+    }
   }
 
-  protected disableIsPublishing(): void {
-    this.isPublishing = false;
+  protected disableIsPublishing(video: FleenVideoView): void {
+    if (nonNull(video)) {
+      video.isPublishing = false;
+    }
   }
 
-  protected enableIsPublishingSuccessful(): void {
-    this.isPublishingSuccessful = true;
+  protected enableIsPublishingSuccessful(video: FleenVideoView): void {
+    if (nonNull(video)) {
+      video.isPublishingSuccessful = true;
+    }
   }
 
-  public requestForReview(videoId: number | string): void {
-    if (isFalsy(this.isSubmitting) && isFalsy(this.isSubmittingForReview)) {
+  public requestForReview(video: FleenVideoView): void {
+    const { fleenVideoId:videoId } = video;
+    if (isFalsy(video.isSubmittingForReview)) {
       this.clearAllMessages();
       this.disableSubmitting();
-      this.enableIsSubmittingForReview();
-      this.submittingForReviewVideoId = videoId;
+      this.enableIsSubmittingForReview(video);
       this.clearVideoEntryMessages(videoId);
 
       this.videosService.requestForReview(videoId)
         .subscribe({
           next: (result: RequestForReviewResponse): void => {
             this.setStatusMessage(result.message);
-            this.disableIsSubmittingForReview();
-            this.enableSubmittingForReviewSuccessful();
-            this.successfulSubmissionForReviewVideoId = videoId;
+            this.disableIsSubmittingForReview(video);
+            this.enableSubmittingForReviewSuccessful(video);
             this.setVideoEntryStatusMessage(videoId, result.message);
             this.invokeCallbackWithDelay((): void => this.handleSuccessfulSubmissionForReview(result));
+            this.enableSubmitting();
           },
           error: (error: ErrorResponse): void => {
             this.handleError(error);
             this.setVideoEntryErrorMessage(videoId, error);
-            this.disableIsSubmittingForReview();
-          },
-          complete: async (): Promise<void> => {
+            this.disableIsSubmittingForReview(video);
             this.enableSubmitting();
           }
       });
@@ -120,12 +122,10 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
 
   protected handleSuccessfulSubmissionForReview(result: RequestForReviewResponse): void {
     this.replaceOldWithUpdateVideo(result.fleenVideo.fleenVideoId, result.fleenVideo);
-    this.submittingForReviewVideoId = 0;
   }
 
   protected handleSuccessfulSubmissionForPublishing(result: PublishVideoResponse): void {
     this.replaceOldWithUpdateVideo(result.fleenVideo.fleenVideoId, result.fleenVideo);
-    this.submittingForReviewVideoId = 0;
   }
 
   protected setVideoEntryErrorMessage(videoId: number | string, error: ErrorResponse): void {
@@ -150,31 +150,26 @@ export abstract class BaseVideosComponent extends BaseEntriesComponent<FleenVide
     }
   }
 
-  public publishVideo(videoId: number | string): void {
-    if (isFalsy(this.isSubmitting) && isFalsy(this.isPublishing)) {
+  public publishVideo(video: FleenVideoView): void {
+    const { fleenVideoId: videoId } = video
+    if (isFalsy(video.isPublishing)) {
       this.clearAllMessages();
-      this.disableSubmitting();
-      this.enableIsPublishing();
-      this.submittingForPublishingVideoId = videoId;
+      this.enableIsPublishing(video);
       this.clearVideoEntryMessages(videoId);
 
       this.videosService.publishVideo(videoId)
         .subscribe({
           next: (result: PublishVideoResponse): void => {
             this.setStatusMessage(result.message);
-            this.disableIsPublishing();
-            this.enableIsPublishingSuccessful();
-            this.successfulPublishingVideoId = videoId;
+            this.disableIsPublishing(video);
+            this.enableIsPublishingSuccessful(video);
             this.setVideoEntryStatusMessage(videoId, result.message);
             this.invokeCallbackWithDelay((): void => this.handleSuccessfulSubmissionForPublishing(result));
           },
           error: (error: ErrorResponse): void => {
             this.handleError(error);
             this.setVideoEntryErrorMessage(videoId, error);
-            this.disableIsPublishing();
-          },
-          complete: async (): Promise<void> => {
-            this.enableSubmitting();
+            this.disableIsPublishing(video);
           }
       });
     }

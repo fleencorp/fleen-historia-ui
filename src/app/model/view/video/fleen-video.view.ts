@@ -25,7 +25,10 @@ export class FleenVideoView extends FleenBaseView {
   public readonly latestReview: VideoReviewView;
   public errorMessage: string;
   public statusMessage: string;
-
+  public isSubmittingForReview: boolean;
+  public isSubmittingForReviewSuccessful: boolean;
+  public isPublishing: boolean;
+  public isPublishingSuccessful: boolean;
 
   public constructor(data: FleenVideoView) {
     super(data);
@@ -48,6 +51,10 @@ export class FleenVideoView extends FleenBaseView {
     this.isObjectApproved = data?.isObjectApproved;
     this.errorMessage = '';
     this.statusMessage = '';
+    this.isSubmittingForReview = false;
+    this.isSubmittingForReviewSuccessful = false;
+    this.isPublishing = false;
+    this.isPublishingSuccessful = false;
   }
 }
 

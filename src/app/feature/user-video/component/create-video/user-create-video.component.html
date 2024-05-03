@@ -25,7 +25,7 @@
 
 
 <ng-container *ngIf="isCreateVideoStage">
-  <button (click)="goBack()" class="back-button"><fa-icon [icon]="faArrowLeft"></fa-icon></button>
+  <button *ngIf="!isVideoCreated" (click)="goBack()" class="back-button"><fa-icon [icon]="faArrowLeft"></fa-icon></button>
 
   <app-create-video
     *ngIf="!isVideoCreated"
