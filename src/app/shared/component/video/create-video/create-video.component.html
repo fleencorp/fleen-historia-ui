@@ -1,6 +1,6 @@
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <form *ngIf="isFormReady" [formGroup]="videoForm" (ngSubmit)="createVideo()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
-  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <div class="form-group">
     <label for="title">Title</label>
@@ -70,8 +70,6 @@
       Then request for a review by other contributors before publishing.</p>
   </div>
 
-  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
-
   <div class="form-group">
     <button type="submit" class="fright"
             *ngIf="!isFormCompleted"
@@ -83,5 +81,7 @@
   </div>
 
 </form>
+
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

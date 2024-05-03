@@ -73,6 +73,7 @@ export class UserCreateVideoComponent extends BaseCreateVideoComponent implement
 
   public goBack(): void {
     this.isCreateVideoStage = false;
+    this.isVideoCreated = false;
   }
 
   get query(): string {

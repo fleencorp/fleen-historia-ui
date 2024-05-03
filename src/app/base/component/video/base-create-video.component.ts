@@ -73,9 +73,15 @@ export abstract class BaseCreateVideoComponent extends BaseAddComponent<CreateVi
 
       this.videosService.createVideo(this.fleenForm.value)
         .subscribe({
-          next: (result: FleenVideoView): void => { this.formCompleted(() => this.handleSuccessfulVideoSubmission(result)); },
-          error: (result: ErrorResponse): void => { this.handleError(result); },
-          complete: (): void => { this.enableSubmitting(); }
+          next: (result: FleenVideoView): void => { this.formCompleted(() => {
+            this.handleSuccessfulVideoSubmission(result);
+            this.enableSubmitting();
+            });
+          },
+          error: (result: ErrorResponse): void => {
+            this.handleError(result);
+            this.enableSubmitting();
+          },
       });
     }
   }

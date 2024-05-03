@@ -5,7 +5,7 @@
     <fa-icon *ngIf="!isSearching" [icon]="faSearch"></fa-icon>
     <fa-icon *ngIf="isSearching" [icon]="faSpinner" [animation]="'spin'"></fa-icon>
   </button>
-  <button type="submit" (click)="proceedToCreateVideo()"> Proceed to Create <fa-icon [icon]="faPlus" ></fa-icon>
+  <button type="submit" *ngIf="!isVideoCreated" (click)="proceedToCreateVideo()"> Proceed to Create <fa-icon [icon]="faPlus" ></fa-icon>
   </button>
 
 </ng-container>
