@@ -44,18 +44,29 @@ export class NavBarComponent extends BaseComponent {
     return !(this.authenticationService.isAuthenticated());
   }
 
+  protected enableIsSigningOut(): void {
+    this.isSigningOut = true;
+  }
+
+  protected disableIsSigningOut(): void {
+    this.isSigningOut = false;
+  }
+
   public signOut(event): void {
     this.stopEvent(event);
-    this.isSigningOut = true;
+    this.enableIsSigningOut();
 
     this.authenticationService.signOut()
       .subscribe({
-        complete: async (): Promise<void> => {
-          this.tokenService.clearAuthTokens();
-          this.isSigningOut = false;
-          await this.goHome();
-        }
+        next: async (): Promise<void> => { await this.afterSignOut(); },
+        error: async (): Promise<void> => { await this.afterSignOut(); },
     });
+  }
+
+  public async afterSignOut(): Promise<void> {
+    this.tokenService.clearAuthTokens();
+    this.disableIsSigningOut();
+    await this.goHome();
   }
 
   protected readonly faHome: IconDefinition = faHome;
