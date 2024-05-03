@@ -48,5 +48,4 @@ jobs:
           echo "S3 Bucket Name: ${{ secrets.S3_BUCKET_NAME }}"
 
       - name: Copy to S3 Bucket
-        run: |
-          aws s3 cp ./dist/fleen-historia-ui/* s3://${{ secrets.S3_BUCKET_NAME }}
+        run: aws s3 cp ./dist/fleen-historia-ui/ s3://${{ secrets.S3_BUCKET_NAME }} --recursive
