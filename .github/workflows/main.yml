@@ -43,6 +43,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Print S3 Bucket Name
+        run: |
+          echo "S3 Bucket Name: ${{ secrets.S3_BUCKET_NAME }}"
+
       - name: Copy to S3 Bucket
         run: |
           aws s3 cp ./dist/* s3://${{ secrets.S3_BUCKET_NAME }}
