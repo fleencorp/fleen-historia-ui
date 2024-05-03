@@ -49,4 +49,4 @@ jobs:
 
       - name: Copy to S3 Bucket
         run: |
-          aws s3 cp ./dist/* s3://${{ secrets.S3_BUCKET_NAME }}
+          aws s3 cp ./dist/fleen-historia-ui/* s3://${{ secrets.S3_BUCKET_NAME }}
