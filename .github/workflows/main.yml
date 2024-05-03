@@ -14,7 +14,7 @@ jobs:
       - name: Get latest code
         uses: actions/checkout@v4
 
-      - name: Use Node.js 16
+      - name: Use Node.js 18
         uses: actions/setup-node@v4
         with:
           node-version: '18'
@@ -22,4 +22,4 @@ jobs:
       - name: Install NPM and Build Angular Project
         run: |
           npm install
-          npm run build
+          npm run build:prod
