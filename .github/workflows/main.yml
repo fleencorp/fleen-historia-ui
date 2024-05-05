@@ -50,7 +50,7 @@ jobs:
         run: aws s3 rm --recursive s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_STAGING_FOLDER }}
 
       - name: Copy to S3 Bucket
-        run: aws s3 cp ./dist/fleen-historia-ui/${{ secrets.S3_STAGING_FOLDER }} s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_STAGING_FOLDER }} --recursive
+        run: aws s3 cp ./dist/fleen-historia-ui/ s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_STAGING_FOLDER }} --recursive
 
       - name: clear cache
         run: aws cloudfront create-invalidation --distribution-id "${{ secrets.DEV_CLOUDFRONT_DISTRIBUTION_ID }}" --paths "/*"
