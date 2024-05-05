@@ -30,3 +30,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ### CI CD
 
 - [BUILD AND DEPLOY ANGULAR APPS WITH GITHUB ACTIONS](https://heer.dev/blog/build-and-deploy-angular-apps-with-github-actions)
+
+### S3 & CloudFront
+
+- [[AWS] Linking S3 and CloudFront](https://velog.io/@rungoat/AWS-S3%EC%99%80-CloudFront-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0) by [RunGoat](https://velog.io/@rungoat/posts)
+- [Static website deployment using AWS S3 + CloudFront + Route 53](https://velog.io/@seesaw/AWS-S3-CloudFront-Route-53%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%95%EC%A0%81-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%B0%B0%ED%8F%AC) by [Seesaw](https://velog.io/@seesaw/posts)
+- [AWS - Static hosting using S3, CloudFront, and Route53](https://velog.io/@seongkyun/AWS-S3-CloudFront-Route53%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%95%EC%A0%81-%ED%98%B8%EC%8A%A4%ED%8C%85) by [Seongkyun Yu](https://velog.io/@seongkyun/posts)
+- [How to use a custom domain with CloudFront and Route53](https://advancedweb.hu/how-to-use-a-custom-domain-with-cloudfront-and-route53/) by [Tamás](https://github.com/sashee)
+- [AWS S3로 이미지 배포하기](https://velog.io/@junho5336/AWS-S3-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0) by [주노](https://velog.io/@junho5336/posts)
+
+

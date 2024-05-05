@@ -47,8 +47,11 @@ jobs:
         run: |
           echo "S3 Bucket Name: ${{ secrets.S3_BUCKET_NAME }}"
 
-#      - name: Remove files from s3 buckets
-#        run: aws s3 rm --recursive s3://${{ secrets.S3_BUCKET_NAME }}/
+      - name: Remove files from s3 buckets
+        run: aws s3 rm --recursive s3://${{ secrets.S3_BUCKET_NAME }}/
 
       - name: Copy to S3 Bucket
         run: aws s3 cp ./dist/fleen-historia-ui/ s3://${{ secrets.S3_BUCKET_NAME }} --recursive
+
+      - name: clear cache
+        run: aws cloudfront create-invalidation --distribution-id {{ secrets.DEV_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
