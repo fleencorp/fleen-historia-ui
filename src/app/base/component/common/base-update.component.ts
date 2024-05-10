@@ -14,9 +14,6 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
   /** The view of the entry being updated. */
   public abstract entryView: T;
 
-  /** The ID of the entry being updated. */
-  public entryId: number | string = 0;
-
   /**
    * Constructor of the BaseUpdateComponent.
    * @param router The Router instance used for navigation.
@@ -42,7 +39,7 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
    * Method to initialize details related to the update process.
    * This method can be overridden by subclasses to perform additional initialization tasks.
    */
-  protected initDetails(): void { }
+  protected override initDetails(): void { }
 
   /**
    * Abstract method to update an entry using the provided payload.
@@ -109,13 +106,18 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
     if (isTruthy(this.fleenForm) && this.fleenForm.valid && isFalsy(this.isSubmitting)) {
       this.disableSubmittingAndResetErrorMessage();
 
-      this.$updateEntry(this.entryId, this.fleenForm.value)
+      this.$updateEntry(this.entryId, this.payload)
         .subscribe({
-          error: (result: ErrorResponse): void => { this.handleError(result); },
-          complete: async (): Promise<void> => {
+          next: (): void => {
             this.enableSubmitting();
-            // this.formCompleted(this.goToEntries.bind(this));
             this.formCompleted();
+          },
+          error: (result: ErrorResponse): void => {
+            this.handleError(result);
+            this.enableSubmitting();
+          },
+          complete: async (): Promise<void> => {
+            // this.formCompleted(this.goToEntries.bind(this));
           }
       });
     }

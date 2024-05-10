@@ -284,14 +284,14 @@ export const toSnakeCasePayload = toRequestBody;
  * @see JSON.stringify
  */
 export function toBody(data: any): string {
-  function convertKeysToSnakeCase(obj: any): any {
+  function convertKeysToSnakeCase(obj) {
     if (Array.isArray(obj)) {
-      return obj.map((item: any) => convertKeysToSnakeCase(item));
+      return obj.map(item => convertKeysToSnakeCase(item));
     } else if (typeof obj === 'object' && obj !== null) {
       const newObj: any = {};
       for (const key in obj) {
         if (obj.hasOwnProperty(key)) {
-          const transformedKey: string = key.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
+          const transformedKey: string = key.replace(/[A-Z]/g, match => `_${match.toLowerCase()}`);
           newObj[transformedKey] = convertKeysToSnakeCase(obj[key]);
         }
       }
@@ -742,6 +742,16 @@ export function joinPaths(parameters?: any[]): string {
 export function removeProperty(obj: any, prop: string): void {
   if (obj.hasOwnProperty(prop)) {
     delete obj[prop];
+  }
+}
+
+export function removeProperties(obj: any, props: string[]): void {
+  if (Array.isArray(props)) {
+    props.forEach((prop: string): void => {
+      if (obj.hasOwnProperty(prop)) {
+        delete obj[prop];
+      }
+    });
   }
 }
 

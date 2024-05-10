@@ -38,5 +38,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [AWS - Static hosting using S3, CloudFront, and Route53](https://velog.io/@seongkyun/AWS-S3-CloudFront-Route53%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%A0%95%EC%A0%81-%ED%98%B8%EC%8A%A4%ED%8C%85) by [Seongkyun Yu](https://velog.io/@seongkyun/posts)
 - [How to use a custom domain with CloudFront and Route53](https://advancedweb.hu/how-to-use-a-custom-domain-with-cloudfront-and-route53/) by [Tamás](https://github.com/sashee)
 - [AWS S3로 이미지 배포하기](https://velog.io/@junho5336/AWS-S3-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0) by [주노](https://velog.io/@junho5336/posts)
+- [github pr approve slack notification settings](https://velog.io/@gth1123/github-pr-approve-%EC%8A%AC%EB%9E%99-%EC%95%8C%EB%A6%BC-%EC%84%A4%EC%A0%95) by [Tony](https://velog.io/@gth1123/posts)
+
 
 

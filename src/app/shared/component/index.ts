@@ -18,3 +18,4 @@ export * from './discussion/reply/reply.component';
 export * from './video/create-video/create-video.component';
 export * from './video/homepage-videos/homepage-videos.component';
 export * from './video/homepage-video/homepage-video.component';
+export * from './entries/no-entries/no-entries.component';

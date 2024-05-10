@@ -6,6 +6,7 @@ import {AnyObject} from "@app/model/type";
 import {ErrorResponse} from "@app/model/response";
 import {ErrorType} from "@app/model/enum";
 import {ANY_EMPTY, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
+import {ActivatedRoute} from "@angular/router";
 
 /**
  * Abstract base component for form-related functionality.
@@ -34,11 +35,27 @@ export abstract class BaseFormComponent extends BaseComponent {
   /** Abstract property for the FormBuilder, to be implemented by child classes. */
   protected abstract formBuilder: FormBuilder;
 
+  /** The ID of the entry being updated. */
+  public entryId: number | string = 0;
+
   public isSendingVerificationCode: boolean = false;
 
   protected hideOldPassword: boolean = true;
   protected hideNewPassword: boolean = true;
   protected hideConfirmPassword: boolean = true;
+
+  public setEntryId(): string | number | null {
+    this.entryId = this.getRoute().snapshot.paramMap.get('id') || 0;
+    return this.entryId;
+  }
+
+  protected override initDetails(): void {
+    this.setEntryId();
+  }
+
+  protected override getRoute(): ActivatedRoute {
+    return ANY_EMPTY;
+  }
 
 
   /**
@@ -427,6 +444,10 @@ export abstract class BaseFormComponent extends BaseComponent {
    */
   protected disableIsSendingVerificationCode(): void {
     this.isSendingVerificationCode = false;
+  }
+
+  get payload(): any {
+    return this.fleenForm.value;
   }
 
   public togglePasswordVisibility(fieldName: string): void {

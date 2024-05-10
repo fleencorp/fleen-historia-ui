@@ -63,7 +63,7 @@
   font-family: 'Roboto'
 }
 
-b {
+b, .bold {
   font-family: "Roboto Bold"
 }
 
@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 10px;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+/*h1, h2, h3, h4, h5, h6, */p {
   padding-left: 15px;
 }
 
@@ -139,6 +139,10 @@ table#entries tr:hover {
   background-color: #f9f9f9;
 }
 
+table#entries td button {
+  margin: 0 5px;
+}
+
 .clear {
   clear: both;
 }
@@ -181,7 +185,7 @@ button {
   text-align: center;
   color: white;
   background-color: #0986e1;
-  border-radius: 8px;
+  border-radius: 12px;
   border-bottom: 3px solid #5dcdfc;
   margin: 10px;
 }
@@ -194,7 +198,7 @@ input, textarea, select {
   padding: 10px;
   display: block;
   margin-top: 10px;
-  border-radius: 8px;
+  border-radius: 12px;
   border: 2px solid #e0e0e0;
   resize: vertical;
   width: 100%;
@@ -222,6 +226,13 @@ input, textarea, select {
     display: block;
     float: none !important;
     clear: both !important;
+  }
+
+  #status-btn-wrapper button {
+    display: inline-block;
+    width: 100px !important;
+    border-radius: 12px;
+    height: 37px;
   }
 
 }

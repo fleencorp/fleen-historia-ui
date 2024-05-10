@@ -44,6 +44,7 @@ import {BaseModule} from "@app/base/base.module";
   ],
   providers: [
     AdminYoutubeService
-  ]
+  ],
+  exports: []
 })
 export class AdminYoutubeModule { }

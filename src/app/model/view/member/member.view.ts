@@ -3,7 +3,6 @@ import {Gender, MfaType, UserType} from "@app/model/enum";
 import {FleenBaseView} from "@app/model/view";
 
 export class MemberView extends FleenBaseView {
-
   public readonly firstName: string;
   public readonly lastName: string;
   public readonly emailAddress: string;
@@ -21,20 +20,19 @@ export class MemberView extends FleenBaseView {
 
   public constructor(data: MemberView) {
     super(data);
-    this.firstName = data?.firstName;
-    this.lastName = data?.lastName;
-    this.emailAddress = data?.emailAddress;
-    this.phoneNumber = data?.phoneNumber;
-    this.profilePhoto = data?.profilePhoto;
-    this.mfaEnabled = data?.mfaEnabled;
+    this.firstName = data?.firstName ?? '';
+    this.lastName = data?.lastName ?? '';
+    this.emailAddress = data?.emailAddress ?? '';
+    this.phoneNumber = data?.phoneNumber ?? '';
+    this.profilePhoto = data?.profilePhoto ?? '';
+    this.mfaEnabled = data?.mfaEnabled ?? null;
     this.mfaType = data?.mfaType;
-    this.profileVerificationStatus = data?.profileVerificationStatus;
+    this.profileVerificationStatus = data?.profileVerificationStatus ?? '';
     this.userType = data?.userType;
     this.gender = data?.gender;
     this.dateOfBirth = data?.dateOfBirth ? new Date(data.dateOfBirth) : new Date();
-    this.emailAddressVerified = data?.emailAddressVerified;
-    this.phoneNumberVerified = data?.phoneNumberVerified;
+    this.emailAddressVerified = data?.emailAddressVerified ?? false;
+    this.phoneNumberVerified = data?.phoneNumberVerified ?? false;
     this.memberStatus = data?.memberStatus ? new MemberStatusView(data.memberStatus) : data?.memberStatus;
   }
-
 }

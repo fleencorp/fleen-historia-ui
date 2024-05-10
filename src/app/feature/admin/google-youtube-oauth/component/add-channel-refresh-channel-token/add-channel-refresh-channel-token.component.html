@@ -1,0 +1,64 @@
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+<ng-container *ngIf="isFormReady">
+
+  <ng-container>
+    <button (click)="goBack()" class="back-button"><fa-icon [icon]="faArrowLeft"></fa-icon></button>
+  </ng-container>
+
+  <form class="col-55">
+    <p id="authorization-uri-box" (click)="copyAuthorizationUriToClipboard()">
+      {{ isAuthorizationUriAvailable }}
+      <span id="clipboard-icon">
+        <fa-icon [icon]="faCopy"></fa-icon>
+      </span>
+    </p>
+
+    <div class="form-group">
+      <button type="button" class="fright"
+              *ngIf="!isGettingAuthorizationUriCompleted"
+              [disabled]="isGettingAuthorizationUri"
+              (click)="getAuthorizationUriForClientCredential()">Start Authentication
+        <app-submit-loading-icon [is-submitting]="isGettingAuthorizationUri"></app-submit-loading-icon>
+      </button>
+      <app-success-button [is-form-completed]="isGettingAuthorizationUriCompleted"></app-success-button>
+    </div>
+
+    <div class="form-group" *ngIf="isAuthorizationUriAvailable">
+      <button type="button" class="fright"
+              (click)="redirectAndStartAuthorizationWithoutHistory()">Start Authorization
+        <fa-icon [icon]="faArrowRight"></fa-icon>
+      </button>
+    </div>
+  </form>
+
+
+  <div id="verify-authorization-code-wrapper">
+    <form class="col-55" *ngIf="isFormReady">
+
+      <div class="form-group">
+        <label for="authorization_code">Authorization Code:</label>
+        <input class="col-100" type="text" [formControl]="authorizationCodeCtrl" id="authorization_code"/>
+        <app-validation-error [control]="authorizationCodeCtrl" [control-label]="'Authorization Code'"></app-validation-error>
+      </div>
+
+      <div class="form-group">
+        <button type="button" class="fright"
+                *ngIf="!isVerifyingAuthorizationCodeCompleted"
+                [disabled]="isVerifyingAuthorizationCode"
+                (click)="verifyAuthorizationCodeAndAddChannelOrRefreshToken()">Verify Authorization Code
+          <app-submit-loading-icon [is-submitting]="isVerifyingAuthorizationCode"></app-submit-loading-icon>
+        </button>
+
+        <app-success-button [is-form-completed]="isVerifyingAuthorizationCodeCompleted"></app-success-button>
+      </div>
+
+    </form>
+
+  </div>
+
+  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+</ng-container>
+
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

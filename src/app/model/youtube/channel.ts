@@ -5,15 +5,14 @@ export class Channel {
   public readonly snippet: ChannelSnippet;
 
   public constructor(data: Channel) {
-    this.etag = data?.etag;
-    this.id = data?.id;
-    this.kind = data?.kind;
+    this.etag = data?.etag ?? '';
+    this.id = data?.id ?? '';
+    this.kind = data?.kind ?? '';
     this.snippet = new ChannelSnippet(data?.snippet);
   }
 }
 
-class ChannelSnippet {
-
+export class ChannelSnippet {
   public readonly country: string;
   public readonly customUrl: string;
   public readonly defaultLanguage: string;
@@ -26,12 +25,12 @@ class ChannelSnippet {
   public readonly status: ChannelStatus;
 
   public constructor(data: ChannelSnippet) {
-    this.country = data?.country;
-    this.customUrl = data?.customUrl;
-    this.defaultLanguage = data?.defaultLanguage;
-    this.description = data?.description;
+    this.country = data?.country ?? '';
+    this.customUrl = data?.customUrl ?? '';
+    this.defaultLanguage = data?.defaultLanguage ?? '';
+    this.description = data?.description ?? '';
     this.publishedAt = data?.publishedAt ? new Date(data.publishedAt) : new Date();
-    this.title = data?.title;
+    this.title = data?.title ?? '';
     this.localized = new ChannelLocalization(data?.localized);
     this.thumbnails = new ThumbnailDetails(data?.thumbnails);
     this.statistics = new ChannelStatistics(data?.statistics);
@@ -39,9 +38,7 @@ class ChannelSnippet {
   }
 }
 
-
 export class ThumbnailDetails {
-
   public readonly default: Thumbnail;
   public readonly high: Thumbnail;
   public readonly maxres: Thumbnail;
@@ -57,31 +54,29 @@ export class ThumbnailDetails {
   }
 }
 
-class Thumbnail {
+export class Thumbnail {
   public readonly height: number;
   public readonly url: string;
   public readonly width: number;
 
   public constructor(data: Thumbnail) {
-    this.height = data?.height;
-    this.url = data?.url;
-    this.width = data?.width;
+    this.height = data?.height ?? 0;
+    this.url = data?.url ?? '';
+    this.width = data?.width ?? 0;
   }
 }
 
-class ChannelLocalization {
-
+export class ChannelLocalization {
   public readonly description: string;
   public readonly title: string;
 
   public constructor(data: ChannelLocalization) {
-    this.description = data?.description;
-    this.title = data?.title;
+    this.description = data?.description ?? '';
+    this.title = data?.title ?? '';
   }
 }
 
-class ChannelStatistics {
-
+export class ChannelStatistics {
   public readonly commentCount: number;
   public readonly hiddenSubscriberCount: number;
   public readonly subscriberCount: number;
@@ -89,15 +84,15 @@ class ChannelStatistics {
   public readonly viewCount: number;
 
   public constructor(data: ChannelStatistics) {
-    this.commentCount = data?.commentCount;
-    this.hiddenSubscriberCount = data?.hiddenSubscriberCount;
-    this.subscriberCount = data?.subscriberCount;
-    this.videoCount = data?.videoCount;
-    this.viewCount = data?.viewCount;
+    this.commentCount = data?.commentCount ?? 0;
+    this.hiddenSubscriberCount = data?.hiddenSubscriberCount ?? 0;
+    this.subscriberCount = data?.subscriberCount ?? 0;
+    this.videoCount = data?.videoCount ?? 0;
+    this.viewCount = data?.viewCount ?? 0;
   }
 }
 
-class ChannelStatus {
+export class ChannelStatus {
   public readonly isLinked: boolean;
   public readonly longUploadsStatus: string;
   public readonly madeForKids: boolean;
@@ -105,10 +100,10 @@ class ChannelStatus {
   public readonly selfDeclaredMadeForKids: boolean;
 
   public constructor(data: ChannelStatus) {
-    this.isLinked = data?.isLinked;
-    this.longUploadsStatus = data?.longUploadsStatus;
-    this.madeForKids = data?.madeForKids;
-    this.privacyStatus = data?.privacyStatus;
-    this.selfDeclaredMadeForKids = data?.selfDeclaredMadeForKids;
+    this.isLinked = data?.isLinked ?? false;
+    this.longUploadsStatus = data?.longUploadsStatus ?? '';
+    this.madeForKids = data?.madeForKids ?? false;
+    this.privacyStatus = data?.privacyStatus ?? '';
+    this.selfDeclaredMadeForKids = data?.selfDeclaredMadeForKids ?? false;
   }
 }

@@ -58,7 +58,7 @@ export class AdminYoutubeService {
   }
 
   public verifyAuthorizationCodeAndInitializeCredentials(authorizationCode: string): Observable<YouTubeApiAfterAuthenticationResponse> {
-    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'verify-authorization-code'], {code: authorizationCode});
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'verify-authorization-code'], { code: authorizationCode });
     return this.httpService.get(req, YouTubeApiAfterAuthenticationResponse);
   }
 }

@@ -79,13 +79,20 @@ export abstract class BaseAddComponent<D, R> extends BaseFormComponent {
 
       // Disable form submission and reset error message
       this.disableSubmittingAndResetErrorMessage();
+      this.clearAllMessages();
 
-      this.$saveEntry(this.fleenForm.value)
+      this.$saveEntry(this.payload)
         .subscribe({
-          next: (result: R): void => { this.formCompleted(async (): Promise<void> => { await this.goToEntries(); }) },
-          error: (result: ErrorResponse): void => { this.handleError(result); },
-          // Upon successful saving, enable form submission and navigate to entries page
-          complete: async (): Promise<void> => { this.enableSubmitting(); }
+          next: (result: R): void => {
+            this.formCompleted(async (): Promise<void> => {
+              await this.goToEntries();
+              this.enableSubmitting();
+            });
+          },
+          error: (result: ErrorResponse): void => {
+            this.handleError(result);
+            this.enableSubmitting();
+          },
       });
     }
   }

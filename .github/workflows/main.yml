@@ -54,3 +54,18 @@ jobs:
 
       - name: clear cache
         run: aws cloudfront create-invalidation --distribution-id "${{ secrets.DEV_CLOUDFRONT_DISTRIBUTION_ID }}" --paths "/*"
+
+
+  action-slack:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Slack Alarm
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: Fleen Historia
+          fields: repo,message,commit,author,ref,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.

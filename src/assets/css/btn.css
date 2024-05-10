@@ -129,7 +129,7 @@
   padding: 8px 12px; /* Adjust button padding */
   cursor: pointer; /* Show pointer cursor on hover */
   color: #fff; /* Text color for the buttons */
-  border-radius: 4px; /* Add some border radius for rounded corners */
+  border-radius: 12px; /* Add some border radius for rounded corners */
   font-weight: bold;
   margin-right: 10px;
   border: 3px solid #07a4dc; /* Remove button border */

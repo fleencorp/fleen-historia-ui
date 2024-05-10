@@ -89,7 +89,7 @@ export class CommentComponent extends BaseEntriesComponent<any> implements OnIni
     replyState.clearErrors();
     if (isFalsy(replyState.isSubmitting) && replyState.replyContent.valid) {
       replyState.disableSubmitting();
-      replyState.clearMessage();
+      replyState.clearMessages();
 
       this.contributorService
         .replyToComment(comment.fleenVideo.fleenVideoId, comment.commentId, { content: replyState.replyContent.value })

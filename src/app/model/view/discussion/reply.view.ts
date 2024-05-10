@@ -4,7 +4,6 @@ import {FleenBaseView} from "@app/model/view";
 import {CommentView} from "@app/model/view/discussion";
 
 export class ReplyView extends FleenBaseView {
-
   public readonly replyId: number;
   public readonly comment: CommentView;
   public readonly fleenVideo: FleenVideoView;
@@ -13,10 +12,10 @@ export class ReplyView extends FleenBaseView {
 
   public constructor(data: ReplyView) {
     super(data);
-    this.replyId = data?.replyId;
+    this.replyId = data?.replyId ?? 0;
     this.comment = data?.comment ? new CommentView(data.comment) : data?.comment;
     this.fleenVideo = data?.fleenVideo ? new FleenVideoView(data.fleenVideo) : data?.fleenVideo;
     this.member = data?.member ? new MemberView(data.member) : data?.member;
-    this.content = data?.content;
+    this.content = data?.content ?? '';
   }
 }

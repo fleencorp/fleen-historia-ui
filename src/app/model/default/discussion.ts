@@ -7,9 +7,11 @@ export const defaultReplyState: ReplyState = {
   isSubmitting: false,
   isSubmittingSuccessful: false,
   message: '',
+  errorMessage: '',
   replyContent: new FormControl<any>('', [required, maxLength(3000)]),
-  clearMessage: function (): void {
+  clearMessages: function (): void {
     this.message = '';
+    this.errorMessage = '';
   },
   hideForm: function (): void {
     this.showForm = false;

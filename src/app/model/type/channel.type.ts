@@ -3,3 +3,9 @@ export type CreateChannelPayload = {
   description?: string;
   channelExternalId: string;
 }
+
+export type UpdateChannelPayload = {
+  title: string;
+  description?: string;
+  isActive: boolean;
+}

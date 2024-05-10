@@ -21,12 +21,16 @@ export const SEARCH_FILTER_ALL_DATE: SearchFilter[] = [
   { key: BEFORE_DATE_SEARCH_KEY, type: DATE_TYPE, label: BEFORE_DATE_SEARCH_LABEL }
 ];
 
+export const SEARCH_FILTER_DEFAULT: SearchFilter[] = [
+  { key: NO_INPUT_KEY, label: '' },
+  { key: BETWEEN_DATE_SEARCH_KEY, type: BETWEEN_DATE_TYPE, label: BETWEEN_DATE_SEARCH_LABEL },
+]
+
 /**
  * Search filters for searching with between date option.
  */
 export const SEARCH_FILTER_BETWEEN_DATE: SearchFilter[] = [
-  { key: NO_INPUT_KEY, label: '' },
-  { key: BETWEEN_DATE_SEARCH_KEY, type: BETWEEN_DATE_TYPE, label: BETWEEN_DATE_SEARCH_LABEL },
+  ...SEARCH_FILTER_DEFAULT
 ];
 
 /**
@@ -41,3 +45,13 @@ export const SEARCH_FILTER_VIEW_FLEEN_VIDEOS: SearchFilter[] = [
 export const SEARCH_FILTER_VIEW_USER_FLEEN_VIDEOS: SearchFilter[] = [
   { key: 'title', label: 'Title' },
 ];
+
+export const SEARCH_FILTER_VIEW_CATEGORIES: SearchFilter[] = [
+  ...SEARCH_FILTER_BETWEEN_DATE,
+  { key: 'title', label: 'Title' },
+];
+
+export const SEARCH_FILTER_VIEW_CHANNEL: SearchFilter[] = [
+  { key: 'title', label: 'Title' },
+];
+

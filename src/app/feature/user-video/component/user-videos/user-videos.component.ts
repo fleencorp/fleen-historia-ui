@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FleenVideoView} from "@app/model/view/video";
 import {AnyObject, DeleteIdsPayload, SearchFilter} from "@app/model/type";
-import {SEARCH_FILTER_VIEW_FLEEN_VIDEOS} from "@app/constant/search-filter.const";
+import {SEARCH_FILTER_VIEW_USER_FLEEN_VIDEOS} from "@app/constant/search-filter.const";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {Location} from "@angular/common";
@@ -21,7 +21,7 @@ import {VideoStatus} from "@app/model/enum";
 export class UserVideosComponent extends BaseVideosComponent implements OnInit {
 
   public override entries: FleenVideoView[] = [];
-  public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_FLEEN_VIDEOS;
+  public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_USER_FLEEN_VIDEOS;
 
   public constructor(
       protected userVideoService: UserVideoService,

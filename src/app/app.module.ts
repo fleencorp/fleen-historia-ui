@@ -1,4 +1,4 @@
-import {NgModule, isDevMode} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -14,7 +14,6 @@ import {UserVideoService} from "@app/feature/user-video/service";
 import {ContributorService} from "@app/feature/contributor/service";
 import {CommonModule} from "@angular/common";
 import {SharedComponentModule} from "@app/shared/component/shared-component.module";
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -31,12 +30,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     SharedServiceModule,
     SharedComponentModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
+/*    ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    })*/
   ],
   providers: [
     AuthenticationService,

@@ -1,3 +1,5 @@
+import {FormControl} from "@angular/forms";
+
 /**
  * @typedef AnyArray
  * @description
@@ -128,3 +130,19 @@ export type PaginationToken = {
   prev_page_token?: string;
 }
 
+
+
+export interface FeatureState {
+  showForm: boolean;
+  isSubmitting: boolean;
+  isSubmittingSuccessful: boolean;
+  message: string;
+  errorMessage: string;
+  clearMessages: () => void;
+  hideForm: () => void;
+  enableSubmitting: () => void;
+  disableSubmitting: () => void;
+  enableIsSubmittingSuccessful: () => void;
+  disableIsSubmittingSuccessful: () => void;
+  clearErrors: () => void;
+}

@@ -428,6 +428,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    */
   protected getEntries(cb?: Function): void {
     const id: string | null = this.route.snapshot.paramMap.get('id');
+    this.entryId = id ?? this.entryId;
     this.clearAllMessages();
 
     // Prepare search parameters
@@ -450,17 +451,16 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
           // Initialize component properties with the search result
           this.initResult(result);
           this.invokeCallback(cb);
+          this.enableSubmitting();
+          this.disableInProgressTasks();
+          this.disableLoading();
         },
         error: (): void => {
           // Handle error by clearing entries and enabling form submission
           this.handleError();
           this.entries = [];
           this.disableInProgressTasks();
-        },
-        complete: (): void => {
-          // Enable form submission when search operation is complete
           this.enableSubmitting();
-          this.disableInProgressTasks();
           this.disableLoading();
         }
     });

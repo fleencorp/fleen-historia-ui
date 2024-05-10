@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {AuthTokenService} from "@app/base/service";
 import {
   faBars,
-  faCamera,
+  faCamera, faPlay,
   faShield,
   faUser,
   faVideo,
@@ -33,4 +33,5 @@ export class DashboardComponent {
   protected readonly faBars: IconDefinition = faBars;
   protected readonly faVideoCamera: IconDefinition = faVideoCamera;
   protected readonly faCamera: IconDefinition = faCamera;
+  protected readonly faPlay = faPlay;
 }

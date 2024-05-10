@@ -5,3 +5,4 @@ export * from './discussion.type';
 export * from './file.type';
 export * from './http.type';
 export * from './video.type';
+export * from './youtube-oauth.type';

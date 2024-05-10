@@ -1,6 +1,6 @@
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <form *ngIf="isFormReady" [formGroup]="videoForm" (ngSubmit)="updateVideo()" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
-  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
   <div class="form-group">
     <label for="title">Title</label>
@@ -75,5 +75,7 @@
   </div>
 
 </form>
+
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

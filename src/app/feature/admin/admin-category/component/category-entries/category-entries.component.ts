@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseEntriesComponent} from "@app/base/component";
 import {AnyObject, DeleteIdsPayload, SearchFilter} from "@app/model/type";
-import {SEARCH_FILTER_VIEW_FLEEN_VIDEOS} from "@app/constant/search-filter.const";
+import {SEARCH_FILTER_VIEW_CATEGORIES, SEARCH_FILTER_VIEW_FLEEN_VIDEOS} from "@app/constant/search-filter.const";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {Observable} from "rxjs";
@@ -20,7 +20,7 @@ import {AdminCategoryService} from "@app/feature/admin/admin-category/service";
 export class CategoryEntriesComponent extends BaseEntriesComponent<CategoryView> implements OnInit {
 
   public override entries: CategoryView[] = [];
-  public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_FLEEN_VIDEOS;
+  public override searchFilter: SearchFilter[] = SEARCH_FILTER_VIEW_CATEGORIES;
 
   public constructor(
       protected categoryService: AdminCategoryService,

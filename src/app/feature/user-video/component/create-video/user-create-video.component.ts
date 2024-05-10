@@ -11,7 +11,8 @@ import {SearchResultView} from "@app/model/view";
 import {ErrorResponse} from "@app/model/response";
 import {
   faArrowLeft,
-  faArrowRight, faFaceSmile, faFire,
+  faFaceSmile,
+  faFire,
   faPlus,
   faSearch,
   faSpinner,
@@ -67,10 +68,6 @@ export class UserCreateVideoComponent extends BaseCreateVideoComponent implement
     this.isCreateVideoStage = true;
   }
 
-  public async resetSearch(): Promise<void> {
-    this.queryControl.patchValue('');
-  }
-
   public goBack(): void {
     this.isCreateVideoStage = false;
     this.isVideoCreated = false;
@@ -85,7 +82,6 @@ export class UserCreateVideoComponent extends BaseCreateVideoComponent implement
 
   protected readonly faSpinner: IconDefinition = faSpinner;
   protected readonly faSearch: IconDefinition = faSearch;
-  protected readonly faArrowRight: IconDefinition = faArrowRight;
   protected readonly faPlus: IconDefinition = faPlus;
   protected readonly faArrowLeft: IconDefinition = faArrowLeft;
   protected readonly faFaceSmile: IconDefinition = faFaceSmile;

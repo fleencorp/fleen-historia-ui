@@ -38,3 +38,12 @@ export class SubmitReplyResponse extends FleenResponse {
     this.reply = data?.reply;
   }
 }
+
+
+export class ChannelExistsResponse {
+  public readonly exists: boolean;
+
+  constructor(data: ChannelExistsResponse) {
+    this.exists = data?.exists;
+  }
+}

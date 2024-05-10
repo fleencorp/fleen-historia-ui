@@ -693,3 +693,78 @@ import {EntityExistsResponse} from "@app/model/response/common";
       return null;
     }
   }
+
+
+/**
+ * Validates whether the provided value is a valid URL.
+ * @param control The form control to validate.
+ * @returns A `ValidationErrors` object if the URL is invalid, otherwise `null`.
+ */
+export function urlValidator(control: AbstractControl): ValidationErrors | null {
+  // If no value is provided, consider it valid
+  if (!control.value) {
+    return null;
+  }
+  // Regular expression pattern to match URLs with http, https, or ftp protocols
+  const urlPattern: RegExp = /^(ftp|http|https):\/\/[^ "]+$/;
+  // Check if the value matches the URL pattern
+  if (!urlPattern.test(control.value)) {
+    // Return an error object indicating invalid URL format
+    return { invalidUrl: true };
+  }
+  // Return null if the URL format is valid
+  return null;
+}
+
+export function urlValid(): ValidatorFn {
+  return urlValidator;
+}
+
+/**
+ * Validates whether the provided value is a comma-separated list of valid URLs.
+ * @param control The form control to validate.
+ * @returns A `ValidationErrors` object if the list of URLs is invalid, otherwise `null`.
+ * @example
+ * // Returns null if the input is an empty string or a valid URL list:
+ * urlListValidator(new FormControl('')); // null
+ * urlListValidator(new FormControl('http://example.com,https://example.org')); // null
+ *
+ * // Returns an error object if the input contains an invalid URL or is not a comma-separated list:
+ * urlListValidator(new FormControl('invalid-url')); // { invalidUrlList: true }
+ * urlListValidator(new FormControl('http://example.com,invalid-url')); // { invalidUrlList: true }
+ */
+export function urlListValidator(control: AbstractControl): ValidationErrors | null {
+  if (!control.value) {
+    return null; // If no value is provided, return null (valid)
+  }
+  // Split the string into an array of URLs using comma as the delimiter
+  const urls: string[] = control.value.split(',');
+  // Regular expression pattern to match URLs with http, https, or ftp protocols
+  const urlPattern: RegExp = /^(ftp|http|https):\/\/[^ "]+$/;
+  // Check each URL in the array
+  for (const url of urls) {
+    if (!urlPattern.test(url.trim())) {
+      // If any URL in the list is invalid, return an error object
+      return { invalidUrlList: true };
+    }
+  }
+
+  return null; // If all URLs in the list are valid, return null (valid)
+}
+
+
+/**
+ * Custom validator function to ensure the value is either true or false.
+ * @returns A validator function that returns an error if the value is not true or false.
+ */
+export function booleanValid(acceptedValues: string[] = ['true', 'false']): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+
+    if (!acceptedValues.includes(value)) {
+      return { boolean: true }; // Return an error if the value is neither true nor false
+    }
+
+    return null; // Return null if the value is valid
+  };
+}

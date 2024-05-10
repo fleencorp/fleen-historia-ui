@@ -4,7 +4,6 @@ import {FleenVideoView} from "@app/model/view/video";
 import {MemberView} from "@app/model/view/member";
 
 export class VideoReviewView extends FleenBaseView {
-
   public readonly videoReviewId: number;
   public readonly fleenVideo: FleenVideoView;
   public readonly member: MemberView;
@@ -13,10 +12,10 @@ export class VideoReviewView extends FleenBaseView {
 
   public constructor(data: VideoReviewView) {
     super(data);
-    this.videoReviewId = data?.videoReviewId;
-    this.fleenVideo = data?.fleenVideo ? new FleenVideoView(data?.fleenVideo) : data?.fleenVideo;
-    this.member = data?.member ? new MemberView(data?.member) : data?.member;
+    this.videoReviewId = data?.videoReviewId ?? 0;
+    this.fleenVideo = data?.fleenVideo ? new FleenVideoView(data.fleenVideo) : data?.fleenVideo;
+    this.member = data?.member ? new MemberView(data.member) : data?.member;
     this.videoReviewStatus = data?.videoReviewStatus;
-    this.comment = data?.comment;
+    this.comment = data?.comment ?? '';
   }
 }

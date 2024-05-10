@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'contributor', loadChildren: () => import('./feature/contributor/contributor.module').then(m => m.ContributorModule), canActivate: [AuthGuard] },
   { path: 'admin-youtube', loadChildren: () => import('./feature/admin/admin-youtube/admin-youtube.module').then(m => m.AdminYoutubeModule), canActivateChild: [AuthGuard, AuthRoleGuard] },
   { path: 'admin-video', loadChildren: () => import('./feature/admin/admin-video/admin-video.module').then(m => m.AdminVideoModule), canActivateChild: [AuthGuard, AuthRoleGuard] },
+  { path: 'google-youtube-oauth', loadChildren: () => import('./feature/admin/google-youtube-oauth/google-youtube-oauth.module').then(m => m.GoogleYoutubeOauthModule), canActivateChild: [AuthGuard, AuthRoleGuard] },
   { path: 'forbidden', component: ForbiddenComponent },
   { path: "**", component: FleenComgroupComponent }
 ];

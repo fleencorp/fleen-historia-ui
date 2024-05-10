@@ -1,6 +1,6 @@
 import {ErrorResponse} from "@app/model/response";
 import {ANY_EMPTY, COPIED_MESSAGE, DEFAULT_ERROR_MESSAGE, ERR_CONNECTION_REFUSED_MESSAGE} from "@app/constant";
-import {NavigationExtras, Router} from "@angular/router";
+import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {BASE_PATH} from "@app/constant/config.const";
 import {isTruthy, nonNull} from "@app/shared/helper";
 import {ChangeDetectorRef} from "@angular/core";
@@ -49,6 +49,10 @@ export abstract class BaseComponent {
 
   /** Abstract method to get the Router instance, to be implemented by child classes. */
   protected abstract getRouter(): Router;
+
+  protected abstract getRoute(): ActivatedRoute;
+
+  protected abstract initDetails(): void;
 
   /** Abstract method to get the Change Detector instance, to be implemented by child classes. */
   protected getChangeDetector(): ChangeDetectorRef {

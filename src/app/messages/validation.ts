@@ -79,5 +79,11 @@ export const validationErrorMessages: { [key: string]: Function } = {
 
   overlappingPeriods: (): string => `Two session period cannot overlap each other.`,
 
-  custom: (): string => `An error has occurred`
+  custom: (): string => `An error has occurred`,
+
+  invalidUrl: (control: AbstractControl | any, label: string): string => `${label} '${control.value}' is not a valid URL.`,
+
+  invalidUrlList: (control: AbstractControl | any, label: string): string => `${label} '${control.value}' is not a valid URL. Good example http://example.com,http://example.org,`,
+
+  boolean: (control: AbstractControl | any, label: string): string => `${label} '${control.value}' is not a valid true or false.`,
 };

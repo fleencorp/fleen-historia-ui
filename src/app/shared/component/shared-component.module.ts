@@ -10,6 +10,7 @@ import {
   HomepageVideoComponent,
   HomepageVideosComponent,
   LoadingSpinnerComponent,
+  NoEntriesComponent,
   PaginationComponent,
   ReplyComponent,
   RowEntryOptionComponent,
@@ -52,6 +53,7 @@ const components: AnyArray = [
   CreateVideoComponent,
   HomepageVideosComponent,
   HomepageVideoComponent,
+  NoEntriesComponent
 ]
 
 @NgModule({

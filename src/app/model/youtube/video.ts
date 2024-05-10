@@ -17,7 +17,6 @@ export class SearchResult {
 }
 
 class SearchResultSnippet {
-
   public readonly channelId: string;
   public readonly channelTitle: string;
   public readonly description: string;
@@ -26,11 +25,11 @@ class SearchResultSnippet {
   public readonly thumbnails: ThumbnailDetails;
 
   public constructor(data: SearchResultSnippet) {
-    this.channelId = data?.channelId;
-    this.channelTitle = data?.channelTitle;
-    this.description = data?.description;
-    this.publishedAt = data?.publishedAt ? new Date(data?.publishedAt) : new Date();
-    this.title = data?.title;
+    this.channelId = data?.channelId ?? '';
+    this.channelTitle = data?.channelTitle ?? '';
+    this.description = data?.description ?? '';
+    this.publishedAt = data?.publishedAt ? new Date(data.publishedAt) : new Date();
+    this.title = data?.title ?? '';
     this.thumbnails = new ThumbnailDetails(data?.thumbnails);
   }
 }
