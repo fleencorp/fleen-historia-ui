@@ -146,3 +146,8 @@ export interface FeatureState {
   disableIsSubmittingSuccessful: () => void;
   clearErrors: () => void;
 }
+
+export type EnumView = {
+  name: string;
+  label: string;
+}

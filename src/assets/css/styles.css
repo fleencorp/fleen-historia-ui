@@ -75,8 +75,8 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 10px;
 }
 
-/*h1, h2, h3, h4, h5, h6, */p {
-  padding-left: 15px;
+h1, h2, h3, h4, h5, h6, p {
+  padding-left: 5px;
 }
 
 p {
@@ -168,7 +168,7 @@ label, input, select {
 }
 
 form {
-  padding: 10px;
+  padding: 0;
   width: 100%;
 }
 
@@ -204,6 +204,12 @@ input, textarea, select {
   width: 100%;
 }
 
+input[type=radio], input[type=checkbox] {
+  margin: 0 0 15px 15px;
+  width: 20px;
+  display: inline-block;
+}
+
 .form-group:after, button:after, div:after {
   clear: both;
   content: "";
@@ -221,8 +227,8 @@ input, textarea, select {
 @media screen and (max-width: 600px) {
 
   button {
-    width: 100% !important;
-    height: 45px;
+/*    width: 100% !important;*/
+    height: 37px;
     display: block;
     float: none !important;
     clear: both !important;

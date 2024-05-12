@@ -49,25 +49,26 @@
       <th class="center"></th>
     </tr>
     </thead>
-    <tbody>
-    <tr *ngFor="let video of entries; let i = index; trackBy: trackByFn">
-      <td class="center">{{ addOneToIndex(i) }}</td>
-      <td>{{video.videoTitle}}</td>
-      <td>{{ video.channel.title }}</td>
-      <td class="center">{{ video.videoStatus }}</td>
-      <td class="center">{{ video.updatedOn | date:'mediumDate' }}</td>
-      <app-row-entry-option [entry-id]="video.fleenVideoId"
-                            [can-check]="true"
-                            [can-delete]="true"
-                            [can-update]="true"
-                            [is-deleting]="isDeletingEntry"
-                            [delete-id]="deletedId"
 
-                            (detailClicked)="viewDetail(video.fleenVideoId)"
-                            (updateClicked)="updateEntry(video.fleenVideoId)"
-                            (deleteClicked)="deleteEntry(video.fleenVideoId)"
-                            (checkedChanged)="handleChecked(video.fleenVideoId, $event)"></app-row-entry-option>
-    </tr>
+    <tbody>
+      <tr *ngFor="let video of entries; let i = index; trackBy: trackByFn">
+        <td class="center">{{ addOneToIndex(i) }}</td>
+        <td>{{video.videoTitle}}</td>
+        <td>{{ video.channel.title }}</td>
+        <td class="center">{{ video.videoStatus }}</td>
+        <td class="center">{{ video.updatedOn | date:'mediumDate' }}</td>
+        <app-row-entry-option [entry-id]="video.fleenVideoId"
+                              [can-check]="true"
+                              [can-delete]="true"
+                              [can-update]="true"
+                              [is-deleting]="video.deleteStatus"
+                              [delete-id]="video.fleenVideoId"
+
+                              (detailClicked)="viewDetail(video.fleenVideoId)"
+                              (updateClicked)="updateEntry(video.fleenVideoId)"
+                              (deleteClicked)="deleteEntry(video, video.fleenVideoId)"
+                              (checkedChanged)="handleChecked(video.fleenVideoId, $event)"></app-row-entry-option>
+      </tr>
     </tbody>
 
   </table>

@@ -24,12 +24,23 @@
       </li>
       <ng-container *ngIf="isAdmin">
         <li>
+          <a [routerLink]="['..', 'admin-member']" routerLinkActive="active">
+            <fa-icon [icon]="faUser"></fa-icon>
+            Admin Member
+            <fa-icon [icon]="faList"></fa-icon>
+          </a>
+        </li>
+        <li>
           <a [routerLink]="['..', 'admin-youtube']" routerLinkActive="active">Admin YouTube
             <fa-icon [icon]="faVideoCamera"></fa-icon></a>
         </li>
         <li>
           <a [routerLink]="['..', 'admin-video']" routerLinkActive="active">Admin Video
             <fa-icon [icon]="faCamera"></fa-icon></a>
+        </li>
+        <li>
+          <a [routerLink]="['..', 'admin-category']" routerLinkActive="active">Admin Category
+            <fa-icon [icon]="faList"></fa-icon></a>
         </li>
         <li>
           <a [routerLink]="['..', 'google-youtube-oauth']" routerLinkActive="active">Google YouTube Oauth

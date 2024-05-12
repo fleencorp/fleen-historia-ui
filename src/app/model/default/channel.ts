@@ -17,7 +17,7 @@ export const defaultChannelState: ChannelState = {
     console.log(channel);
     this.form = (<FormBuilder>formBuilder).group({
       description: [channel.description, [maxLength(3000)]],
-      isActive: [channel.isActive, [required, booleanValid()]]
+      isActive: [String(channel.isActive), [required, booleanValid()]]
     });
   },
   clearMessages: function (): void {

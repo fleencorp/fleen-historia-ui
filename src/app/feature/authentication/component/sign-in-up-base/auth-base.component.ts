@@ -293,7 +293,7 @@ export abstract class AuthBaseComponent extends BaseFormComponent {
    * @private
    * @memberof YourComponent
    */
-  private getUserDestinationPage(): string {
+  protected getUserDestinationPage(): string {
     return this.getSessionStorageService().getObject(USER_DESTINATION_PAGE_KEY) || BASE_PATH;
   }
 

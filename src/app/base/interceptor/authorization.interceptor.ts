@@ -8,7 +8,7 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import {catchError, EMPTY, Observable, Subject} from 'rxjs';
-import {Router} from "@angular/router";
+import {Router, RouterStateSnapshot} from "@angular/router";
 import {Location} from "@angular/common";
 import {AuthTokenService, LocalStorageService, SessionStorageService} from "@app/base/service";
 import {AuthenticationService} from "@app/feature/authentication/service";
@@ -117,7 +117,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
   private handleRequestWithAuthorization(
     request: HttpRequest<any>,
     next: HttpHandler,
-    authToken: string
+    authToken: string,
   ): Observable<HttpEvent<any>> {
     const authRequest: HttpRequest<any> = this.createAuthRequest(request, authToken);
 
@@ -126,12 +126,18 @@ export class AuthorizationInterceptor implements HttpInterceptor {
         const { error } = response;
 
         if (error.status === UNAUTHORIZED_REQUEST_STATUS_CODE) {
+          this.saveUserDestinationPage(this.router.url)
           return this.clearTokensAndStartAuthentication();
         }
 
         return this.baseHttpService.handleError(error);
       })
     );
+  }
+
+  protected saveUserDestinationPage(url: string): void {
+    console.log('Saving........................');
+    this.sessionStorageService.setObject(USER_DESTINATION_PAGE_KEY, url);
   }
 
   /**

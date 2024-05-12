@@ -14,7 +14,26 @@
     <app-validation-error [control]="description" [control-label]="'Description'"></app-validation-error>
   </div>
 
-  <button type="submit" [disabled]="isSubmitting">Submit</button>
+  <div class="form-group">
+    <label for="active">Is Active</label>
+    <select formControlName="isActive" id="active">
+      <option value=""></option>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+    <app-validation-error [control]="isActive" [control-label]="'Is Active'"></app-validation-error>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="fright"
+            *ngIf="!isFormCompleted"
+            [disabled]="isSubmitting">Submit
+      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
+    </button>
+
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+  </div>
 
 </form>
 
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

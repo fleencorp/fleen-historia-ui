@@ -167,6 +167,7 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
       this.isVerificationStage = true;
       this.setVerificationStage(result);
     } else if (result.authenticationStatus === AuthenticationStatus.COMPLETED) {
+      console.log('Getting destination page ', this.getUserDestinationPage());
       this.gotoUserDestinationPage();
     }
   }

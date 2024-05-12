@@ -1,0 +1,50 @@
+<ng-container *ngIf="entryView">
+
+  <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+  <ng-container *ngIf="startUpdateMemberRole">
+    <button (click)="goBack()" class="back-button"><fa-icon [icon]="faArrowLeft"></fa-icon></button>
+  </ng-container>
+
+  <div class="can-update-btn-wrapper" *ngIf="!startUpdateMemberRole">
+    <button type="button"
+            (click)="updateMemberRole()">Update Member Role <fa-icon [icon]="faKey"></fa-icon>
+    </button>
+  </div>
+
+  <ng-container *ngIf="startUpdateMemberRole">
+    <app-member-role-update [entry]="entryView"></app-member-role-update>
+  </ng-container>
+
+  <form method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form"
+        *ngIf="isFormReady && canUpdateMemberStatus"
+        [formGroup]="updateMemberStatusForm"
+        (ngSubmit)="updateMemberStatus()">
+
+    <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+    <div class="form-group">
+      <label for="member_status">Member Status</label>
+      <select formControlName="memberStatus" id="member_status">
+        <option value=""></option>
+        <option value="ACTIVE">Active</option>
+        <option value="INACTIVE">Inactive</option>
+        <option value="DISABLED">Disable</option>
+        <option value="BANNED">Banned</option>
+      </select>
+      <app-validation-error [control]="memberStatus" [control-label]="'Member Status'"></app-validation-error>
+    </div>
+
+    <div class="form-group">
+      <button class="fright" *ngIf="!isFormCompleted" [disabled]="isSubmitting">Submit
+        <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
+      </button>
+      <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+    </div>
+
+  </form>
+
+</ng-container>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>
+
+

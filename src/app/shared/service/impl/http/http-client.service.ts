@@ -78,6 +78,8 @@ export class HttpClientService extends BaseHttpService {
    */
   public get<T extends Object>(req: BaseRequest, clazz?: Constructor<T>): Observable<any> {
     const { headers } = req;
+    console.log('Request is ', req);
+    console.log('Final request is ', this.buildUri(req));
     const request: Observable<Object> = this.httpClient.get(this.buildUri(req), { headers });
     return this.pipeline(request, clazz);
   }

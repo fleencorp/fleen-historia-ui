@@ -1,0 +1,80 @@
+<app-search-form-delete-menu [search-filter]="searchFilter"
+                             [search-params]="searchParams"
+                             [can-delete]="false"
+                             [is-deleting]="isDeleting"
+                             [is-searching]="isSearching"
+                             [is-submitting]="isSubmitting"
+                             [is-resetting-search]="isResettingSearch"
+                             (searchSubmitted)="search($event)"
+                             (deleteConfirmed)="confirmDeleteEntries()"
+                             (resetSearchSubmitted)="resetSearch()"></app-search-form-delete-menu>
+
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+<app-pagination [entries-available]="entries.length > 0"
+                [is-first]="isFirst"
+                [is-last]="isLast"
+                [current-page-number]="currentPage"
+                [navigation-in-progress]="navigationInProgress"
+                (toNextPage)="nextPage()"
+                (toPreviousPage)="previousPage()"></app-pagination>
+
+<div *ngIf="entries.length > 0">
+  <table id="entries" class="entries">
+
+    <div class="clear"></div>
+
+    <colgroup>
+      <col style="width: 5%">
+      <col style="width: 18%">
+      <col style="width: 10%">
+      <col style="width: 10%">
+      <col style="width: 13%">
+      <col style="width: 13%">
+      <col style="width: 30%">
+    </colgroup>
+
+    <thead>
+    <tr>
+      <th>S/N</th>
+      <th class="left">Full Name</th>
+      <th>Profile Status</th>
+      <th>Verification Status</th>
+      <th>Created On</th>
+      <th>Updated On</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let member of entries; let i = index; trackBy: trackByFn">
+      <td>{{ addOneToIndex(i) }}</td>
+      <td>{{ member.fullName }}</td>
+      <td class="center">{{ member.memberStatus | titlecase }}</td>
+      <td class="center">{{ member.profileVerificationStatus | titlecase }}</td>
+      <td class="center">{{ member.createdOn | date:'mediumDate' }}</td>
+      <td class="center">{{ member.updatedOn | date:'mediumDate' }}</td>
+      <app-row-entry-option [entry-id]="member.memberId"
+                            [can-check]="false"
+                            [can-delete]="false"
+
+                            (detailClicked)="viewDetail(member.memberId)"
+                            (updateClicked)="updateEntry(member.memberId)"
+                            (checkedChanged)="handleChecked(member.memberId, $event)"></app-row-entry-option>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<app-pagination [entries-available]="entries.length > 0"
+                [is-first]="isFirst"
+                [is-last]="isLast"
+                [bottom]="true"
+                [current-page-number]="currentPage"
+                [navigation-in-progress]="navigationInProgress"
+                (toNextPage)="nextPage()"
+                (toPreviousPage)="previousPage()"></app-pagination>
+
+<app-no-entries *ngIf="!isLoading" [entries]="entries"></app-no-entries>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

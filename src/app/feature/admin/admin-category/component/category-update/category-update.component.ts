@@ -5,7 +5,7 @@ import {CategoryView} from "@app/model/view/category";
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {maxLength, minLength, required} from "@app/shared/validator";
+import {booleanValid, maxLength, minLength, required} from "@app/shared/validator";
 import {AdminCategoryService} from "@app/feature/admin/admin-category/service";
 
 @Component({
@@ -18,14 +18,15 @@ export class CategoryUpdateComponent extends BaseUpdateComponent<CategoryView, U
   public override entryView!: CategoryView;
 
   public constructor(
-    private categoryService: AdminCategoryService,
-    protected formBuilder: FormBuilder,
-    router: Router,
-    route: ActivatedRoute) {
+      private categoryService: AdminCategoryService,
+      protected formBuilder: FormBuilder,
+      router: Router,
+      route: ActivatedRoute) {
     super(router, route);
   }
 
   public async ngOnInit(): Promise<void> {
+    this.enableLoading();
     await this.initEntry();
   }
 
@@ -39,9 +40,11 @@ export class CategoryUpdateComponent extends BaseUpdateComponent<CategoryView, U
 
   protected override initForm(): void {
     this.fleenForm = this.formBuilder.group({
-      title: [this.category?.title, [required, minLength(1), maxLength(255)]],
+      title: [this.category?.title, [required, minLength(1), maxLength(300)]],
 
-      description: [this.category?.title, [required, minLength(1), maxLength(3000)]],
+      description: [this.category?.description, [required, maxLength(3000)]],
+
+      isActive: [String(this.category?.isActive), [required, booleanValid()]],
     });
 
     this.formReady();
@@ -65,6 +68,10 @@ export class CategoryUpdateComponent extends BaseUpdateComponent<CategoryView, U
 
   get description(): AbstractControl | null | undefined {
     return this.fleenForm?.get('description');
+  }
+
+  get isActive(): AbstractControl | null | undefined {
+    return this.fleenForm?.get('isActive');
   }
 
 }

@@ -104,13 +104,15 @@ export abstract class BaseUpdateComponent<T, D> extends BaseFormComponent {
    */
   public updateEntry(): void {
     if (isTruthy(this.fleenForm) && this.fleenForm.valid && isFalsy(this.isSubmitting)) {
-      this.disableSubmittingAndResetErrorMessage();
+      this.clearAllMessages();
+      this.disableSubmitting();
 
       this.$updateEntry(this.entryId, this.payload)
         .subscribe({
           next: (): void => {
-            this.enableSubmitting();
-            this.formCompleted();
+            this.formCompleted((): void => {
+              this.enableSubmitting();
+            });
           },
           error: (result: ErrorResponse): void => {
             this.handleError(result);

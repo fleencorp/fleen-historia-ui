@@ -37,8 +37,8 @@ export class AdminFindVideosComponent extends BaseVideosComponent implements OnI
     return this.adminVideoService.deleteVideo(id);
   }
 
-  public override deleteEntries(dto: DeleteIdsPayload): Observable<DeleteResponse> {
-    return this.adminVideoService.deleteManyVideos(dto);
+  public override deleteEntries(payload: DeleteIdsPayload): Observable<DeleteResponse> {
+    return this.adminVideoService.deleteManyVideos(payload);
   }
 
 }

@@ -1,4 +1,4 @@
-import {VerificationType} from "@app/model/enum";
+import {MemberStatus, VerificationType} from "@app/model/enum";
 import {ResendVerificationCodePayload, VerificationCodePayload} from "@app/model/type/authentication.type";
 
 export type UpdateDetailPayload = {
@@ -26,4 +26,12 @@ export type UpdatePasswordPayload = {
 
 export type UpdateProfilePhotoPayload = {
   profilePhoto: string;
+}
+
+export type UpdateMemberStatusPayload = {
+  memberStatus: MemberStatus;
+}
+
+export type UpdateMemberRolePayload = {
+  roles: string[];
 }

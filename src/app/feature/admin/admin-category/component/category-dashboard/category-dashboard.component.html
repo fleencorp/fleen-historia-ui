@@ -1,0 +1,15 @@
+<div>
+  <h2>Admin Category Dashboard</h2>
+
+  <div class="menu-container">
+    <ul class="menu">
+      <p id="profile-photo-wrapper">
+        <img [src]="profilePhoto" width="150" height="150"/>
+      </p>
+      <li>
+        <a [routerLink]="['..', 'entries']" routerLinkActive="active">View Entries
+          <fa-icon [icon]="faList"></fa-icon></a>
+      </li>
+    </ul>
+  </div>
+</div>

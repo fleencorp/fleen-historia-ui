@@ -1,19 +1,45 @@
-<app-search-form-delete-menu [is-submitting]="isSubmitting" [search-filter]="searchFilter" (searchSubmitted)="search($event)" (deleteConfirmed)="confirmDeleteEntries()"></app-search-form-delete-menu>
+<app-search-form-delete-menu [search-filter]="searchFilter"
+                             [search-params]="searchParams"
+                             [can-delete]="true"
+                             [is-deleting]="isDeleting"
+                             [is-searching]="isSearching"
+                             [is-submitting]="isSubmitting"
+                             [is-resetting-search]="isResettingSearch"
+                             (searchSubmitted)="search($event)"
+                             (deleteConfirmed)="confirmDeleteEntries()"
+                             (resetSearchSubmitted)="resetSearch()"></app-search-form-delete-menu>
+
 <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
-<p>The current page is {{currentPage}}</p>
+<app-pagination [entries-available]="entries.length > 0"
+                [is-first]="isFirst"
+                [is-last]="isLast"
+                [current-page-number]="currentPage"
+                [navigation-in-progress]="navigationInProgress"
+                (toNextPage)="nextPage()"
+                (toPreviousPage)="previousPage()"></app-pagination>
 
 <div *ngIf="entries.length > 0">
-  <table>
+  <table id="entries" class="entries">
+
+    <div class="clear"></div>
+
+    <colgroup>
+      <col style="width: 5%">
+      <col style="width: 20%">
+      <col style="width: 10%">
+      <col style="width: 13%">
+      <col style="width: 13%">
+      <col style="width: 30%">
+    </colgroup>
 
     <thead>
     <tr>
       <th>S/N</th>
       <th>Title</th>
-      <th>Channel</th>
       <th>Status</th>
-      <th>Created On</th>
-      <th>Updated On</th>
+      <th class="center">Created On</th>
+      <th class="center">Updated On</th>
       <th></th>
     </tr>
     </thead>
@@ -21,17 +47,33 @@
     <tr *ngFor="let category of entries; let i = index; trackBy: trackByFn">
       <td>{{ addOneToIndex(i) }}</td>
       <td>{{ category.title }}</td>
-      <td>{{ category.description }}</td>
-      <td>{{ category.createdOn | date:'mediumDate' }}</td>
-      <td>{{ category.updatedOn | date:'mediumDate' }}</td>
-      <app-row-entry-option [entry-id]="category.categoryId" [can-check]="false" [can-delete]="true" (detailClicked)="viewDetail(category.categoryId)"
-                            (updateClicked)="updateEntry(category.categoryId)" (deleteClicked)="deleteEntry(category.categoryId)"
+      <td class="center">{{ category.isActive ? 'Active' : 'Inactive' }}</td>
+      <td class="center">{{ category.createdOn | date:'mediumDate' }}</td>
+      <td class="center">{{ category.updatedOn | date:'mediumDate' }}</td>
+      <app-row-entry-option [entry-id]="category.categoryId"
+                            [can-check]="true"
+                            [can-delete]="true"
+                            [is-deleting]="category.deleteStatus"
+                            [delete-id]="category.categoryId"
+
+                            (detailClicked)="viewDetail(category.categoryId)"
+                            (updateClicked)="updateEntry(category.categoryId)"
+                            (deleteClicked)="deleteEntry(category, category.categoryId)"
                             (checkedChanged)="handleChecked(category.categoryId, $event)"></app-row-entry-option>
     </tr>
     </tbody>
   </table>
 
-  <app-pagination [is-first]="isFirst" [is-last]="isLast" [current-page-number]="currentPage"
-                  (toNextPage)="nextPage()" (toPreviousPage)="previousPage()"></app-pagination>
-
+  <app-pagination [entries-available]="entries.length > 0"
+                  [is-first]="isFirst"
+                  [is-last]="isLast"
+                  [bottom]="true"
+                  [current-page-number]="currentPage"
+                  [navigation-in-progress]="navigationInProgress"
+                  (toNextPage)="nextPage()"
+                  (toPreviousPage)="previousPage()"></app-pagination>
 </div>
+
+<app-no-entries *ngIf="!isLoading" [entries]="entries"></app-no-entries>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

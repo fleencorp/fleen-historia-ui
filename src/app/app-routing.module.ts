@@ -15,8 +15,10 @@ const routes: Routes = [
   { path: 'profile', loadChildren: () => import('./feature/member/member.module').then(m => m.MemberModule), canActivate: [AuthGuard] },
   { path: 'user-video', loadChildren: () => import('./feature/user-video/user-video.module').then(m => m.UserVideoModule), canActivate: [AuthGuard] },
   { path: 'contributor', loadChildren: () => import('./feature/contributor/contributor.module').then(m => m.ContributorModule), canActivate: [AuthGuard] },
+  { path: 'admin-member', loadChildren: () => import('./feature/admin/admin-member/admin-member.module').then(m => m.AdminMemberModule), canActivateChild: [AuthGuard, AuthRoleGuard] },
   { path: 'admin-youtube', loadChildren: () => import('./feature/admin/admin-youtube/admin-youtube.module').then(m => m.AdminYoutubeModule), canActivateChild: [AuthGuard, AuthRoleGuard] },
   { path: 'admin-video', loadChildren: () => import('./feature/admin/admin-video/admin-video.module').then(m => m.AdminVideoModule), canActivateChild: [AuthGuard, AuthRoleGuard] },
+  { path: 'admin-category', loadChildren: () => import('./feature/admin/admin-category/admin-category.module').then(m => m.AdminCategoryModule), canActivateChild: [AuthGuard, AuthRoleGuard] },
   { path: 'google-youtube-oauth', loadChildren: () => import('./feature/admin/google-youtube-oauth/google-youtube-oauth.module').then(m => m.GoogleYoutubeOauthModule), canActivateChild: [AuthGuard, AuthRoleGuard] },
   { path: 'forbidden', component: ForbiddenComponent },
   { path: "**", component: FleenComgroupComponent }

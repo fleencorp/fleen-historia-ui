@@ -15,7 +15,7 @@ import {
 } from '@app/feature/admin/admin-video/component';
 import {SharedModule} from "@app/shared/shared.module";
 import {UserVideoModule} from "@app/feature/user-video/user-video.module";
-import { VideoItemRowComponent } from './component/video-item-row/video-item-row.component';
+import {VideoItemRowComponent} from './component/video-item-row/video-item-row.component';
 import {BaseModule} from "@app/base/base.module";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AdminVideoService} from "@app/feature/admin/admin-video/service";
@@ -37,11 +37,11 @@ import {AdminVideoService} from "@app/feature/admin/admin-video/service";
   imports: [
     CommonModule,
     SharedModule,
-    AdminVideoRoutingModule,
     UserVideoModule,
     BaseModule,
     NgOptimizedImage,
-    FontAwesomeModule
+    FontAwesomeModule,
+    AdminVideoRoutingModule
   ],
   providers: [
     AdminVideoService

@@ -116,14 +116,14 @@ export class ClientCredentialChannelEntriesComponent extends BaseEntriesComponen
   }
 
   public getChannelPayload(channel: ChannelView): UpdateChannelPayload {
-    return this.getChannelForm(channel).value;
+    return { title: channel.title, ...(this.getChannelForm(channel).value) };
   }
 
   public getDescriptionCtrl(channel: ChannelView): AbstractControl | null | undefined {
     return this.getChannelState(channel)?.form.get('description');
   }
 
-  public getIsActiveCtrl(channel: ChannelView): AbstractControl | null | undefined {
+  public getIsActiveCtrl(channel: ChannelView): AbstractControl | any {
     console.log(this.getChannelForm(channel).value);
     return this.getChannelForm(channel).get('isActive');
   }

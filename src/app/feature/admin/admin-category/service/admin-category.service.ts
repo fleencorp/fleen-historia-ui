@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AnyObject, BaseRequest, CreateCategoryPayload, UpdateCategoryPayload} from "@app/model/type";
+import {AnyObject, BaseRequest, CreateCategoryPayload, DeleteIdsPayload, UpdateCategoryPayload} from "@app/model/type";
 import {Observable} from "rxjs";
 import {SearchResultView} from "@app/model/view";
 import {HttpClientService} from "@app/shared/service/impl";
@@ -42,5 +42,10 @@ export class AdminCategoryService {
   public deleteCategory(id: number | string): Observable<DeleteResponse> {
     const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'delete', +id]);
     return this.httpService.delete(req, DeleteResponse);
+  }
+
+  public deleteManyCategories(body: DeleteIdsPayload): Observable<DeleteResponse> {
+    const req: BaseRequest = this.httpService.toRequest([this.BASE_PATH, 'delete', 'many'], null, { ...body });
+    return this.httpService.deleteMany(req, DeleteResponse);
   }
 }

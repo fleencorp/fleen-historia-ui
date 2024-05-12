@@ -1,0 +1,32 @@
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
+
+<form *ngIf="isFormReady" method="post" enctype="application/x-www-form-urlencoded" class="sign-in-form">
+
+  <div class="form-group">
+    <h4>Roles </h4>
+    <div *ngFor="let role of roles" class="checkbox-container">
+      <label class="checkbox-label">
+        <input type="checkbox"
+               class="custom-checkbox"
+               [checked]="isSelected(role.name) || isMatchExistingUserRole(role.name)"
+               (change)="toggleRole(role.name)"/>
+        <span class="checkbox-text">{{ role.label | titlecase }}</span>
+      </label>
+    </div>
+    <app-validation-error [control]="roleCtrl" [control-label]="'Roles'" ></app-validation-error>
+  </div>
+
+  <div class="form-group">
+    <button type="button" class="fright"
+            *ngIf="!isFormCompleted"
+            [disabled]="isSubmitting"
+            (click)="updateMemberRole()">Submit
+      <app-submit-loading-icon [is-submitting]="isSubmitting"></app-submit-loading-icon>
+    </button>
+
+    <app-success-button [is-form-completed]="isFormCompleted"></app-success-button>
+  </div>
+
+</form>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

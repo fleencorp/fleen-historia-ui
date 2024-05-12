@@ -3,9 +3,11 @@ import {Channel} from "@app/model/youtube/channel";
 
 export class YouTubeChannelCategoryResponse {
   public isAlreadyExistInSystem: boolean;
+  public description: string;
 
   public constructor(data: YouTubeChannelCategoryResponse) {
     this.isAlreadyExistInSystem = data?.isAlreadyExistInSystem;
+    this.description = data?.description;
   }
 }
 

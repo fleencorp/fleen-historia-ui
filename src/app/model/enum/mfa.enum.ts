@@ -27,3 +27,4 @@ export enum MfaType {
   AUTHENTICATOR = 'AUTHENTICATOR',
   NONE = 'NONE'
 }
+

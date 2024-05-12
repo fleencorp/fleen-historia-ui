@@ -5,7 +5,7 @@ import {Location} from "@angular/common";
 import {Observable} from "rxjs";
 import {ANY_EMPTY} from "@app/constant";
 import {AdminYoutubeService} from "@app/feature/admin/admin-youtube/service";
-import {YouTubeCategoryResponse, YouTubeChannelResponse} from "@app/model/response/youtube";
+import {YouTubeCategoryResponse} from "@app/model/response/youtube";
 import {SearchResultView} from "@app/model/view";
 import {BaseChannelCategoryChannelComponent} from "@app/base/component/video";
 
@@ -28,6 +28,7 @@ export class AdminYoutubeCategoryEntriesComponent extends BaseChannelCategoryCha
   }
 
   public ngOnInit(): void {
+    this.enableLoading();
     this.startComponent(this.sortEntries.bind(this));
   }
 

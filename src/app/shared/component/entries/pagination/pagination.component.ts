@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {faPencil, faArrowRight, faArrowLeft, IconDefinition, faSpinner} from "@fortawesome/free-solid-svg-icons";
+import {faArrowLeft, faArrowRight, faSpinner, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {DeleteStatusEnum} from "@app/model/enum/base.enum";
 
 @Component({
@@ -16,6 +16,7 @@ export class PaginationComponent {
   @Input('navigation-in-progress') public navigationInProgress: boolean | undefined;
   @Output() public toNextPage: EventEmitter<void> = new EventEmitter<void>();
   @Output() public toPreviousPage: EventEmitter<void> = new EventEmitter<void>();
+  @Input('bottom') public bottom: boolean = false;
 
   public nextPage(): void {
     this.toNextPage.emit();
@@ -27,6 +28,6 @@ export class PaginationComponent {
 
   protected readonly faArrowRight: IconDefinition = faArrowRight;
   protected readonly faArrowLeft: IconDefinition = faArrowLeft;
+  protected readonly faSpinner: IconDefinition = faSpinner;
   protected readonly DeleteStatusEnum = DeleteStatusEnum;
-  protected readonly faSpinner = faSpinner;
 }

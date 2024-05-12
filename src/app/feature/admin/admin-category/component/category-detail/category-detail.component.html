@@ -1,0 +1,32 @@
+<div class="entry-detail" *ngIf="category">
+  <h2 class ="bold"> {{pageTitle}} </h2>
+
+  <p>
+    <b>Title:</b>
+    {{ category.title | isValid }}
+  </p><hr/>
+
+  <p>
+    <b>Description:</b>
+    {{ category.description | isValid }}
+  </p><hr/>
+
+  <p>
+    <b>Is Active:</b>
+    {{ category.isActive ? 'Active' : 'Inactive' }}
+  </p><hr/>
+
+  <p>
+    <b>Created On:</b>
+    {{ category.createdOn | date:'mediumDate' }}
+  </p><hr/>
+
+  <p>
+    <b>Updated On:</b>
+    {{ category.updatedOn | date:'mediumDate' }}
+  </p><hr/>
+
+
+</div>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

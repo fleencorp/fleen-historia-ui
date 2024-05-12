@@ -42,6 +42,7 @@ export class AuthGuardService {
       return true;
     } else {
       this.saveUserDestinationPage(state);
+      console.log('Destination page' , this.sessionStorageService.getObject(USER_DESTINATION_PAGE_KEY));
       return this.router.createUrlTree([AUTHENTICATION_ENTRY_POINT]);
     }
   }

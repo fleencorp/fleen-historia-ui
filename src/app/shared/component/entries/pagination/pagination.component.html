@@ -8,7 +8,8 @@
 
   </button>
 
-  <span class="page-number"><b>Page {{ currentPageNumber }}</b></span>
+  <span class="page-number" *ngIf="bottom"><b>Page {{ currentPageNumber }}</b></span>
+  <span class="page-number" *ngIf="!bottom"></span>
 
   <button class="navigation-button"
           *ngIf="!isLast"

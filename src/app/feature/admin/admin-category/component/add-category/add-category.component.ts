@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {YouTubeCategoryResponse} from "@app/model/response/youtube";
 import {BaseFormImplComponent} from "@app/base/component";
-import {isFalsy} from "@app/shared/helper";
+import {isFalsy, isTruthy} from "@app/shared/helper";
 import {ErrorResponse} from "@app/model/response";
 import {AdminCategoryService} from "@app/feature/admin/admin-category/service";
 import {CreateCategoryPayload} from "@app/model/type";
@@ -15,7 +15,7 @@ import {maxLength} from "@app/shared/validator";
 })
 export class AddCategoryComponent extends BaseFormImplComponent {
 
-  public $description: FormControl = new FormControl<string>('', [maxLength(3000)]);
+  public descriptionCtrl: FormControl = new FormControl<string>('', [maxLength(3000)]);
 
   @Input('entry')
   public entry!: YouTubeCategoryResponse;
@@ -30,34 +30,50 @@ export class AddCategoryComponent extends BaseFormImplComponent {
 
   public ngOnInit(): void {
     this.formReady();
+    this.initDetails();
+
   }
 
-  public addCategory(): void {
+  public override initDetails(): void {
+    if (isTruthy(this.entry)) {
+      this.descriptionCtrl.patchValue(this.entry.description);
+    }
+  }
+
+  public updateCategory(): void {
     if (isFalsy(this.isSubmitting)) {
+      this.clearAllMessages();
       this.disableSubmittingAndResetErrorMessage();
 
-      this.categoryService.addCategory(this.getAddCategoryPayload())
+      this.categoryService.addCategory(this.getCategoryPayload())
         .subscribe({
-          next: (): void => { this.formCompleted(this.notifyNewAddedCategory.bind(this)); },
-          error: (error: ErrorResponse): void => { this.handleError(error); },
-          complete: async (): Promise<void> => { this.enableSubmitting(); }
+          next: (): void => { this.formCompleted((): void => {
+            this.notifyUpdatedCategory();
+            this.enableSubmitting();
+          });
+        },
+        error: (error: ErrorResponse): void => {
+          this.handleError(error);
+          this.enableSubmitting();
+        },
       });
     }
   }
 
-  private getAddCategoryPayload(): CreateCategoryPayload {
+  private getCategoryPayload(): CreateCategoryPayload {
     return  {
       title: this.entry.categoryDetails.snippet.title,
+      description: this.descriptionCtrl.value,
       categoryExternalId: this.entry.categoryDetails.id
     }
   }
 
-  public notifyNewAddedCategory(): void {
+  public notifyUpdatedCategory(): void {
     this.addedCategory.emit(this.entry.categoryDetails.id);
   }
 
   get description(): string {
-    return this.$description.value;
+    return this.descriptionCtrl.value;
   }
 
 }

@@ -43,7 +43,6 @@ export class AdminUpdateVideoComponent extends BaseUpdateVideoComponent implemen
       visibility: new FormControl(this.entryView.videoVisibility, [required, enumValid(VideoVisibility)])
     });
     this.formReady();
-    this.disableLoading();
   }
 
   public updateVisibility(): void {

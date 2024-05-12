@@ -1,0 +1,32 @@
+<div class="entry-detail" *ngIf="member">
+  <h2 class ="bold"> {{pageTitle}} </h2>
+
+  <p>
+    <b>First Name:</b>
+    {{ member.firstName | isValid }}
+  </p><hr/>
+
+  <p>
+    <b>First Name:</b>
+    {{ member.lastName | isValid }}
+  </p><hr/>
+
+  <p>
+    <b>Status:</b>
+    {{ member.memberStatus | isValid | titlecase }}
+  </p><hr/>
+
+  <p>
+    <b>Created On:</b>
+    {{ member.createdOn | date:'full' }}
+  </p><hr/>
+
+  <p>
+    <b>Updated On:</b>
+    {{ member.updatedOn | date:'full' }}
+  </p><hr/>
+
+
+</div>
+
+<app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

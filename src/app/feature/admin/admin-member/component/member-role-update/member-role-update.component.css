@@ -1,0 +1,39 @@
+.checkbox-container {
+  margin-bottom: 10px; /* Adds spacing between checkboxes */
+  margin-right: 20px;
+  display: inline-block;
+}
+
+.custom-checkbox {
+  /* Hide default checkbox */
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Style for custom checkbox */
+.custom-checkbox + .checkbox-text:before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  background-color: #fff;
+  border-radius: 50%; /* Make the border-radius 50% to create a circle */
+  margin-right: 8px; /* Spacing between checkbox and text */
+  vertical-align: middle;
+}
+
+/* Style for checked custom checkbox */
+.custom-checkbox:checked + .checkbox-text:before {
+  background-color: #007bff; /* Change background color when checked */
+}
+
+.checkbox-text {
+  vertical-align: middle;
+  cursor: pointer; /* Change cursor to pointer when hovering over the label */
+}
+
+.checkbox-label {
+  display: inline-block;
+}

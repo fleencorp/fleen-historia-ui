@@ -40,11 +40,14 @@
 
 </ng-container>
 
+<app-no-entries *ngIf="canDisplay"></app-no-entries>
+
 <app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <app-pagination [entries-available]="entries.length > 0"
                 [is-first]="isFirst"
                 [is-last]="isLast"
+                [bottom]="true"
                 [current-page-number]="currentPage"
                 [navigation-in-progress]="navigationInProgress"
                 (toNextPage)="nextPage()"

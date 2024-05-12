@@ -16,7 +16,7 @@ import {
   DEFAULT_PAGE_SIZE,
   DEFAULT_PREV_PAGE_TOKEN_KEY
 } from "@app/constant";
-import {SearchResultView} from "@app/model/view";
+import {FleenBaseView, SearchResultView} from "@app/model/view";
 import {isFalsy, isTruthy, removePropertiesWithBlankKeysAndValues} from "@app/shared/helper";
 import {DeleteStatusEnum} from "@app/model/enum/base.enum";
 import {DeleteResponse} from "@app/model/response/common";
@@ -105,20 +105,6 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   public isDeleting: boolean = false;
 
   /**
-   * Represents the deletion status of an entry.
-   * Possible values are defined in the DeleteStatusEnum.
-   * Default value is DeleteStatusEnum.NOT_STARTED.
-   */
-  public isDeletingEntry: DeleteStatusEnum = DeleteStatusEnum.NOT_STARTED;
-
-  /**
-   * Represents the ID of the entry that has been deleted.
-   * Default value is 0.
-   * This property is typically used to track the ID of the entry being deleted for reference purposes.
-   */
-  public deletedId: string | number = 0;
-
-  /**
    * Represents whether a navigation process is currently in progress.
    * This property is typically used to track the state of navigation to prevent multiple navigation attempts.
    * Default value is false.
@@ -172,64 +158,79 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    * If conditions are met, it disables submission, resets error messages, initializes the entry deletion process, and calls the deleteEntryMethod.
    * Upon completion of the deletion process, it handles success or error responses and re-enables submission.
    *
+   * @param entry The Fleen Base entity of the entry to be deleted.
    * @param id The ID of the entry to be deleted.
    */
-  protected deleteEntry(id: number | string): void {
-    // Check if submission is not in progress and the form is valid
-    if (isFalsy(this.isSubmitting) && this.fleenForm.valid) {
+  public deleteEntry(entry: FleenBaseView, id: number | string): void {
+    if (entry.deleteStatus === DeleteStatusEnum.NOT_STARTED) {
       // Disable submission and reset error messages
-      this.disableSubmittingAndResetErrorMessage();
+      this.clearAllMessages();
 
       // Initialize entry deletion process
-      this.initEntryDeleteProcess(id);
+      this.initEntryDeleteProcess(entry);
 
       // Call deleteEntryMethod to delete the entry
       this.deleteEntryMethod(id)
         .subscribe({
-          next: (result: DeleteResponse): void => { this.handleSuccessfulEntryDeletion(result.message) },
-          error: (error: ErrorResponse): void => { this.handleError(error); },
-          complete: async (): Promise<void> => { this.handleDeletedEntry(); }
+          next: (): void => {
+            this.deletionComplete(entry);
+            this.handleSuccessfulEntryDeletion(entry, id);
+          },
+          error: (error: ErrorResponse): void => {
+            this.handleError(error);
+            this.resetEntryDelete(entry);
+          },
       });
     }
   }
 
-  /**
-   * Handles the deletion of an entry.
-   * This method typically enables the submitting state for the deletion process.
-   */
-  public handleDeletedEntry(): void {
-    this.enableSubmitting();
+  public resetEntryDelete(entry: FleenBaseView): void {
+    entry.deleteStatus = DeleteStatusEnum.NOT_STARTED;
   }
 
   /**
    * Handles the successful deletion of an entry.
    * Sets the deletion status to 'COMPLETED', sets a status message, and invokes a callback function after a delay.
    *
-   * @param message A string containing the success message.
+   * @param entry The Fleen Base entity that was deleted.
+   * @param id the ID of the entity
    */
-  public handleSuccessfulEntryDeletion(message: string): void {
-    this.isDeletingEntry = DeleteStatusEnum.COMPLETED;
-    this.setStatusMessageAndClear(message);
-    this.invokeCallbackWithDelay(this.refreshDeletedEntry.bind(this));
+  public handleSuccessfulEntryDeletion(entry: FleenBaseView, id: number | string): void {
+    this.invokeCallbackWithDelay((): void => {
+      this.refreshDeletedEntry(id);
+      this.resetEntryDelete(entry);
+    });
+  }
+
+  /**
+   * Handles the deletion of an entry.
+   * This method typically enables the submitting state for the deletion process.
+   *
+   * @param entry The Fleen Base entity
+   */
+  public deletionComplete(entry: FleenBaseView): void {
+    entry.deleteStatus = DeleteStatusEnum.COMPLETED;
   }
 
   /**
    * Refreshes the entries after a successful deletion by calling 'refreshEntriesByDeletedId()' and resetting the 'deletedId' property.
+   *
+   * @param id of the entry that is deleted
    */
-  public refreshDeletedEntry(): void {
-    this.refreshEntriesByDeletedId();
-    this.deletedId = 0;
+
+  public refreshDeletedEntry(id: number | string): void {
+    this.refreshEntriesByDeletedId(id);
   }
 
   /**
    * Initiates the entry deletion process by setting the deletion status to 'IN_PROGRESS' and setting the 'deletedId'.
    *
-   * @param id The ID of the entry to be deleted.
+   * @param entry The Fleen Base entity of the entry to be deleted.
    */
-  public initEntryDeleteProcess(id: number | string): void {
-    this.isDeletingEntry = DeleteStatusEnum.IN_PROGRESS;
-    this.deletedId = id;
+  public initEntryDeleteProcess(entry: FleenBaseView): void {
+    entry.deleteStatus = DeleteStatusEnum.IN_PROGRESS;
   }
+
 
   /**
    * Method responsible for deleting an entry.
@@ -327,6 +328,11 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
     this.pageSize = result.pageSize;
   }
 
+  /**
+   * Private method used to enable the navigation in progress state.
+   * This method sets the 'navigationInProgress' property to true.
+   * It's typically called when the navigation process is about to start.
+   */
   private enableNavigationInProgress(): void {
     this.navigationInProgress = true;
   }
@@ -504,6 +510,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
   public confirmDeleteEntries(): void {
     if (this.deleteIds.length > 0 && isFalsy(this.isSubmitting)) {
       // Disable form submission and reset error message
+      this.clearAllMessages();
       this.disableSubmittingAndResetErrorMessage();
       this.isDeleting = true;
 
@@ -513,16 +520,17 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
       // Initiate delete operation
       this.deleteEntries(payload)
         .subscribe({
-          error: (): void => {
-            // Enable form submission in case of error
-            this.enableSubmitting();
-          },
-          complete: (): void => {
+          next: (result: DeleteResponse): void => {
+            this.setStatusMessageAndClear(result.message);
             // Enable form submission and refresh entries after deletion is complete
             this.enableSubmitting();
             this.refreshEntries();
             this.resetDeleteIds();
             this.completeDeletingEntries();
+          },
+          error: (): void => {
+            // Enable form submission in case of error
+            this.enableSubmitting();
           }
       });
     }
@@ -555,9 +563,9 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
       .filter((entry: T) => !this.deleteIds.includes(entry[this.defaultEntryIdKey]));
   }
 
-  protected refreshEntriesByDeletedId(): void {
+  protected refreshEntriesByDeletedId(id: number | string): void {
     this.entries = this.entries
-      .filter((entry: T): boolean => entry[this.defaultEntryIdKey] !== this.deletedId);
+      .filter((entry: T): boolean => entry[this.defaultEntryIdKey] !== id);
   }
 
   /**

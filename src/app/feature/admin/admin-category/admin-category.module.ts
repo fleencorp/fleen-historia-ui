@@ -4,27 +4,33 @@ import {CommonModule} from '@angular/common';
 import {AdminCategoryRoutingModule} from './admin-category-routing.module';
 import {
   AddCategoryComponent,
+  CategoryBaseComponent,
+  CategoryDashboardComponent,
   CategoryEntriesComponent,
-  CategoryEntryComponent,
+  CategoryDetailComponent,
   CategoryUpdateComponent
 } from './component';
 import {SharedModule} from "@app/shared/shared.module";
 import {BaseModule} from "@app/base/base.module";
 import {AdminCategoryService} from "@app/feature/admin/admin-category/service";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
   declarations: [
     AddCategoryComponent,
-    CategoryEntryComponent,
+    CategoryBaseComponent,
+    CategoryDashboardComponent,
+    CategoryDetailComponent,
     CategoryUpdateComponent,
     CategoryEntriesComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    AdminCategoryRoutingModule,
-    BaseModule
+    BaseModule,
+    FontAwesomeModule,
+    AdminCategoryRoutingModule
   ],
   providers: [
     AdminCategoryService
