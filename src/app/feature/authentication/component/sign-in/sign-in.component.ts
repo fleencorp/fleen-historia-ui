@@ -7,12 +7,10 @@ import {isFalsy, isTruthy} from "@app/shared/helper";
 import {AuthenticationStage, AuthenticationStatus, ChangePasswordType, MfaType} from "@app/model/enum";
 import {ChangePasswordComponent} from "@app/shared/component";
 import {ErrorResponse} from "@app/model/response";
-import {RefreshTokenResponse, SignInResponse} from "@app/model/response/authentication";
+import {SignInResponse} from "@app/model/response/authentication";
 import {Router} from "@angular/router";
-import {AuthTokenService, SessionStorageService} from "@app/base/service";
+import {AuthTokenService, CustomRecaptchaService, SessionStorageService} from "@app/base/service";
 import {faKey, faSignIn, IconDefinition} from "@fortawesome/free-solid-svg-icons";
-import {AUTHORIZATION_BEARER} from "@app/constant";
-import {CustomRecaptchaService} from "@app/base/service/security/custom-recaptcha.service";
 
 @Component({
   selector: 'app-sign-in',
@@ -91,65 +89,32 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
 
   /**
    * Initiates the sign-in process.
-   *
-   * Validates the sign-in form, disables submitting, and resets the error message before calling the
-   * authentication service's sign-in method. Handles the success, error, and completion events of the sign-in process.
-   *
-   * @public
+   * If the sign-in form is invalid or submission is already in progress, returns early.
+   * Disables submission and resets error message before proceeding.
+   * Retrieves reCAPTCHA token and sends sign-in request to the authentication service.
+   * Handles success and error responses accordingly.
    */
   public async signIn(): Promise<void> {
     if (isFalsy(this.signInForm) || this.signInForm.invalid || isTruthy(this.isSubmitting)) {
       return;
     }
+    // Disable submission and reset error message
     this.disableSubmittingAndResetErrorMessage();
 
+    // Extract reCAPTCHA token for important action
     const recaptchaToken: string = await this.customRecaptchaService.extractRecaptchaToken('importantAction');
+
+    // Send sign-in request to authentication service
     this.authenticationService.signIn(this.signInForm.value, recaptchaToken)
       .subscribe({
+        // Handle successful sign-in response
         next: (result: SignInResponse): void => { this.formCompleted(() => this.handleSignInSuccess(result)); },
+        // Handle error response
         error: (result: ErrorResponse): void => { this.handleError(result); },
+        // Enable submission after completion
         complete: (): void => { this.enableSubmitting(); }
-    });
+      });
   }
-
-  protected isRefreshTokenExists(): boolean {
-    if (isFalsy(this.getRefreshToken())) {
-      this.tokenService.clearAuthTokens();
-      this.startAuthentication();
-      return true;
-    }
-    return false;
-  }
-
-  private startAuthentication(): void {
-    this.authenticationService.startAuthentication(this.router);
-  }
-
-  public refreshAuthenticationToken(): void {
-    this.authenticationService.refreshToken(this.getRefreshToken())
-      .subscribe({
-        next: (result: RefreshTokenResponse): void => {
-          this.handleRefreshTokenResponse(result);
-          this.authenticationService.clearSession();
-          this.gotoUserDestinationPage();
-        },
-        error: (): void => {
-          this.tokenService.clearAuthTokens();
-          this.authenticationService.clearSession();
-          this.startAuthentication();
-        }
-    });
-  }
-
-  private getRefreshToken(): string {
-    const refreshToken: string = this.tokenService.getAuthorizationRefreshToken();
-    return isTruthy(refreshToken) ? AUTHORIZATION_BEARER.replace('{}', refreshToken) : '';
-  }
-
-  private handleRefreshTokenResponse(result: RefreshTokenResponse): void {
-    this.authenticationService.setAuthToken(result);
-  }
-
 
   /**
    * Handles the success of the sign-in process.
@@ -167,7 +132,6 @@ export class SignInComponent extends SignInBaseComponent implements OnInit {
       this.isVerificationStage = true;
       this.setVerificationStage(result);
     } else if (result.authenticationStatus === AuthenticationStatus.COMPLETED) {
-      console.log('Getting destination page ', this.getUserDestinationPage());
       this.gotoUserDestinationPage();
     }
   }

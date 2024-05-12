@@ -14,7 +14,7 @@ export class UserVideoService extends BaseVideoService {
   protected override readonly BASE_PATH: string = "user/video";
   protected readonly HOMEPAGE_BASE_PATH: string = "homepage";
 
-  constructor(httpService: HttpClientService) {
+  public constructor(httpService: HttpClientService) {
     super(httpService);
   }
 

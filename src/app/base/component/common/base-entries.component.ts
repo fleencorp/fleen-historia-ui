@@ -17,7 +17,7 @@ import {
   DEFAULT_PREV_PAGE_TOKEN_KEY
 } from "@app/constant";
 import {FleenBaseView, SearchResultView} from "@app/model/view";
-import {isFalsy, isTruthy, removePropertiesWithBlankKeysAndValues} from "@app/shared/helper";
+import {isFalsy, isTruthy, removePropertiesWithBlankKeysAndValues, removeProperty} from "@app/shared/helper";
 import {DeleteStatusEnum} from "@app/model/enum/base.enum";
 import {DeleteResponse} from "@app/model/response/common";
 import {ErrorResponse} from "@app/model/response";
@@ -646,7 +646,7 @@ export abstract class BaseEntriesComponent<T extends Object> extends BaseFormCom
    * @param key The key to delete from the object.
    */
   protected deleteKeyIfExists(params: AnyObject, key: string): void {
-    delete params[key];
+    removeProperty(params, key);
   }
 
   /**

@@ -12,7 +12,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {FooterComponent, HeaderComponent, NetworkStatusComponent} from "@app/base/component";
 import {UserVideoService} from "@app/feature/user-video/service";
 import {ContributorService} from "@app/feature/contributor/service";
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {SharedComponentModule} from "@app/shared/component/shared-component.module";
 
 @NgModule({
@@ -30,12 +30,13 @@ import {SharedComponentModule} from "@app/shared/component/shared-component.modu
     SharedServiceModule,
     SharedComponentModule,
     AppRoutingModule,
-/*    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })*/
+    NgOptimizedImage,
+    /*    ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: !isDevMode(),
+          // Register the ServiceWorker as soon as the application is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        })*/
   ],
   providers: [
     AuthenticationService,

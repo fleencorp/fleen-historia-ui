@@ -22,18 +22,25 @@
 <ng-container *ngIf="entries.length > 0">
   <div class="video-boxes">
     <div class="video-box" *ngFor="let video of entries; let i = index; trackBy: trackByFn">
+
       <div class="video-info">
-        <p class="center thumbnail-wrapper"><img [src]="video.objectThumbnail | defaultImage:'thumbnail'" width="450" height="300" [alt]="video.videoTitle"/></p>
+        <p class="center thumbnail-wrapper">
+          <img [ngSrc]="video.objectThumbnail | defaultImage:'thumbnail'"
+               [alt]="video.videoTitle"
+               width="450"
+               height="300"/>
+        </p>
         <h4 *ngIf="video.videoTitle">Title: {{ video.videoTitle }}</h4>
         <p *ngIf="video.channel.title">Channel: {{ video.channel.title }}</p>
         <p *ngIf="video.category.title">Category: {{ video.category.title }}</p>
         <p *ngIf="video.videoStatus">Status: {{ video.videoStatus }}</p>
         <p>Updated at {{ video.updatedOn | date:'mediumDate' }}</p>
       </div>
+
       <div class="video-actions">
         <button type="button" class="btn-navy" (click)="viewDetail(video.fleenVideoId)">View <fa-icon [icon]="faVideoCamera"></fa-icon></button>
-
       </div>
+
       <app-form-message [status-message]="video.statusMessage" [error-message]="video.errorMessage"></app-form-message>
     </div>
   </div>
@@ -41,8 +48,6 @@
 </ng-container>
 
 <app-no-entries *ngIf="canDisplay"></app-no-entries>
-
-<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <app-pagination [entries-available]="entries.length > 0"
                 [is-first]="isFirst"
@@ -52,5 +57,7 @@
                 [navigation-in-progress]="navigationInProgress"
                 (toNextPage)="nextPage()"
                 (toPreviousPage)="previousPage()"></app-pagination>
+
+<app-form-message [status-message]="statusMessage" [error-message]="errorMessage"></app-form-message>
 
 <app-loading-spinner [is-loading]="isLoading"></app-loading-spinner>

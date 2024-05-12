@@ -41,4 +41,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [github pr approve slack notification settings](https://velog.io/@gth1123/github-pr-approve-%EC%8A%AC%EB%9E%99-%EC%95%8C%EB%A6%BC-%EC%84%A4%EC%A0%95) by [Tony](https://velog.io/@gth1123/posts)
 
 
+### Github Actions
+
+- [Github Actions Trigger Event](https://velog.io/@gidskql6671/Github-Actions-Trigger-Event) by [DongHwan](https://velog.io/@gidskql6671/posts)
 

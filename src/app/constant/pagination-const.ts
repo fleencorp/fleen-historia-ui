@@ -33,6 +33,6 @@ export const VIDEO_TITLE_SEARCH_KEY: string = 'title';
 /**
  * Constant representing the search key for video query.
  */
-export const VIDEO_QUERY_SEARCH_KEY: string = 'q';
+export const QUERY_SEARCH_KEY: string = 'q';
 
 

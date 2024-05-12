@@ -1,8 +1,40 @@
 name: Fleen Historia UI Workflow
+
 on:
   push:
     branches:
+      - "*"
+      - '!main'
+    branches-ignore:
       - main
+  pull_request:
+    branches:
+      - "*"
+    types:
+      - opened
+      - reopened
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
+      name:
+        description: 'print name'
+
 
 permissions:
   contents: write
@@ -12,9 +44,12 @@ permissions:
   pull-requests: write
 
 jobs:
-  build-and-deploy:
-    name: Build and deploy application
+  build-and-deploy-to-dev:
+    name: Build and deploy application to development environment
     runs-on: ubuntu-latest
+    environment: development
+    timeout-minutes: 60
+    if: ${{ github.base_ref == 'development' }}
 
     steps:
       - name: Get latest code
@@ -29,10 +64,10 @@ jobs:
         run: npm install
 
       - name: Build Project
-        run: npm run build:prod
+        run: npm run build:dev
 
       - name: Run Tests
-        run: npm run test:prod
+        run: npm run test:release
 
       - name: Setup Cache
         uses: actions/cache@v4
@@ -49,32 +84,78 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Print S3 Bucket Name
-        run: |
-          echo "S3 Bucket Name: ${{ secrets.S3_BUCKET_NAME }}"
-
       - name: Remove files from s3 buckets
         run: aws s3 rm --recursive s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_STAGING_FOLDER }}
 
-      - name: Remove files from s3 buckets Prod
-        run: aws s3 rm --recursive s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_PRODUCTION_FOLDER }}
-
       - name: Copy to S3 Bucket
         run: aws s3 cp ./dist/fleen-historia-ui/ s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_STAGING_FOLDER }} --recursive
+
+      - name: Clear cache
+        run: aws cloudfront create-invalidation --distribution-id "${{ secrets.DEV_CLOUDFRONT_DISTRIBUTION_ID }}" --paths "/*"
+
+  build-and-deploy-to-prod:
+    name: Build and deploy application to production environment
+    runs-on: ubuntu-latest
+    environment: production
+    if: ${{ github.base_ref == 'main' && github.event.pull_request.merged == true }}
+
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v4
+
+      - name: Restore Cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install NPM packages
+        run: npm install
+
+      - name: Build Project
+        run: npm run build:prod
+
+      - name: Run Tests
+        run: npm run test:release
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Remove files from s3 buckets
+        run: aws s3 rm --recursive s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_PRODUCTION_FOLDER }}
 
       - name: Copy to S3 Bucket Prod
         run: aws s3 cp ./dist/fleen-historia-ui/ s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.S3_PRODUCTION_FOLDER }} --recursive
 
       - name: clear cache
-        run: aws cloudfront create-invalidation --distribution-id "${{ secrets.DEV_CLOUDFRONT_DISTRIBUTION_ID }}" --paths "/*"
-
-      - name: clear cache
         run: aws cloudfront create-invalidation --distribution-id "${{ secrets.PROD_CLOUDFRONT_DISTRIBUTION_ID }}" --paths "/*"
+
+
+  log-the-inputs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: |
+          echo "Log level: $LEVEL"
+          echo "Tags: $TAGS"
+          echo "Environment: $ENVIRONMENT"
+          echo "hello ${{ github.event.inputs.hello }}"
+        env:
+          LEVEL: ${{ github.event.inputs.logLevel }}
+          TAGS: ${{ github.event.inputs.tags }}
+          ENVIRONMENT: ${{ github.event.inputs.environment }}
 
 
   action-slack:
     runs-on: ubuntu-latest
-    needs: [build-and-deploy]
+    needs: [build-and-deploy-to-dev, build-and-deploy-to-prod]
+    if: ${{ always() }}
 
     steps:
       - name: Slack Alarm
